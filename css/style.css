@@ -1,0 +1,167 @@
+/* アイドルマスター衣装紹介サイト 共通スタイル */
+:root {
+  --bg: #faf7fb;
+  --fg: #2b2433;
+  --muted: #6e6578;
+  --card: #ffffff;
+  --accent: #d6407f;
+  --accent-soft: #fbe3ee;
+  --border: #e6dfe9;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #19151e;
+    --fg: #f0eaf3;
+    --muted: #a89fb2;
+    --card: #241f2b;
+    --accent: #ff6fa5;
+    --accent-soft: #3a2332;
+    --border: #3a3344;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  line-height: 1.7;
+}
+a { color: var(--accent); }
+header.site {
+  padding: 20px 16px 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+header.site h1 { margin: 0; font-size: 1.4rem; }
+header.site h1 a { color: inherit; text-decoration: none; }
+header.site p { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
+main { max-width: 1000px; margin: 0 auto; padding: 8px 16px 48px; }
+footer { max-width: 1000px; margin: 0 auto; padding: 16px; color: var(--muted); font-size: .8rem; }
+
+/* タグ絞り込み */
+.filter {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.filter h2 { margin: 0 0 8px; font-size: 1rem; }
+.filter .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+.filter input[type="search"] {
+  flex: 1; min-width: 180px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--fg); font: inherit;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip .n { opacity: .7; margin-left: 4px; font-size: .75rem; }
+.btn {
+  border: 1px solid var(--border); background: var(--card); color: var(--fg);
+  border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .85rem; cursor: pointer;
+}
+.count { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
+
+/* 一覧 */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.card {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+.card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; background: var(--accent-soft); }
+.card .body { padding: 10px 12px 12px; }
+.card .name { font-weight: 700; margin: 0 0 4px; }
+.card .meta { font-size: .8rem; color: var(--muted); margin: 0 0 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag {
+  font-size: .75rem; background: var(--accent-soft); color: var(--accent);
+  border-radius: 999px; padding: 1px 8px; text-decoration: none;
+}
+.empty { padding: 32px; text-align: center; color: var(--muted); }
+
+/* 衣装紹介ページ */
+.back { display: inline-block; margin: 8px 0 12px; }
+.costume h2.title { font-size: 1.6rem; margin: 0 0 16px; }
+.costume .illust {
+  text-align: center; background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px; margin-bottom: 24px;
+}
+.costume .illust img { max-width: 100%; max-height: 70vh; }
+.costume section { margin-bottom: 28px; }
+.costume section h3 { border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.1rem; }
+table.data { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); }
+table.data th, table.data td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.data th { width: 9em; color: var(--muted); font-weight: 600; white-space: nowrap; }
+ul.plain { margin: 0; padding-left: 1.2em; }
+.tweets { display: flex; flex-wrap: wrap; gap: 16px; }
+.muted { color: var(--muted); }
+
+/* ===== アニメーション ===== */
+@keyframes fade-down { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+@keyframes rise      { from { opacity: 0; transform: translateY(16px); }  to { opacity: 1; transform: none; } }
+@keyframes pop-in    { 0% { opacity: 0; transform: translateY(14px) scale(.92); }
+                       70% { opacity: 1; transform: translateY(-2px) scale(1.02); }
+                       100% { opacity: 1; transform: none; } }
+@keyframes chip-pop  { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@keyframes bump      { 0% { transform: scale(1); } 40% { transform: scale(1.12); color: var(--accent); } 100% { transform: scale(1); } }
+@keyframes tag-pop   { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+
+/* ヘッダーとフィルターは上から */
+header.site { animation: fade-down .45s ease-out both; }
+.filter { animation: rise .45s .08s ease-out both; }
+
+/* 一覧カード: 順番にポップイン(--i は js/index.js が付与) */
+.card {
+  animation: pop-in .5s calc(var(--i, 0) * 45ms) cubic-bezier(.2, .8, .3, 1) both;
+}
+.card:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 10px 22px rgba(0,0,0,.16); }
+.card:active { transform: scale(.97); transition-duration: .08s; }
+.card img { transition: transform .35s ease; }
+.card:hover img { transform: scale(1.05); }
+.card { overflow: hidden; }
+
+/* タグボタン */
+.chip { transition: transform .15s, background .2s, color .2s, border-color .2s; }
+.chip:hover { transform: translateY(-2px); border-color: var(--accent); }
+.chip:active { transform: scale(.94); }
+.chip.pop { animation: chip-pop .3s ease-out; }
+.btn { transition: transform .15s, border-color .2s; }
+.btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+.btn:active { transform: scale(.95); }
+
+/* 件数が変わったときに軽く跳ねる */
+.count.bump { animation: bump .3s ease-out; display: inline-block; }
+
+/* 衣装紹介ページ: 上から順にふわっと表示 */
+.costume > * { animation: rise .55s ease-out both; }
+.costume > :nth-child(1) { animation-delay: .05s; }
+.costume > :nth-child(2) { animation-delay: .15s; }
+.costume > :nth-child(3) { animation-delay: .27s; }
+.costume > :nth-child(4) { animation-delay: .39s; }
+.costume .illust img { animation: pop-in .6s .2s cubic-bezier(.2, .8, .3, 1) both; }
+.costume .tags .tag { animation: tag-pop .3s ease-out both; }
+.costume .tags .tag:nth-child(1) { animation-delay: .45s; }
+.costume .tags .tag:nth-child(2) { animation-delay: .52s; }
+.costume .tags .tag:nth-child(3) { animation-delay: .59s; }
+.costume .tags .tag:nth-child(n+4) { animation-delay: .66s; }
+a.tag { transition: transform .15s, background .2s, color .2s; }
+a.tag:hover { transform: translateY(-2px); background: var(--accent); color: #fff; }
+
+/* 戻るリンクの矢印が左に動く */
+.back { transition: transform .2s; }
+.back:hover { transform: translateX(-4px); }
+
+/* 動きを減らす設定のときはアニメーションを止める */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

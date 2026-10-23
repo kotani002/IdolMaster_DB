@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sample-001",
+    "name": "サンプル衣装A",
+    "image": "images/sample-001.svg",
+    "firstAppearance": "2020年1月",
+    "lives": ["サンプルライブ 1st"],
+    "idols": ["サンプルアイドルA", "サンプルアイドルB"],
+    "tags": ["ワンピース", "青系", "ライブ衣装"],
+    "stories": ["サンプルコミュ「第1話」"],
+    "tweets": [
+      "https://twitter.com/Twitter/status/1000000000000000000"
+    ]
+  },
+  {
+    "id": "sample-002",
+    "name": "サンプル衣装B",
+    "image": "images/sample-002.svg",
+    "firstAppearance": "2021年6月",
+    "lives": ["サンプルライブ 2nd", "サンプルライブ 3rd"],
+    "idols": ["サンプルアイドルC"],
+    "tags": ["ドレス", "赤系", "ライブ衣装"],
+    "stories": [],
+    "tweets": []
+  },
+  {
+    "id": "sample-003",
+    "name": "サンプル衣装C",
+    "image": "images/sample-003.svg",
+    "firstAppearance": "2022年12月",
+    "lives": [],
+    "idols": ["サンプルアイドルA"],
+    "tags": ["私服", "青系", "冬"],
+    "stories": ["サンプルコミュ「冬の日」"],
+    "tweets": []
+  }
+]
