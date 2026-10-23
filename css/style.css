@@ -109,7 +109,6 @@ ul.plain { margin: 0; padding-left: 1.2em; }
 @keyframes pop-in    { 0% { opacity: 0; transform: translateY(14px) scale(.92); }
                        70% { opacity: 1; transform: translateY(-2px) scale(1.02); }
                        100% { opacity: 1; transform: none; } }
-@keyframes chip-pop  { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
 @keyframes bump      { 0% { transform: scale(1); } 40% { transform: scale(1.12); color: var(--accent); } 100% { transform: scale(1); } }
 @keyframes tag-pop   { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
 
@@ -128,14 +127,15 @@ header.site { animation: fade-down .45s ease-out both; }
 .card { overflow: hidden; }
 
 /* タグボタン */
-.chip { transition: transform .15s, background .2s, color .2s, border-color .2s; }
-.chip:hover { transform: translateY(-2px); border-color: var(--accent); }
+/* タグボタンは動かさない(色の変化のみ) */
+.chip { transition: none; }
+.chip:hover { border-color: var(--accent); }
 .btn { transition: transform .15s, border-color .2s; }
 .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
 .btn:active { transform: scale(.95); }
 
-/* 絞り込み・検索で再描画されたカードは登場アニメーションなし(初回表示のみ) */
-.grid.static .card { animation: none; }
+/* 件数が変わったときに軽く跳ねる */
+.count.bump { animation: bump .3s ease-out; display: inline-block; }
 
 /* 衣装紹介ページ: 上から順にふわっと表示 */
 .costume > * { animation: rise .55s ease-out both; }
@@ -155,6 +155,59 @@ a.tag:hover { transform: translateY(-2px); background: var(--accent); color: #ff
 /* 戻るリンクの矢印が左に動く */
 .back { transition: transform .2s; }
 .back:hover { transform: translateX(-4px); }
+
+/* ===== レスポンシブ ===== */
+img { max-width: 100%; }
+.tweets > *, .twitter-tweet { max-width: 100%; }
+
+/* タブレット */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  header.site { padding: 14px 12px 4px; }
+  header.site h1 { font-size: 1.15rem; }
+  header.site p { font-size: .8rem; }
+  main { padding: 8px 12px 36px; }
+  footer { padding: 12px; }
+
+  /* フィルター: 縦積み、タグは高さ制限してスクロール */
+  .filter { padding: 12px; border-radius: 10px; }
+  .filter .row { flex-direction: column; align-items: stretch; }
+  .filter input[type="search"] { min-width: 0; font-size: 16px; } /* iOSの自動ズーム防止 */
+  .chips { max-height: 9.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .chip { padding: 6px 12px; }
+  .btn { padding: 10px 12px; }
+
+  /* 一覧: 2列 */
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card .body { padding: 8px 10px 10px; }
+  .card .name { font-size: .9rem; }
+
+  /* 衣装紹介ページ */
+  .back { padding: 8px 0; }
+  .costume h2.title { font-size: 1.3rem; }
+  .costume .illust { padding: 8px; }
+  table.data, table.data tbody, table.data tr, table.data th, table.data td {
+    display: block; width: 100%;
+  }
+  table.data th { padding: 8px 12px 0; border-bottom: none; font-size: .8rem; }
+  table.data td { padding: 2px 12px 10px; }
+}
+
+/* 極小画面は1列 */
+@media (max-width: 360px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* タッチ端末ではホバー演出を無効化(タップ後に残るのを防ぐ) */
+@media (hover: none) {
+  .card:hover { transform: none; box-shadow: none; }
+  .card:hover img { transform: none; }
+  .chip:hover, .btn:hover, a.tag:hover, .back:hover { transform: none; }
+}
 
 /* 動きを減らす設定のときはアニメーションを止める */
 @media (prefers-reduced-motion: reduce) {

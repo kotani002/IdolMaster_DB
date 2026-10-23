@@ -14,7 +14,7 @@
   const countEl = document.getElementById("count");
   const searchEl = document.getElementById("search");
   const clearBtn = document.getElementById("clear");
-  let rendered = false; // 初回表示のあとは登場アニメーションを付けない
+  let lastCount = null; // 件数が変わったときだけ跳ねさせる
 
   // タグ一覧(出現数つき)
   const tagCounts = new Map();
@@ -36,20 +36,26 @@
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
   }
 
+  // タグボタンは最初に1回だけ作り、以降は押下状態だけ切り替える(作り直さない)
   function renderChips() {
-    chipBox.replaceChildren(
-      ...allTags.map((t) => {
-        const b = el("button", { class: "chip", type: "button", "aria-pressed": String(selected.has(t)) }, [
-          t,
-          el("span", { class: "n", text: String(tagCounts.get(t)) }),
-        ]);
-        b.addEventListener("click", () => {
-          selected.has(t) ? selected.delete(t) : selected.add(t);
-          update();
-        });
-        return b;
-      })
-    );
+    if (!chipBox.children.length) {
+      chipBox.replaceChildren(
+        ...allTags.map((t) => {
+          const b = el("button", { class: "chip", type: "button", "data-tag": t }, [
+            t,
+            el("span", { class: "n", text: String(tagCounts.get(t)) }),
+          ]);
+          b.addEventListener("click", () => {
+            selected.has(t) ? selected.delete(t) : selected.add(t);
+            update();
+          });
+          return b;
+        })
+      );
+    }
+    for (const b of chipBox.children) {
+      b.setAttribute("aria-pressed", String(selected.has(b.dataset.tag)));
+    }
   }
 
   function matches(c) {
@@ -64,8 +70,12 @@
   function renderGrid() {
     const list = costumes.filter(matches);
     countEl.textContent = list.length + " 件 / 全 " + costumes.length + " 件";
-    grid.classList.toggle("static", rendered);
-    rendered = true;
+    if (lastCount !== null && lastCount !== list.length) {
+      countEl.classList.remove("bump");
+      void countEl.offsetWidth; // アニメーションを再始動
+      countEl.classList.add("bump");
+    }
+    lastCount = list.length;
     if (!list.length) {
       grid.replaceChildren(el("p", { class: "empty", text: "条件に合う衣装がありません" }));
       return;
