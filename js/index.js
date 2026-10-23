@@ -14,8 +14,7 @@
   const countEl = document.getElementById("count");
   const searchEl = document.getElementById("search");
   const clearBtn = document.getElementById("clear");
-  let lastToggled = null; // 直前に押したタグ(ポップ演出用)
-  let lastCount = null;   // 件数が変わったときだけ跳ねさせる
+  let rendered = false; // 初回表示のあとは登場アニメーションを付けない
 
   // タグ一覧(出現数つき)
   const tagCounts = new Map();
@@ -40,16 +39,13 @@
   function renderChips() {
     chipBox.replaceChildren(
       ...allTags.map((t) => {
-        const cls = "chip" + (t === lastToggled ? " pop" : "");
-        const b = el("button", { class: cls, type: "button", "aria-pressed": String(selected.has(t)) }, [
+        const b = el("button", { class: "chip", type: "button", "aria-pressed": String(selected.has(t)) }, [
           t,
           el("span", { class: "n", text: String(tagCounts.get(t)) }),
         ]);
         b.addEventListener("click", () => {
           selected.has(t) ? selected.delete(t) : selected.add(t);
-          lastToggled = t;
           update();
-          lastToggled = null;
         });
         return b;
       })
@@ -68,12 +64,8 @@
   function renderGrid() {
     const list = costumes.filter(matches);
     countEl.textContent = list.length + " 件 / 全 " + costumes.length + " 件";
-    if (lastCount !== null && lastCount !== list.length) {
-      countEl.classList.remove("bump");
-      void countEl.offsetWidth; // アニメーションを再始動
-      countEl.classList.add("bump");
-    }
-    lastCount = list.length;
+    grid.classList.toggle("static", rendered);
+    rendered = true;
     if (!list.length) {
       grid.replaceChildren(el("p", { class: "empty", text: "条件に合う衣装がありません" }));
       return;

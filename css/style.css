@@ -130,14 +130,12 @@ header.site { animation: fade-down .45s ease-out both; }
 /* タグボタン */
 .chip { transition: transform .15s, background .2s, color .2s, border-color .2s; }
 .chip:hover { transform: translateY(-2px); border-color: var(--accent); }
-.chip:active { transform: scale(.94); }
-.chip.pop { animation: chip-pop .3s ease-out; }
 .btn { transition: transform .15s, border-color .2s; }
 .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
 .btn:active { transform: scale(.95); }
 
-/* 件数が変わったときに軽く跳ねる */
-.count.bump { animation: bump .3s ease-out; display: inline-block; }
+/* 絞り込み・検索で再描画されたカードは登場アニメーションなし(初回表示のみ) */
+.grid.static .card { animation: none; }
 
 /* 衣装紹介ページ: 上から順にふわっと表示 */
 .costume > * { animation: rise .55s ease-out both; }
