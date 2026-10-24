@@ -27,12 +27,16 @@ js/costume.js     衣装紹介ページの描画・ツイート埋め込み
   "firstAppearance": "2020年1月",
   "lives": ["着用ライブ名"],
   "idols": ["着用アイドル名"],
+  "songs": ["歌唱楽曲名"],
   "tags": ["ワンピース", "青系"],
   "stories": ["登場コミュ名"],
-  "tweets": ["https://twitter.com/ユーザー名/status/ツイートID"]
+  "tweets": ["https://twitter.com/ユーザー名/status/ツイートID"],
+  "source": "参考ページのURL(https のみ)",
+  "note": "メモ(画面には表示されません)"
 }
 ```
 
+- `songs`(歌唱楽曲)は省略または空配列でもOKです。衣装紹介ページの「衣装データ」に表示され、トップページの検索対象にもなります。
 - `tags` がトップページの絞り込みボタンに自動で反映されます(複数選択はAND条件)。
 - `tweets` は twitter.com / x.com のツイートURLのみ埋め込まれます。
 - 絞り込み状態はURL(`?tags=青系,ワンピース`)に保存されるので、そのまま共有できます。

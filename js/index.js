@@ -63,7 +63,7 @@
     for (const t of selected) if (!(c.tags || []).includes(t)) return false;
     const q = searchEl.value.trim().toLowerCase();
     if (!q) return true;
-    const hay = [c.name, ...(c.idols || []), ...(c.lives || []), ...(c.tags || [])].join(" ").toLowerCase();
+    const hay = [c.name, ...(c.idols || []), ...(c.lives || []), ...(c.songs || []), ...(c.tags || [])].join(" ").toLowerCase();
     return hay.includes(q);
   }
 

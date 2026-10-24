@@ -28,6 +28,11 @@
     el("a", { class: "tag", href: "index.html?tags=" + encodeURIComponent(t), text: t })
   );
 
+  // 参考ページ(https のURLのみリンク化)
+  const sourceLink = /^https:\/\//.test(c.source || "")
+    ? el("a", { href: c.source, target: "_blank", rel: "noopener noreferrer", text: c.source })
+    : el("span", { class: "muted", text: "—" });
+
   const row = (th, td) => el("tr", {}, [el("th", { text: th }), el("td", {}, [td])]);
 
   // ツイート埋め込み(twitter.com / x.com のURLのみ許可)
@@ -55,6 +60,7 @@
           row("初登場時期", document.createTextNode(c.firstAppearance || "—")),
           row("着用ライブ", listOrDash(c.lives)),
           row("着用アイドル", listOrDash(c.idols)),
+          row("歌唱楽曲", listOrDash(c.songs)),
           row("検索用タグ", tagLinks.length ? el("div", { class: "tags" }, tagLinks) : el("span", { class: "muted", text: "—" })),
         ]),
       ]),
@@ -63,6 +69,7 @@
         el("h3", { text: "関連データ" }),
         el("table", { class: "data" }, [
           row("登場コミュ", listOrDash(c.stories)),
+          row("参考ページ", sourceLink),
         ]),
         el("h4", { text: "名前が出てきたツイート" }),
         tweetUrls.length ? tweetBox : el("p", { class: "muted", text: "登録されているツイートはありません。" }),
