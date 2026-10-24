@@ -1,0 +1,98 @@
+{
+  "イルミネーションスターズ": {
+    "icon": "images/shinycolors/Illumination Stars_icon.webp",
+    "color": "#e8505b",
+    "textColor": "#ffffff"
+  },
+  "アンティーカ": {
+    "icon": "images/shinycolors/L'Antica_icon.webp",
+    "color": "#68458a",
+    "textColor": "#ffffff"
+  },
+  "放課後クライマックスガールズ": {
+    "icon": "images/shinycolors/After-School ClimaxGirls_icon.webp",
+    "color": "#bd6a24",
+    "textColor": "#ffffff"
+  },
+  "アルストロメリア": {
+    "icon": "images/shinycolors/Alstroemeria_icon.webp",
+    "color": "#b83f7a",
+    "textColor": "#ffffff"
+  },
+  "ストレイライト": {
+    "icon": "images/shinycolors/Straylight_icon.webp",
+    "color": "#315eaa",
+    "textColor": "#ffffff"
+  },
+  "ノクチル": {
+    "icon": "images/shinycolors/Noctchill_icon.webp",
+    "color": "#247a87",
+    "textColor": "#ffffff"
+  },
+  "シーズ": {
+    "icon": "images/shinycolors/SHHis_icon.webp",
+    "color": "#8a7020",
+    "textColor": "#ffffff"
+  },
+  "コメティック": {
+    "icon": "images/shinycolors/Cometic_icon.webp",
+    "color": "#584d8c",
+    "textColor": "#ffffff"
+  },
+  "雨夜燕": {
+    "color": "#2f6d78",
+    "textColor": "#ffffff"
+  },
+  "花海咲季": {
+    "color": "#b83b45",
+    "textColor": "#ffffff"
+  },
+  "花海佑芽": {
+    "color": "#bd5a35",
+    "textColor": "#ffffff"
+  },
+  "葛城リーリヤ": {
+    "color": "#5268a8",
+    "textColor": "#ffffff"
+  },
+  "月村手毬": {
+    "color": "#345a9a",
+    "textColor": "#ffffff"
+  },
+  "根緒亜紗里": {
+    "color": "#76513d",
+    "textColor": "#ffffff"
+  },
+  "紫雲清夏": {
+    "color": "#b14f86",
+    "textColor": "#ffffff"
+  },
+  "篠澤広": {
+    "color": "#55734a",
+    "textColor": "#ffffff"
+  },
+  "十王星南": {
+    "color": "#8d4d65",
+    "textColor": "#ffffff"
+  },
+  "秦谷美鈴": {
+    "color": "#3c7a69",
+    "textColor": "#ffffff"
+  },
+  "倉本千奈": {
+    "color": "#a97827",
+    "textColor": "#ffffff"
+  },
+  "藤田ことね": {
+    "color": "#9c6921",
+    "textColor": "#ffffff"
+  },
+  "姫崎莉波": {
+    "color": "#a3426b",
+    "textColor": "#ffffff"
+  },
+  "有村麻央": {
+    "color": "#8d3e55",
+    "textColor": "#ffffff"
+  }
+}

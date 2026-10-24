@@ -16,15 +16,20 @@
     <nav id="series" class="series" aria-label="作品の切り替え"></nav>
 
     <section class="filter" aria-label="絞り込み">
-      <h2>タグで絞り込み</h2>
-      <div class="row">
-        <input id="search" type="search" placeholder="衣装名・着用者・ライブ名・楽曲名で検索">
+      <div class="filter-head">
+        <h2>着用者で絞り込み</h2>
         <button id="clear" class="btn" type="button">条件をクリア</button>
       </div>
-      <div id="chips" class="chips"></div>
-
-      <h2 class="sub">着用者で絞り込み</h2>
       <div id="wearers"></div>
+
+      <details id="advanced" class="advanced">
+        <summary>詳細検索<span id="adv-count" class="adv-count"></span></summary>
+        <div class="row">
+          <input id="search" type="search" placeholder="衣装名・着用者・ライブ名・楽曲名で検索">
+        </div>
+        <h3>タグで絞り込み</h3>
+        <div id="chips" class="chips"></div>
+      </details>
     </section>
 
     <p id="count" class="count"></p>

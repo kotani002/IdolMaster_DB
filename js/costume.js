@@ -3,9 +3,9 @@
   const app = document.getElementById("app");
   const id = new URLSearchParams(location.search).get("id");
 
-  let costumes, seriesList;
+  let costumes, seriesList, wearerMeta;
   try {
-    [costumes, seriesList] = await Promise.all([loadCostumes(), loadSeries()]);
+    [costumes, seriesList, wearerMeta] = await Promise.all([loadCostumes(), loadSeries(), loadWearerMeta()]);
   } catch (e) {
     showError(e.message);
     return;
@@ -31,7 +31,7 @@
   // 着用者: 押すと、その作品でその着用者に絞り込んだ一覧へ
   const wearerLinks = (c.wearers || []).length
     ? el("ul", { class: "plain" }, c.wearers.map((w) =>
-        el("li", {}, [el("a", {
+        el("li", {}, [wearerIcon(w, wearerMeta), el("a", {
           href: "index.html?series=" + encodeURIComponent(c.series || "") + "&wearers=" + encodeURIComponent(w),
           text: w,
         })])))

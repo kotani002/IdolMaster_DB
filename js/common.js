@@ -14,11 +14,37 @@ async function loadSeries() {
   return res.json();
 }
 
-// 作品アイコン(オリジナルの丸バッジ。公式ロゴではありません)
+// 作品アイコン。画像指定がなければ文字バッジを表示
 function seriesBadge(s, size) {
-  const b = el("span", { class: "s-badge", "aria-hidden": "true", text: s.mark });
-  b.style.background = s.color;
+  const b = s.icon
+    ? el("img", { class: "s-badge", src: s.icon, alt: "", "aria-hidden": "true" })
+    : el("span", { class: "s-badge", "aria-hidden": "true", text: s.mark });
+  if (!s.icon) b.style.background = s.color;
   if (size) b.style.setProperty("--size", size + "px");
+  return b;
+}
+
+// 着用者ごとの任意設定(アイコン・タグ色)。data/wearers.json が無くても動く
+//   { "花海咲季": { "icon": "images/wearers/saki.png", "color": "#e8505b", "textColor": "#ffffff" } }
+async function loadWearerMeta() {
+  try {
+    const res = await fetch("data/wearers.json");
+    return res.ok ? await res.json() : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+// 着用者アイコン: 画像があればそれを、なければ頭文字の丸バッジ(色は名前から自動)
+function wearerIcon(name, meta) {
+  const m = (meta && meta[name]) || {};
+  if (m.icon && /^[\w./' -]+$/.test(m.icon)) {
+    return el("img", { class: "w-icon", src: m.icon, alt: "", loading: "lazy" });
+  }
+  let h = 0;
+  for (const ch of name) h = (h * 31 + ch.codePointAt(0)) % 360;
+  const b = el("span", { class: "w-icon", "aria-hidden": "true", text: [...name][0] || "?" });
+  b.style.background = m.color || "hsl(" + h + " 55% 48%)";
   return b;
 }
 

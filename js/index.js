@@ -1,8 +1,8 @@
 // トップページ: 作品切り替え + タグ絞り込み + 着用者絞り込み + 全体検索
 (async function () {
-  let costumes, seriesList;
+  let costumes, seriesList, wearerMeta;
   try {
-    [costumes, seriesList] = await Promise.all([loadCostumes(), loadSeries()]);
+    [costumes, seriesList, wearerMeta] = await Promise.all([loadCostumes(), loadSeries(), loadWearerMeta()]);
   } catch (e) {
     showError(e.message + "(ローカルで開く場合は簡易サーバー経由で表示してください)");
     return;
@@ -39,7 +39,12 @@
   }
   function wearerCountsOf(list) {
     const m = new Map();
-    for (const c of list) for (const w of c.wearers || []) m.set(w, (m.get(w) || 0) + 1);
+    for (const c of list) {
+      for (const w of c.wearers || []) {
+        if (w === "シャイニーカラーズ全体") continue;
+        m.set(w, (m.get(w) || 0) + 1);
+      }
+    }
     return m;
   }
 
@@ -110,9 +115,17 @@
   // ---- 着用者(現在の作品に存在するユニット・アイドルだけ。全作品のときは作品ごとにグループ表示) ----
   function wearerChip(w, n) {
     const b = el("button", { class: "chip wearer", type: "button", "aria-pressed": String(selectedW.has(w)) }, [
+      wearerIcon(w, wearerMeta),
       w,
       el("span", { class: "n", text: String(n) }),
     ]);
+    const meta = wearerMeta && wearerMeta[w];
+    if (meta && typeof meta.color === "string" && /^#[\da-f]{6}$/i.test(meta.color)) {
+      b.style.setProperty("--wearer-color", meta.color);
+    }
+    if (meta && typeof meta.textColor === "string" && /^#[\da-f]{6}$/i.test(meta.textColor)) {
+      b.style.setProperty("--wearer-text-color", meta.textColor);
+    }
     b.addEventListener("click", () => {
       selectedW.has(w) ? selectedW.delete(w) : selectedW.add(w);
       update();
@@ -128,7 +141,12 @@
       if (!counts.size) continue;
       // データ上の登場順を維持(ユニット・アイドルの並びを崩さない)
       const order = [];
-      for (const c of costumes) if (c.series === s.id) for (const w of c.wearers || []) if (!order.includes(w)) order.push(w);
+      for (const c of costumes) {
+        if (c.series !== s.id) continue;
+        for (const w of c.wearers || []) {
+          if (w !== "シャイニーカラーズ全体" && !order.includes(w)) order.push(w);
+        }
+      }
       groups.push({ s, order, counts });
     }
     if (!groups.length) {
@@ -186,7 +204,7 @@
             el("p", { class: "name", text: c.name }),
             el("p", { class: "meta" }, [
               s && series === "all" ? seriesBadge(s, 18) : "",
-              (s && series === "all" ? " " + s.short + " " : "") + (c.firstAppearance ? "初登場: " + c.firstAppearance : ""),
+              c.firstAppearance ? el("span", { class: "first-appearance", text: "初登場: " + c.firstAppearance }) : "",
             ]),
             el("div", { class: "tags" }, (c.tags || []).map((t) => el("span", { class: "tag", text: t }))),
           ]),
@@ -195,7 +213,16 @@
     );
   }
 
+  // 詳細検索(検索バー・タグ)に条件が入っているとき、閉じていても件数で分かるようにする
+  const advancedEl = document.getElementById("advanced");
+  const advCountEl = document.getElementById("adv-count");
+  function renderAdvancedCount() {
+    const n = selected.size + (searchEl.value.trim() ? 1 : 0);
+    advCountEl.textContent = n ? String(n) : "";
+  }
+
   function update() {
+    renderAdvancedCount();
     renderSeries();
     renderChips();
     renderWearers();
@@ -212,5 +239,7 @@
   });
 
   pruneSelections();
+  // URLで共有された条件(検索・タグ)があれば、詳細検索を開いた状態で表示する
+  if (selected.size || searchEl.value.trim()) advancedEl.open = true;
   update();
 })();
