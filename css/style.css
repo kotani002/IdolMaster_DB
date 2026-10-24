@@ -65,6 +65,11 @@ footer { max-width: 1000px; margin: 0 auto; padding: 16px; color: var(--muted); 
   border: 1px solid var(--border); background: var(--card); color: var(--fg);
   border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .85rem; cursor: pointer;
 }
+.filter h2.sub { margin-top: 14px; }
+.chip-group { margin-bottom: 8px; }
+.chip-group-label { margin: 0 0 4px; font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.chip.wearer[aria-pressed="true"] { background: #4b7bec; border-color: #4b7bec; }
+.wearer-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .count { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
 
 /* 一覧 */

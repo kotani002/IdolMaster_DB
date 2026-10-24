@@ -1,4 +1,4 @@
-// トップページ: 作品切り替え + タグ絞り込み + 全体検索
+// トップページ: 作品切り替え + タグ絞り込み + 着用者絞り込み + 全体検索
 (async function () {
   let costumes, seriesList;
   try {
@@ -11,19 +11,22 @@
   const seriesMap = new Map(seriesList.map((s) => [s.id, s]));
   const seriesBox = document.getElementById("series");
   const chipBox = document.getElementById("chips");
+  const wearerBox = document.getElementById("wearers");
   const grid = document.getElementById("grid");
   const countEl = document.getElementById("count");
   const searchEl = document.getElementById("search");
   const clearBtn = document.getElementById("clear");
 
-  const selected = new Set();
+  const selected = new Set();   // タグ(AND)
+  const selectedW = new Set();  // 着用者(OR)
   let series = "all"; // "all" = 全作品を横断
   let lastCount = null;
 
-  // URL ?series=gakumas&tags=a,b&q=xxx から初期状態を復元
+  // URL ?series=gakumas&tags=a,b&wearers=x,y&q=xxx から初期状態を復元
   const params = new URLSearchParams(location.search);
   if (seriesMap.has(params.get("series"))) series = params.get("series");
   for (const t of (params.get("tags") || "").split(",").filter(Boolean)) selected.add(t);
+  for (const w of (params.get("wearers") || "").split(",").filter(Boolean)) selectedW.add(w);
   searchEl.value = params.get("q") || "";
 
   const inScope = (c) => series === "all" || c.series === series;
@@ -34,11 +37,25 @@
     for (const c of list) for (const t of c.tags || []) m.set(t, (m.get(t) || 0) + 1);
     return m;
   }
+  function wearerCountsOf(list) {
+    const m = new Map();
+    for (const c of list) for (const w of c.wearers || []) m.set(w, (m.get(w) || 0) + 1);
+    return m;
+  }
+
+  // 現在の作品に存在しない選択を外す
+  function pruneSelections() {
+    const tv = tagCountsOf(scoped());
+    for (const t of [...selected]) if (!tv.has(t)) selected.delete(t);
+    const wv = wearerCountsOf(scoped());
+    for (const w of [...selectedW]) if (!wv.has(w)) selectedW.delete(w);
+  }
 
   function syncUrl() {
     const p = new URLSearchParams();
     if (series !== "all") p.set("series", series);
     if (selected.size) p.set("tags", [...selected].join(","));
+    if (selectedW.size) p.set("wearers", [...selectedW].join(","));
     if (searchEl.value.trim()) p.set("q", searchEl.value.trim());
     const qs = p.toString();
     history.replaceState(null, "", qs ? "?" + qs : location.pathname);
@@ -63,9 +80,7 @@
         b.addEventListener("click", () => {
           if (series === s.id) return;
           series = s.id;
-          // 切り替え先に存在しないタグは外す
-          const valid = tagCountsOf(scoped());
-          for (const t of [...selected]) if (!valid.has(t)) selected.delete(t);
+          pruneSelections();
           update();
         });
         return b;
@@ -92,16 +107,56 @@
     );
   }
 
+  // ---- 着用者(現在の作品に存在するユニット・アイドルだけ。全作品のときは作品ごとにグループ表示) ----
+  function wearerChip(w, n) {
+    const b = el("button", { class: "chip wearer", type: "button", "aria-pressed": String(selectedW.has(w)) }, [
+      w,
+      el("span", { class: "n", text: String(n) }),
+    ]);
+    b.addEventListener("click", () => {
+      selectedW.has(w) ? selectedW.delete(w) : selectedW.add(w);
+      update();
+    });
+    return b;
+  }
+
+  function renderWearers() {
+    const groups = [];
+    for (const s of seriesList) {
+      if (series !== "all" && s.id !== series) continue;
+      const counts = wearerCountsOf(costumes.filter((c) => c.series === s.id));
+      if (!counts.size) continue;
+      // データ上の登場順を維持(ユニット・アイドルの並びを崩さない)
+      const order = [];
+      for (const c of costumes) if (c.series === s.id) for (const w of c.wearers || []) if (!order.includes(w)) order.push(w);
+      groups.push({ s, order, counts });
+    }
+    if (!groups.length) {
+      wearerBox.replaceChildren(el("p", { class: "muted", text: "着用者データがありません" }));
+      return;
+    }
+    wearerBox.replaceChildren(
+      ...groups.map((g) =>
+        el("div", { class: "chip-group" }, [
+          series === "all" ? el("p", { class: "chip-group-label" }, [seriesBadge(g.s, 16), g.s.short]) : "",
+          el("div", { class: "chips" }, g.order.map((w) => wearerChip(w, g.counts.get(w)))),
+        ])
+      )
+    );
+  }
+
   function matches(c) {
     if (!inScope(c)) return false;
     // 選択タグをすべて含む衣装だけ表示(AND検索)
     for (const t of selected) if (!(c.tags || []).includes(t)) return false;
+    // 選択した着用者のいずれかが着用している衣装(OR)
+    if (selectedW.size && !(c.wearers || []).some((w) => selectedW.has(w))) return false;
     const q = searchEl.value.trim().toLowerCase();
     if (!q) return true;
     const s = seriesMap.get(c.series);
     const hay = [
       c.name, s ? s.name : "", s ? s.short : "",
-      ...(c.idols || []), ...(c.lives || []), ...(c.songs || []), ...(c.tags || []),
+      ...(c.wearers || []), ...(c.lives || []), ...(c.songs || []), ...(c.tags || []),
     ].join(" ").toLowerCase();
     return q.split(/\s+/).every((w) => hay.includes(w)); // スペース区切りはAND
   }
@@ -143,6 +198,7 @@
   function update() {
     renderSeries();
     renderChips();
+    renderWearers();
     renderGrid();
     syncUrl();
   }
@@ -150,13 +206,11 @@
   searchEl.addEventListener("input", update);
   clearBtn.addEventListener("click", () => {
     selected.clear();
+    selectedW.clear();
     searchEl.value = "";
     update();
   });
 
-  // 初期状態に存在しないタグがURLに含まれていたら外す
-  const valid = tagCountsOf(scoped());
-  for (const t of [...selected]) if (!valid.has(t)) selected.delete(t);
-
+  pruneSelections();
   update();
 })();
