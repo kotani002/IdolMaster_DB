@@ -1,44 +1,32 @@
 {
-  "イルミネーションスターズ": {
-    "icon": "images/shinycolors/Illumination Stars_icon.webp",
-    "color": "#e8505b",
-    "textColor": "#ffffff"
-  },
-  "アンティーカ": {
-    "icon": "images/shinycolors/L'Antica_icon.webp",
-    "color": "#68458a",
-    "textColor": "#ffffff"
-  },
-  "放課後クライマックスガールズ": {
-    "icon": "images/shinycolors/After-School ClimaxGirls_icon.webp",
-    "color": "#bd6a24",
-    "textColor": "#ffffff"
-  },
-  "アルストロメリア": {
-    "icon": "images/shinycolors/Alstroemeria_icon.webp",
-    "color": "#b83f7a",
-    "textColor": "#ffffff"
-  },
-  "ストレイライト": {
-    "icon": "images/shinycolors/Straylight_icon.webp",
-    "color": "#315eaa",
-    "textColor": "#ffffff"
-  },
-  "ノクチル": {
-    "icon": "images/shinycolors/Noctchill_icon.webp",
-    "color": "#247a87",
-    "textColor": "#ffffff"
-  },
-  "シーズ": {
-    "icon": "images/shinycolors/SHHis_icon.webp",
-    "color": "#8a7020",
-    "textColor": "#ffffff"
-  },
-  "コメティック": {
-    "icon": "images/shinycolors/Cometic_icon.webp",
-    "color": "#584d8c",
-    "textColor": "#ffffff"
-  },
+  "櫻木真乃": { "color": "#e8505b", "textColor": "#ffffff" },
+  "風野灯織": { "color": "#e8505b", "textColor": "#ffffff" },
+  "八宮めぐる": { "color": "#e8505b", "textColor": "#ffffff" },
+  "月岡恋鐘": { "color": "#68458a", "textColor": "#ffffff" },
+  "田中摩美々": { "color": "#68458a", "textColor": "#ffffff" },
+  "白瀬咲耶": { "color": "#68458a", "textColor": "#ffffff" },
+  "三峰結華": { "color": "#68458a", "textColor": "#ffffff" },
+  "幽谷霧子": { "color": "#68458a", "textColor": "#ffffff" },
+  "小宮果穂": { "color": "#bd6a24", "textColor": "#ffffff" },
+  "園田智代子": { "color": "#bd6a24", "textColor": "#ffffff" },
+  "西城樹里": { "color": "#bd6a24", "textColor": "#ffffff" },
+  "杜野凛世": { "color": "#bd6a24", "textColor": "#ffffff" },
+  "有栖川夏葉": { "color": "#bd6a24", "textColor": "#ffffff" },
+  "大崎甘奈": { "color": "#b83f7a", "textColor": "#ffffff" },
+  "大崎甜花": { "color": "#b83f7a", "textColor": "#ffffff" },
+  "桑山千雪": { "color": "#b83f7a", "textColor": "#ffffff" },
+  "芹沢あさひ": { "color": "#315eaa", "textColor": "#ffffff" },
+  "黛冬優子": { "color": "#315eaa", "textColor": "#ffffff" },
+  "和泉愛依": { "color": "#315eaa", "textColor": "#ffffff" },
+  "浅倉透": { "color": "#247a87", "textColor": "#ffffff" },
+  "樋口円香": { "color": "#247a87", "textColor": "#ffffff" },
+  "福丸小糸": { "color": "#247a87", "textColor": "#ffffff" },
+  "市川雛菜": { "color": "#247a87", "textColor": "#ffffff" },
+  "七草にちか": { "color": "#8a7020", "textColor": "#ffffff" },
+  "緋田美琴": { "color": "#8a7020", "textColor": "#ffffff" },
+  "斑鳩ルカ": { "color": "#584d8c", "textColor": "#ffffff" },
+  "鈴木羽那": { "color": "#584d8c", "textColor": "#ffffff" },
+  "郁田はるき": { "color": "#584d8c", "textColor": "#ffffff" },
   "雨夜燕": {
     "color": "#2f6d78",
     "textColor": "#ffffff"

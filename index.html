@@ -17,10 +17,19 @@
 
     <section class="filter" aria-label="絞り込み">
       <div class="filter-head">
-        <h2>着用者で絞り込み</h2>
+        <h2>絞り込み</h2>
         <button id="clear" class="btn" type="button">条件をクリア</button>
       </div>
-      <div id="wearers"></div>
+
+      <details id="wearers-filter" class="advanced">
+        <summary>アイドルで絞り込み<span id="wearer-count" class="adv-count"></span></summary>
+        <div id="wearers"></div>
+      </details>
+
+      <details id="units-filter" class="advanced">
+        <summary>ユニットで絞り込み<span id="unit-count" class="adv-count"></span></summary>
+        <div id="units"></div>
+      </details>
 
       <details id="advanced" class="advanced">
         <summary>詳細検索<span id="adv-count" class="adv-count"></span></summary>

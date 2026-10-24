@@ -1,0 +1,50 @@
+{
+  "イルミネーションスターズ": {
+    "type": "unit",
+    "icon": "images/shinycolors/Illumination Stars_icon.webp",
+    "color": "#e8505b",
+    "textColor": "#ffffff"
+  },
+  "アンティーカ": {
+    "type": "unit",
+    "icon": "images/shinycolors/L'Antica_icon.webp",
+    "color": "#68458a",
+    "textColor": "#ffffff"
+  },
+  "放課後クライマックスガールズ": {
+    "type": "unit",
+    "icon": "images/shinycolors/After-School ClimaxGirls_icon.webp",
+    "color": "#bd6a24",
+    "textColor": "#ffffff"
+  },
+  "アルストロメリア": {
+    "type": "unit",
+    "icon": "images/shinycolors/Alstroemeria_icon.webp",
+    "color": "#b83f7a",
+    "textColor": "#ffffff"
+  },
+  "ストレイライト": {
+    "type": "unit",
+    "icon": "images/shinycolors/Straylight_icon.webp",
+    "color": "#315eaa",
+    "textColor": "#ffffff"
+  },
+  "ノクチル": {
+    "type": "unit",
+    "icon": "images/shinycolors/Noctchill_icon.webp",
+    "color": "#247a87",
+    "textColor": "#ffffff"
+  },
+  "シーズ": {
+    "type": "unit",
+    "icon": "images/shinycolors/SHHis_icon.webp",
+    "color": "#8a7020",
+    "textColor": "#ffffff"
+  },
+  "コメティック": {
+    "type": "unit",
+    "icon": "images/shinycolors/Cometic_icon.webp",
+    "color": "#584d8c",
+    "textColor": "#ffffff"
+  }
+}

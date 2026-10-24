@@ -14,6 +14,32 @@ async function loadSeries() {
   return res.json();
 }
 
+async function loadTagMeta() {
+  try {
+    const res = await fetch("data/tags.json");
+    return res.ok ? await res.json() : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function tagIcon(name, meta) {
+  const icon = meta && meta[name] && meta[name].icon;
+  return icon && /^[\w./' -]+$/.test(icon)
+    ? el("img", { class: "tag-icon", src: icon, alt: "", "aria-hidden": "true", loading: "lazy" })
+    : "";
+}
+
+function setTagStyle(node, meta) {
+  if (!meta) return;
+  if (typeof meta.color === "string" && /^#[\da-f]{6}$/i.test(meta.color)) {
+    node.style.setProperty("--tag-color", meta.color);
+  }
+  if (typeof meta.textColor === "string" && /^#[\da-f]{6}$/i.test(meta.textColor)) {
+    node.style.setProperty("--tag-text-color", meta.textColor);
+  }
+}
+
 // 作品アイコン。画像指定がなければ文字バッジを表示
 function seriesBadge(s, size) {
   const b = s.icon

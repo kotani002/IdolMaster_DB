@@ -59,7 +59,26 @@ footer { max-width: 1000px; margin: 0 auto; padding: 16px; color: var(--muted); 
   border: 1px solid var(--border); background: var(--bg); color: var(--fg);
   border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer;
 }
+.chip.unit-filter { display: inline-flex; align-items: center; }
+.chip.unit-filter .tag-icon { display: block; }
+.chip.unit-filter { column-gap: 4px; }
+.chip.unit-filter .n { margin-left: 0; }
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip.tag-filter {
+  background: var(--tag-color, var(--bg));
+  border-color: var(--tag-color, var(--border));
+  color: var(--tag-text-color, var(--fg));
+}
+.chip.tag-filter[aria-pressed="true"] {
+  background: var(--tag-color, var(--accent));
+  border-color: var(--tag-color, var(--accent));
+  color: var(--tag-text-color, #fff);
+}
+.chip.unit-filter[aria-pressed="true"] {
+  background: var(--tag-color, var(--accent));
+  border-color: var(--tag-color, var(--accent));
+  color: var(--tag-text-color, #fff);
+}
 .chip .n { opacity: .7; margin-left: 4px; font-size: .75rem; }
 .btn {
   border: 1px solid var(--border); background: var(--card); color: var(--fg);
@@ -127,11 +146,19 @@ ul.plain li .w-icon { --size: 20px; margin-right: 6px; }
   width: var(--size); height: var(--size); aspect-ratio: 1;
   border-radius: 0; object-fit: contain; background: transparent;
 }
+.brand-unit-divider { height: 18px; border-left: 1px solid var(--border); margin: 0 2px; }
+.card .meta .tag-icon {
+  width: 18px; height: 18px; aspect-ratio: auto;
+  display: inline-block; object-fit: contain; background: transparent;
+}
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .tag {
-  font-size: .75rem; background: var(--accent-soft); color: var(--accent);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: .75rem; background: var(--tag-color, var(--accent-soft)); color: var(--tag-text-color, var(--accent));
   border-radius: 999px; padding: 1px 8px; text-decoration: none;
 }
+.tag-icon { width: 16px; height: 16px; object-fit: contain; flex: none; }
+.card .tag-icon { width: 16px; height: 16px; aspect-ratio: auto; object-fit: contain; display: inline-block; background: transparent; }
 .empty { padding: 32px; text-align: center; color: var(--muted); }
 
 /* 衣装紹介ページ */

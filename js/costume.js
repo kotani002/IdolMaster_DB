@@ -3,9 +3,11 @@
   const app = document.getElementById("app");
   const id = new URLSearchParams(location.search).get("id");
 
-  let costumes, seriesList, wearerMeta;
+  let costumes, seriesList, wearerMeta, tagMeta;
   try {
-    [costumes, seriesList, wearerMeta] = await Promise.all([loadCostumes(), loadSeries(), loadWearerMeta()]);
+    [costumes, seriesList, wearerMeta, tagMeta] = await Promise.all([
+      loadCostumes(), loadSeries(), loadWearerMeta(), loadTagMeta(),
+    ]);
   } catch (e) {
     showError(e.message);
     return;
@@ -24,9 +26,11 @@
       ? el("ul", { class: "plain" }, arr.map((v) => el("li", { text: v })))
       : el("span", { class: "muted", text: "—" });
 
-  const tagLinks = (c.tags || []).map((t) =>
-    el("a", { class: "tag", href: "index.html?tags=" + encodeURIComponent(t), text: t })
-  );
+  const tagLinks = (c.tags || []).map((t) => {
+    const link = el("a", { class: "tag", href: "index.html?tags=" + encodeURIComponent(t) }, [tagIcon(t, tagMeta), t]);
+    setTagStyle(link, tagMeta[t]);
+    return link;
+  });
 
   // 着用者: 押すと、その作品でその着用者に絞り込んだ一覧へ
   const wearerLinks = (c.wearers || []).length
