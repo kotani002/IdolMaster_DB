@@ -1,37 +1,2221 @@
 [
   {
-    "id": "sample-001",
-    "name": "サンプル衣装A",
-    "image": "images/sample-001.svg",
-    "firstAppearance": "2020年1月",
-    "lives": ["サンプルライブ 1st"],
-    "idols": ["サンプルアイドルA", "サンプルアイドルB"],
-    "tags": ["ワンピース", "青系", "ライブ衣装"],
-    "stories": ["サンプルコミュ「第1話」"],
-    "tweets": [
-      "https://twitter.com/Twitter/status/1000000000000000000"
-    ]
-  },
-  {
-    "id": "sample-002",
-    "name": "サンプル衣装B",
-    "image": "images/sample-002.svg",
-    "firstAppearance": "2021年6月",
-    "lives": ["サンプルライブ 2nd", "サンプルライブ 3rd"],
-    "idols": ["サンプルアイドルC"],
-    "tags": ["ドレス", "赤系", "ライブ衣装"],
-    "stories": [],
-    "tweets": []
-  },
-  {
-    "id": "sample-003",
-    "name": "サンプル衣装C",
-    "image": "images/sample-003.svg",
-    "firstAppearance": "2022年12月",
+    "id": "beyond-the-bluesky",
+    "series": "shinycolors",
+    "name": "ビヨンドザブルースカイ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
     "lives": [],
-    "idols": ["サンプルアイドルA"],
-    "tags": ["私服", "青系", "冬"],
-    "stories": ["サンプルコミュ「冬の日」"],
-    "tweets": []
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "事前登録"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/beyond-the-bluesky/",
+    "note": ""
+  },
+  {
+    "id": "overcast-monochrome",
+    "series": "shinycolors",
+    "name": "オーバーキャストモノクローム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "1周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/overcast-monochrome/",
+    "note": ""
+  },
+  {
+    "id": "sunset-skypassage",
+    "series": "shinycolors",
+    "name": "サンセットスカイパッセージ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "2周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/sunset-skypassage/",
+    "note": ""
+  },
+  {
+    "id": "uniteverse-planetary",
+    "series": "shinycolors",
+    "name": "ユナイトバースプラネタリ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "3周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/uniteverse-planetary/",
+    "note": ""
+  },
+  {
+    "id": "celestial-colors",
+    "series": "shinycolors",
+    "name": "セレスティアルカラーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "4周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/celestial-colors/",
+    "note": ""
+  },
+  {
+    "id": "flowing-belle",
+    "series": "shinycolors",
+    "name": "フローウィングベル",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "5周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/flowing-belle/",
+    "note": ""
+  },
+  {
+    "id": "birth-of-wing",
+    "series": "shinycolors",
+    "name": "バースオブウィング",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/birth-of-wing/",
+    "note": "星が見上げた空"
+  },
+  {
+    "id": "refulgent-plumage",
+    "series": "shinycolors",
+    "name": "リフレジェントプルマージュ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "6周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/refulgent-plumage/",
+    "note": ""
+  },
+  {
+    "id": "resistanceorder-neos",
+    "series": "shinycolors",
+    "name": "レジスタンスオーダー・ネオス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "7周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/resistanceorder-neos/",
+    "note": ""
+  },
+  {
+    "id": "kodomotachi",
+    "series": "shinycolors",
+    "name": "こどもたち",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "8周年記念"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/kodomotachi/",
+    "note": ""
+  },
+  {
+    "id": "forme-noyer",
+    "series": "shinycolors",
+    "name": "フォームド・ノワイエ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シャイニーカラーズ",
+      "全体衣装",
+      "Song for Prism"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shinycolors/forme-noyer/",
+    "note": ""
+  },
+  {
+    "id": "sparcle-illumination",
+    "series": "shinycolors",
+    "name": "スパークルイルミネーション",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/sparcle-illumination/",
+    "note": "柔らかな微笑み"
+  },
+  {
+    "id": "sirius-crown",
+    "series": "shinycolors",
+    "name": "シリウスリークラウン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/sirius-crown/",
+    "note": "夏に恋するピチカート！"
+  },
+  {
+    "id": "twincley-cheerfull",
+    "series": "shinycolors",
+    "name": "トゥインクリーチアフル",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/twincley-cheerfull/",
+    "note": "伸ばす手に乗せるのは"
+  },
+  {
+    "id": "platenes-series",
+    "series": "shinycolors",
+    "name": "プラネテスシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/platenes-series/",
+    "note": "深染め、いろみぐさ"
+  },
+  {
+    "id": "asteles-auroraize",
+    "series": "shinycolors",
+    "name": "アステレスオーロライズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/asteles-auroraize/",
+    "note": "アイの誓い"
+  },
+  {
+    "id": "fantesy-sonare",
+    "series": "shinycolors",
+    "name": "ファンテジィソナーレ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/fantesy-sonare/",
+    "note": "花風Smiley"
+  },
+  {
+    "id": "one-two-marching-parade",
+    "series": "shinycolors",
+    "name": "ワンツーマーチングパレード",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/one-two-marching-parade/",
+    "note": "ひとつ、はたたく"
+  },
+  {
+    "id": "divine-couronne",
+    "series": "shinycolors",
+    "name": "ディバインクロンヌ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/divine-couronne/",
+    "note": "interStellar-Stella"
+  },
+  {
+    "id": "explore-serata",
+    "series": "shinycolors",
+    "name": "エクスプロアセラータ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/explore-serata/",
+    "note": "きみと巡り行く"
+  },
+  {
+    "id": "present-from-estrella",
+    "series": "shinycolors",
+    "name": "プレゼントフロムエストレア",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/present-from-estrella/",
+    "note": "ふたり色 クレオール"
+  },
+  {
+    "id": "pastely-orion",
+    "series": "shinycolors",
+    "name": "パステリーオリオン★★★",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/pastely-orion/",
+    "note": "キミと今旅立つ"
+  },
+  {
+    "id": "seeyou-sleeper",
+    "series": "shinycolors",
+    "name": "シーユースリーパー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/seeyou-sleeper/",
+    "note": ""
+  },
+  {
+    "id": "lights-of-the-lights",
+    "series": "shinycolors",
+    "name": "ライツオブザライツ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/lights-of-the-lights/",
+    "note": ""
+  },
+  {
+    "id": "ringing-preppy-girl",
+    "series": "shinycolors",
+    "name": "リンギングプレッピーガール",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/ringing-preppy-girl/",
+    "note": "キネマ・リリックで夢見て"
+  },
+  {
+    "id": "bytoday-restaurant",
+    "series": "shinycolors",
+    "name": "バイトゥデイレストラント",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イルミネーションスターズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/illumination-stars/bytoday-restaurant/",
+    "note": "by to illuminate"
+  },
+  {
+    "id": "symphonic-steam",
+    "series": "shinycolors",
+    "name": "シンフォニックスチーム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/symphonic-steam/",
+    "note": "ばりうまかブルース"
+  },
+  {
+    "id": "faith-of-treasure",
+    "series": "shinycolors",
+    "name": "フェイスオブトレジャー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/faith-of-treasure/",
+    "note": "月の浜辺で待っとって"
+  },
+  {
+    "id": "la-rossogrimm",
+    "series": "shinycolors",
+    "name": "ラ・ロッソグリム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/la-rossogrimm/",
+    "note": "風吹く丘にはよ来んね"
+  },
+  {
+    "id": "blaec-series",
+    "series": "shinycolors",
+    "name": "ブライクシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/blaec-series/",
+    "note": "フィドル・ファドル"
+  },
+  {
+    "id": "lefondde-lamer",
+    "series": "shinycolors",
+    "name": "ルフォンドゥ・ラメール",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/lefondde-lamer/",
+    "note": "真・TRAVELER"
+  },
+  {
+    "id": "papillonner-feerique",
+    "series": "shinycolors",
+    "name": "パピロニアフェリーク",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/papillonner-feerique/",
+    "note": "アバウト-ナイト-ライト"
+  },
+  {
+    "id": "encadrement-coupe",
+    "series": "shinycolors",
+    "name": "アンカードルモンクーペ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/encadrement-coupe/",
+    "note": "Have a bad day♥"
+  },
+  {
+    "id": "hautecouture-artepiece",
+    "series": "shinycolors",
+    "name": "オートクチュールアルテピエス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/hautecouture-artepiece/",
+    "note": "リバーシブル・トースト"
+  },
+  {
+    "id": "museo-forma-rinascita",
+    "series": "shinycolors",
+    "name": "ミュゼオフォルマーリナーシタ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/museo-forma-rinascita/",
+    "note": "落ちる音がする"
+  },
+  {
+    "id": "clockdoll-eenrouler",
+    "series": "shinycolors",
+    "name": "クロックドオルアンルーレ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/clockdoll-eenrouler/",
+    "note": "記憶が降る街"
+  },
+  {
+    "id": "chiaroscuro-categorico",
+    "series": "shinycolors",
+    "name": "キアロスクーロカテゴリコ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/chiaroscuro-categorico/",
+    "note": "まといてホワイトフル"
+  },
+  {
+    "id": "capriccio-wonderland",
+    "series": "shinycolors",
+    "name": "カプリシオワンダーランド",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/capriccio-wonderland/",
+    "note": ""
+  },
+  {
+    "id": "gears-of-pride",
+    "series": "shinycolors",
+    "name": "ギアーズ・オブ・プライド",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/gears-of-pride/",
+    "note": ""
+  },
+  {
+    "id": "holiday-princess",
+    "series": "shinycolors",
+    "name": "ホリディプリンセス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/holiday-princess/",
+    "note": "prince×princess"
+  },
+  {
+    "id": "wonderland-series",
+    "series": "shinycolors",
+    "name": "ワンダーランドシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/wonderland-series/",
+    "note": "ばってん長崎恋岬"
+  },
+  {
+    "id": "reflection-themepark",
+    "series": "shinycolors",
+    "name": "リフレクションテーマパーク",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アンティーカ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/lantica/reflection-themepark/",
+    "note": "リ・リフレクション"
+  },
+  {
+    "id": "bravehero",
+    "series": "shinycolors",
+    "name": "ブレイブヒーロージャージ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/bravehero/",
+    "note": "第2形態アーマードタイプ"
+  },
+  {
+    "id": "iloveclimax",
+    "series": "shinycolors",
+    "name": "愛羅武紅蘭偉魔空珠",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/iloveclimax/",
+    "note": "とびっきりジンジャー"
+  },
+  {
+    "id": "decodeco-clear-splash",
+    "series": "shinycolors",
+    "name": "デコデコクリアスプラッシュ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/decodeco-clear-splash/",
+    "note": "Ring a bell"
+  },
+  {
+    "id": "galactic-series",
+    "series": "shinycolors",
+    "name": "ギャラクティックシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/galactic-series/",
+    "note": "十二月短篇"
+  },
+  {
+    "id": "sefukuextream",
+    "series": "shinycolors",
+    "name": "セーフクエクストリーム！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/sefukuextream/",
+    "note": "われにかへれ"
+  },
+  {
+    "id": "c-cats-uniform",
+    "series": "shinycolors",
+    "name": "C.キャッツユニフォーム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/c-cats-uniform/",
+    "note": "ロー・ポジション"
+  },
+  {
+    "id": "donshan-matsuribayashi",
+    "series": "shinycolors",
+    "name": "ドンシャンマツリバヤシ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/donshan-matsuribayashi/",
+    "note": "さよならごつこ"
+  },
+  {
+    "id": "witch-craft-academical",
+    "series": "shinycolors",
+    "name": "ウィッチクラフトアカデミカル",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/witch-craft-academical/",
+    "note": "sparkle,,,"
+  },
+  {
+    "id": "exciteen-collection",
+    "series": "shinycolors",
+    "name": "エキサイティーンコレクション",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/exciteen-collection/",
+    "note": "花は"
+  },
+  {
+    "id": "weare-breakthrougher",
+    "series": "shinycolors",
+    "name": "ウィーアーブレイクスーラー！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/weare-breakthrougher/",
+    "note": "きみだけ！"
+  },
+  {
+    "id": "cosmics-athle",
+    "series": "shinycolors",
+    "name": "コズミックスアスリー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/cosmics-athle/",
+    "note": "片恋はあと"
+  },
+  {
+    "id": "dreamin-supporter",
+    "series": "shinycolors",
+    "name": "ドリーミンサポーター",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/dreamin-supporter/",
+    "note": ""
+  },
+  {
+    "id": "heroic-thief-v",
+    "series": "shinycolors",
+    "name": "ヒロイックシーフV",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/heroic-thief-v/",
+    "note": ""
+  },
+  {
+    "id": "bravesoul-surround",
+    "series": "shinycolors",
+    "name": "ブレイブソウルサラウンド",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/bravesoul-surround/",
+    "note": "kimagure全力ビート！"
+  },
+  {
+    "id": "unusual-hour",
+    "series": "shinycolors",
+    "name": "アンユージュアルアワー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/unusual-hour/",
+    "note": "月刊CLIMAX"
+  },
+  {
+    "id": "kissa-climax",
+    "series": "shinycolors",
+    "name": "喫茶くらいまっくす制服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "放課後クライマックスガールズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/houkago-climax-girls/kissa-climax/",
+    "note": "おあがり←くらいまっくす"
+  },
+  {
+    "id": "wishfull-lily",
+    "series": "shinycolors",
+    "name": "ウィッシュフルリリー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/wishfull-lily/",
+    "note": "スタンバイオッケー"
+  },
+  {
+    "id": "dormir-atenta",
+    "series": "shinycolors",
+    "name": "ドルミールアテンタ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/dormir-atenta/",
+    "note": "ゆらゆらアクアリウム"
+  },
+  {
+    "id": "devaux",
+    "series": "shinycolors",
+    "name": "デヴォーティングリンネ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/devaux/",
+    "note": "サマーハニー・シーズン"
+  },
+  {
+    "id": "gardiene-series",
+    "series": "shinycolors",
+    "name": "ガルディエーヌシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/gardiene-series/",
+    "note": "お散歩サンライト"
+  },
+  {
+    "id": "waitress-pascolor",
+    "series": "shinycolors",
+    "name": "ウェイトレス・パスカラ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/waitress-pascolor/",
+    "note": "叶えて☆ゴールドフィッシュ"
+  },
+  {
+    "id": "magique-allume",
+    "series": "shinycolors",
+    "name": "マジーク・アルーア",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/magique-allume/",
+    "note": "約束ペタル"
+  },
+  {
+    "id": "woolly-mailer-secret",
+    "series": "shinycolors",
+    "name": "ウーリーメイラースクレ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/woolly-mailer-secret/",
+    "note": "雪空セパレート"
+  },
+  {
+    "id": "rome-classical-trench",
+    "series": "shinycolors",
+    "name": "ローマクラシカルトレンチ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/rome-classical-trench/",
+    "note": "longing"
+  },
+  {
+    "id": "eternity-pomponner",
+    "series": "shinycolors",
+    "name": "エタニティポンポーネ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/eternity-pomponner/",
+    "note": "Eve"
+  },
+  {
+    "id": "lepre--faenza",
+    "series": "shinycolors",
+    "name": "レプラシャートファエンツァ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/lepre--faenza/",
+    "note": "剥がされて、虚ろ"
+  },
+  {
+    "id": "odeon-tutu",
+    "series": "shinycolors",
+    "name": "オデオンダンツァーチュチュ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/odeon-tutu/",
+    "note": "挑戦アトラクティブ"
+  },
+  {
+    "id": "beautiful-waifed",
+    "series": "shinycolors",
+    "name": "ビューティフルウェイフト",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/beautiful-waifed/",
+    "note": ""
+  },
+  {
+    "id": "melting-mellow",
+    "series": "shinycolors",
+    "name": "メルティングメロウ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/melting-mellow/",
+    "note": ""
+  },
+  {
+    "id": "sakurano-spring",
+    "series": "shinycolors",
+    "name": "サクラノスプリング",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/sakurano-spring/",
+    "note": "Cherry Jelly"
+  },
+  {
+    "id": "oppose-paradiso",
+    "series": "shinycolors",
+    "name": "オポーズパラディーソ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "アルストロメリア"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/alstroemeria/oppose-paradiso/",
+    "note": "楽園に背く"
+  },
+  {
+    "id": "neonlight-romancer",
+    "series": "shinycolors",
+    "name": "ネオンライトロマンサー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/neonlight-romancer/",
+    "note": "ジャンプ！スタッグ！！！"
+  },
+  {
+    "id": "singularity",
+    "series": "shinycolors",
+    "name": "隠匿シンギュラリティ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/singularity/",
+    "note": "メイ・ビー"
+  },
+  {
+    "id": "dead-channel",
+    "series": "shinycolors",
+    "name": "デッドチャンネルl2<)3",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/dead-channel/",
+    "note": "シャッターチャンス！？"
+  },
+  {
+    "id": "tracing-mute",
+    "series": "shinycolors",
+    "name": "トレーシングミュート",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/tracing-mute/",
+    "note": "Housekeeping!"
+  },
+  {
+    "id": "skeleton-overdrive",
+    "series": "shinycolors",
+    "name": "スケルトンオーヴァドライブ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/skeleton-overdrive/",
+    "note": "ちょー早い！"
+  },
+  {
+    "id": "jack-in-matrix",
+    "series": "shinycolors",
+    "name": "ジャックインマトリックス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/jack-in-matrix/",
+    "note": "あたし流・かっこいい"
+  },
+  {
+    "id": "energy-desiderata",
+    "series": "shinycolors",
+    "name": "エナジーデシデラータ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/energy-desiderata/",
+    "note": "Anti-Gravity"
+  },
+  {
+    "id": "chimimouryou-simsteam",
+    "series": "shinycolors",
+    "name": "魑魅魍魎シムスティーム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/chimimouryou-simsteam/",
+    "note": "ノンセンス・プロンプ"
+  },
+  {
+    "id": "inter-the-sprawl",
+    "series": "shinycolors",
+    "name": "インターダスプロール",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/inter-the-sprawl/",
+    "note": "ア・冬優子イズム"
+  },
+  {
+    "id": "links-continuty",
+    "series": "shinycolors",
+    "name": "リンクスコンティニュティ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/links-continuty/",
+    "note": ""
+  },
+  {
+    "id": "icebreakin-shakes",
+    "series": "shinycolors",
+    "name": "アイスブレイキンシェイクス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/icebreakin-shakes/",
+    "note": ""
+  },
+  {
+    "id": "code-alpha",
+    "series": "shinycolors",
+    "name": "コード：アルファ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/code-alpha/",
+    "note": "＋『α』"
+  },
+  {
+    "id": "merymery-series",
+    "series": "shinycolors",
+    "name": "メリーメリーシリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト",
+      "シリーズ衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/merymery-series/",
+    "note": "プレゼン・バトン！"
+  },
+  {
+    "id": "amour-of-white",
+    "series": "shinycolors",
+    "name": "アムールオブホワイト",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/amour-of-white/",
+    "note": "イケてた！？"
+  },
+  {
+    "id": "freeside-jk",
+    "series": "shinycolors",
+    "name": "フリーサイドジェイケー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ストレイライト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/straylight/freeside-jk/",
+    "note": ""
+  },
+  {
+    "id": "clearmarine",
+    "series": "shinycolors",
+    "name": "クリアマリンカーム",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/clearmarine/",
+    "note": "10個、光"
+  },
+  {
+    "id": "lipring-clearmarine",
+    "series": "shinycolors",
+    "name": "リップリングクリアマリン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/lipring-clearmarine/",
+    "note": "途方もない午後"
+  },
+  {
+    "id": "sail-tail-breeze",
+    "series": "shinycolors",
+    "name": "セイルテイルブリーズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/sail-tail-breeze/",
+    "note": "つづく、"
+  },
+  {
+    "id": "clearbelt-surface",
+    "series": "shinycolors",
+    "name": "クリアベルトサーフェス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/clearbelt-surface/",
+    "note": "オイサラバエル"
+  },
+  {
+    "id": "palmier-rainview",
+    "series": "shinycolors",
+    "name": "パルミエーレインビュー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/palmier-rainview/",
+    "note": "Merry"
+  },
+  {
+    "id": "aquario-deeper",
+    "series": "shinycolors",
+    "name": "アクアリオディーパー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/aquario-deeper/",
+    "note": "キン・コン"
+  },
+  {
+    "id": "peinture-pickout",
+    "series": "shinycolors",
+    "name": "パンチュールピッカウト",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/peinture-pickout/",
+    "note": "フリークス・アリー"
+  },
+  {
+    "id": "mizuakari",
+    "series": "shinycolors",
+    "name": "ミズアカリプロフォンド",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/mizuakari/",
+    "note": "羽をやすめて"
+  },
+  {
+    "id": "sprincle-airy",
+    "series": "shinycolors",
+    "name": "スプリンクルエアリー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/sprincle-airy/",
+    "note": ""
+  },
+  {
+    "id": "farewell-goodbye",
+    "series": "shinycolors",
+    "name": "フェアウェル・グッバイ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/farewell-goodbye/",
+    "note": ""
+  },
+  {
+    "id": "alltime-precious",
+    "series": "shinycolors",
+    "name": "オールタイムプレシャス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/alltime-precious/",
+    "note": ""
+  },
+  {
+    "id": "fancyfree-nursing",
+    "series": "shinycolors",
+    "name": "ファンシーフリーナーシング",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "ノクチル"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/noctchill/fancyfree-nursing/",
+    "note": ""
+  },
+  {
+    "id": "silky-gemsilica",
+    "series": "shinycolors",
+    "name": "シルキージェムシリカ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/silky-gemsilica/",
+    "note": "♡まっクろはムウサぎ♡"
+  },
+  {
+    "id": "champ-de-voguing",
+    "series": "shinycolors",
+    "name": "シャンドゥ・ヴォーギン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/champ-de-voguing/",
+    "note": "ヴぇりべりいかシたサマー"
+  },
+  {
+    "id": "forbidden-sincerely",
+    "series": "shinycolors",
+    "name": "フォービドゥンシンシアリ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/forbidden-sincerely/",
+    "note": "CONTRAIL"
+  },
+  {
+    "id": "monochromatic-zircon",
+    "series": "shinycolors",
+    "name": "モノクロマテイクジルコン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/monochromatic-zircon/",
+    "note": "↓ろウTea"
+  },
+  {
+    "id": "portiere-ordine",
+    "series": "shinycolors",
+    "name": "ポルティエレオルディーネ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/portiere-ordine/",
+    "note": "とキどき間氷期"
+  },
+  {
+    "id": "eclatant-eclosion",
+    "series": "shinycolors",
+    "name": "エクラタンエクロジオン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/eclatant-eclosion/",
+    "note": "伝えテ niiid U"
+  },
+  {
+    "id": "ignite-fandomize",
+    "series": "shinycolors",
+    "name": "イグナイトファンダマイズ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/ignite-fandomize/",
+    "note": "受けトル sun Q"
+  },
+  {
+    "id": "cardiac-rubdub",
+    "series": "shinycolors",
+    "name": "カルディアックラブ・ダブ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/cardiac-rubdub/",
+    "note": "花ノ名前"
+  },
+  {
+    "id": "tweedy-happily",
+    "series": "shinycolors",
+    "name": "ツイーディーハピリー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/tweedy-happily/",
+    "note": ""
+  },
+  {
+    "id": "after-laviaggio",
+    "series": "shinycolors",
+    "name": "アフターラヴィアージョ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/after-laviaggio/",
+    "note": ""
+  },
+  {
+    "id": "setup-crazy",
+    "series": "shinycolors",
+    "name": "セットアップクレイジー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "シーズ"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/shhis/setup-crazy/",
+    "note": ""
+  },
+  {
+    "id": "cometiknaut",
+    "series": "shinycolors",
+    "name": "コメティックノート",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/cometiknaut/",
+    "note": "星が見上げた空"
+  },
+  {
+    "id": "reflectic-optique",
+    "series": "shinycolors",
+    "name": "リフレクティックオプティーク",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/reflectic-optique/",
+    "note": "連綿と、桜"
+  },
+  {
+    "id": "extended-cloth",
+    "series": "shinycolors",
+    "name": "エクステンデッドクロース",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/extended-cloth/",
+    "note": "桜花拾"
+  },
+  {
+    "id": "magichour-offering",
+    "series": "shinycolors",
+    "name": "マジックアワーオファリング",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/magichour-offering/",
+    "note": ""
+  },
+  {
+    "id": "synergetics-orbit",
+    "series": "shinycolors",
+    "name": "シナジェティクスオービット",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/synergetics-orbit/",
+    "note": ""
+  },
+  {
+    "id": "allornothingbut",
+    "series": "shinycolors",
+    "name": "オールオアナッシングバット",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "コメティック",
+      "Song for Prism",
+      "ユニット衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/cometik/allornothingbut/",
+    "note": ""
+  },
+  {
+    "id": "holynight-cape",
+    "series": "shinycolors",
+    "name": "ホーリーナイトケープ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/holynight-cape/",
+    "note": "永遠のCarol"
+  },
+  {
+    "id": "shiny-summer",
+    "series": "shinycolors",
+    "name": "シャイニーサマー (2018)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2018年",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装",
+      "サマー"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/shiny-summer/",
+    "note": "ビ～♡バップ海岸"
+  },
+  {
+    "id": "fashionable-summer",
+    "series": "shinycolors",
+    "name": "ファッショナブルサマー (2019)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2019年",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装",
+      "サマー"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/fashionable-summer/",
+    "note": "水×天カイヤナイト"
+  },
+  {
+    "id": "reflesh-summer",
+    "series": "shinycolors",
+    "name": "リフレッシュサマー (2020)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2020年",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装",
+      "サマー"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/reflesh-summer/",
+    "note": "Sr×Ba×Cu="
+  },
+  {
+    "id": "fountain-summer",
+    "series": "shinycolors",
+    "name": "ファウンテンサマー (2021)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2021年",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装",
+      "サマー"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/fountain-summer/",
+    "note": "おかえり、ギター"
+  },
+  {
+    "id": "hottest-summer",
+    "series": "shinycolors",
+    "name": "ホッテストサマー (2022)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2022年",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装",
+      "サマー"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/hottest-summer/",
+    "note": "murmurmaid"
+  },
+  {
+    "id": "midnight-monster",
+    "series": "shinycolors",
+    "name": "ミッドナイトモンスター",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/midnight-monster/",
+    "note": "キャプテン★パンプキン"
+  },
+  {
+    "id": "283ziphoodie",
+    "series": "shinycolors",
+    "name": "283プロジップパーカー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/283ziphoodie/",
+    "note": "はばたきラジオステーション 描きおろしイラスト（イルミネーションスターズ）"
+  },
+  {
+    "id": "zipjacket",
+    "series": "shinycolors",
+    "name": "シャニラジ ジップジャケット",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "idols": [],
+    "songs": [],
+    "tags": [
+      "イベント",
+      "イベント衣装"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://brilliant.avalon-studio.work/event/zipjacket/",
+    "note": "シャニラジ 描きおろしイラスト イルミネーションスターズ"
   }
 ]
