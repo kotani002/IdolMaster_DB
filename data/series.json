@@ -1,0 +1,16 @@
+[
+  {
+    "id": "shinycolors",
+    "name": "アイドルマスター シャイニーカラーズ",
+    "short": "シャニマス",
+    "mark": "SC",
+    "color": "#f2a23a"
+  },
+  {
+    "id": "gakumas",
+    "name": "学園アイドルマスター",
+    "short": "学マス",
+    "mark": "学",
+    "color": "#e8505b"
+  }
+]

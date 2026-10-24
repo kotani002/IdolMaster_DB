@@ -1,6 +1,7 @@
 [
   {
     "id": "beyond-the-bluesky",
+    "series": "shinycolors",
     "name": "ビヨンドザブルースカイ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -19,6 +20,7 @@
   },
   {
     "id": "overcast-monochrome",
+    "series": "shinycolors",
     "name": "オーバーキャストモノクローム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -37,6 +39,7 @@
   },
   {
     "id": "sunset-skypassage",
+    "series": "shinycolors",
     "name": "サンセットスカイパッセージ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -55,6 +58,7 @@
   },
   {
     "id": "uniteverse-planetary",
+    "series": "shinycolors",
     "name": "ユナイトバースプラネタリ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -73,6 +77,7 @@
   },
   {
     "id": "celestial-colors",
+    "series": "shinycolors",
     "name": "セレスティアルカラーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -91,6 +96,7 @@
   },
   {
     "id": "flowing-belle",
+    "series": "shinycolors",
     "name": "フローウィングベル",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -109,6 +115,7 @@
   },
   {
     "id": "birth-of-wing",
+    "series": "shinycolors",
     "name": "バースオブウィング",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -126,6 +133,7 @@
   },
   {
     "id": "refulgent-plumage",
+    "series": "shinycolors",
     "name": "リフレジェントプルマージュ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -144,6 +152,7 @@
   },
   {
     "id": "resistanceorder-neos",
+    "series": "shinycolors",
     "name": "レジスタンスオーダー・ネオス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -162,6 +171,7 @@
   },
   {
     "id": "kodomotachi",
+    "series": "shinycolors",
     "name": "こどもたち",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -180,6 +190,7 @@
   },
   {
     "id": "forme-noyer",
+    "series": "shinycolors",
     "name": "フォームド・ノワイエ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -198,6 +209,7 @@
   },
   {
     "id": "sparcle-illumination",
+    "series": "shinycolors",
     "name": "スパークルイルミネーション",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -214,6 +226,7 @@
   },
   {
     "id": "sirius-crown",
+    "series": "shinycolors",
     "name": "シリウスリークラウン",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -230,6 +243,7 @@
   },
   {
     "id": "twincley-cheerfull",
+    "series": "shinycolors",
     "name": "トゥインクリーチアフル",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -246,6 +260,7 @@
   },
   {
     "id": "platenes-series",
+    "series": "shinycolors",
     "name": "プラネテスシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -263,6 +278,7 @@
   },
   {
     "id": "asteles-auroraize",
+    "series": "shinycolors",
     "name": "アステレスオーロライズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -279,6 +295,7 @@
   },
   {
     "id": "fantesy-sonare",
+    "series": "shinycolors",
     "name": "ファンテジィソナーレ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -295,6 +312,7 @@
   },
   {
     "id": "one-two-marching-parade",
+    "series": "shinycolors",
     "name": "ワンツーマーチングパレード",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -311,6 +329,7 @@
   },
   {
     "id": "divine-couronne",
+    "series": "shinycolors",
     "name": "ディバインクロンヌ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -327,6 +346,7 @@
   },
   {
     "id": "explore-serata",
+    "series": "shinycolors",
     "name": "エクスプロアセラータ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -343,6 +363,7 @@
   },
   {
     "id": "present-from-estrella",
+    "series": "shinycolors",
     "name": "プレゼントフロムエストレア",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -359,6 +380,7 @@
   },
   {
     "id": "pastely-orion",
+    "series": "shinycolors",
     "name": "パステリーオリオン★★★",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -375,6 +397,7 @@
   },
   {
     "id": "seeyou-sleeper",
+    "series": "shinycolors",
     "name": "シーユースリーパー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -393,6 +416,7 @@
   },
   {
     "id": "lights-of-the-lights",
+    "series": "shinycolors",
     "name": "ライツオブザライツ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -411,6 +435,7 @@
   },
   {
     "id": "ringing-preppy-girl",
+    "series": "shinycolors",
     "name": "リンギングプレッピーガール",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -427,6 +452,7 @@
   },
   {
     "id": "bytoday-restaurant",
+    "series": "shinycolors",
     "name": "バイトゥデイレストラント",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -443,6 +469,7 @@
   },
   {
     "id": "symphonic-steam",
+    "series": "shinycolors",
     "name": "シンフォニックスチーム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -459,6 +486,7 @@
   },
   {
     "id": "faith-of-treasure",
+    "series": "shinycolors",
     "name": "フェイスオブトレジャー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -475,6 +503,7 @@
   },
   {
     "id": "la-rossogrimm",
+    "series": "shinycolors",
     "name": "ラ・ロッソグリム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -491,6 +520,7 @@
   },
   {
     "id": "blaec-series",
+    "series": "shinycolors",
     "name": "ブライクシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -508,6 +538,7 @@
   },
   {
     "id": "lefondde-lamer",
+    "series": "shinycolors",
     "name": "ルフォンドゥ・ラメール",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -524,6 +555,7 @@
   },
   {
     "id": "papillonner-feerique",
+    "series": "shinycolors",
     "name": "パピロニアフェリーク",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -540,6 +572,7 @@
   },
   {
     "id": "encadrement-coupe",
+    "series": "shinycolors",
     "name": "アンカードルモンクーペ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -556,6 +589,7 @@
   },
   {
     "id": "hautecouture-artepiece",
+    "series": "shinycolors",
     "name": "オートクチュールアルテピエス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -572,6 +606,7 @@
   },
   {
     "id": "museo-forma-rinascita",
+    "series": "shinycolors",
     "name": "ミュゼオフォルマーリナーシタ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -588,6 +623,7 @@
   },
   {
     "id": "clockdoll-eenrouler",
+    "series": "shinycolors",
     "name": "クロックドオルアンルーレ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -604,6 +640,7 @@
   },
   {
     "id": "chiaroscuro-categorico",
+    "series": "shinycolors",
     "name": "キアロスクーロカテゴリコ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -620,6 +657,7 @@
   },
   {
     "id": "capriccio-wonderland",
+    "series": "shinycolors",
     "name": "カプリシオワンダーランド",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -638,6 +676,7 @@
   },
   {
     "id": "gears-of-pride",
+    "series": "shinycolors",
     "name": "ギアーズ・オブ・プライド",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -656,6 +695,7 @@
   },
   {
     "id": "holiday-princess",
+    "series": "shinycolors",
     "name": "ホリディプリンセス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -672,6 +712,7 @@
   },
   {
     "id": "wonderland-series",
+    "series": "shinycolors",
     "name": "ワンダーランドシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -689,6 +730,7 @@
   },
   {
     "id": "reflection-themepark",
+    "series": "shinycolors",
     "name": "リフレクションテーマパーク",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -705,6 +747,7 @@
   },
   {
     "id": "bravehero",
+    "series": "shinycolors",
     "name": "ブレイブヒーロージャージ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -721,6 +764,7 @@
   },
   {
     "id": "iloveclimax",
+    "series": "shinycolors",
     "name": "愛羅武紅蘭偉魔空珠",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -737,6 +781,7 @@
   },
   {
     "id": "decodeco-clear-splash",
+    "series": "shinycolors",
     "name": "デコデコクリアスプラッシュ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -753,6 +798,7 @@
   },
   {
     "id": "galactic-series",
+    "series": "shinycolors",
     "name": "ギャラクティックシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -770,6 +816,7 @@
   },
   {
     "id": "sefukuextream",
+    "series": "shinycolors",
     "name": "セーフクエクストリーム！",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -786,6 +833,7 @@
   },
   {
     "id": "c-cats-uniform",
+    "series": "shinycolors",
     "name": "C.キャッツユニフォーム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -802,6 +850,7 @@
   },
   {
     "id": "donshan-matsuribayashi",
+    "series": "shinycolors",
     "name": "ドンシャンマツリバヤシ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -818,6 +867,7 @@
   },
   {
     "id": "witch-craft-academical",
+    "series": "shinycolors",
     "name": "ウィッチクラフトアカデミカル",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -834,6 +884,7 @@
   },
   {
     "id": "exciteen-collection",
+    "series": "shinycolors",
     "name": "エキサイティーンコレクション",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -850,6 +901,7 @@
   },
   {
     "id": "weare-breakthrougher",
+    "series": "shinycolors",
     "name": "ウィーアーブレイクスーラー！",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -866,6 +918,7 @@
   },
   {
     "id": "cosmics-athle",
+    "series": "shinycolors",
     "name": "コズミックスアスリー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -882,6 +935,7 @@
   },
   {
     "id": "dreamin-supporter",
+    "series": "shinycolors",
     "name": "ドリーミンサポーター",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -900,6 +954,7 @@
   },
   {
     "id": "heroic-thief-v",
+    "series": "shinycolors",
     "name": "ヒロイックシーフV",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -918,6 +973,7 @@
   },
   {
     "id": "bravesoul-surround",
+    "series": "shinycolors",
     "name": "ブレイブソウルサラウンド",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -934,6 +990,7 @@
   },
   {
     "id": "unusual-hour",
+    "series": "shinycolors",
     "name": "アンユージュアルアワー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -950,6 +1007,7 @@
   },
   {
     "id": "kissa-climax",
+    "series": "shinycolors",
     "name": "喫茶くらいまっくす制服",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -966,6 +1024,7 @@
   },
   {
     "id": "wishfull-lily",
+    "series": "shinycolors",
     "name": "ウィッシュフルリリー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -982,6 +1041,7 @@
   },
   {
     "id": "dormir-atenta",
+    "series": "shinycolors",
     "name": "ドルミールアテンタ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -998,6 +1058,7 @@
   },
   {
     "id": "devaux",
+    "series": "shinycolors",
     "name": "デヴォーティングリンネ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1014,6 +1075,7 @@
   },
   {
     "id": "gardiene-series",
+    "series": "shinycolors",
     "name": "ガルディエーヌシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1031,6 +1093,7 @@
   },
   {
     "id": "waitress-pascolor",
+    "series": "shinycolors",
     "name": "ウェイトレス・パスカラ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1047,6 +1110,7 @@
   },
   {
     "id": "magique-allume",
+    "series": "shinycolors",
     "name": "マジーク・アルーア",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1063,6 +1127,7 @@
   },
   {
     "id": "woolly-mailer-secret",
+    "series": "shinycolors",
     "name": "ウーリーメイラースクレ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1079,6 +1144,7 @@
   },
   {
     "id": "rome-classical-trench",
+    "series": "shinycolors",
     "name": "ローマクラシカルトレンチ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1095,6 +1161,7 @@
   },
   {
     "id": "eternity-pomponner",
+    "series": "shinycolors",
     "name": "エタニティポンポーネ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1111,6 +1178,7 @@
   },
   {
     "id": "lepre--faenza",
+    "series": "shinycolors",
     "name": "レプラシャートファエンツァ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1127,6 +1195,7 @@
   },
   {
     "id": "odeon-tutu",
+    "series": "shinycolors",
     "name": "オデオンダンツァーチュチュ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1143,6 +1212,7 @@
   },
   {
     "id": "beautiful-waifed",
+    "series": "shinycolors",
     "name": "ビューティフルウェイフト",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1161,6 +1231,7 @@
   },
   {
     "id": "melting-mellow",
+    "series": "shinycolors",
     "name": "メルティングメロウ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1179,6 +1250,7 @@
   },
   {
     "id": "sakurano-spring",
+    "series": "shinycolors",
     "name": "サクラノスプリング",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1195,6 +1267,7 @@
   },
   {
     "id": "oppose-paradiso",
+    "series": "shinycolors",
     "name": "オポーズパラディーソ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1211,6 +1284,7 @@
   },
   {
     "id": "neonlight-romancer",
+    "series": "shinycolors",
     "name": "ネオンライトロマンサー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1227,6 +1301,7 @@
   },
   {
     "id": "singularity",
+    "series": "shinycolors",
     "name": "隠匿シンギュラリティ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1243,6 +1318,7 @@
   },
   {
     "id": "dead-channel",
+    "series": "shinycolors",
     "name": "デッドチャンネルl2<)3",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1259,6 +1335,7 @@
   },
   {
     "id": "tracing-mute",
+    "series": "shinycolors",
     "name": "トレーシングミュート",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1275,6 +1352,7 @@
   },
   {
     "id": "skeleton-overdrive",
+    "series": "shinycolors",
     "name": "スケルトンオーヴァドライブ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1291,6 +1369,7 @@
   },
   {
     "id": "jack-in-matrix",
+    "series": "shinycolors",
     "name": "ジャックインマトリックス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1307,6 +1386,7 @@
   },
   {
     "id": "energy-desiderata",
+    "series": "shinycolors",
     "name": "エナジーデシデラータ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1323,6 +1403,7 @@
   },
   {
     "id": "chimimouryou-simsteam",
+    "series": "shinycolors",
     "name": "魑魅魍魎シムスティーム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1339,6 +1420,7 @@
   },
   {
     "id": "inter-the-sprawl",
+    "series": "shinycolors",
     "name": "インターダスプロール",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1355,6 +1437,7 @@
   },
   {
     "id": "links-continuty",
+    "series": "shinycolors",
     "name": "リンクスコンティニュティ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1373,6 +1456,7 @@
   },
   {
     "id": "icebreakin-shakes",
+    "series": "shinycolors",
     "name": "アイスブレイキンシェイクス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1391,6 +1475,7 @@
   },
   {
     "id": "code-alpha",
+    "series": "shinycolors",
     "name": "コード：アルファ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1407,6 +1492,7 @@
   },
   {
     "id": "merymery-series",
+    "series": "shinycolors",
     "name": "メリーメリーシリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1424,6 +1510,7 @@
   },
   {
     "id": "amour-of-white",
+    "series": "shinycolors",
     "name": "アムールオブホワイト",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1440,6 +1527,7 @@
   },
   {
     "id": "freeside-jk",
+    "series": "shinycolors",
     "name": "フリーサイドジェイケー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1456,6 +1544,7 @@
   },
   {
     "id": "clearmarine",
+    "series": "shinycolors",
     "name": "クリアマリンカーム",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1472,6 +1561,7 @@
   },
   {
     "id": "lipring-clearmarine",
+    "series": "shinycolors",
     "name": "リップリングクリアマリン",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1488,6 +1578,7 @@
   },
   {
     "id": "sail-tail-breeze",
+    "series": "shinycolors",
     "name": "セイルテイルブリーズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1504,6 +1595,7 @@
   },
   {
     "id": "clearbelt-surface",
+    "series": "shinycolors",
     "name": "クリアベルトサーフェス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1520,6 +1612,7 @@
   },
   {
     "id": "palmier-rainview",
+    "series": "shinycolors",
     "name": "パルミエーレインビュー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1536,6 +1629,7 @@
   },
   {
     "id": "aquario-deeper",
+    "series": "shinycolors",
     "name": "アクアリオディーパー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1552,6 +1646,7 @@
   },
   {
     "id": "peinture-pickout",
+    "series": "shinycolors",
     "name": "パンチュールピッカウト",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1568,6 +1663,7 @@
   },
   {
     "id": "mizuakari",
+    "series": "shinycolors",
     "name": "ミズアカリプロフォンド",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1584,6 +1680,7 @@
   },
   {
     "id": "sprincle-airy",
+    "series": "shinycolors",
     "name": "スプリンクルエアリー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1602,6 +1699,7 @@
   },
   {
     "id": "farewell-goodbye",
+    "series": "shinycolors",
     "name": "フェアウェル・グッバイ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1620,6 +1718,7 @@
   },
   {
     "id": "alltime-precious",
+    "series": "shinycolors",
     "name": "オールタイムプレシャス",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1638,6 +1737,7 @@
   },
   {
     "id": "fancyfree-nursing",
+    "series": "shinycolors",
     "name": "ファンシーフリーナーシング",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1654,6 +1754,7 @@
   },
   {
     "id": "silky-gemsilica",
+    "series": "shinycolors",
     "name": "シルキージェムシリカ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1670,6 +1771,7 @@
   },
   {
     "id": "champ-de-voguing",
+    "series": "shinycolors",
     "name": "シャンドゥ・ヴォーギン",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1686,6 +1788,7 @@
   },
   {
     "id": "forbidden-sincerely",
+    "series": "shinycolors",
     "name": "フォービドゥンシンシアリ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1702,6 +1805,7 @@
   },
   {
     "id": "monochromatic-zircon",
+    "series": "shinycolors",
     "name": "モノクロマテイクジルコン",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1718,6 +1822,7 @@
   },
   {
     "id": "portiere-ordine",
+    "series": "shinycolors",
     "name": "ポルティエレオルディーネ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1734,6 +1839,7 @@
   },
   {
     "id": "eclatant-eclosion",
+    "series": "shinycolors",
     "name": "エクラタンエクロジオン",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1750,6 +1856,7 @@
   },
   {
     "id": "ignite-fandomize",
+    "series": "shinycolors",
     "name": "イグナイトファンダマイズ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1766,6 +1873,7 @@
   },
   {
     "id": "cardiac-rubdub",
+    "series": "shinycolors",
     "name": "カルディアックラブ・ダブ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1782,6 +1890,7 @@
   },
   {
     "id": "tweedy-happily",
+    "series": "shinycolors",
     "name": "ツイーディーハピリー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1800,6 +1909,7 @@
   },
   {
     "id": "after-laviaggio",
+    "series": "shinycolors",
     "name": "アフターラヴィアージョ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1818,6 +1928,7 @@
   },
   {
     "id": "setup-crazy",
+    "series": "shinycolors",
     "name": "セットアップクレイジー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1834,6 +1945,7 @@
   },
   {
     "id": "cometiknaut",
+    "series": "shinycolors",
     "name": "コメティックノート",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1850,6 +1962,7 @@
   },
   {
     "id": "reflectic-optique",
+    "series": "shinycolors",
     "name": "リフレクティックオプティーク",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1866,6 +1979,7 @@
   },
   {
     "id": "extended-cloth",
+    "series": "shinycolors",
     "name": "エクステンデッドクロース",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1882,6 +1996,7 @@
   },
   {
     "id": "magichour-offering",
+    "series": "shinycolors",
     "name": "マジックアワーオファリング",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1900,6 +2015,7 @@
   },
   {
     "id": "synergetics-orbit",
+    "series": "shinycolors",
     "name": "シナジェティクスオービット",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1918,6 +2034,7 @@
   },
   {
     "id": "allornothingbut",
+    "series": "shinycolors",
     "name": "オールオアナッシングバット",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1936,6 +2053,7 @@
   },
   {
     "id": "holynight-cape",
+    "series": "shinycolors",
     "name": "ホーリーナイトケープ",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -1953,6 +2071,7 @@
   },
   {
     "id": "shiny-summer",
+    "series": "shinycolors",
     "name": "シャイニーサマー (2018)",
     "image": "images/placeholder.svg",
     "firstAppearance": "2018年",
@@ -1971,6 +2090,7 @@
   },
   {
     "id": "fashionable-summer",
+    "series": "shinycolors",
     "name": "ファッショナブルサマー (2019)",
     "image": "images/placeholder.svg",
     "firstAppearance": "2019年",
@@ -1989,6 +2109,7 @@
   },
   {
     "id": "reflesh-summer",
+    "series": "shinycolors",
     "name": "リフレッシュサマー (2020)",
     "image": "images/placeholder.svg",
     "firstAppearance": "2020年",
@@ -2007,6 +2128,7 @@
   },
   {
     "id": "fountain-summer",
+    "series": "shinycolors",
     "name": "ファウンテンサマー (2021)",
     "image": "images/placeholder.svg",
     "firstAppearance": "2021年",
@@ -2025,6 +2147,7 @@
   },
   {
     "id": "hottest-summer",
+    "series": "shinycolors",
     "name": "ホッテストサマー (2022)",
     "image": "images/placeholder.svg",
     "firstAppearance": "2022年",
@@ -2043,6 +2166,7 @@
   },
   {
     "id": "midnight-monster",
+    "series": "shinycolors",
     "name": "ミッドナイトモンスター",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -2060,6 +2184,7 @@
   },
   {
     "id": "283ziphoodie",
+    "series": "shinycolors",
     "name": "283プロジップパーカー",
     "image": "images/placeholder.svg",
     "firstAppearance": "",
@@ -2077,6 +2202,7 @@
   },
   {
     "id": "zipjacket",
+    "series": "shinycolors",
     "name": "シャニラジ ジップジャケット",
     "image": "images/placeholder.svg",
     "firstAppearance": "",

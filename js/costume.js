@@ -3,9 +3,9 @@
   const app = document.getElementById("app");
   const id = new URLSearchParams(location.search).get("id");
 
-  let costumes;
+  let costumes, seriesList;
   try {
-    costumes = await loadCostumes();
+    [costumes, seriesList] = await Promise.all([loadCostumes(), loadSeries()]);
   } catch (e) {
     showError(e.message);
     return;
@@ -48,6 +48,15 @@
   app.replaceChildren(
     el("a", { class: "back", href: "index.html", text: "← 衣装一覧へ戻る" }),
     el("article", { class: "costume" }, [
+      (() => {
+        const s = seriesList.find((x) => x.id === c.series);
+        return s
+          ? el("p", { class: "series-line" }, [
+              seriesBadge(s, 24),
+              el("a", { href: "index.html?series=" + encodeURIComponent(s.id), text: s.name }),
+            ])
+          : "";
+      })(),
       el("h2", { class: "title", text: c.name }),
 
       el("div", { class: "illust" }, [

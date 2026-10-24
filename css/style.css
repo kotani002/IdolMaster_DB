@@ -103,6 +103,31 @@ ul.plain { margin: 0; padding-left: 1.2em; }
 .tweets { display: flex; flex-wrap: wrap; gap: 16px; }
 .muted { color: var(--muted); }
 
+/* ===== 作品切り替え ===== */
+.series { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.s-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card); color: var(--fg);
+  border: 2px solid var(--border); border-radius: 14px;
+  padding: 8px 14px 8px 8px; font: inherit; cursor: pointer;
+  transition: border-color .2s, background .2s, transform .15s;
+}
+.s-btn:hover { border-color: var(--accent); }
+.s-btn:active { transform: scale(.97); }
+.s-btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.s-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; }
+.s-name { font-weight: 700; font-size: .95rem; }
+.s-count { font-size: .75rem; color: var(--muted); }
+.s-badge {
+  --size: 40px;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: var(--size); height: var(--size); border-radius: 50%;
+  color: #fff; font-weight: 800; font-size: calc(var(--size) * .36);
+  letter-spacing: -.02em; vertical-align: middle;
+}
+.card .meta .s-badge { margin-right: 2px; }
+.costume .series-line { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; color: var(--muted); font-size: .9rem; }
+
 /* ===== アニメーション ===== */
 @keyframes fade-down { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
 @keyframes rise      { from { opacity: 0; transform: translateY(16px); }  to { opacity: 1; transform: none; } }
@@ -180,6 +205,11 @@ img { max-width: 100%; }
   .chips { max-height: 9.5rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .chip { padding: 6px 12px; }
   .btn { padding: 10px 12px; }
+
+  /* 作品切り替え: 横並びを均等に */
+  .series { gap: 8px; }
+  .s-btn { flex: 1 1 0; padding: 6px 10px 6px 6px; }
+  .s-btn .s-badge { --size: 32px !important; }
 
   /* 一覧: 2列 */
   .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
