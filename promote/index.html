@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>アイマス楽曲布教シートメーカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="toolbar">
+  <h1>楽曲布教シートメーカー</h1>
+  <div class="tools">
+    <button id="btn-save" class="primary">画像として保存 (PNG)</button>
+    <button id="btn-reset">リセット</button>
+  </div>
+</header>
+
+<main>
+  <p class="hint">題名・曲名・プレゼン内容は直接入力、ジャケットは枠をクリックして画像を選択、歌唱予想メンバーは「＋メンバー」から選べます。内容はこのブラウザに自動保存されます。</p>
+  <div id="sheet"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
