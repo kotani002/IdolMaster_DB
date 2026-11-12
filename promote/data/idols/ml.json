@@ -1,0 +1,533 @@
+[
+ {
+  "id": 1098,
+  "name": "伊吹翼",
+  "kana": "いぶきつばさ",
+  "cv": "Machico",
+  "color": "#fed552",
+  "group": "MILLION STARS",
+  "count": 60
+ },
+ {
+  "id": 1106,
+  "name": "大神環",
+  "kana": "おおがみたまき",
+  "cv": "稲川英里",
+  "color": "#ee762e",
+  "group": "MILLION STARS",
+  "count": 49
+ },
+ {
+  "id": 1116,
+  "name": "春日未来",
+  "kana": "かすがみらい",
+  "cv": "山崎はるか",
+  "color": "#ea5b76",
+  "group": "MILLION STARS",
+  "count": 75
+ },
+ {
+  "id": 1100,
+  "name": "北上麗花",
+  "kana": "きたかみれいか",
+  "cv": "平山笑美",
+  "color": "#6bb6b0",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1101,
+  "name": "北沢志保",
+  "kana": "きたざわしほ",
+  "cv": "雨宮天",
+  "color": "#afa690",
+  "group": "MILLION STARS",
+  "count": 59
+ },
+ {
+  "id": 1119,
+  "name": "木下ひなた",
+  "kana": "きのしたひなた",
+  "cv": "田村奈央",
+  "color": "#d1342c",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1141,
+  "name": "高坂海美",
+  "kana": "こうさかうみ",
+  "cv": "上田麗奈",
+  "color": "#e9739b",
+  "group": "MILLION STARS",
+  "count": 57
+ },
+ {
+  "id": 1121,
+  "name": "桜守歌織",
+  "kana": "さくらもりかおり",
+  "cv": "香里有佐",
+  "color": "#274079",
+  "group": "MILLION STARS",
+  "count": 47
+ },
+ {
+  "id": 1099,
+  "name": "佐竹美奈子",
+  "kana": "さたけみなこ",
+  "cv": "大関英里",
+  "color": "#58a6dc",
+  "group": "MILLION STARS",
+  "count": 49
+ },
+ {
+  "id": 1133,
+  "name": "篠宮可憐",
+  "kana": "しのみやかれん",
+  "cv": "近藤唯",
+  "color": "#b63b40",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1111,
+  "name": "島原エレナ",
+  "kana": "しまばらエレナ",
+  "cv": "角元明日香",
+  "color": "#9bce92",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1126,
+  "name": "白石紬",
+  "kana": "しらいしつむぎ",
+  "cv": "南早紀",
+  "color": "#ebe1ff",
+  "group": "MILLION STARS",
+  "count": 47
+ },
+ {
+  "id": 1104,
+  "name": "周防桃子",
+  "kana": "すおうももこ",
+  "cv": "渡部恵子",
+  "color": "#efb864",
+  "group": "MILLION STARS",
+  "count": 55
+ },
+ {
+  "id": 1142,
+  "name": "高山紗代子",
+  "kana": "たかやまさよこ",
+  "cv": "駒形友梨",
+  "color": "#7f6575",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1125,
+  "name": "田中琴葉",
+  "kana": "たなかことは",
+  "cv": "種田梨沙",
+  "color": "#92cfbb",
+  "group": "MILLION STARS",
+  "count": 49
+ },
+ {
+  "id": 1108,
+  "name": "天空橋朋花",
+  "kana": "てんくうばしともか",
+  "cv": "小岩井ことり",
+  "color": "#bee3e3",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1112,
+  "name": "徳川まつり",
+  "kana": "とくがわまつり",
+  "cv": "諏訪彩花",
+  "color": "#5abfb7",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1114,
+  "name": "所恵美",
+  "kana": "ところめぐみ",
+  "cv": "藤井ゆきよ",
+  "color": "#454341",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1138,
+  "name": "豊川風花",
+  "kana": "とよかわふうか",
+  "cv": "末柄里恵",
+  "color": "#7278a8",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1096,
+  "name": "中谷育",
+  "kana": "なかたにいく",
+  "cv": "原嶋あかり",
+  "color": "#f7e78e",
+  "group": "MILLION STARS",
+  "count": 47
+ },
+ {
+  "id": 1124,
+  "name": "永吉昴",
+  "kana": "ながよしすばる",
+  "cv": "斉藤佑圭",
+  "color": "#aeb49c",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1094,
+  "name": "七尾百合子",
+  "kana": "ななおゆりこ",
+  "cv": "伊藤美来",
+  "color": "#c7b83c",
+  "group": "MILLION STARS",
+  "count": 54
+ },
+ {
+  "id": 1097,
+  "name": "二階堂千鶴",
+  "kana": "にかいどうちづる",
+  "cv": "野村香菜子",
+  "color": "#f19557",
+  "group": "MILLION STARS",
+  "count": 51
+ },
+ {
+  "id": 1139,
+  "name": "野々原茜",
+  "kana": "ののはらあかね",
+  "cv": "小笠原早紀",
+  "color": "#eb613f",
+  "group": "MILLION STARS",
+  "count": 48
+ },
+ {
+  "id": 1132,
+  "name": "箱崎星梨花",
+  "kana": "はこざきせりか",
+  "cv": "麻倉もも",
+  "color": "#ed90ba",
+  "group": "MILLION STARS",
+  "count": 76
+ },
+ {
+  "id": 1140,
+  "name": "馬場このみ",
+  "kana": "ばばこのみ",
+  "cv": "髙橋ミナミ",
+  "color": "#f1becb",
+  "group": "MILLION STARS",
+  "count": 52
+ },
+ {
+  "id": 1130,
+  "name": "福田のり子",
+  "kana": "ふくだのりこ",
+  "cv": "浜崎奈々",
+  "color": "#eceb70",
+  "group": "MILLION STARS",
+  "count": 49
+ },
+ {
+  "id": 1134,
+  "name": "舞浜歩",
+  "kana": "まいはまあゆむ",
+  "cv": "戸田めぐみ",
+  "color": "#e25a9b",
+  "group": "MILLION STARS",
+  "count": 47
+ },
+ {
+  "id": 1128,
+  "name": "真壁瑞希",
+  "kana": "まかべみずき",
+  "cv": "阿部里果",
+  "color": "#99b7dc",
+  "group": "MILLION STARS",
+  "count": 55
+ },
+ {
+  "id": 1120,
+  "name": "松田亜利沙",
+  "kana": "まつだありさ",
+  "cv": "村川梨衣",
+  "color": "#b54461",
+  "group": "MILLION STARS",
+  "count": 48
+ },
+ {
+  "id": 1110,
+  "name": "宮尾美也",
+  "kana": "みやおみや",
+  "cv": "桐谷蝶々",
+  "color": "#d7a96b",
+  "group": "MILLION STARS",
+  "count": 49
+ },
+ {
+  "id": 1117,
+  "name": "最上静香",
+  "kana": "もがみしずか",
+  "cv": "田所あずさ",
+  "color": "#6495cf",
+  "group": "MILLION STARS",
+  "count": 77
+ },
+ {
+  "id": 1118,
+  "name": "望月杏奈",
+  "kana": "もちづきあんな",
+  "cv": "夏川椎菜",
+  "color": "#7e6ca8",
+  "group": "MILLION STARS",
+  "count": 56
+ },
+ {
+  "id": 1127,
+  "name": "百瀬莉緒",
+  "kana": "ももせりお",
+  "cv": "山口立花子",
+  "color": "#f19591",
+  "group": "MILLION STARS",
+  "count": 50
+ },
+ {
+  "id": 1129,
+  "name": "矢吹可奈",
+  "kana": "やぶきかな",
+  "cv": "木戸衣吹",
+  "color": "#f5ad3b",
+  "group": "MILLION STARS",
+  "count": 60
+ },
+ {
+  "id": 1122,
+  "name": "横山奈緒",
+  "kana": "よこやまなお",
+  "cv": "渡部優衣",
+  "color": "#788bc5",
+  "group": "MILLION STARS",
+  "count": 46
+ },
+ {
+  "id": 1144,
+  "name": "エミリー・スチュアート",
+  "kana": "エミリー・スチュアート",
+  "cv": "郁原ゆう",
+  "color": "#554171",
+  "group": "MILLION STARS",
+  "count": 53
+ },
+ {
+  "id": 1041,
+  "name": "ジュリア",
+  "kana": "ジュリア",
+  "cv": "愛美",
+  "color": "#d7385f",
+  "group": "MILLION STARS",
+  "count": 52
+ },
+ {
+  "id": 1093,
+  "name": "ロコ",
+  "kana": "ロコ",
+  "cv": "中村温姫",
+  "color": "#fff03c",
+  "group": "MILLION STARS",
+  "count": 47
+ },
+ {
+  "id": 1131,
+  "name": "秋月律子",
+  "kana": "あきづきりつこ",
+  "cv": "若林直美",
+  "color": "#01a860",
+  "group": "765AS",
+  "count": 120
+ },
+ {
+  "id": 1107,
+  "name": "天海春香",
+  "kana": "あまみはるか",
+  "cv": "中村繪里子",
+  "color": "#e22b30",
+  "group": "765AS",
+  "count": 137
+ },
+ {
+  "id": 1113,
+  "name": "我那覇響",
+  "kana": "がなはひびき",
+  "cv": "沼倉愛美",
+  "color": "#01adb9",
+  "group": "765AS",
+  "count": 114
+ },
+ {
+  "id": 1135,
+  "name": "菊地真",
+  "kana": "きくちまこと",
+  "cv": "平田宏美",
+  "color": "#515558",
+  "group": "765AS",
+  "count": 128
+ },
+ {
+  "id": 1109,
+  "name": "如月千早",
+  "kana": "きさらぎちはや",
+  "cv": "今井麻美",
+  "color": "#2743d2",
+  "group": "765AS",
+  "count": 138
+ },
+ {
+  "id": 1105,
+  "name": "四条貴音",
+  "kana": "しじょうたかね",
+  "cv": "原由実",
+  "color": "#a6126a",
+  "group": "765AS",
+  "count": 117
+ },
+ {
+  "id": 1143,
+  "name": "高槻やよい",
+  "kana": "たかつきやよい",
+  "cv": "仁後真耶子",
+  "color": "#f39939",
+  "group": "765AS",
+  "count": 116
+ },
+ {
+  "id": 1136,
+  "name": "萩原雪歩",
+  "kana": "はぎわらゆきほ",
+  "cv": "浅倉杏美",
+  "color": "#d3dde9",
+  "group": "765AS",
+  "count": 105
+ },
+ {
+  "id": 1102,
+  "name": "双海亜美",
+  "kana": "ふたみあみ",
+  "cv": "下田麻美",
+  "color": "#ffe43f",
+  "group": "765AS",
+  "count": 99
+ },
+ {
+  "id": 1103,
+  "name": "双海真美",
+  "kana": "ふたみまみ",
+  "cv": "下田麻美",
+  "color": "#ffe43f",
+  "group": "765AS",
+  "count": 100
+ },
+ {
+  "id": 1115,
+  "name": "星井美希",
+  "kana": "ほしいみき",
+  "cv": "長谷川明子",
+  "color": "#b4e04b",
+  "group": "765AS",
+  "count": 131
+ },
+ {
+  "id": 1095,
+  "name": "三浦あずさ",
+  "kana": "みうらあずさ",
+  "cv": "たかはし智秋",
+  "color": "#9238be",
+  "group": "765AS",
+  "count": 119
+ },
+ {
+  "id": 1123,
+  "name": "水瀬伊織",
+  "kana": "みなせいおり",
+  "cv": "釘宮理恵",
+  "color": "#fd99e1",
+  "group": "765AS",
+  "count": 120
+ },
+ {
+  "id": 2620,
+  "name": "亜夜",
+  "kana": "あや",
+  "cv": "日高里菜",
+  "color": "",
+  "group": "その他",
+  "count": 7
+ },
+ {
+  "id": 2674,
+  "name": "奥空心白",
+  "kana": "おくぞらこはく",
+  "cv": "田中あいみ",
+  "color": "",
+  "group": "その他",
+  "count": 11
+ },
+ {
+  "id": 1719,
+  "name": "音無小鳥",
+  "kana": "おとなしことり",
+  "cv": "滝田樹里",
+  "color": "",
+  "group": "その他",
+  "count": 15
+ },
+ {
+  "id": 1137,
+  "name": "詩花",
+  "kana": "しいか",
+  "cv": "高橋李依",
+  "color": "",
+  "group": "その他",
+  "count": 9
+ },
+ {
+  "id": 3924,
+  "name": "日高愛",
+  "kana": "ひだかあい",
+  "cv": "戸松遥",
+  "color": "",
+  "group": "その他",
+  "count": 8
+ },
+ {
+  "id": 3923,
+  "name": "水谷絵理",
+  "kana": "みずたにえり",
+  "cv": "花澤香菜",
+  "color": "",
+  "group": "その他",
+  "count": 8
+ },
+ {
+  "id": 1971,
+  "name": "玲音",
+  "kana": "れおん",
+  "cv": "茅原実里",
+  "color": "",
+  "group": "その他",
+  "count": 10
+ }
+]

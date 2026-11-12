@@ -1,28 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>アイマス楽曲布教シートメーカー</title>
+<title>アイマス楽曲プレゼンシート</title>
+<meta name="description" content="アイドルマスターの対バンに向けて、他ブランドのPさんへ自分の推しブランドの曲をプレゼンする画像を作れる非公式ファンメイドツール。">
+<meta property="og:title" content="アイマス楽曲プレゼンシート">
+<meta property="og:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fff8ec">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header id="toolbar">
-  <h1>楽曲布教シートメーカー</h1>
-  <div class="tools">
-    <button id="btn-save" class="primary">画像として保存 (PNG)</button>
-    <button id="btn-reset">リセット</button>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-mark">
+      <span class="brand-kicker">IDOLM@STER 対バン</span>
+      <h1>楽曲プレゼンシート</h1>
+    </div>
+    <div class="topbar-actions">
+      <button type="button" class="btn ghost" id="btn-reset" title="すべてリセット">リセット</button>
+      <button type="button" class="btn primary" id="btn-export">画像を作る</button>
+    </div>
   </div>
 </header>
 
-<main>
-  <p class="hint">題名・曲名・プレゼン内容は直接入力、ジャケットは枠をクリックして画像を選択、歌唱予想メンバーは「＋メンバー」から選べます。内容はこのブラウザに自動保存されます。</p>
-  <div id="sheet"></div>
+<main class="wrap">
+  <section class="sheet" id="sheet">
+    <div class="sheet-head">
+      <label class="field-name">
+        <input id="in-name" type="text" maxlength="30" placeholder="名無しP" autocomplete="off">
+      </label>
+      <div class="brand-line">
+        <select id="sel-from" aria-label="おすすめする側のブランド"></select>
+        <span class="brand-line-text">から</span>
+        <button type="button" class="swap" id="btn-swap" title="ブランドを入れ替え" aria-label="ブランドを入れ替え">⇄</button>
+        <select id="sel-to" aria-label="おすすめされる側のブランド"></select>
+        <span class="brand-line-text">へのオススメ曲</span>
+      </div>
+    </div>
+
+    <div id="items" class="items"></div>
+
+    <button type="button" class="add-card" id="btn-add">
+      <span class="add-plus">＋</span>新しい曲を追加する
+    </button>
+  </section>
+
+  <footer class="site-foot">
+    <p>楽曲・アイドルデータ：<a href="https://fujiwarahaji.me/" target="_blank" rel="noopener">アイマス楽曲DB ふじわらはじめ</a>（<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC 4.0</a>）<span id="data-date"></span></p>
+    <p>本サイトは非公式のファンメイドツールです。楽曲・ジャケット等の著作権は各権利者に帰属します。© BANDAI NAMCO Entertainment Inc.</p>
+  </footer>
 </main>
 
+<!-- お題・メンバー・ジャケット・出力 用のダイアログ -->
+<dialog id="dlg-members" class="dlg">
+  <form method="dialog" class="dlg-inner">
+    <div class="dlg-head">
+      <h2>歌唱予想メンバー <small id="mem-brand"></small></h2>
+      <button class="icon-btn" value="close" aria-label="閉じる">×</button>
+    </div>
+    <input type="search" id="mem-search" placeholder="名前・よみ・CVで検索" autocomplete="off">
+    <div id="mem-groups" class="chip-row"></div>
+    <div id="mem-list" class="mem-list"></div>
+    <div class="mem-custom">
+      <input type="text" id="mem-custom-in" placeholder="リストにない名前を追加（ユニット名なども可）" maxlength="30">
+      <button type="button" class="btn" id="mem-custom-add">追加</button>
+    </div>
+    <div class="dlg-foot">
+      <span id="mem-count" class="muted"></span>
+      <button class="btn primary" value="close">決定</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-jacket" class="dlg">
+  <form method="dialog" class="dlg-inner">
+    <div class="dlg-head">
+      <h2>ジャケット画像</h2>
+      <button type="button" class="icon-btn" id="jk-close" aria-label="閉じる">×</button>
+    </div>
+    <div class="jk-preview" id="jk-preview"><span>NO IMAGE</span></div>
+    <label class="lbl">画像URL（右クリック →「画像アドレスをコピー」したものを貼り付け）</label>
+    <input type="url" id="jk-url" placeholder="https://..." autocomplete="off">
+    <div class="jk-actions">
+      <label class="btn">端末の画像を使う<input type="file" id="jk-file" accept="image/*" hidden></label>
+      <button type="button" class="btn ghost" id="jk-clear">画像を外す</button>
+    </div>
+    <p class="muted small">URL埋め込みの画像は、配信元の設定によっては画像出力時に読み込めないことがあります。その場合は端末に保存した画像を選んでください。</p>
+    <div class="dlg-foot">
+      <button type="button" class="btn primary" id="jk-ok">決定</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-export" class="dlg dlg-wide">
+  <div class="dlg-inner">
+    <div class="dlg-head">
+      <h2>画像ができました</h2>
+      <button type="button" class="icon-btn" id="ex-close" aria-label="閉じる">×</button>
+    </div>
+    <p class="muted small" id="ex-note"></p>
+    <div class="ex-img-wrap"><img id="ex-img" alt="出力したプレゼンシート"></div>
+    <div class="ex-actions">
+      <button type="button" class="btn primary" id="ex-save">画像を保存</button>
+      <button type="button" class="btn" id="ex-copy">コピー</button>
+      <button type="button" class="btn" id="ex-share">共有</button>
+      <button type="button" class="btn" id="ex-x">Xにポスト</button>
+    </div>
+    <p class="muted small">スマホで保存できない場合は、画像を長押しして保存してください。</p>
+  </div>
+</dialog>
+
+<div id="loading" class="loading" hidden><div class="spinner"></div><p>画像を作成中…</p></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="export-stage" aria-hidden="true"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="app.js"></script>
+<script src="assets/app.js" type="module"></script>
 </body>
 </html>
