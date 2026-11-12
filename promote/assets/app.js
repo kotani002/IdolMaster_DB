@@ -124,8 +124,11 @@ function applyBrandColors() {
   root.setProperty("--to-ink", t.ink);
 }
 
+// 曲のブランド（選曲時に記録。未記録の古いデータは「から」側のブランド）
+const songBrand = (it) => it.brand || state.from;
+
 function memberColor(m) {
-  return m.color || brand(state.to).color;
+  return m.color || brand(m.brand || state.to).color;
 }
 
 function autosize(ta) {
@@ -222,6 +225,11 @@ function cardEl(it, idx) {
   // --- ジャケット
   const jacket = h("button", { type: "button", class: "jacket", "aria-label": "ジャケット画像を設定", onclick: () => openJacket(it) },
     h("span", {}));
+  // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
+  if (it.songId && (!it.jacket || it.jacketAuto)) {
+    const jk = DB.jackets[String(it.songId)];
+    if (jk && jk !== it.jacket) { it.jacket = jk; it.jacketAuto = true; save(); }
+  }
   paintJacket(jacket, it);
 
   // --- 曲名（検索 + 自由入力）
@@ -233,7 +241,7 @@ function cardEl(it, idx) {
 
   let results = [], active = -1;
   const pick = (s) => {
-    it.title = s.title; it.songId = s.id; it.url = s.url;
+    it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
     // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
     const jk = DB.jackets[String(s.id)];
     if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; }
@@ -269,7 +277,7 @@ function cardEl(it, idx) {
     draw();
   };
   songIn.addEventListener("input", () => {
-    it.title = songIn.value; it.songId = null; it.url = "";
+    it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
     if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
     paintJacket(jacket, it, true);
     save(); search();
@@ -317,7 +325,7 @@ function cardEl(it, idx) {
         h("div", { class: "song-field" }, songIn, list),
         pitch,
         h("div", {},
-          h("div", { class: "members-label" }, `歌唱予想メンバー（${brand(state.to).short}）`),
+          h("div", { class: "members-label" }, "歌唱予想メンバー"),
           tags),
       ),
     ),
@@ -358,15 +366,37 @@ function setBg(el, url) {
 
 // ---------------------------------------------------------------- member dialog
 
-const memDlg = { item: null, onDone: null, group: "" };
+// 初期表示は「その曲のブランド」のアイドル。ブランドのタグで他ブランドにも切り替えられる
+const memDlg = { item: null, onDone: null, brand: "", group: "" };
 
-function openMembers(item, onDone) {
-  memDlg.item = item; memDlg.onDone = onDone; memDlg.group = "";
-  const idols = DB.idols[state.to] || [];
-  $("#mem-brand").textContent = brand(state.to).name;
+async function openMembers(item, onDone) {
+  memDlg.item = item; memDlg.onDone = onDone;
+  memDlg.brand = songBrand(item); memDlg.group = "";
+  await Promise.all(DB.brands.map((b) => ensureBrand(b.id)));
+  $("#mem-brand").textContent = item.title ? `「${item.title}」` : "";
   $("#mem-search").value = "";
   $("#mem-custom-in").value = "";
+  drawBrandChips();
+  drawGroupChips();
+  drawMemList();
+  $("#dlg-members").showModal();
+  if (matchMedia("(pointer:fine)").matches) $("#mem-search").focus();
+}
 
+function drawBrandChips() {
+  const box = $("#mem-brands");
+  box.replaceChildren(...DB.brands.map((b) => {
+    const on = b.id === memDlg.brand;
+    return h("button", {
+      type: "button", class: "chip brand-chip" + (on ? " on" : ""), "aria-pressed": String(on),
+      style: on ? { background: b.color, borderColor: b.color, color: b.ink } : { borderColor: b.color },
+      onclick: () => { memDlg.brand = b.id; memDlg.group = ""; drawBrandChips(); drawGroupChips(); drawMemList(); },
+    }, b.id === songBrand(memDlg.item) ? `${b.short}（この曲）` : b.short);
+  }));
+}
+
+function drawGroupChips() {
+  const idols = DB.idols[memDlg.brand] || [];
   const groups = [...new Set(idols.map((i) => i.group).filter(Boolean))];
   const gbox = $("#mem-groups");
   gbox.replaceChildren(...(groups.length > 1
@@ -375,15 +405,13 @@ function openMembers(item, onDone) {
         onclick: () => { memDlg.group = g; gbox.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.g === g)); drawMemList(); },
       }, g || "すべて"))
     : []));
-  drawMemList();
-  $("#dlg-members").showModal();
-  if (matchMedia("(pointer:fine)").matches) $("#mem-search").focus();
 }
 
 function drawMemList() {
   const it = memDlg.item;
+  const b = brand(memDlg.brand);
   const q = norm($("#mem-search").value);
-  const idols = (DB.idols[state.to] || []).filter((i) =>
+  const idols = (DB.idols[memDlg.brand] || []).filter((i) =>
     (!memDlg.group || i.group === memDlg.group) &&
     (!q || norm(i.name).includes(q) || norm(i.kana).includes(q) || norm(i.cv).includes(q)));
   const chosen = new Set(it.members.map((m) => m.name));
@@ -392,10 +420,10 @@ function drawMemList() {
     onclick: () => {
       const k = it.members.findIndex((m) => m.name === i.name);
       if (k >= 0) it.members.splice(k, 1);
-      else it.members.push({ name: i.name, color: i.color || "" });
+      else it.members.push({ name: i.name, color: i.color || "", brand: b.id });
       drawMemList(); memDlg.onDone?.(); save();
     },
-  }, h("span", { class: "dot", style: { "--c": i.color || brand(state.to).color } }),
+  }, h("span", { class: "dot", style: { "--c": i.color || b.color } }),
      h("span", {}, i.name, i.cv ? h("small", {}, `CV.${i.cv}`) : null))));
   $("#mem-count").textContent = `${it.members.length}人選択中`;
 }
@@ -404,7 +432,7 @@ function addCustomMember() {
   const inp = $("#mem-custom-in");
   const name = inp.value.trim();
   if (!name || !memDlg.item) return;
-  if (!memDlg.item.members.some((m) => m.name === name)) memDlg.item.members.push({ name, color: "" });
+  if (!memDlg.item.members.some((m) => m.name === name)) memDlg.item.members.push({ name, color: "", brand: memDlg.brand });
   inp.value = "";
   drawMemList(); memDlg.onDone?.(); save();
 }
