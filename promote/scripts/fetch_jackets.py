@@ -90,9 +90,16 @@ def clean_url(u: str, base: str) -> str:
 
 def parse_lantis(page: str, url: str) -> dict | None:
     """lantis.jp/imas/release_*.html"""
-    m = re.search(r'class="release_img">.*?<img[^>]+src="([^"]+)"', page, re.S)
-    if not m:
+    # ジャケットは通常 release_img の中だが、枠の外（直前）に置かれたページもある。
+    # リリース情報の範囲（id="release" 〜 タイトル）の中で、見出しアイコン(parts/)・サムネイル以外の最初の画像を使う
+    start = page.find('id="release"')
+    end = page.find('class="titles"', max(start, 0))
+    region = page[start:end] if start >= 0 and end > start else ""
+    cands = [s for s in re.findall(r'<img[^>]+src="([^"]+)"', region)
+             if "parts/" not in s and "/thumb/" not in s]
+    if not cands:
         return None
+    m = re.match(r"(.*)", cands[0])
     d = (re.search(r"発売日[：:]\s*(\d{4})\s*[/.年]\s*(\d{1,2})\s*[/.月]\s*(\d{1,2})", page)
          or re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})\s*RELEASE", page))
     date = f"{d.group(1)}-{int(d.group(2)):02d}-{int(d.group(3)):02d}" if d else "9999-99-99"

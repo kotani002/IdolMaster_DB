@@ -150,16 +150,36 @@ function renderHead() {
     s.replaceChildren(...DB.brands.map((b) => h("option", { value: b.id }, b.name)));
     s.value = state[key];
     s.onchange = async () => {
+      const next = { from: state.from, to: state.to };
       const other = key === "from" ? "to" : "from";
-      if (s.value === state[other]) state[other] = state[key]; // 同じブランドを選んだら入れ替え
-      state[key] = s.value;
-      await onBrandChange();
+      if (s.value === next[other]) next[other] = next[key]; // 同じブランドを選んだら入れ替え
+      next[key] = s.value;
+      await changeBrands(next.from, next.to);
     };
   }
-  $("#btn-swap").onclick = async () => {
-    [state.from, state.to] = [state.to, state.from];
-    await onBrandChange();
-  };
+  $("#btn-swap").onclick = () => changeBrands(state.to, state.from);
+}
+
+// 「から」のブランドが変わると、別ブランドの曲が入ったカードは矛盾するので確認してリセットする
+async function changeBrands(nextFrom, nextTo) {
+  const stale = state.items.filter((it) => it.title.trim() && songBrand(it) !== nextFrom);
+  if (stale.length) {
+    const names = [...new Set(stale.map((it) => brand(songBrand(it)).name))].join("・");
+    const ok = confirm(
+      `${names}の曲が${stale.length}曲入っています。\n` +
+      `「から」のブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌唱予想メンバーがリセットされます（お題は残ります）。\n変更しますか？`);
+    if (!ok) {
+      $("#sel-from").value = state.from;
+      $("#sel-to").value = state.to;
+      return;
+    }
+    for (const it of stale) {
+      Object.assign(it, { title: "", songId: null, url: "", jacket: "", jacketAuto: false, brand: nextFrom, pitch: "", members: [] });
+    }
+  }
+  state.from = nextFrom;
+  state.to = nextTo;
+  await onBrandChange();
 }
 
 async function onBrandChange() {
@@ -391,7 +411,7 @@ function drawBrandChips() {
       type: "button", class: "chip brand-chip" + (on ? " on" : ""), "aria-pressed": String(on),
       style: on ? { background: b.color, borderColor: b.color, color: b.ink } : { borderColor: b.color },
       onclick: () => { memDlg.brand = b.id; memDlg.group = ""; drawBrandChips(); drawGroupChips(); drawMemList(); },
-    }, b.id === songBrand(memDlg.item) ? `${b.short}（この曲）` : b.short);
+    }, b.short);
   }));
 }
 

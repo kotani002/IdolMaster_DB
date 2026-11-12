@@ -55,11 +55,12 @@ a { color: inherit; }
 }
 .btn:hover { border-color: #d6cfc4; }
 .btn:active { transform: scale(.97); }
+/* 主ボタンは「から」側（おすすめする側）のブランドカラー一色 */
 .btn.primary {
-  background: linear-gradient(135deg, var(--from), var(--to));
-  border-color: transparent; color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+  background: var(--from);
+  border-color: transparent; color: var(--from-ink);
 }
+.btn.primary:hover { border-color: transparent; filter: brightness(1.05); }
 .btn.ghost { background: transparent; }
 .btn:disabled { opacity: .45; pointer-events: none; }
 .icon-btn {
