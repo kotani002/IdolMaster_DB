@@ -1,0 +1,76 @@
+[
+ {
+  "id": "clashmatch",
+  "name": "デレミリ対バン",
+  "title": "THE IDOLM@STER CINDERELLA GIRLS × MILLION LIVE! CLASH M@TCH!!",
+  "source": "https://idolmaster-official.jp/live_event/deremilli_clashmatch/information/",
+  "days": [
+   {
+    "id": "day1",
+    "label": "Day1 2/27(土)",
+    "members": [
+     {"brand": "cg", "name": "渋谷凛"},
+     {"brand": "cg", "name": "西園寺琴歌"},
+     {"brand": "cg", "name": "辻野あかり"},
+     {"brand": "cg", "name": "三村かな子"},
+     {"brand": "cg", "name": "前川みく"},
+     {"brand": "cg", "name": "多田李衣菜"},
+     {"brand": "cg", "name": "速水奏"},
+     {"brand": "cg", "name": "ナターリア"},
+     {"brand": "cg", "name": "高森藍子"},
+     {"brand": "cg", "name": "喜多見柚"},
+     {"brand": "cg", "name": "的場梨沙"},
+     {"brand": "cg", "name": "小関麗奈"},
+     {"brand": "cg", "name": "向井拓海"},
+     {"brand": "ml", "name": "最上静香"},
+     {"brand": "ml", "name": "島原エレナ"},
+     {"brand": "ml", "name": "佐竹美奈子"},
+     {"brand": "ml", "name": "野々原茜"},
+     {"brand": "ml", "name": "中谷育"},
+     {"brand": "ml", "name": "木下ひなた"},
+     {"brand": "ml", "name": "矢吹可奈"},
+     {"brand": "ml", "name": "二階堂千鶴"},
+     {"brand": "ml", "name": "宮尾美也"},
+     {"brand": "ml", "name": "福田のり子"},
+     {"brand": "ml", "name": "百瀬莉緒"},
+     {"brand": "ml", "name": "周防桃子"},
+     {"brand": "ml", "name": "ジュリア"}
+    ]
+   },
+   {
+    "id": "day2",
+    "label": "Day2 2/28(日)",
+    "members": [
+     {"brand": "cg", "name": "島村卯月"},
+     {"brand": "cg", "name": "黒埼ちとせ"},
+     {"brand": "cg", "name": "宮本フレデリカ"},
+     {"brand": "cg", "name": "小日向美穂"},
+     {"brand": "cg", "name": "結城晴"},
+     {"brand": "cg", "name": "松永涼"},
+     {"brand": "cg", "name": "三船美優"},
+     {"brand": "cg", "name": "神谷奈緒"},
+     {"brand": "cg", "name": "日野茜"},
+     {"brand": "cg", "name": "堀裕子"},
+     {"brand": "cg", "name": "依田芳乃"},
+     {"brand": "cg", "name": "久川凪"},
+     {"brand": "cg", "name": "喜多日菜子"},
+     {"brand": "cg", "name": "大槻唯"},
+     {"brand": "ml", "name": "春日未来"},
+     {"brand": "ml", "name": "伊吹翼"},
+     {"brand": "ml", "name": "徳川まつり"},
+     {"brand": "ml", "name": "ロコ"},
+     {"brand": "ml", "name": "高山紗代子"},
+     {"brand": "ml", "name": "天空橋朋花"},
+     {"brand": "ml", "name": "横山奈緒"},
+     {"brand": "ml", "name": "馬場このみ"},
+     {"brand": "ml", "name": "豊川風花"},
+     {"brand": "ml", "name": "真壁瑞希"},
+     {"brand": "ml", "name": "永吉昴"},
+     {"brand": "ml", "name": "北上麗花"},
+     {"brand": "ml", "name": "白石紬"},
+     {"brand": "ml", "name": "桜守歌織"}
+    ]
+   }
+  ]
+ }
+]

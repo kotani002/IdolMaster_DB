@@ -35,7 +35,7 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 // ---------------------------------------------------------------- data
 
-const DB = { brands: [], themes: [], jackets: {}, meta: {}, songs: {}, idols: {} };
+const DB = { brands: [], themes: [], jackets: {}, meta: {}, events: [], songs: {}, idols: {} };
 
 async function getJSON(path) {
   const r = await fetch(path, { cache: "no-cache" });
@@ -412,48 +412,95 @@ async function openMembers(item, onDone) {
   if (matchMedia("(pointer:fine)").matches) $("#mem-search").focus();
 }
 
+// タグの選択肢：各ブランド + イベント（デレミリ対バンなど、出演者で絞り込む）
+// memDlg.brand は ブランドID か "event:<イベントID>"
+const EVENT_PREFIX = "event:";
+const isEventTab = (v) => v.startsWith(EVENT_PREFIX);
+const eventOf = (v) => DB.events.find((e) => EVENT_PREFIX + e.id === v);
+
 function drawBrandChips() {
   const box = $("#mem-brands");
-  box.replaceChildren(...DB.brands.map((b) => {
-    const on = b.id === memDlg.brand;
-    return h("button", {
-      type: "button", class: "chip brand-chip" + (on ? " on" : ""), "aria-pressed": String(on),
-      style: on ? { background: b.color, borderColor: b.color, color: b.ink } : { borderColor: b.color },
-      onclick: () => { memDlg.brand = b.id; memDlg.group = ""; drawBrandChips(); drawGroupChips(); drawMemList(); },
-    }, b.short);
-  }));
+  const pick = (v) => { memDlg.brand = v; memDlg.group = ""; drawBrandChips(); drawGroupChips(); drawMemList(); };
+  box.replaceChildren(
+    ...DB.brands.map((b) => {
+      const on = b.id === memDlg.brand;
+      return h("button", {
+        type: "button", class: "chip brand-chip" + (on ? " on" : ""), "aria-pressed": String(on),
+        style: on ? { background: b.color, borderColor: b.color, color: b.ink } : { borderColor: b.color },
+        onclick: () => pick(b.id),
+      }, b.short);
+    }),
+    ...DB.events.map((e) => {
+      const v = EVENT_PREFIX + e.id, on = v === memDlg.brand;
+      return h("button", {
+        type: "button", class: "chip event-chip" + (on ? " on" : ""), "aria-pressed": String(on),
+        title: e.title, onclick: () => pick(v),
+      }, e.name);
+    }),
+  );
+}
+
+// いま表示する候補（ブランドならそのアイドル、イベントなら出演日ごとの出演者）
+function memberPool() {
+  const ev = eventOf(memDlg.brand);
+  if (!ev) {
+    const b = memDlg.brand;
+    return (DB.idols[b] || []).map((i) => ({ ...i, brand: b, groups: i.group ? [i.group] : [] }));
+  }
+  const pool = new Map();
+  for (const d of ev.days) {
+    for (const m of d.members) {
+      const key = m.brand + ":" + m.name;
+      if (!pool.has(key)) {
+        const i = (DB.idols[m.brand] || []).find((x) => x.name === m.name) || { name: m.name, kana: "", cv: "", color: "" };
+        pool.set(key, { ...i, brand: m.brand, groups: [] });
+      }
+      pool.get(key).groups.push(d.id);
+    }
+  }
+  return [...pool.values()];
+}
+
+function groupOptions() {
+  const ev = eventOf(memDlg.brand);
+  if (ev) return ev.days.map((d) => ({ key: d.id, label: d.label }));
+  const groups = [...new Set((DB.idols[memDlg.brand] || []).map((i) => i.group).filter(Boolean))];
+  return groups.length > 1 ? groups.map((g) => ({ key: g, label: g })) : [];
 }
 
 function drawGroupChips() {
-  const idols = DB.idols[memDlg.brand] || [];
-  const groups = [...new Set(idols.map((i) => i.group).filter(Boolean))];
+  const opts = groupOptions();
   const gbox = $("#mem-groups");
-  gbox.replaceChildren(...(groups.length > 1
-    ? ["", ...groups].map((g) => h("button", {
-        type: "button", class: "chip" + (g === memDlg.group ? " on" : ""), "data-g": g,
-        onclick: () => { memDlg.group = g; gbox.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.g === g)); drawMemList(); },
-      }, g || "すべて"))
+  gbox.replaceChildren(...(opts.length
+    ? [{ key: "", label: "すべて" }, ...opts].map((o) => h("button", {
+        type: "button", class: "chip" + (o.key === memDlg.group ? " on" : ""), "data-g": o.key,
+        onclick: () => { memDlg.group = o.key; gbox.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.g === o.key)); drawMemList(); },
+      }, o.label))
     : []));
 }
 
 function drawMemList() {
   const it = memDlg.item;
-  const b = brand(memDlg.brand);
+  const showBrand = isEventTab(memDlg.brand); // イベントでは両ブランドが混ざるのでブランド名も出す
   const q = norm($("#mem-search").value);
-  const idols = (DB.idols[memDlg.brand] || []).filter((i) =>
-    (!memDlg.group || i.group === memDlg.group) &&
+  const idols = memberPool().filter((i) =>
+    (!memDlg.group || i.groups.includes(memDlg.group)) &&
     (!q || norm(i.name).includes(q) || norm(i.kana).includes(q) || norm(i.cv).includes(q)));
   const chosen = new Set(it.members.map((m) => m.name));
-  $("#mem-list").replaceChildren(...idols.map((i) => h("button", {
-    type: "button", class: "mem-item" + (chosen.has(i.name) ? " on" : ""), "aria-pressed": String(chosen.has(i.name)),
-    onclick: () => {
-      const k = it.members.findIndex((m) => m.name === i.name);
-      if (k >= 0) it.members.splice(k, 1);
-      else it.members.push({ name: i.name, color: i.color || "", brand: b.id });
-      drawMemList(); memDlg.onDone?.(); save();
-    },
-  }, h("span", { class: "dot", style: { "--c": i.color || b.color } }),
-     h("span", {}, i.name, i.cv ? h("small", {}, `CV.${i.cv}`) : null))));
+  $("#mem-list").replaceChildren(...idols.map((i) => {
+    const b = brand(i.brand);
+    const sub = [showBrand ? b.short : "", i.cv ? `CV.${i.cv}` : ""].filter(Boolean).join(" / ");
+    return h("button", {
+      type: "button", class: "mem-item" + (chosen.has(i.name) ? " on" : ""), "aria-pressed": String(chosen.has(i.name)),
+      onclick: () => {
+        const k = it.members.findIndex((m) => m.name === i.name);
+        if (k >= 0) it.members.splice(k, 1);
+        else it.members.push({ name: i.name, color: i.color || "", brand: b.id });
+        drawMemList(); memDlg.onDone?.(); save();
+      },
+    }, h("span", { class: "dot", style: { "--c": i.color || b.color } }),
+       h("span", {}, i.name, sub ? h("small", {}, sub) : null));
+  }));
   $("#mem-count").textContent = `${it.members.length}人選択中`;
 }
 
@@ -461,7 +508,8 @@ function addCustomMember() {
   const inp = $("#mem-custom-in");
   const name = inp.value.trim();
   if (!name || !memDlg.item) return;
-  if (!memDlg.item.members.some((m) => m.name === name)) memDlg.item.members.push({ name, color: "", brand: memDlg.brand });
+  const b = isEventTab(memDlg.brand) ? songBrand(memDlg.item) : memDlg.brand;
+  if (!memDlg.item.members.some((m) => m.name === name)) memDlg.item.members.push({ name, color: "", brand: b });
   inp.value = "";
   drawMemList(); memDlg.onDone?.(); save();
 }
@@ -694,11 +742,12 @@ function wire() {
 }
 
 async function init() {
-  [DB.brands, DB.themes, DB.jackets, DB.meta] = await Promise.all([
+  [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events] = await Promise.all([
     getJSON("data/brands.json"),
     getJSON("data/themes.json").catch(() => []),
     getJSON("data/jackets.json").catch(() => ({})),
     getJSON("data/meta.json").catch(() => ({})),
+    getJSON("data/events.json").catch(() => []),
   ]);
   state = loadState() || defaultState();
   if (!DB.brands.some((b) => b.id === state.from)) state.from = DB.brands[0].id;
