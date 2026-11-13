@@ -579,7 +579,11 @@ async function exportImage() {
     stage.replaceChildren(sheet);
     // レイアウト確定待ち（requestAnimationFrame は裏タブで止まるのでタイマーで待つ）
     await new Promise((r) => setTimeout(r, 60));
-    const scale = sheet.offsetHeight * 2 > 14000 ? 1 : 2;
+    // iPhone(Safari) は1枚のキャンバスが約1,677万画素を超えると描画できないので、
+    // 曲数が多いときは上限に収まるよう解像度を自動で下げる（通常は2倍、最低0.5倍）
+    const MAX_PIXELS = 16_000_000, MAX_SIDE = 16_000;
+    const w = sheet.offsetWidth, ht = sheet.offsetHeight;
+    const scale = Math.max(0.5, Math.min(2, Math.sqrt(MAX_PIXELS / (w * ht)), MAX_SIDE / ht));
     const canvas = await html2canvas(sheet, { scale, backgroundColor: "#fbf8f3", logging: false, useCORS: true });
     stage.replaceChildren();
     const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
