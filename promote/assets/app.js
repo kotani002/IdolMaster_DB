@@ -256,10 +256,16 @@ function cardEl(it, idx) {
 
   // --- 曲名（検索 + 自由入力）
   const songIn = h("input", {
-    class: "song-input", type: "text", value: it.title, placeholder: `曲名（${brand(state.from).short}の曲から検索）`,
+    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名を入力して検索`,
     autocomplete: "off", "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
   });
   const list = h("ul", { class: "suggest", hidden: true, role: "listbox" });
+  const icon = h("span", { class: "song-icon", "aria-hidden": "true" });
+  icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
+  const songField = h("div", { class: "song-field" }, h("span", { class: "song-box" }, songIn, icon), list);
+  // 曲名が入ったら枠を控えめにする（未入力の間はブランドカラーの破線で目立たせる）
+  const syncSongField = () => songField.classList.toggle("filled", !!it.title.trim());
+  syncSongField();
 
   let results = [], active = -1;
   const pick = (s) => {
@@ -270,7 +276,7 @@ function cardEl(it, idx) {
     else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
     paintJacket(jacket, it);
     songIn.value = s.title;
-    close(); save();
+    close(); syncSongField(); save();
   };
   const close = () => { list.hidden = true; songIn.setAttribute("aria-expanded", "false"); active = -1; };
   const draw = () => {
@@ -302,6 +308,7 @@ function cardEl(it, idx) {
     it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
     if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
     paintJacket(jacket, it, true);
+    syncSongField();
     save(); search();
   });
   songIn.addEventListener("focus", () => { if (songIn.value && !it.songId) search(); });
@@ -344,7 +351,7 @@ function cardEl(it, idx) {
     h("div", { class: "card-body" },
       jacket,
       h("div", { class: "card-main" },
-        h("div", { class: "song-field" }, songIn, list),
+        songField,
         pitch,
         h("div", { class: "members" },
           h("div", { class: "members-label" }, "歌唱予想メンバー"),
@@ -545,24 +552,8 @@ function buildSheet(jackets) {
 
 let lastExport = null; // { blob, url }
 
-// 名前が空のまま「画像を作る」を押したら、1回目だけ名前欄へ案内する（2回目はそのまま「名無しP」で作る）
-let nameNudged = false;
-function nudgeName() {
-  if (state.name.trim() || nameNudged) return false;
-  nameNudged = true;
-  const field = $(".field-name");
-  field.scrollIntoView({ behavior: "smooth", block: "center" });
-  field.classList.remove("nudge");
-  void field.offsetWidth; // アニメーションを毎回やり直す
-  field.classList.add("nudge");
-  setTimeout(() => $("#in-name").focus({ preventScroll: true }), 350);
-  toast("名前を入れると画像の一番上に表示されます。このまま「名無しP」で作るときは、もう一度「画像を作る」を押してください", 5000);
-  return true;
-}
-
 async function exportImage() {
   if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
-  if (nudgeName()) return;
   if (typeof html2canvas !== "function") { toast("画像ライブラリを読み込めませんでした。通信状態を確認してください"); return; }
   $("#loading").hidden = false;
   try {
