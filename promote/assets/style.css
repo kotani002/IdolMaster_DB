@@ -3,6 +3,8 @@
   --from-ink: #4a3500;
   --to: #2681c8;
   --to-ink: #ffffff;
+  /* 入力欄の placeholder 用：ブランド色を混ぜた濃いめの灰色（ink は白のブランドがあるので使わない） */
+  --from-hint: color-mix(in srgb, var(--from) 45%, #57525f);
   --bg: #fbf8f3;
   --paper: #ffffff;
   --ink: #2a2730;
@@ -96,7 +98,7 @@ a { color: inherit; }
   width: 100%; border: none; outline: none; background: transparent;
   font-size: 26px; font-weight: 800; padding: 10px 48px 10px 16px;
 }
-.field-name input::placeholder { color: color-mix(in srgb, var(--from-ink) 45%, #fff); font-size: 18px; font-weight: 700; }
+.field-name input::placeholder { color: var(--from-hint); opacity: .8; font-size: 18px; font-weight: 700; }
 .field-name-icon {
   position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
   width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -147,7 +149,7 @@ a { color: inherit; }
   border-bottom: 2px dashed transparent;
 }
 .theme-input:hover, .theme-input:focus { border-bottom-color: color-mix(in srgb, var(--from) 55%, #fff); }
-.theme-input::placeholder { color: color-mix(in srgb, var(--from-ink) 40%, #fff); }
+.theme-input::placeholder { color: var(--from-hint); opacity: .7; }
 .tool {
   flex: none; height: 30px; min-width: 30px; padding: 0 8px; border-radius: 999px;
   border: 1px solid transparent; background: rgba(255, 255, 255, .7); cursor: pointer;
@@ -208,7 +210,7 @@ a { color: inherit; }
   width: 100%; border: none; outline: none; background: transparent;
   font-size: 22px; font-weight: 800; padding: 10px 48px 10px 14px;
 }
-.song-input::placeholder { color: color-mix(in srgb, var(--from-ink) 45%, #fff); font-size: 17px; font-weight: 700; }
+.song-input::placeholder { color: var(--from-hint); opacity: .8; font-size: 17px; font-weight: 700; }
 .song-icon {
   position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
   width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
