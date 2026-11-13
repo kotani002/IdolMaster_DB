@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261113">
+<link rel="stylesheet" href="assets/style.css?v=20261113c">
 </head>
 <body>
 <header class="topbar">
@@ -31,8 +31,12 @@
 <main class="wrap">
   <section class="sheet" id="sheet">
     <div class="sheet-head">
-      <label class="field-name">
-        <input id="in-name" type="text" maxlength="30" placeholder="名無しP" autocomplete="off">
+      <label class="field-name" for="in-name">
+        <span class="field-name-label">あなたのプロデューサー名 <small>画像の一番上に入ります（未入力なら「名無しP」）</small></span>
+        <span class="field-name-box">
+          <input id="in-name" type="text" maxlength="30" placeholder="ここに名前を入力" autocomplete="off">
+          <span class="field-name-icon" aria-hidden="true">✎</span>
+        </span>
       </label>
       <div class="brand-line">
         <select id="sel-from" aria-label="おすすめする側のブランド"></select>
@@ -121,6 +125,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261113" type="module"></script>
+<script src="assets/app.js?v=20261113c" type="module"></script>
 </body>
 </html>

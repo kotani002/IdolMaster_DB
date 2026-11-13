@@ -77,15 +77,42 @@ a { color: inherit; }
   padding: 18px 20px; border: 1px solid var(--line);
   box-shadow: 0 6px 24px rgba(60, 40, 0, .05);
 }
+/* 名前欄：入力できる場所だと一目で分かる枠 + 未入力の間は「から」側の色で目立たせる */
+.field-name { display: block; }
+.field-name-label { display: block; font-size: 12px; font-weight: 800; color: var(--muted); margin-bottom: 6px; letter-spacing: .04em; }
+.field-name-label small { font-weight: 700; margin-left: 6px; opacity: .8; }
+.field-name-box {
+  position: relative; display: block;
+  border: 2px dashed color-mix(in srgb, var(--from) 75%, #fff);
+  background: color-mix(in srgb, var(--from) 10%, #fff);
+  border-radius: 14px; transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.field-name-box:hover { background: color-mix(in srgb, var(--from) 16%, #fff); }
+.field-name-box:focus-within {
+  border-style: solid; border-color: var(--from); background: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--from) 25%, transparent);
+}
 .field-name input {
   width: 100%; border: none; outline: none; background: transparent;
-  font-size: 28px; font-weight: 800; padding: 2px 0;
-  border-bottom: 2px dashed transparent;
+  font-size: 26px; font-weight: 800; padding: 10px 48px 10px 16px;
 }
-.field-name input:hover, .field-name input:focus { border-bottom-color: var(--line); }
-.field-name input::placeholder { color: #c9c3ba; }
+.field-name input::placeholder { color: color-mix(in srgb, var(--from-ink) 45%, #fff); font-size: 18px; font-weight: 700; }
+.field-name-icon {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--from); color: var(--from-ink); font-size: 15px; pointer-events: none;
+}
+/* 入力済みになったら控えめな見た目に戻す */
+.field-name.filled .field-name-box { border-style: solid; border-color: var(--line); background: #fff; }
+.field-name.filled .field-name-icon { background: #f2eee8; color: var(--muted); }
+/* 「画像を作る」を名前なしで押したときに一瞬光らせる */
+.field-name.nudge .field-name-box { animation: nudge .9s ease 2; }
+@keyframes nudge {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--from) 45%, transparent); }
+}
 
-.brand-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+.brand-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
 .brand-line-text { font-weight: 700; font-size: 15px; }
 .brand-line select {
   appearance: none; -webkit-appearance: none;
@@ -299,9 +326,16 @@ a { color: inherit; }
 @media (max-width: 640px) {
   .brand-mark h1 { font-size: 15px; }
   .btn { height: 36px; padding: 0 12px; font-size: 13px; }
-  .field-name input { font-size: 22px; }
-  .card-body { grid-template-columns: 1fr; }
-  .jacket { width: 100%; max-width: 240px; margin: 0 auto; }
+  .field-name input { font-size: 21px; }
+  .field-name input::placeholder { font-size: 15px; }
+  .field-name-label small { display: block; margin: 2px 0 0; }
+  /* 縦長の画面：お題 → 曲名 → ジャケット → プレゼン内容 → 歌唱予想メンバー の順に縦積み */
+  .card-body { grid-template-columns: 1fr; gap: 14px; }
+  .card-main { display: contents; }
+  .song-field { order: 1; }
+  .jacket { order: 2; width: 100%; max-width: 240px; margin: 0 auto; }
+  .pitch { order: 3; }
+  .members { order: 4; }
   .song-input { font-size: 19px; }
   .theme-input { font-size: 16px; flex-basis: calc(100% - 40px); }
   .card-theme { flex-wrap: wrap; justify-content: flex-end; }

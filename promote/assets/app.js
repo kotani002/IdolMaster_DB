@@ -142,8 +142,10 @@ function autosize(ta) {
 
 function renderHead() {
   const nameIn = $("#in-name");
+  const syncFilled = () => nameIn.closest(".field-name").classList.toggle("filled", !!nameIn.value.trim());
   nameIn.value = state.name;
-  nameIn.oninput = () => { state.name = nameIn.value; save(); };
+  syncFilled();
+  nameIn.oninput = () => { state.name = nameIn.value; syncFilled(); save(); };
 
   for (const [sel, key] of [["#sel-from", "from"], ["#sel-to", "to"]]) {
     const s = $(sel);
@@ -344,7 +346,7 @@ function cardEl(it, idx) {
       h("div", { class: "card-main" },
         h("div", { class: "song-field" }, songIn, list),
         pitch,
-        h("div", {},
+        h("div", { class: "members" },
           h("div", { class: "members-label" }, "歌唱予想メンバー"),
           tags),
       ),
@@ -543,8 +545,24 @@ function buildSheet(jackets) {
 
 let lastExport = null; // { blob, url }
 
+// 名前が空のまま「画像を作る」を押したら、1回目だけ名前欄へ案内する（2回目はそのまま「名無しP」で作る）
+let nameNudged = false;
+function nudgeName() {
+  if (state.name.trim() || nameNudged) return false;
+  nameNudged = true;
+  const field = $(".field-name");
+  field.scrollIntoView({ behavior: "smooth", block: "center" });
+  field.classList.remove("nudge");
+  void field.offsetWidth; // アニメーションを毎回やり直す
+  field.classList.add("nudge");
+  setTimeout(() => $("#in-name").focus({ preventScroll: true }), 350);
+  toast("名前を入れると画像の一番上に表示されます。このまま「名無しP」で作るときは、もう一度「画像を作る」を押してください", 5000);
+  return true;
+}
+
 async function exportImage() {
   if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
+  if (nudgeName()) return;
   if (typeof html2canvas !== "function") { toast("画像ライブラリを読み込めませんでした。通信状態を確認してください"); return; }
   $("#loading").hidden = false;
   try {
