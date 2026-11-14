@@ -1,7 +1,7 @@
 // アイマス楽曲プレゼンシート
 // データ: data/*.json（scripts/fetch_data.py で ふじわらはじめAPI から生成）
 
-const STORE_KEY = "imas-presen-v1";
+const STORE_KEY = "imas-presen-v2"; // v2: 初期状態を「曲なし」に変更したので、以前の下書きは引き継がない
 const HASHTAG = "#アイマス楽曲プレゼン";
 const DEFAULT_NAME = "名無しP";
 // CORS 非対応の画像は出力時だけプロキシ経由で読む（600px に縮小して軽くする）
@@ -44,10 +44,13 @@ async function getJSON(path) {
 }
 
 async function ensureBrand(id) {
-  if (!DB.songs[id]) DB.songs[id] = await getJSON(`data/songs/${id}.json`).catch(() => []);
+  if (!DB.songs[id]) DB.songs[id] = isPickable(brand(id)) ? await getJSON(`data/songs/${id}.json`).catch(() => []) : [];
   if (!DB.idols[id]) DB.idols[id] = await getJSON(`data/idols/${id}.json`).catch(() => []);
 }
 const brand = (id) => DB.brands.find((b) => b.id === id) || DB.brands[0];
+// 「から／へ」で選べるブランド。selectable:false は歌唱メンバーの候補にだけ出す（楽曲データがないブランド）
+const isPickable = (b) => b.selectable !== false;
+const pickableBrands = () => DB.brands.filter(isPickable);
 
 // ---------------------------------------------------------------- state
 
@@ -55,7 +58,7 @@ function newItem(theme = "") {
   return { id: uid(), theme, songId: null, title: "", url: "", jacket: "", jacketAuto: false, pitch: "", members: [] };
 }
 function defaultState() {
-  return { name: "", from: "ml", to: "cg", items: [newItem(DB.themes[0] || "まず聴いてほしい曲")] };
+  return { name: "", from: "ml", to: "cg", items: [] }; // 最初は曲なし（「＋新しい曲を追加する」が一番上に来る）
 }
 
 let state;
@@ -67,13 +70,22 @@ function loadState() {
   return null;
 }
 let saveTimer = 0;
+function saveNow() {
+  clearTimeout(saveTimer);
+  if (!state) return;
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+  catch { toast("ブラウザへの保存に失敗しました（端末画像が大きすぎる可能性があります）"); }
+}
 function save() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
-    catch { toast("ブラウザへの保存に失敗しました（端末画像が大きすぎる可能性があります）"); }
-  }, 250);
+  saveTimer = setTimeout(saveNow, 250);
 }
+// 音楽アプリなどに切り替えた瞬間（タブが裏に回る・ページが破棄される直前）に、待たずに保存する。
+// スマホのブラウザは裏に回ったタブを予告なく破棄することがあるため。
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") saveNow(); });
+window.addEventListener("pagehide", saveNow);
+// ブラウザの容量不足による自動削除を避けるよう依頼する（対応ブラウザのみ）
+try { navigator.storage?.persist?.(); } catch {}
 
 // ---------------------------------------------------------------- utils
 
@@ -149,7 +161,7 @@ function renderHead() {
 
   for (const [sel, key] of [["#sel-from", "from"], ["#sel-to", "to"]]) {
     const s = $(sel);
-    s.replaceChildren(...DB.brands.map((b) => h("option", { value: b.id }, b.name)));
+    s.replaceChildren(...pickableBrands().map((b) => h("option", { value: b.id }, b.name)));
     s.value = state[key];
     s.onchange = async () => {
       const next = { from: state.from, to: state.to };
@@ -208,9 +220,12 @@ function cardEl(it, idx) {
   // --- お題（○○な曲）
   const themeIn = h("input", {
     class: "theme-input", type: "text", value: it.theme, maxlength: "40",
-    placeholder: "○○な曲（自由に入力）", "aria-label": "お題",
+    placeholder: "○○な曲（自由に入力できます）", "aria-label": "お題（自由に入力できます）",
     oninput: () => { it.theme = themeIn.value; syncChips(); save(); },
   });
+  // 鉛筆アイコン：お題は選ぶだけでなく自由に書き込めることを知らせる
+  const themeBox = h("label", { class: "theme-box", title: "お題は自由に入力できます" },
+    themeIn, h("span", { class: "theme-edit", "aria-hidden": "true" }, "✎"));
   const chips = h("div", { class: "theme-chips" },
     DB.themes.map((t) => h("button", {
       type: "button", class: "chip", "data-t": t,
@@ -229,8 +244,8 @@ function cardEl(it, idx) {
   };
   const head = h("div", { class: "card-theme" },
     h("span", { class: "card-no" }, String(idx + 1)),
-    themeIn,
-    h("button", { type: "button", class: "tool", title: "お題から選ぶ", onclick: () => card.classList.toggle("show-themes") }, "お題"),
+    themeBox,
+    h("button", { type: "button", class: "tool theme-pick", title: "お題の候補から選ぶ", onclick: () => card.classList.toggle("show-themes") }, "お題を選ぶ ▾"),
     h("button", { type: "button", class: "tool", title: "上へ", disabled: idx === 0, onclick: () => move(-1) }, "↑"),
     h("button", { type: "button", class: "tool", title: "下へ", disabled: idx === n - 1, onclick: () => move(1) }, "↓"),
     h("button", {
@@ -257,7 +272,8 @@ function cardEl(it, idx) {
   // --- 曲名（検索 + 自由入力）
   const songIn = h("input", {
     class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名を入力して検索`,
-    autocomplete: "off", "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
+    autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false",
+    "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
   });
   const list = h("ul", { class: "suggest", hidden: true, role: "listbox" });
   const icon = h("span", { class: "song-icon", "aria-hidden": "true" });
@@ -268,7 +284,13 @@ function cardEl(it, idx) {
   syncSongField();
 
   let results = [], active = -1;
+  // スマホの日本語入力は変換中の文字が確定されずに残るため、候補をタップした時に
+  // 「候補の曲名 + 入力途中の文字」になってしまう。先に入力欄を外して変換を確定させてから曲名で上書きし、
+  // 直後に遅れて届く入力イベントも無視する。
+  let pickedAt = 0;
   const pick = (s) => {
+    if (document.activeElement === songIn) songIn.blur();
+    pickedAt = performance.now();
     it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
     // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
     const jk = DB.jackets[String(s.id)];
@@ -283,7 +305,7 @@ function cardEl(it, idx) {
     list.replaceChildren(...(results.length
       ? results.map((s, i) => h("li", {
           role: "option", class: i === active ? "active" : "",
-          onmousedown: (e) => { e.preventDefault(); pick(s); },
+          onpointerdown: (e) => { e.preventDefault(); pick(s); },
         }, s.title, s.kana && norm(s.kana) !== norm(s.title) ? h("small", {}, s.kana) : null))
       : [h("li", { class: "empty" }, "見つかりません（このまま自由入力もできます）")]));
     list.hidden = false;
@@ -305,6 +327,7 @@ function cardEl(it, idx) {
     draw();
   };
   songIn.addEventListener("input", () => {
+    if (performance.now() - pickedAt < 400) { songIn.value = it.title; return; } // 選曲直後の確定による入力は無視
     it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
     if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
     paintJacket(jacket, it, true);
@@ -416,6 +439,8 @@ async function openMembers(item, onDone) {
 // memDlg.brand は ブランドID か "event:<イベントID>"
 const EVENT_PREFIX = "event:";
 const isEventTab = (v) => v.startsWith(EVENT_PREFIX);
+const EVENT_BRAND_ORDER = ["cg", "ml"];
+const ALL_COLOR = "#57525f"; // 「全員」タグ（ブランドをまたぐもの）の色
 const eventOf = (v) => DB.events.find((e) => EVENT_PREFIX + e.id === v);
 
 function drawBrandChips() {
@@ -458,7 +483,9 @@ function memberPool() {
       pool.get(key).groups.push(d.id);
     }
   }
-  return [...pool.values()];
+  // 並び順：デレ → ミリオン → その他（対バンの出演日をまたいでも、ブランドごとにまとまる）
+  const rank = (b) => { const k = EVENT_BRAND_ORDER.indexOf(b); return k < 0 ? EVENT_BRAND_ORDER.length : k; };
+  return [...pool.values()].sort((a, b) => rank(a.brand) - rank(b.brand)); // sort は安定ソート
 }
 
 function groupOptions() {
@@ -479,6 +506,33 @@ function drawGroupChips() {
     : []));
 }
 
+// 「○○全員」タグ：個別のアイドルを選ばず、まとめて1つのタグとして追加する
+function allRows() {
+  const ev = eventOf(memDlg.brand);
+  if (!ev) {
+    if (memDlg.group) return [];
+    const b = brand(memDlg.brand);
+    return [{ label: `${b.short}全員`, brand: b.id, color: b.color }];
+  }
+  const rows = [];
+  for (const d of ev.days) {
+    if (memDlg.group && memDlg.group !== d.id) continue;
+    const day = d.label.split(/\s/)[0]; // "Day1 2/27(土)" → "Day1"
+    rows.push({ label: `${day}全員`, brand: "", color: ALL_COLOR });
+    const ids = [...new Set(d.members.map((m) => m.brand))]
+      .sort((a, b) => (EVENT_BRAND_ORDER.indexOf(a) + 1 || 99) - (EVENT_BRAND_ORDER.indexOf(b) + 1 || 99));
+    for (const id of ids) rows.push({ label: `${day}${brand(id).short}全員`, brand: id, color: brand(id).color });
+  }
+  return rows;
+}
+
+function toggleMember(m) {
+  const it = memDlg.item;
+  const k = it.members.findIndex((x) => x.name === m.name);
+  if (k >= 0) it.members.splice(k, 1); else it.members.push(m);
+  drawMemList(); memDlg.onDone?.(); save();
+}
+
 function drawMemList() {
   const it = memDlg.item;
   const showBrand = isEventTab(memDlg.brand); // イベントでは両ブランドが混ざるのでブランド名も出す
@@ -487,7 +541,11 @@ function drawMemList() {
     (!memDlg.group || i.groups.includes(memDlg.group)) &&
     (!q || norm(i.name).includes(q) || norm(i.kana).includes(q) || norm(i.cv).includes(q)));
   const chosen = new Set(it.members.map((m) => m.name));
-  $("#mem-list").replaceChildren(...idols.map((i) => {
+  const alls = allRows().filter((r) => !q || norm(r.label).includes(q)).map((r) => h("button", {
+    type: "button", class: "mem-item mem-all" + (chosen.has(r.label) ? " on" : ""), "aria-pressed": String(chosen.has(r.label)),
+    onclick: () => toggleMember({ name: r.label, color: r.color, brand: r.brand, all: true }),
+  }, h("span", { class: "dot", style: { "--c": r.color } }), h("span", {}, r.label, h("small", {}, "まとめて1タグで追加"))));
+  $("#mem-list").replaceChildren(...alls, ...idols.map((i) => {
     const b = brand(i.brand);
     const sub = [showBrand ? b.short : "", i.cv ? `CV.${i.cv}` : ""].filter(Boolean).join(" / ");
     return h("button", {
@@ -750,8 +808,9 @@ async function init() {
     getJSON("data/events.json").catch(() => []),
   ]);
   state = loadState() || defaultState();
-  if (!DB.brands.some((b) => b.id === state.from)) state.from = DB.brands[0].id;
-  if (!DB.brands.some((b) => b.id === state.to) || state.to === state.from) state.to = DB.brands.find((b) => b.id !== state.from).id;
+  const pk = pickableBrands();
+  if (!pk.some((b) => b.id === state.from)) state.from = pk[0].id;
+  if (!pk.some((b) => b.id === state.to) || state.to === state.from) state.to = pk.find((b) => b.id !== state.from).id;
   if (DB.meta.updated_at) $("#data-date").textContent = ` / データ更新 ${DB.meta.updated_at}`;
   wire();
   renderHead();
