@@ -84,9 +84,8 @@ def main() -> None:
     d.text((x0, 128), "楽曲プレゼンシート", font=font("bold", 76), fill=INK)
     fp = font("bold", 26)
     x = pill(d, x0, 240, a["name"], ca, ia, fp)
-    d.text((x + 12, 266), "から", font=fp, fill=INK, anchor="lm")
-    x = pill(d, x + 12 + d.textlength("から", font=fp) + 12, 240, b["name"], cb, ib, fp)
-    d.text((x0, 316), "へのオススメ曲を、1枚の画像に。", font=font("bold", 30), fill=INK)
+    d.text((x + 12, 266), "のおすすめ曲を、", font=font("bold", 30), fill=INK, anchor="lm")
+    d.text((x0, 316), "1枚の画像に。", font=font("bold", 30), fill=INK)
     d.text((x0, 372), "推し曲を選んで、プレゼン文と", font=font("regular", 24), fill=MUTED)
     d.text((x0, 406), "歌ってほしいアイドルを書くだけ。", font=font("regular", 24), fill=MUTED)
 

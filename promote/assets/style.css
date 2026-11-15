@@ -119,11 +119,6 @@ a { color: inherit; }
   background-size: 5px 5px; background-repeat: no-repeat;
 }
 #sel-from { background-color: var(--from); color: var(--from-ink); }
-#sel-to { background-color: var(--to); color: var(--to-ink); }
-.swap {
-  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line);
-  background: var(--paper); cursor: pointer; font-weight: 800;
-}
 
 /* ---------- song card ---------- */
 .items { display: flex; flex-direction: column; gap: 16px; }

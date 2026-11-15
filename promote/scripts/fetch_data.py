@@ -294,6 +294,53 @@ def build_brand(brand_id: str, conf: dict) -> None:
     print(f"[{brand_id}] {len(song_rows) if song_rows is not None else '-'} songs / {len(idol_rows)} idols")
 
 
+def attach_singers() -> None:
+    """各アイドルの参加曲（/tax）を集め、data/songs/<brand>.json の各曲に singers（歌唱メンバー名）を付ける。
+    曲名検索で歌唱者名（完全一致）からも曲を探せるようにするため。"""
+    song_files = [DATA / "songs" / f"{b}.json" for b, c in BRANDS.items() if c["music_type"]]
+    song_files = [f for f in song_files if f.exists()]
+    if not song_files:
+        return
+    print("[singers] idol songs")
+    plain = lambda n: re.sub(r"\s", "", SHODAI.sub("", n or ""))
+    singers: dict[int, list[str]] = {}
+    seen: set[str] = set()
+    for b in BRANDS:
+        path = DATA / "idols" / f"{b}.json"
+        if not path.exists():
+            continue
+        for r in json.loads(path.read_text(encoding="utf-8")):
+            name = r["name"]
+            if name in seen:
+                continue
+            seen.add(name)
+            data = None
+            if isinstance(r["id"], int):
+                try:
+                    data = get_json(f"{API}/tax?id={r['id']}&limit=3000")
+                except Exception:
+                    data = None
+                if data and plain(data.get("name")) != plain(name):
+                    data = None  # 手で付けたID（学マスなど）は別人なので名前で引き直す
+            if data is None:
+                try:
+                    data = get_json(f"{API}/tax?idol_name={urllib.parse.quote(plain(name))}&limit=3000")
+                except Exception:
+                    continue
+                if plain(data.get("name")) != plain(name):
+                    continue
+            for s in data.get("song") or []:
+                lst = singers.setdefault(s["song_id"], [])
+                if name not in lst:
+                    lst.append(name)
+    for f in song_files:
+        rows = json.loads(f.read_text(encoding="utf-8"))
+        for s in rows:
+            s["singers"] = singers.get(s["id"], [])
+        write(f, rows)
+        print(f"[singers] {f.name}: {sum(1 for s in rows if s['singers'])}/{len(rows)} songs have singers")
+
+
 def write(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -303,6 +350,7 @@ def main() -> None:
     targets = sys.argv[1:] or list(BRANDS)
     for b in targets:
         build_brand(b, BRANDS[b])
+    attach_singers()
     jst = timezone(timedelta(hours=9))
     write(DATA / "meta.json", {"updated_at": datetime.now(jst).strftime("%Y-%m-%d")})
 
