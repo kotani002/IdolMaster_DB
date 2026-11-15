@@ -840,7 +840,8 @@ async function exportImage() {
 }
 
 const fileName = () => `imas-presen-${state.from}.png`;
-const shareText = () => `${HASHTAG}\n${brand(state.from).name} のおすすめ曲\n${location.origin}${location.pathname}`;
+// 投稿文はハッシュタグだけ（内容は画像で伝える。サイトのURLは画像の下部に入っている）
+const shareText = () => HASHTAG;
 
 function canShareFile() {
   try {
