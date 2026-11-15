@@ -403,6 +403,7 @@ const WIDE_RATIO = 1.6;
 const ratioCache = new Map();
 function imageRatio(url) {
   if (!url) return Promise.resolve(1);
+  url = imgUrl(url);
   if (!ratioCache.has(url)) {
     ratioCache.set(url, new Promise((res) => {
       const img = new Image();
@@ -412,6 +413,20 @@ function imageRatio(url) {
     }));
   }
   return ratioCache.get(url);
+}
+
+// 参照元（Referer）付きで読み込むと「This image was hotlinked」画像を返す配信元。
+// index.html で参照元を送らないようにしているが、それ以前に一度でも差し替え画像を受け取ったブラウザは、
+// 同じURLだとキャッシュの差し替え画像を出し続ける（配信元がキャッシュ期限を付けていないため長く残る）。
+// 配信元が無視するクエリを付けて別URLにし、参照元なしで取り直させる
+const HOTLINK_HOSTS = new Set(["shinycolors.lantis.jp"]);
+function imgUrl(u) {
+  if (!u || u.startsWith("data:")) return u;
+  try {
+    const x = new URL(u);
+    if (HOTLINK_HOSTS.has(x.host) && !x.searchParams.has("nr")) { x.searchParams.set("nr", "1"); return x.href; }
+  } catch {}
+  return u;
 }
 async function jacketPos(url, pos) {
   if (pos && pos !== "auto") return `${pos} center`;
@@ -435,7 +450,7 @@ function paintJacket(el, it, typing = false) {
     jacketPos(it.jacket, it.jkPos).then((p) => { if (el._tok === token) el.style.backgroundPosition = p; });
     const img = new Image();
     img.onerror = () => { if (el._tok === token) fail(); };
-    img.src = it.jacket;
+    img.src = imgUrl(it.jacket);
     return;
   }
   setBg(el, "");
@@ -444,7 +459,7 @@ function paintJacket(el, it, typing = false) {
 }
 
 function setBg(el, url) {
-  el.style.backgroundImage = url ? `url("${url.replace(/"/g, "%22")}")` : "";
+  el.style.backgroundImage = url ? `url("${imgUrl(url).replace(/"/g, "%22")}")` : "";
   el.classList.toggle("has-img", !!url);
 }
 
@@ -674,6 +689,7 @@ async function fetchImage(u, ms = 8000) {
 async function resolveJacket(u) {
   if (!u) return "";
   if (u.startsWith("data:")) return u;
+  u = imgUrl(u);
   try { return await fetchImage(u); } catch {}
   for (const proxy of IMG_PROXIES) {
     try { return await fetchImage(proxy(u), 20000); } catch {}
