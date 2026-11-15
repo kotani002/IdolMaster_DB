@@ -147,6 +147,8 @@ a { color: inherit; }
   flex: 1; min-width: 0; border: none; outline: none; background: transparent;
   font-weight: 800; font-size: 18px; padding: 4px 2px;
   border-bottom: 2px dashed transparent;
+  /* textarea を1行入力のように見せ、長い時だけ折り返す */
+  display: block; resize: none; overflow: hidden; line-height: 1.4; font-family: inherit; color: inherit;
 }
 .theme-box { flex: 1; min-width: 0; position: relative; display: flex; align-items: center; cursor: text; }
 .theme-box .theme-input { width: 100%; padding-right: 34px; border-bottom-color: color-mix(in srgb, var(--from) 55%, #fff); }
@@ -386,8 +388,11 @@ a { color: inherit; }
   .members { order: 4; }
   .song-input { font-size: 19px; }
   .song-input::placeholder { font-size: 15px; }
-  .theme-input { font-size: 16px; flex-basis: calc(100% - 40px); }
-  .card-theme { flex-wrap: wrap; justify-content: flex-end; }
+  /* お題は番号の横の1行を丸ごと使い、ボタン類（お題を選ぶ・↑↓×）は次の行の右側へ */
+  .theme-input { font-size: 16px; }
+  .theme-box { flex: 1 1 calc(100% - 44px); }
+  .card-theme { flex-wrap: wrap; justify-content: flex-end; row-gap: 6px; align-items: flex-start; }
+  .card-no { margin-top: 5px; }
   /* 歌唱メンバー選択：ブランド・グループのタグは横スクロールの1行にして、一覧の高さを確保する */
   #mem-brands, #mem-groups {
     flex: none; /* 縦並びのダイアログ内で横スクロール領域が潰れないように */

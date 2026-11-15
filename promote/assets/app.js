@@ -215,7 +215,7 @@ async function onBrandChange() {
 function renderItems() {
   const box = $("#items");
   box.replaceChildren(...state.items.map((it, i) => cardEl(it, i)));
-  box.querySelectorAll(".pitch").forEach(autosize);
+  box.querySelectorAll(".pitch, .theme-input").forEach(autosize);
 }
 
 function cardEl(it, idx) {
@@ -223,18 +223,24 @@ function cardEl(it, idx) {
   const card = h("article", { class: "card", "data-id": it.id });
 
   // --- お題（○○な曲）
-  const themeIn = h("input", {
-    class: "theme-input", type: "text", value: it.theme, maxlength: "40",
+  // 1行入力だとスマホで長いお題が途中で切れるので、折り返せる textarea（改行は入れさせない）にする
+  const themeIn = h("textarea", {
+    class: "theme-input", rows: "1", maxlength: "40",
     placeholder: "○○な曲（自由に入力できます）", "aria-label": "お題（自由に入力できます）",
-    oninput: () => { it.theme = themeIn.value; syncChips(); save(); },
+    oninput: () => {
+      if (/[\r\n]/.test(themeIn.value)) themeIn.value = themeIn.value.replace(/[\r\n]+/g, " ");
+      it.theme = themeIn.value; autosize(themeIn); syncChips(); save();
+    },
+    onkeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); themeIn.blur(); } },
   });
+  themeIn.value = it.theme;
   // 鉛筆アイコン：お題は選ぶだけでなく自由に書き込めることを知らせる
   const themeBox = h("label", { class: "theme-box", title: "お題は自由に入力できます" },
     themeIn, h("span", { class: "theme-edit", "aria-hidden": "true" }, "✎"));
   const chips = h("div", { class: "theme-chips" },
     DB.themes.map((t) => h("button", {
       type: "button", class: "chip", "data-t": t,
-      onclick: () => { it.theme = t; themeIn.value = t; syncChips(); save(); card.classList.remove("show-themes"); },
+      onclick: () => { it.theme = t; themeIn.value = t; autosize(themeIn); syncChips(); save(); card.classList.remove("show-themes"); },
     }, t)));
   function syncChips() {
     chips.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.t === it.theme));
@@ -766,7 +772,7 @@ function wire() {
   let rz = 0;
   window.addEventListener("resize", () => {
     clearTimeout(rz);
-    rz = setTimeout(() => document.querySelectorAll(".pitch").forEach(autosize), 150);
+    rz = setTimeout(() => document.querySelectorAll(".pitch, .theme-input").forEach(autosize), 150);
   });
 
   $("#mem-search").addEventListener("input", drawMemList);
