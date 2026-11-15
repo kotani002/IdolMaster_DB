@@ -14,18 +14,17 @@
   "ink": "#ffffff"
  },
  {
-  "id": "as",
-  "name": "765プロオールスターズ",
-  "short": "765AS",
-  "color": "#e22b30",
-  "ink": "#ffffff",
-  "selectable": false
- },
- {
   "id": "gm",
   "name": "学園アイドルマスター",
   "short": "学マス",
   "color": "#ff7a2f",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "as",
+  "name": "765プロオールスターズ",
+  "short": "765AS",
+  "color": "#e22b30",
   "ink": "#ffffff",
   "selectable": false
  },

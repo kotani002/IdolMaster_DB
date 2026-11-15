@@ -55,8 +55,9 @@ BRANDS = {
         {"production": "va-liv", "names": None, "group": "vα-liv", "sitemap": "va-liv"},
     ]},
     "sidem": {"music_type": None, "production": "315", "sitemap": None},
-    # 学マス：人の並び・顔ぶれは手で作った data/idols/gm.json を正とし、CV・よみ だけ API で埋める
-    "gm": {"music_type": None, "production": "gakuen", "sitemap": None, "keep_file": True},
+    # 学マス：楽曲は music_type=gakuen。
+    # アイドルは人の並び・顔ぶれを手で作った data/idols/gm.json を正とし、CV・よみ だけ API で埋める
+    "gm": {"music_type": "gakuen", "production": "gakuen", "sitemap": None, "keep_file": True},
 }
 
 # 876プロ（ディアリースターズ）として別ブランドに出すので、765プロ（ミリオンの「その他」）からは外す
