@@ -43,6 +43,11 @@ SOURCES = {
         "link_re": r'href="(release_[^"]+\.html)"',
         "parser": "lantis",
     },
+    "gm": {  # 学園アイドルマスター 公式レーベルサイト（Next.js + microCMS）
+        "index": "https://gakuen-label.idolmaster-official.jp/discography",
+        "link_re": r'href="(/discography/[A-Za-z0-9_-]+)"',
+        "parser": "gakuen_label",
+    },
 }
 
 
@@ -153,7 +158,33 @@ def parse_official_wp(page: str, url: str) -> dict | None:
     }
 
 
-PARSERS = {"official_wp": parse_official_wp, "lantis": parse_lantis}
+def parse_gakuen_label(page: str, url: str) -> dict | None:
+    """gakuen-label.idolmaster-official.jp/discography/<id>"""
+    # 新譜は figure の先頭に「NEW」バッジの画像があるので、microCMS の画像を探す
+    m = re.search(r'<figure class="detail_thumb_item[^"]*">.*?<img src="(https://images\.microcms-assets\.io/[^"]+)"', page, re.S)
+    if not m:
+        return None
+    # microCMS（imgix）の画像。webp 指定を外し、画像出力（html2canvas）向けに JPEG・600px にする
+    jacket = html.unescape(m.group(1)).split("?")[0] + "?fm=jpg&w=600&q=85"
+    d = re.search(r'detail_releaseDate[^"]*"[^>]*>\s*(\d{4})\.(\d{1,2})\.(\d{1,2})', page)
+    date = f"{d.group(1)}-{int(d.group(2)):02d}-{int(d.group(3)):02d}" if d else "9999-99-99"
+    title = re.search(r'<h1 class="detail_ttl[^"]*"[^>]*>(.*?)</h1>', page, re.S)
+    tracks = [text(t) for t in re.findall(
+        r'<li class="detail_track_item[^"]*"[^>]*><span[^>]*>[^<]*</span><span[^>]*>(.*?)</span>', page, re.S)]
+    title = text(title.group(1)) if title else ""
+    # 配信シングルのページは収録曲リストが無く、タイトルがそのまま曲名
+    if not tracks and title:
+        tracks = [title]
+    return {
+        "url": url,
+        "title": title,
+        "jacket": jacket,
+        "date": date,
+        "tracks": tracks,
+    }
+
+
+PARSERS = {"official_wp": parse_official_wp, "lantis": parse_lantis, "gakuen_label": parse_gakuen_label}
 
 
 # ---------------------------------------------------------------- match
@@ -172,11 +203,13 @@ def norm(s: str) -> str:
 def classify(track: str) -> tuple[str, int]:
     """収録曲名 -> (照合キー, ランク)  0:本人版 1:ソロリミックス等 2:カラオケ"""
     t = unicodedata.normalize("NFKC", track)
+    # カラオケ判定は付記を落とす前に行う（学マスは「曲名 [Instrumental]」の形）
+    karaoke = re.search(r"カラオケ|off ?vocal|instrumental|inst\.", t, re.I)
     # 「曲名 [歌唱者]」「曲名 作詞:…」のような後ろの付記を落とす
     t = re.sub(r"\s*\[[^\]]*\]\s*$", "", t)
     t = re.sub(r"\s*(作詞|作曲|編曲)\s*[・:：\s].*$", "", t)
     rank = 0
-    if re.search(r"カラオケ|off ?vocal|instrumental|inst\.", t, re.I):
+    if karaoke:
         rank = 2
         t = re.sub(r"\s*(オリジナル・?)?カラオケ.*$|\s*[（(]?off ?vocal.*$|\s*[（(]?instrumental.*$", "", t, flags=re.I)
     if re.search(r"ソロ・?リミックス|ソロ・?(バージョン|ver)", t, re.I):
