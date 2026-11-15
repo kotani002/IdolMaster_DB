@@ -196,6 +196,11 @@ a { color: inherit; }
 }
 .jacket span { padding: 0 14px; text-align: center; line-height: 1.6; }
 .jacket.has-img span { display: none; }
+/* ジャケット画像（CSS 背景だと参照元が送られて直リンク対策に掛かるので <img> で敷く。見た目は cover と同じ） */
+.jk-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; pointer-events: none;
+}
 .jacket.is-failed { background-color: #fdf0ee; color: #c0483a; box-shadow: inset 0 0 0 1px #f3c9c2; }
 .jacket::after {
   content: "画像を変更"; position: absolute; inset: auto 0 0 0; padding: 6px 0;
@@ -338,6 +343,7 @@ a { color: inherit; }
 .mem-custom { display: flex; gap: 8px; }
 
 .jk-preview {
+  position: relative; overflow: hidden;
   width: 200px; aspect-ratio: 1; margin: 0 auto; border-radius: 12px;
   background: #f3efe8 center / cover no-repeat;
   display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 700; font-size: 12px;

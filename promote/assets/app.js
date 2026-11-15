@@ -407,6 +407,7 @@ function imageRatio(url) {
   if (!ratioCache.has(url)) {
     ratioCache.set(url, new Promise((res) => {
       const img = new Image();
+      img.referrerPolicy = "no-referrer";
       img.onload = () => res(img.naturalWidth / (img.naturalHeight || 1));
       img.onerror = () => res(1);
       img.src = url;
@@ -416,17 +417,27 @@ function imageRatio(url) {
 }
 
 // 参照元（Referer）付きで読み込むと「This image was hotlinked」画像を返す配信元。
-// index.html で参照元を送らないようにしているが、それ以前に一度でも差し替え画像を受け取ったブラウザは、
-// 同じURLだとキャッシュの差し替え画像を出し続ける（配信元がキャッシュ期限を付けていないため長く残る）。
-// 配信元が無視するクエリを付けて別URLにし、参照元なしで取り直させる
+// index.html で参照元を送らない設定にしているが、Chrome は CSS の背景画像の読み込みには参照元を付けてしまう。
+// そのためジャケットは CSS 背景ではなく <img referrerpolicy="no-referrer"> で表示する（setBg）。
+// 一度でも差し替え画像を受け取ったブラウザは同じURLだとキャッシュの差し替え画像を出し続ける
+// （配信元がキャッシュ期限を付けていないため長く残る）ので、配信元が無視するクエリを付けて別URLにする
 const HOTLINK_HOSTS = new Set(["shinycolors.lantis.jp"]);
+const HOTLINK_NR = "2"; // 以前の版（CSS 背景で表示）で「?nr=1」に差し替え画像がキャッシュされているので変更
+const hotlinkFallback = new Map(); // 元URL → 差し替え画像を受け取ったときの代わりのURL（画像変換サービス経由）
 function imgUrl(u) {
   if (!u || u.startsWith("data:")) return u;
+  if (hotlinkFallback.has(u)) return hotlinkFallback.get(u);
   try {
     const x = new URL(u);
-    if (HOTLINK_HOSTS.has(x.host) && !x.searchParams.has("nr")) { x.searchParams.set("nr", "1"); return x.href; }
+    if (HOTLINK_HOSTS.has(x.host) && !x.searchParams.has("nr")) { x.searchParams.set("nr", HOTLINK_NR); return x.href; }
   } catch {}
   return u;
+}
+// それでも差し替え画像（200×200）が返ってきたら（拡張機能などで参照元が送られている等）、
+// 画像変換サービスに配信元から取ってきてもらう。サービス側は参照元を送らないので本物が返る
+function isHotlinkPlaceholder(u, img) {
+  try { return HOTLINK_HOSTS.has(new URL(u).host) && img.naturalWidth === 200 && img.naturalHeight === 200; }
+  catch { return false; }
 }
 async function jacketPos(url, pos) {
   if (pos && pos !== "auto") return `${pos} center`;
@@ -444,12 +455,18 @@ function paintJacket(el, it, typing = false) {
     span.textContent = JK_FAIL;
   };
   el.classList.remove("is-failed");
-  el.style.backgroundPosition = "";
   if (it.jacket) {
     setBg(el, it.jacket);
-    jacketPos(it.jacket, it.jkPos).then((p) => { if (el._tok === token) el.style.backgroundPosition = p; });
+    setBgPos(el, "");
+    jacketPos(it.jacket, it.jkPos).then((p) => { if (el._tok === token) setBgPos(el, p); });
     const img = new Image();
+    img.referrerPolicy = "no-referrer";
     img.onerror = () => { if (el._tok === token) fail(); };
+    img.onload = () => {
+      if (!isHotlinkPlaceholder(it.jacket, img) || hotlinkFallback.has(it.jacket)) return;
+      hotlinkFallback.set(it.jacket, IMG_PROXIES[0](it.jacket));
+      if (el._tok === token) setBg(el, it.jacket);
+    };
     img.src = imgUrl(it.jacket);
     return;
   }
@@ -458,9 +475,30 @@ function paintJacket(el, it, typing = false) {
   else span.textContent = JK_WAIT;
 }
 
+// 枠にジャケット画像を表示する（CSS 背景だと参照元が送られてしまうので <img> を重ねる。見た目は cover と同じ）
 function setBg(el, url) {
-  el.style.backgroundImage = url ? `url("${imgUrl(url).replace(/"/g, "%22")}")` : "";
-  el.classList.toggle("has-img", !!url);
+  let img = el.querySelector(":scope > img.jk-img");
+  if (!url) {
+    img?.remove();
+    el.classList.remove("has-img");
+    return;
+  }
+  if (!img) {
+    img = document.createElement("img");
+    img.className = "jk-img";
+    img.alt = "";
+    img.referrerPolicy = "no-referrer";
+    img.decoding = "async";
+    el.prepend(img);
+  }
+  const src = imgUrl(url);
+  if (img.getAttribute("src") !== src) img.src = src;
+  el.classList.add("has-img");
+}
+// 表示位置（object-position）。横長ジャケットの左寄せ・ユーザーの選び直しに使う
+function setBgPos(el, pos) {
+  const img = el.querySelector(":scope > img.jk-img");
+  if (img) img.style.objectPosition = pos || "";
 }
 
 // ---------------------------------------------------------------- member dialog
@@ -651,9 +689,9 @@ function openJacket(item) {
 function paintJkPreview() {
   const pv = $("#jk-preview");
   setBg(pv, jkDlg.value);
-  pv.style.backgroundPosition = "";
+  setBgPos(pv, "");
   const v = jkDlg.value, pos = jkDlg.pos;
-  if (v) jacketPos(v, pos).then((p) => { if (jkDlg.value === v && jkDlg.pos === pos) pv.style.backgroundPosition = p; });
+  if (v) jacketPos(v, pos).then((p) => { if (jkDlg.value === v && jkDlg.pos === pos) setBgPos(pv, p); });
   const box = $("#jk-pos");
   box.hidden = !v;
   box.querySelector(".jk-pos-btns").replaceChildren(...JK_POSITIONS.map(([id, label]) => h("button", {
