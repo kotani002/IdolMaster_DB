@@ -753,9 +753,13 @@ async function resolveJacket(u) {
   return null;
 }
 
-function buildSheet(jackets) {
+// 画像に入れるカード（何か入力のあるもの）
+const exportItems = () => state.items.filter((it) => it.title || it.pitch || it.members.length || it.jacket);
+
+// 1枚の画像。items は exportItems() の一部、start はその最初のカードの通し番号（0始まり）、
+// page / pages は「何枚目／全何枚」（1枚だけのときは出さない）
+function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
   const f = brand(state.from);
-  const items = state.items.filter((it) => it.title || it.pitch || it.members.length || it.jacket);
   const bg = `linear-gradient(160deg, ${tint(f.color, 0.26)} 0%, #fbf8f3 34%, #fbf8f3 66%, ${tint(f.color, 0.18)} 100%)`;
   return h("div", { class: "x-sheet", style: { backgroundImage: bg } },
     h("div", { class: "x-head" },
@@ -763,8 +767,10 @@ function buildSheet(jackets) {
       h("div", { class: "x-sub" },
         h("span", { class: "x-pill", style: { background: f.color, color: f.ink } }, f.name),
         h("span", {}, "のおすすめ曲")),
+      pages > 1 ? h("div", { class: "x-page", style: { background: f.color, color: f.ink } }, `${page} / ${pages}`) : null,
     ),
-    h("div", { class: "x-items" }, items.map((it, i) => {
+    h("div", { class: "x-items" }, items.map((it, j) => {
+      const i = start + j;
       const jk = jackets.get(it.id);
       return h("div", { class: "x-card" },
         h("div", { class: "x-theme", style: { background: tint(f.color, 0.2), borderBottom: `3px solid ${tint(f.color, 0.45)}` } },
@@ -792,7 +798,11 @@ function buildSheet(jackets) {
   );
 }
 
-let lastExport = null; // { blob, url }
+// 1枚の画像の高さの上限（CSS px、幅は 1080px）。X のタイムラインで切れずに見える縦長の上限 4:5（1080×1350）に合わせる。
+// 通常のカードは2曲で約1170px。プレゼン文が長いカードは1曲で1枚になることもある（1曲で上限を超える場合はそのまま）
+const SHEET_MAX_H = 1350;
+
+let lastExport = []; // [{ blob, url, name }]
 
 async function exportImage() {
   if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
@@ -810,26 +820,51 @@ async function exportImage() {
     }));
     await document.fonts.ready;
     const stage = $("#export-stage");
-    const sheet = buildSheet(jackets);
-    stage.replaceChildren(sheet);
-    // レイアウト確定待ち（requestAnimationFrame は裏タブで止まるのでタイマーで待つ）
-    await new Promise((r) => setTimeout(r, 60));
-    // iPhone(Safari) は1枚のキャンバスが約1,677万画素を超えると描画できないので、
-    // 曲数が多いときは上限に収まるよう解像度を自動で下げる（通常は2倍、最低0.5倍）
-    const MAX_PIXELS = 16_000_000, MAX_SIDE = 16_000;
-    const w = sheet.offsetWidth, ht = sheet.offsetHeight;
-    const scale = Math.max(0.5, Math.min(2, Math.sqrt(MAX_PIXELS / (w * ht)), MAX_SIDE / ht));
-    const canvas = await html2canvas(sheet, { scale, backgroundColor: "#fbf8f3", logging: false, useCORS: true });
+    const items = exportItems();
+
+    // カードを上から順に詰め、1枚の高さが SHEET_MAX_H を超える手前で次の画像に分ける（実際に組んで高さを測る）
+    const chunks = [];
+    let cur = [];
+    for (const it of items) {
+      if (cur.length) {
+        stage.replaceChildren(buildSheet([...cur, it], jackets, 0, 1, 2)); // 「1 / 2」表示ありの高さで測る
+        if (stage.firstChild.offsetHeight > SHEET_MAX_H) { chunks.push(cur); cur = []; }
+      }
+      cur.push(it);
+    }
+    if (cur.length) chunks.push(cur);
+
+    const blobs = [];
+    let start = 0;
+    for (const [k, chunk] of chunks.entries()) {
+      const sheet = buildSheet(chunk, jackets, start, k + 1, chunks.length);
+      start += chunk.length;
+      stage.replaceChildren(sheet);
+      // レイアウト確定待ち（requestAnimationFrame は裏タブで止まるのでタイマーで待つ）
+      await new Promise((r) => setTimeout(r, 60));
+      // iPhone(Safari) は1枚のキャンバスが約1,677万画素を超えると描画できないので、
+      // 長いカードで上限を超えるときは解像度を自動で下げる（通常は2倍、最低0.5倍）
+      const MAX_PIXELS = 16_000_000, MAX_SIDE = 16_000;
+      const w = sheet.offsetWidth, ht = sheet.offsetHeight;
+      const scale = Math.max(0.5, Math.min(2, Math.sqrt(MAX_PIXELS / (w * ht)), MAX_SIDE / ht));
+      const canvas = await html2canvas(sheet, { scale, backgroundColor: "#fbf8f3", logging: false, useCORS: true });
+      const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
+      if (!blob) throw new Error("toBlob failed");
+      blobs.push(blob);
+    }
     stage.replaceChildren();
-    const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
-    if (!blob) throw new Error("toBlob failed");
-    if (lastExport?.url) URL.revokeObjectURL(lastExport.url);
-    lastExport = { blob, url: URL.createObjectURL(blob) };
-    $("#ex-img").src = lastExport.url;
-    $("#ex-note").textContent = failed
-      ? `ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。端末に保存した画像を選ぶと確実です。`
-      : "";
+
+    for (const e of lastExport) URL.revokeObjectURL(e.url);
+    lastExport = blobs.map((blob, k) => ({ blob, url: URL.createObjectURL(blob), name: fileName(k + 1, blobs.length) }));
+    renderExportImages();
+    const notes = [];
+    if (lastExport.length > 1) notes.push(`${items.length}曲を${lastExport.length}枚に分けました（X で見やすい縦横比にするため、1枚あたり2曲ほど）。` +
+      (lastExport.length > 4 ? "X は1回の投稿に4枚まで添付できるので、5枚目以降はリプライなどで続けて投稿してください。" : ""));
+    if (failed) notes.push(`ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。端末に保存した画像を選ぶと確実です。`);
+    $("#ex-note").textContent = notes.join(" ");
     $("#ex-share").hidden = !canShareFile();
+    $("#ex-save").textContent = lastExport.length > 1 ? `${lastExport.length}枚まとめて保存` : "画像を保存";
+    $("#ex-copy").hidden = lastExport.length > 1; // クリップボードは1枚しか入らないので、複数枚のときは各画像の下のボタンでコピー
     $("#dlg-export").showModal();
   } catch (e) {
     console.error(e);
@@ -839,23 +874,40 @@ async function exportImage() {
   }
 }
 
-const fileName = () => `imas-presen-${state.from}.png`;
+const fileName = (k = 1, n = 1) => `imas-presen-${state.from}${n > 1 ? `-${k}` : ""}.png`;
 // 投稿文はハッシュタグだけ（内容は画像で伝える。サイトのURLは画像の下部に入っている）
 const shareText = () => HASHTAG;
+
+// 出力画面に画像を並べる。複数枚のときは各画像に「何枚目」と、その画像だけの保存・コピーボタンを付ける
+function renderExportImages() {
+  const many = lastExport.length > 1;
+  $("#ex-imgs").replaceChildren(...lastExport.map((e, k) => h("figure", { class: "ex-fig" },
+    many ? h("figcaption", {}, `${k + 1} / ${lastExport.length} 枚目`) : null,
+    h("img", { src: e.url, alt: `出力したプレゼンシート${many ? `（${k + 1}枚目）` : ""}` }),
+    many ? h("div", { class: "ex-fig-actions" },
+      h("button", { type: "button", class: "btn small", onclick: () => download(k) }, "この画像を保存"),
+      h("button", { type: "button", class: "btn small", onclick: () => copyImage(k) }, "この画像をコピー")) : null,
+  )));
+}
 
 function canShareFile() {
   try {
     return !!navigator.canShare && navigator.canShare({ files: [new File([""], "a.png", { type: "image/png" })] });
   } catch { return false; }
 }
-function download() {
-  const a = h("a", { href: lastExport.url, download: fileName() });
-  document.body.append(a); a.click(); a.remove();
+// k を省くと全部保存（複数枚のときは少し間を空けて順に保存する。ブラウザによっては複数ダウンロードの許可を聞かれる）
+async function download(k) {
+  const list = k == null ? lastExport : [lastExport[k]];
+  for (const [i, e] of list.entries()) {
+    if (i) await new Promise((r) => setTimeout(r, 400));
+    const a = h("a", { href: e.url, download: e.name });
+    document.body.append(a); a.click(); a.remove();
+  }
 }
-async function copyImage() {
+async function copyImage(k = 0) {
   try {
-    await navigator.clipboard.write([new ClipboardItem({ "image/png": lastExport.blob })]);
-    toast("画像をコピーしました");
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": lastExport[k].blob })]);
+    toast(lastExport.length > 1 ? `${k + 1}枚目の画像をコピーしました` : "画像をコピーしました");
     return true;
   } catch {
     toast("このブラウザではコピーできません。保存してから添付してください");
@@ -929,18 +981,22 @@ function wire() {
   $("#jk-close").addEventListener("click", (e) => { e.preventDefault(); $("#dlg-jacket").close(); });
 
   $("#ex-close").onclick = () => $("#dlg-export").close();
-  $("#ex-save").onclick = download;
-  $("#ex-copy").onclick = copyImage;
+  $("#ex-save").onclick = () => download();
+  $("#ex-copy").onclick = () => copyImage(0);
   $("#ex-share").onclick = async () => {
     try {
-      await navigator.share({ files: [new File([lastExport.blob], fileName(), { type: "image/png" })], text: shareText() });
+      await navigator.share({ files: lastExport.map((e) => new File([e.blob], e.name, { type: "image/png" })), text: shareText() });
     } catch (e) { if (e?.name !== "AbortError") toast("共有できませんでした"); }
   };
   $("#ex-x").onclick = async () => {
-    const copied = matchMedia("(pointer:fine)").matches ? await copyImage() : false;
-    if (!copied) download();
+    // 1枚なら（PC は）コピーして貼り付け。複数枚はクリップボードに入らないので保存して添付してもらう
+    const one = lastExport.length === 1;
+    const copied = one && matchMedia("(pointer:fine)").matches ? await copyImage(0) : false;
+    if (!copied) await download();
     window.open(`https://x.com/intent/post?text=${encodeURIComponent(shareText())}`, "_blank", "noopener,noreferrer");
-    toast(copied ? "画像をコピーしました。ポスト画面に貼り付けてください" : "画像を保存しました。ポストに添付してください", 4000);
+    toast(copied ? "画像をコピーしました。ポスト画面に貼り付けてください"
+      : one ? "画像を保存しました。ポストに添付してください"
+      : `画像を${lastExport.length}枚保存しました。ポストに添付してください（1回の投稿は4枚まで）`, 5000);
   };
 }
 

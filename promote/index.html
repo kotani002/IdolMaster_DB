@@ -7,39 +7,43 @@
      「hotlinked」画像に差し替えるため、参照元を送らない -->
 <meta name="referrer" content="no-referrer">
 <script>
-  // 公開先を Cloudflare Pages に移転したので、旧URL（GitHub Pages）で開かれたら新URLへ移動する。
-  // ただし新URLがまだ公開されていない（応答がない）間は移動せず、このページをそのまま使う。
-  if (location.hostname.endsWith("github.io")) {
-    var NEW_SITE = "https://imas-presen-songs.283production-staff.workers.dev/";
+  // 公開先は Cloudflare Pages（imasfan-presen.pages.dev）。旧URLで開かれたら新URLへ移動する。
+  //   旧URL：GitHub Pages（kotani002.github.io/IdolMaster_DB/promote/）、Cloudflare Workers（imas-presen-songs.283production-staff.workers.dev）
+  // ただし新URLが応答しない間は移動せず、このページをそのまま使う。
+  // ※ GitHub Pages の確認用URL（/preview/）では、ワークフローがこの <script> ごと消す
+  if (/(\.github\.io|\.workers\.dev)$/.test(location.hostname)) {
+    var NEW_SITE = "https://imasfan-presen.pages.dev/";
     var ctl = window.AbortController ? new AbortController() : null;
     if (ctl) setTimeout(function () { ctl.abort(); }, 3000);
     fetch(NEW_SITE + "assets/ogp.png?probe=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
       .then(function () { location.replace(NEW_SITE + location.search + location.hash); })
       .catch(function () { /* 新URLが未公開・通信不可 → 旧URLのまま使う */ });
   }
+</script>
+<script>
   // 起動中は画面を隠して「読み込み中…」を出している（class="booting"、app.js の初期化完了で外れる）。
   // スクリプトの読み込みに失敗しても画面が隠れたままにならないよう、一定時間で必ず外す
   setTimeout(function () { document.documentElement.classList.remove("booting"); }, 10000);
 </script>
 <noscript><style>html.booting .topbar, html.booting .wrap { visibility: visible; opacity: 1; } html.booting .boot { display: none; }</style></noscript>
 <title>アイマス楽曲プレゼンシート</title>
-<link rel="canonical" href="https://imas-presen-songs.283production-staff.workers.dev/">
+<link rel="canonical" href="https://imasfan-presen.pages.dev/">
 <meta name="description" content="アイドルマスターの推しブランドの曲を、プレゼン文と歌ってほしいアイドルと一緒に1枚の画像にできる非公式ファンメイドツール。">
 <meta property="og:title" content="アイマス楽曲プレゼンシート">
 <meta property="og:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。推し曲とプレゼン文・歌ってほしいアイドルを1枚の画像にできる非公式ファンメイドツール。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://imas-presen-songs.283production-staff.workers.dev/">
+<meta property="og:url" content="https://imasfan-presen.pages.dev/">
 <meta property="og:site_name" content="アイマス楽曲プレゼンシート">
 <meta property="og:locale" content="ja_JP">
 <!-- SNS のクローラーは相対パスを解決しないので画像は絶対URL。画像を作り直したら ?v= を変える -->
-<meta property="og:image" content="https://imas-presen-songs.283production-staff.workers.dev/assets/ogp.png?v=4">
+<meta property="og:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="アイマス楽曲プレゼンシート：ブランドの垣根を越えて、曲を届けよう。曲のプレゼンを1枚で簡単に">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="アイマス楽曲プレゼンシート">
 <meta name="twitter:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。">
-<meta name="twitter:image" content="https://imas-presen-songs.283production-staff.workers.dev/assets/ogp.png?v=4">
+<meta name="twitter:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
 <meta name="theme-color" content="#fff8ec">
 <!-- ページのアイコン（scripts/make_icon.py で作成。作り直したら ?v= を変える） -->
 <link rel="icon" href="favicon.ico?v=1" sizes="48x48">
@@ -49,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261116f">
+<link rel="stylesheet" href="assets/style.css?v=20261116h">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -149,7 +153,8 @@
       <button type="button" class="icon-btn" id="ex-close" aria-label="閉じる">×</button>
     </div>
     <p class="muted small" id="ex-note"></p>
-    <div class="ex-img-wrap"><img id="ex-img" alt="出力したプレゼンシート"></div>
+    <!-- 出力した画像（曲が多いときは複数枚。app.js の renderExportImages で並べる） -->
+    <div class="ex-img-wrap" id="ex-imgs"></div>
     <div class="ex-actions">
       <button type="button" class="btn primary" id="ex-save">画像を保存</button>
       <button type="button" class="btn" id="ex-copy">コピー</button>
@@ -165,6 +170,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261116k" type="module"></script>
+<script src="assets/app.js?v=20261116l" type="module"></script>
 </body>
 </html>

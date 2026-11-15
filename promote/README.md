@@ -1,8 +1,10 @@
 # アイマス楽曲プレゼンシート
 
-アイドルマスターの「A ブランドのおすすめ曲」をプレゼンする画像を作れる、非公式のファンメイドツールです。Cloudflare Workers（静的アセット）で公開している静的サイトです（ビルド不要）。
+アイドルマスターの「A ブランドのおすすめ曲」をプレゼンする画像を作れる、非公式のファンメイドツールです。Cloudflare Pages で公開している静的サイトです（ビルド不要）。
 
-公開URL：https://imas-presen-songs.283production-staff.workers.dev/ （旧URL の GitHub Pages で開くと、新URLが公開されていればこのURLへ自動で移動します）
+公開URL：https://imasfan-presen.pages.dev/
+
+旧URL（GitHub Pages の `kotani002.github.io/IdolMaster_DB/promote/`、Cloudflare Workers の `imas-presen-songs.283production-staff.workers.dev`）で開くと、新URLへ自動で移動します。
 
 ## できること
 
@@ -37,21 +39,20 @@ scripts/make_ogp.py     SNS カード画像（assets/ogp.png）を生成
 
 データの更新は定期実行していません。必要なときに、リポジトリ直下の `.github/workflows/update-promote-data.yml` を Actions 画面から手動で実行するか、手元で `python scripts/fetch_data.py` を実行して commit します（GitHub Actions はリポジトリ直下のものしか動かないため、ワークフローはそこにあります）。
 
-## 公開手順（Cloudflare Workers）
+## 公開手順（Cloudflare Pages）
 
 `release` ブランチの `promote/` フォルダを公開しています。`release` に push すると自動で公開されます。
 
-Cloudflare のダッシュボード → Workers & Pages → `imas-presen-songs` → 設定 の内容：
+Cloudflare のダッシュボード → Workers & Pages → `imasfan-presen`（Pages）→ 設定 の内容：
 
 - Git リポジトリ：`kotani002/IdolMaster_DB`
-- プロダクション ブランチ：`release`
+- プロダクション ブランチ：`release`（プレビューのブランチは「なし」。`release` 以外の push では公開されない）
 - ビルド コマンド：（なし）
-- デプロイ コマンド：`npx wrangler deploy`
-- ルート ディレクトリ：`promote`（リポジトリ直下には別サイトの index.html があるため、`promote` を指定して `promote/index.html` をトップページにする）
+- ビルド出力ディレクトリ：`promote`（リポジトリ直下には別サイトの index.html があるため、`promote/index.html` をトップページにする）
+
+以前の公開先 Cloudflare Workers の `imas-presen-songs` も、同じく `release` の `promote/` を公開し続けています（共有済みの旧URL用）。こちらで開くと `index.html` の処理で新URLへ移動します。
 
 GitHub の Settings → Actions → General → Workflow permissions は「Read and write」にします（ワークフローでデータを更新したときのコミット用）。
-
-`release` 以外のブランチに push すると、確認用のプレビューURL（`*-imas-presen-songs.283production-staff.workers.dev`）が作られます。
 
 公開URLを変えた場合は、`index.html` の旧URLからの転送先（`NEW_SITE`）・`canonical`・`og:url`・`og:image`・`twitter:image` も書き換えてください。
 
