@@ -12,5 +12,13 @@
   "short": "シンデレラ",
   "color": "#2681c8",
   "ink": "#ffffff"
+ },
+ {
+  "id": "gm",
+  "name": "学園アイドルマスター",
+  "short": "学マス",
+  "color": "#ff7a2f",
+  "ink": "#ffffff",
+  "selectable": false
  }
 ]
