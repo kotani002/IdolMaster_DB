@@ -569,7 +569,9 @@ function drawMemList() {
     : [];
   $("#mem-list").replaceChildren(...alls, ...idols.map((i) => {
     const b = brand(i.brand);
-    const sub = [showBrand ? b.short : "", i.cv ? `CV.${i.cv}` : ""].filter(Boolean).join(" / ");
+    // CV はふだん出さない。CV で検索して見つかった人（名前・よみでは当たらない人）にだけ、理由が分かるよう出す
+    const byCv = q && i.cv && norm(i.cv).includes(q) && !norm(i.name).includes(q) && !norm(i.kana).includes(q);
+    const sub = [showBrand ? b.short : "", byCv ? `CV.${i.cv}` : ""].filter(Boolean).join(" / ");
     return h("button", {
       type: "button", class: "mem-item" + (chosen.has(i.name) ? " on" : ""), "aria-pressed": String(chosen.has(i.name)),
       onclick: () => {

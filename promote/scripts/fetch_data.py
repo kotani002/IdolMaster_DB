@@ -16,6 +16,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -79,6 +80,9 @@ def get(url: str) -> bytes:
             time.sleep(WAIT_SEC)
             return body
         except Exception as e:  # 503 などは少し待って再試行
+            if isinstance(e, urllib.error.HTTPError) and 400 <= e.code < 500 and e.code != 429:
+                time.sleep(WAIT_SEC)
+                raise RuntimeError(f"HTTP {e.code}: {url}")  # 400/404 は再試行しても同じ
             wait = 5 * (attempt + 1)
             print(f"  ! {e} -> retry in {wait}s", file=sys.stderr)
             time.sleep(wait)
@@ -313,6 +317,9 @@ def attach_singers() -> None:
             if name in seen:
                 continue
             seen.add(name)
+            # ふじわらはじめ未登録（公式一覧だけから足した CG アイドルなど）は参加曲が無い
+            if not isinstance(r["id"], int):
+                continue
             data = None
             if isinstance(r["id"], int):
                 try:

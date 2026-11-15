@@ -35,7 +35,7 @@ scripts/jackets_csv.py  ジャケット未登録曲の CSV 書き出し / 取り
 scripts/make_ogp.py     SNS カード画像（assets/ogp.png）を生成
 ```
 
-データの週次自動更新は、リポジトリ直下の `.github/workflows/update-promote-data.yml` です（GitHub Actions はリポジトリ直下のものしか動かないため）。
+データの更新は定期実行していません。必要なときに、リポジトリ直下の `.github/workflows/update-promote-data.yml` を Actions 画面から手動で実行するか、手元で `python scripts/fetch_data.py` を実行して commit します（GitHub Actions はリポジトリ直下のものしか動かないため、ワークフローはそこにあります）。
 
 ## 公開手順（Cloudflare Workers）
 
@@ -49,7 +49,7 @@ Cloudflare のダッシュボード → Workers & Pages → `imas-presen-songs` 
 - デプロイ コマンド：`npx wrangler deploy`
 - ルート ディレクトリ：`promote`（リポジトリ直下には別サイトの index.html があるため、`promote` を指定して `promote/index.html` をトップページにする）
 
-GitHub の Settings → Actions → General → Workflow permissions は「Read and write」にします（データ自動更新のコミット用）。
+GitHub の Settings → Actions → General → Workflow permissions は「Read and write」にします（ワークフローでデータを更新したときのコミット用）。
 
 `release` 以外のブランチに push すると、確認用のプレビューURL（`*-imas-presen-songs.283production-staff.workers.dev`）が作られます。
 
