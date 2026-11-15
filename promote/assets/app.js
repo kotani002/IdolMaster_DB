@@ -47,6 +47,20 @@ async function ensureBrand(id) {
   if (!DB.songs[id]) DB.songs[id] = isPickable(brand(id)) ? await getJSON(`data/songs/${id}.json`).catch(() => []) : [];
   if (!DB.idols[id]) DB.idols[id] = await getJSON(`data/idols/${id}.json`).catch(() => []);
 }
+
+// データを取りに行く間は、起動時と同じ「読み込み中…」を出す（<html class="booting">）。
+// すぐ終わる（取得済み・キャッシュ）ときにちらつかないよう、少し待ってから出す。起動中に呼ばれたら外さない
+async function withLoading(task) {
+  const root = document.documentElement;
+  const wasBooting = root.classList.contains("booting");
+  const timer = setTimeout(() => root.classList.add("booting"), 120);
+  try {
+    return await task();
+  } finally {
+    clearTimeout(timer);
+    if (!wasBooting) root.classList.remove("booting");
+  }
+}
 const brand = (id) => DB.brands.find((b) => b.id === id) || DB.brands[0];
 // おすすめするブランドとして選べるブランド。selectable:false は歌唱メンバーの候補にだけ出す（楽曲データがないブランド）
 const isPickable = (b) => b.selectable !== false;
@@ -192,7 +206,7 @@ async function changeBrands(nextFrom) {
 }
 
 async function onBrandChange() {
-  await ensureBrand(state.from);
+  await withLoading(() => ensureBrand(state.from));
   $("#sel-from").value = state.from;
   applyBrandColors();
   renderItems();
@@ -509,7 +523,7 @@ const memDlg = { item: null, onDone: null, brand: "", group: "" };
 async function openMembers(item, onDone) {
   memDlg.item = item; memDlg.onDone = onDone;
   memDlg.brand = songBrand(item); memDlg.group = "";
-  await Promise.all(DB.brands.map((b) => ensureBrand(b.id)));
+  await withLoading(() => Promise.all(DB.brands.map((b) => ensureBrand(b.id))));
   $("#mem-brand").textContent = item.title ? `「${item.title}」` : "";
   $("#mem-search").value = "";
   $("#mem-custom-in").value = "";
