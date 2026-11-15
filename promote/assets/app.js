@@ -48,7 +48,7 @@ async function ensureBrand(id) {
   if (!DB.idols[id]) DB.idols[id] = await getJSON(`data/idols/${id}.json`).catch(() => []);
 }
 const brand = (id) => DB.brands.find((b) => b.id === id) || DB.brands[0];
-// 「から／へ」で選べるブランド。selectable:false は歌唱メンバーの候補にだけ出す（楽曲データがないブランド）
+// おすすめするブランドとして選べるブランド。selectable:false は歌唱メンバーの候補にだけ出す（楽曲データがないブランド）
 const isPickable = (b) => b.selectable !== false;
 const pickableBrands = () => DB.brands.filter(isPickable);
 
@@ -58,7 +58,7 @@ function newItem(theme = "") {
   return { id: uid(), theme, songId: null, title: "", url: "", jacket: "", jacketAuto: false, pitch: "", members: [] };
 }
 function defaultState() {
-  return { name: "", from: "ml", to: "cg", items: [] }; // 最初は曲なし（「＋新しい曲を追加する」が一番上に来る）
+  return { name: "", from: "ml", items: [] }; // 最初は曲なし（「＋新しい曲を追加する」が一番上に来る）
 }
 
 let state;
@@ -133,19 +133,20 @@ function tint(hex, ratio) {
 }
 
 function applyBrandColors() {
-  const f = brand(state.from), t = brand(state.to);
+  // （以前は「から／へ」の2ブランドだった名残で --to も使っているので、同じ色を入れる）
+  const f = brand(state.from);
   const root = document.documentElement.style;
   root.setProperty("--from", f.color);
   root.setProperty("--from-ink", f.ink);
-  root.setProperty("--to", t.color);
-  root.setProperty("--to-ink", t.ink);
+  root.setProperty("--to", f.color);
+  root.setProperty("--to-ink", f.ink);
 }
 
-// 曲のブランド（選曲時に記録。未記録の古いデータは「から」側のブランド）
+// 曲のブランド（選曲時に記録。未記録の古いデータはおすすめするブランド）
 const songBrand = (it) => it.brand || state.from;
 
 function memberColor(m) {
-  return m.color || brand(m.brand || state.to).color;
+  return m.color || brand(m.brand || state.from).color;
 }
 
 function autosize(ta) {
@@ -164,32 +165,22 @@ function renderHead() {
   syncFilled();
   nameIn.oninput = () => { state.name = nameIn.value; syncFilled(); save(); };
 
-  for (const [sel, key] of [["#sel-from", "from"], ["#sel-to", "to"]]) {
-    const s = $(sel);
-    s.replaceChildren(...pickableBrands().map((b) => h("option", { value: b.id }, b.name)));
-    s.value = state[key];
-    s.onchange = async () => {
-      const next = { from: state.from, to: state.to };
-      const other = key === "from" ? "to" : "from";
-      if (s.value === next[other]) next[other] = next[key]; // 同じブランドを選んだら入れ替え
-      next[key] = s.value;
-      await changeBrands(next.from, next.to);
-    };
-  }
-  $("#btn-swap").onclick = () => changeBrands(state.to, state.from);
+  const s = $("#sel-from");
+  s.replaceChildren(...pickableBrands().map((b) => h("option", { value: b.id }, b.name)));
+  s.value = state.from;
+  s.onchange = () => changeBrands(s.value);
 }
 
-// 「から」のブランドが変わると、別ブランドの曲が入ったカードは矛盾するので確認してリセットする
-async function changeBrands(nextFrom, nextTo) {
+// おすすめするブランドが変わると、別ブランドの曲が入ったカードは矛盾するので確認してリセットする
+async function changeBrands(nextFrom) {
   const stale = state.items.filter((it) => it.title.trim() && songBrand(it) !== nextFrom);
   if (stale.length) {
     const names = [...new Set(stale.map((it) => brand(songBrand(it)).name))].join("・");
     const ok = confirm(
       `${names}の曲が${stale.length}曲入っています。\n` +
-      `「から」のブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌唱予想メンバーがリセットされます（お題は残ります）。\n変更しますか？`);
+      `おすすめするブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌唱予想メンバーがリセットされます（お題は残ります）。\n変更しますか？`);
     if (!ok) {
       $("#sel-from").value = state.from;
-      $("#sel-to").value = state.to;
       return;
     }
     for (const it of stale) {
@@ -197,14 +188,12 @@ async function changeBrands(nextFrom, nextTo) {
     }
   }
   state.from = nextFrom;
-  state.to = nextTo;
   await onBrandChange();
 }
 
 async function onBrandChange() {
-  await Promise.all([ensureBrand(state.from), ensureBrand(state.to)]);
+  await ensureBrand(state.from);
   $("#sel-from").value = state.from;
-  $("#sel-to").value = state.to;
   applyBrandColors();
   renderItems();
   save();
@@ -282,7 +271,7 @@ function cardEl(it, idx) {
 
   // --- 曲名（検索 + 自由入力）
   const songIn = h("input", {
-    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名を入力して検索`,
+    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名・歌唱アイドル名で検索`,
     autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false",
     "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
   });
@@ -295,6 +284,7 @@ function cardEl(it, idx) {
   syncSongField();
 
   let results = [], active = -1;
+  let singerHits = new Set(), singerName = ""; // 歌唱者名で見つかった曲（候補に「歌：名前」と出す）
   // スマホの日本語入力は変換中の文字が確定されずに残るため、候補をタップした時に
   // 「候補の曲名 + 入力途中の文字」になってしまう。先に入力欄を外して変換を確定させてから曲名で上書きし、
   // 直後に遅れて届く入力イベントも無視する。
@@ -317,7 +307,8 @@ function cardEl(it, idx) {
       ? results.map((s, i) => h("li", {
           role: "option", class: i === active ? "active" : "",
           onpointerdown: (e) => { e.preventDefault(); pick(s); },
-        }, s.title, s.kana && norm(s.kana) !== norm(s.title) ? h("small", {}, s.kana) : null))
+        }, s.title, singerHits.has(s) ? h("small", {}, `歌：${singerName}`)
+          : s.kana && norm(s.kana) !== norm(s.title) ? h("small", {}, s.kana) : null))
       : [h("li", { class: "empty" }, "見つかりません（このまま自由入力もできます）")]));
     list.hidden = false;
     songIn.setAttribute("aria-expanded", "true");
@@ -326,14 +317,19 @@ function cardEl(it, idx) {
     const q = norm(songIn.value);
     if (!q) { results = []; close(); return; }
     const songs = DB.songs[state.from] || [];
-    const starts = [], contains = [];
+    const starts = [], contains = [], bySinger = [];
     for (const s of songs) {
       const a = norm(s.title), k = norm(s.kana);
       if (a.startsWith(q) || k.startsWith(q)) starts.push(s);
       else if (a.includes(q) || k.includes(q)) contains.push(s);
-      if (starts.length > 40) break;
+      // 歌唱者名と完全一致（「春日 未来」のような空白の有無は区別しない）なら、その人の参加曲を全部出す
+      else {
+        const n = (s.singers || []).find((n) => norm(n) === q);
+        if (n) { bySinger.push(s); singerName = n; }
+      }
     }
-    results = starts.concat(contains).slice(0, 30);
+    singerHits = new Set(bySinger);
+    results = starts.concat(contains).slice(0, 30).concat(bySinger);
     active = results.length ? 0 : -1;
     draw();
   };
@@ -644,17 +640,15 @@ async function resolveJacket(u) {
 }
 
 function buildSheet(jackets) {
-  const f = brand(state.from), t = brand(state.to);
+  const f = brand(state.from);
   const items = state.items.filter((it) => it.title || it.pitch || it.members.length || it.jacket);
-  const bg = `linear-gradient(160deg, ${tint(f.color, 0.26)} 0%, #fbf8f3 34%, #fbf8f3 66%, ${tint(t.color, 0.22)} 100%)`;
+  const bg = `linear-gradient(160deg, ${tint(f.color, 0.26)} 0%, #fbf8f3 34%, #fbf8f3 66%, ${tint(f.color, 0.18)} 100%)`;
   return h("div", { class: "x-sheet", style: { backgroundImage: bg } },
     h("div", { class: "x-head" },
       h("div", { class: "x-name" }, state.name.trim() || DEFAULT_NAME),
       h("div", { class: "x-sub" },
         h("span", { class: "x-pill", style: { background: f.color, color: f.ink } }, f.name),
-        h("span", {}, "から"),
-        h("span", { class: "x-pill", style: { background: t.color, color: t.ink } }, t.name),
-        h("span", {}, "へのオススメ曲")),
+        h("span", {}, "のおすすめ曲")),
     ),
     h("div", { class: "x-items" }, items.map((it, i) => {
       const jk = jackets.get(it.id);
@@ -729,8 +723,8 @@ async function exportImage() {
   }
 }
 
-const fileName = () => `imas-presen-${state.from}-to-${state.to}.png`;
-const shareText = () => `${HASHTAG}\n${brand(state.from).name} から ${brand(state.to).name} へのオススメ曲\n${location.origin}${location.pathname}`;
+const fileName = () => `imas-presen-${state.from}.png`;
+const shareText = () => `${HASHTAG}\n${brand(state.from).name} のおすすめ曲\n${location.origin}${location.pathname}`;
 
 function canShareFile() {
   try {
@@ -838,7 +832,6 @@ async function init() {
   state = loadState() || defaultState();
   const pk = pickableBrands();
   if (!pk.some((b) => b.id === state.from)) state.from = pk[0].id;
-  if (!pk.some((b) => b.id === state.to) || state.to === state.from) state.to = pk.find((b) => b.id !== state.from).id;
   if (DB.meta.updated_at) $("#data-date").textContent = ` / データ更新 ${DB.meta.updated_at}`;
   wire();
   renderHead();
