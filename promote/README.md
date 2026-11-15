@@ -1,6 +1,8 @@
 # アイマス楽曲プレゼンシート
 
-アイドルマスターの対バンに向けて、「A ブランドから B ブランドへのオススメ曲」をプレゼンする画像を作れる、非公式のファンメイドツールです。GitHub Pages で動く静的サイトです（ビルド不要）。
+アイドルマスターの対バンに向けて、「A ブランドから B ブランドへのオススメ曲」をプレゼンする画像を作れる、非公式のファンメイドツールです。Cloudflare Pages で公開している静的サイトです（ビルド不要）。
+
+公開URL：https://imas-presen-songs.pages.dev/ （旧URL の GitHub Pages で開くと、このURLへ自動で移動します）
 
 ## できること
 
@@ -10,7 +12,7 @@
   - 曲名：A ブランドの曲を検索できます（ひらがな・カタカナどちらでも可）。リストにない曲は自由に入力できます。
   - ジャケット：画像 URL を埋め込むか、端末の画像を選びます。
   - プレゼン内容：自由に書けます。
-  - 歌唱予想メンバー：B ブランドのアイドルからタグとして選びます。リストにない名前やユニット名も追加できます。
+  - 歌唱予想メンバー：初期表示はその曲のブランドのアイドル。ブランドのタグや「★ デレミリ対バン」（Day1/Day2 の出演者、`data/events.json`）で切り替えられます。リストにない名前やユニット名も追加できます。
 - 「＋ 新しい曲を追加する」でカードを増やせます。並べ替え（↑↓）と削除もできます。
 - 入力内容はブラウザに自動保存されます。
 - 「画像を作る」で PNG を出力し、保存・コピー・共有・X へのポストができます。
@@ -23,18 +25,33 @@ assets/style.css        見た目（.x-* は出力画像用）
 assets/app.js           処理
 data/brands.json        ブランド定義（名前・テーマカラー）
 data/themes.json        お題の候補
+data/events.json        イベントの出演者（デレミリ対バン Day1/Day2）
 data/jackets.json       楽曲ID → ジャケットURL の対応表（任意。書いた曲は選曲時に自動で入る）
 data/songs/<brand>.json ブランド別の曲一覧（自動生成）
 data/idols/<brand>.json ブランド別のアイドル一覧（自動生成）
 scripts/fetch_data.py   ふじわらはじめ API から songs / idols を生成
-.github/workflows/update-data.yml  毎週データを自動更新
+scripts/fetch_jackets.py 公式ディスコグラフィーからジャケットURLを照合
+scripts/jackets_csv.py  ジャケット未登録曲の CSV 書き出し / 取り込み
+scripts/make_ogp.py     SNS カード画像（assets/ogp.png）を生成
 ```
 
-## 公開手順（GitHub Pages）
+データの週次自動更新は、リポジトリ直下の `.github/workflows/update-promote-data.yml` です（GitHub Actions はリポジトリ直下のものしか動かないため）。
 
-1. このフォルダの中身を GitHub リポジトリに push します。
-2. リポジトリの Settings → Pages → Source を「Deploy from a branch」にし、`main` ブランチの `/ (root)` を指定します。
-3. Settings → Actions → General → Workflow permissions を「Read and write」にします（データ自動更新のコミット用）。
+## 公開手順（Cloudflare Pages）
+
+`release` ブランチの `promote/` フォルダを公開しています。`release` に push すると自動で公開されます。
+
+1. Cloudflare のダッシュボード → Workers & Pages → 作成 → **Pages** → Git に接続 → `kotani002/IdolMaster_DB` を選ぶ
+2. 設定
+   - プロジェクト名：`imas-presen-songs`（URL が `imas-presen-songs.pages.dev` になる）
+   - 本番ブランチ：`release`
+   - フレームワーク プリセット：なし
+   - ビルドコマンド：（空欄）
+   - ビルド出力ディレクトリ：`promote`
+3. 保存してデプロイ
+4. GitHub の Settings → Actions → General → Workflow permissions を「Read and write」にします（データ自動更新のコミット用）。
+
+`release` 以外のブランチに push すると、確認用のプレビューURL（`<ブランチ名>.imas-presen-songs.pages.dev`）が作られます。
 
 ## ローカルで確認する
 

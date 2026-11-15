@@ -1,4 +1,8 @@
-name: Update song data
+# プレゼンシート（promote/）の曲・アイドルデータを ふじわらはじめAPI から毎週更新する。
+# - スケジュール実行は「デフォルトブランチ（develop）にあるこのファイル」が動く
+# - 更新は公開ブランチ（release）に commit するので、Cloudflare Pages に自動で反映される
+#   ※ release に直接 commit されるため、develop へは必要に応じて release をマージして取り込む
+name: Update promote song data
 
 on:
   schedule:
@@ -8,11 +12,19 @@ on:
 permissions:
   contents: write
 
+env:
+  TARGET_BRANCH: release
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: promote
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -27,6 +39,6 @@ jobs:
             echo "no changes"
           else
             git add data/meta.json
-            git commit -m "data: update from fujiwarahaji"
-            git push
+            git commit -m "data: update promote song data from fujiwarahaji"
+            git push origin HEAD:${{ env.TARGET_BRANCH }}
           fi
