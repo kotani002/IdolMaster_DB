@@ -191,6 +191,30 @@ def idol_group(production: str, name: str, count: int) -> str:
     return ""
 
 
+# 他ブランドの曲として登録されている合同曲を、このブランドの曲としても選べるようにする（ブランド → song_id）
+EXTRA_SONGS: dict[str, list[int]] = {
+    "cg": [
+        2812,  # ハーモニクス（ミリオン：ジュリア・最上静香 × シンデレラ：多田李衣菜・木村夏樹。ふじわらはじめではミリオン扱い）
+    ],
+}
+
+
+def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
+    rows = []
+    for sid in EXTRA_SONGS.get(brand_id, []):
+        if sid in have:
+            continue
+        m = get_json(f"{API}/music?id={sid}")
+        rows.append({
+            "id": m["song_id"],
+            "title": m["name"],
+            "kana": m.get("kana") or "",
+            "url": m["link"],
+            "singers": [x["name"] for x in m.get("member") or []],
+        })
+    return rows
+
+
 def build_brand(brand_id: str, conf: dict) -> None:
     song_rows = None
     if conf["music_type"]:
@@ -206,6 +230,7 @@ def build_brand(brand_id: str, conf: dict) -> None:
                 "kana": kana.get(title, ""),
                 "url": s["link"],
             })
+        song_rows += extra_song_rows(brand_id, {r["id"] for r in song_rows})
         song_rows.sort(key=lambda r: (r["kana"] or r["title"]))
 
     print(f"[{brand_id}] idols")
