@@ -295,8 +295,8 @@ function cardEl(it, idx) {
     it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
     // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
     const jk = DB.jackets[String(s.id)];
-    if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; }
-    else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
+    if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; it.jkPos = "auto"; }
+    else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
     paintJacket(jacket, it);
     songIn.value = s.title;
     close(); syncSongField(); save();
@@ -336,7 +336,7 @@ function cardEl(it, idx) {
   songIn.addEventListener("input", () => {
     if (performance.now() - pickedAt < 400) { songIn.value = it.title; return; } // 選曲直後の確定による入力は無視
     it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
-    if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; }
+    if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
     paintJacket(jacket, it, true);
     syncSongField();
     save(); search();
@@ -395,6 +395,29 @@ function cardEl(it, idx) {
 const JK_WAIT = "楽曲を選ぶと自動で更新されます";
 const JK_FAIL = "ジャケットの取得に失敗しました。自分でジャケットの設定ができます";
 
+// ジャケットの表示位置。表と裏が横に並んだジャケットを正方形の中央で切ると背表紙が映るので、
+// 横長（幅が高さの WIDE_RATIO 倍以上）の画像は表紙側を見せる。今のデータで横長なのはランティスの
+// MTG01（表紙が左半分）と MTG11（左右とも同じ絵柄）なので、自動では左側にする。外れたらジャケット設定で選び直せる
+const JK_POSITIONS = [["auto", "自動"], ["left", "左"], ["center", "中央"], ["right", "右"]];
+const WIDE_RATIO = 1.6;
+const ratioCache = new Map();
+function imageRatio(url) {
+  if (!url) return Promise.resolve(1);
+  if (!ratioCache.has(url)) {
+    ratioCache.set(url, new Promise((res) => {
+      const img = new Image();
+      img.onload = () => res(img.naturalWidth / (img.naturalHeight || 1));
+      img.onerror = () => res(1);
+      img.src = url;
+    }));
+  }
+  return ratioCache.get(url);
+}
+async function jacketPos(url, pos) {
+  if (pos && pos !== "auto") return `${pos} center`;
+  return (await imageRatio(url)) >= WIDE_RATIO ? "left center" : "center";
+}
+
 // ジャケット枠の表示：画像 / 選曲待ち / 取得失敗（＝自分で設定してね）
 // typing=true の間は入力途中なので失敗表示にしない
 function paintJacket(el, it, typing = false) {
@@ -406,8 +429,10 @@ function paintJacket(el, it, typing = false) {
     span.textContent = JK_FAIL;
   };
   el.classList.remove("is-failed");
+  el.style.backgroundPosition = "";
   if (it.jacket) {
     setBg(el, it.jacket);
+    jacketPos(it.jacket, it.jkPos).then((p) => { if (el._tok === token) el.style.backgroundPosition = p; });
     const img = new Image();
     img.onerror = () => { if (el._tok === token) fail(); };
     img.src = it.jacket;
@@ -598,13 +623,28 @@ function addCustomMember() {
 
 // ---------------------------------------------------------------- jacket dialog
 
-const jkDlg = { item: null, value: "" };
+const jkDlg = { item: null, value: "", pos: "auto" };
 
 function openJacket(item) {
-  jkDlg.item = item; jkDlg.value = item.jacket || "";
+  jkDlg.item = item; jkDlg.value = item.jacket || ""; jkDlg.pos = item.jkPos || "auto";
   $("#jk-url").value = jkDlg.value.startsWith("data:") ? "" : jkDlg.value;
-  setBg($("#jk-preview"), jkDlg.value);
+  paintJkPreview();
   $("#dlg-jacket").showModal();
+}
+
+// プレビューと「表示する位置」ボタン（画像があるときだけ出す）
+function paintJkPreview() {
+  const pv = $("#jk-preview");
+  setBg(pv, jkDlg.value);
+  pv.style.backgroundPosition = "";
+  const v = jkDlg.value, pos = jkDlg.pos;
+  if (v) jacketPos(v, pos).then((p) => { if (jkDlg.value === v && jkDlg.pos === pos) pv.style.backgroundPosition = p; });
+  const box = $("#jk-pos");
+  box.hidden = !v;
+  box.querySelector(".jk-pos-btns").replaceChildren(...JK_POSITIONS.map(([id, label]) => h("button", {
+    type: "button", class: "chip" + (id === pos ? " on" : ""), "aria-pressed": String(id === pos),
+    onclick: () => { jkDlg.pos = id; paintJkPreview(); },
+  }, label)));
 }
 
 async function fileToDataURL(file, max = 640) {
@@ -659,7 +699,7 @@ function buildSheet(jackets) {
           h("span", { class: "x-no", style: { background: f.color, color: f.ink } }, String(i + 1)),
           h("span", {}, it.theme.trim() || "オススメ曲")),
         h("div", { class: "x-body" },
-          h("div", { class: "x-jacket", style: jk ? { backgroundImage: `url("${jk}")` } : {} }, jk ? "" : "NO IMAGE"),
+          h("div", { class: "x-jacket", style: jk.src ? { backgroundImage: `url("${jk.src}")`, backgroundPosition: jk.pos } : {} }, jk.src ? "" : "NO IMAGE"),
           h("div", { class: "x-main" },
             h("div", { class: "x-title" }, it.title.trim() || "（曲名未入力）"),
             h("div", { class: "x-pitch" }, it.pitch.trim()),
@@ -690,9 +730,9 @@ async function exportImage() {
     const jackets = new Map();
     let failed = 0;
     await Promise.all(state.items.map(async (it) => {
-      const d = await resolveJacket(it.jacket);
+      const [d, pos] = await Promise.all([resolveJacket(it.jacket), it.jacket ? jacketPos(it.jacket, it.jkPos) : "center"]);
       if (d === null) failed++;
-      jackets.set(it.id, d || "");
+      jackets.set(it.id, { src: d || "", pos });
     }));
     await document.fonts.ready;
     const stage = $("#export-stage");
@@ -778,7 +818,8 @@ function wire() {
 
   $("#jk-url").addEventListener("input", () => {
     jkDlg.value = $("#jk-url").value.trim();
-    setBg($("#jk-preview"), jkDlg.value);
+    jkDlg.pos = "auto";
+    paintJkPreview();
   });
   $("#jk-file").addEventListener("change", async (e) => {
     const f = e.target.files?.[0];
@@ -786,18 +827,23 @@ function wire() {
     if (!f) return;
     try {
       jkDlg.value = await fileToDataURL(f);
+      jkDlg.pos = "auto";
       $("#jk-url").value = "";
-      setBg($("#jk-preview"), jkDlg.value);
+      paintJkPreview();
     } catch { toast("画像を読み込めませんでした"); }
   });
-  $("#jk-clear").onclick = () => { jkDlg.value = ""; $("#jk-url").value = ""; setBg($("#jk-preview"), ""); };
+  $("#jk-clear").onclick = () => { jkDlg.value = ""; jkDlg.pos = "auto"; $("#jk-url").value = ""; paintJkPreview(); };
   // 「決定」で反映（dialog の close イベントには頼らない）
   const applyJacket = () => {
     if (!jkDlg.item) return;
     const v = jkDlg.value;
     if (v && !v.startsWith("data:") && !/^https?:\/\//i.test(v)) { toast("http(s) で始まる画像URLを入力してください"); return; }
-    jkDlg.item.jacket = v;
-    jkDlg.item.jacketAuto = false; // 自分で設定したものは選曲し直しても消さない
+    // 表示位置だけ変えた場合は、自動で入ったジャケットのまま（選曲し直したら差し替わる）にする
+    if (v !== jkDlg.item.jacket) {
+      jkDlg.item.jacket = v;
+      jkDlg.item.jacketAuto = false; // 自分で設定したものは選曲し直しても消さない
+    }
+    jkDlg.item.jkPos = jkDlg.pos;
     const el = document.querySelector(`.card[data-id="${jkDlg.item.id}"] .jacket`);
     if (el) paintJacket(el, jkDlg.item);
     save();

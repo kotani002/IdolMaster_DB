@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261116a">
+<link rel="stylesheet" href="assets/style.css?v=20261116b">
 </head>
 <body>
 <header class="topbar">
@@ -111,6 +111,10 @@
       <button type="button" class="icon-btn" id="jk-close" aria-label="閉じる">×</button>
     </div>
     <div class="jk-preview" id="jk-preview"><span>NO IMAGE</span></div>
+    <div class="jk-pos" id="jk-pos" hidden>
+      <span class="lbl">表示する位置<small>（表と裏が並んだ横長の画像は、自動で左側を表示します）</small></span>
+      <div class="jk-pos-btns chip-row" role="group" aria-label="ジャケットの表示する位置"></div>
+    </div>
     <label class="lbl">画像URL（右クリック →「画像アドレスをコピー」したものを貼り付け）</label>
     <input type="url" id="jk-url" placeholder="https://..." autocomplete="off">
     <div class="jk-actions">
@@ -147,6 +151,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261116c" type="module"></script>
+<script src="assets/app.js?v=20261116d" type="module"></script>
 </body>
 </html>
