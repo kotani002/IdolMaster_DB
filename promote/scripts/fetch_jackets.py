@@ -48,6 +48,11 @@ SOURCES = {
         "link_re": r'href="(https://shinycolors\.lantis\.jp/releaseinfo/[^"]+)"',
         "parser": "lantis",
     },
+    "sidem": {  # ランティス SideM サイト（ミリオンと同じページ構成）
+        "index": "https://www.lantis.jp/sidem/index.html",
+        "link_re": r'href="(releaseinfo/release_[^"]+\.html)"',
+        "parser": "lantis",
+    },
 }
 
 
@@ -114,6 +119,8 @@ def parse_lantis(page: str, url: str) -> dict | None:
     i = page.find("h3_index")
     if i < 0:
         i = page.find("release_index")  # シャイニーカラーズのサイトは見出し画像の名前が違う
+    if i < 0:
+        i = page.find('h3_tit">Index<')  # SideM のサイトは見出しが文字
     if i >= 0:
         seg = page[i:]
         end = re.search(r"<h3|<section|class=\"CD_area\"", seg[10:])

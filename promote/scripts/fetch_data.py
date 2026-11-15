@@ -55,7 +55,8 @@ BRANDS = {
         {"production": "315", "names": ["秋月涼"], "group": "ディアリースターズ"},
         {"production": "va-liv", "names": None, "group": "vα-liv", "sitemap": "va-liv"},
     ]},
-    "sidem": {"music_type": None, "production": "315", "sitemap": None},
+    # SideM のアイドルは /tax（アイドル別の参加曲）が API 非対応なので、歌唱者は曲ごとに取る
+    "sidem": {"music_type": "sidem", "production": "315", "sitemap": None, "singers_by_song": True},
     # 学マス：人の並び・顔ぶれは手で作った data/idols/gm.json を正とし、CV・よみ だけ API で埋める
     "gm": {"music_type": None, "production": "gakuen", "sitemap": None, "keep_file": True},
 }
@@ -341,7 +342,7 @@ def attach_singers(only: list[str] | None = None) -> None:
     seen: set[str] = set()
     for b in brands:
         path = DATA / "idols" / f"{b}.json"
-        if not path.exists():
+        if not path.exists() or BRANDS[b].get("singers_by_song"):
             continue
         for r in json.loads(path.read_text(encoding="utf-8")):
             name = r["name"]
@@ -372,6 +373,16 @@ def attach_singers(only: list[str] | None = None) -> None:
                     lst.append(name)
     for f in song_files:
         rows = json.loads(f.read_text(encoding="utf-8"))
+        if BRANDS[f.stem].get("singers_by_song"):
+            # アイドル別の参加曲（/tax）が API で取れないブランド（SideM）は、曲ごとに歌唱メンバーを取る
+            print(f"[singers] {f.stem}: per song ({len(rows)})")
+            for s in rows:
+                try:
+                    m = get_json(f"{API}/music?id={s['id']}")
+                except Exception:
+                    continue
+                names = [x["name"] for x in m.get("member") or [] if not excluded(x.get("name", ""))]
+                singers[s["id"]] = list(dict.fromkeys(singers.get(s["id"], []) + names))
         for s in rows:
             found = singers.get(s["id"], [])
             if only is None:

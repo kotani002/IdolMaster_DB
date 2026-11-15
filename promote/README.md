@@ -78,11 +78,12 @@ python scripts/fetch_data.py
 python scripts/fetch_jackets.py cg
 python scripts/fetch_jackets.py ml
 python scripts/fetch_jackets.py sc
+python scripts/fetch_jackets.py sidem
 ```
 
 公式のディスコグラフィーから各CDのジャケット・発売日・収録曲を取得し、`data/songs/<brand>.json` の曲名と照合して `data/jackets.json` に書き込みます。
 
-- 取得元：シンデレラガールズは公式ポータル、ミリオンライブとシャイニーカラーズはランティスのサイト（`scripts/fetch_jackets.py` の `SOURCES`）。
+- 取得元：シンデレラガールズは公式ポータル、ミリオンライブ・シャイニーカラーズ・SideM はランティスのサイト（`scripts/fetch_jackets.py` の `SOURCES`）。
 - 同じ曲が複数のCDに入っている場合は、本人歌唱版が入ったCDのうち一番早く発売されたもののジャケットを使います。ライブBD・カラオケ版は、CDで見つからない曲にだけ使います。
 - 取得したページは `scripts/.cache/` に保存されます。照合ルールだけ変えたいときは `--offline` を付ければ再取得しません。
 - 照合できなかった曲は `scripts/.cache/<brand>_unmatched.txt` に出力されます。これらの曲は、サイト上でユーザーが自分でジャケットを設定します。
