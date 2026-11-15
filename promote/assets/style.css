@@ -198,6 +198,13 @@ a { color: inherit; }
 }
 .jacket span { padding: 0 14px; text-align: center; line-height: 1.6; }
 .jacket.has-img span { display: none; }
+/* 未設定・読み込み失敗：NOW PRINTING 画像の上部に「自分で設定できます」の案内を帯で重ねる */
+.jacket.is-failed.has-img span {
+  display: block; position: absolute; top: 0; left: 0; right: 0; z-index: 1;
+  padding: 6px 10px; background: rgba(255, 255, 255, .88);
+  color: #c0483a; font-size: 11px; line-height: 1.45;
+}
+.jacket.is-failed.has-img::after { display: none; }
 /* ジャケット画像（CSS 背景だと参照元が送られて直リンク対策に掛かるので <img> で敷く。見た目は cover と同じ） */
 .jk-img {
   position: absolute; inset: 0; width: 100%; height: 100%;

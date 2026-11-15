@@ -408,6 +408,8 @@ function cardEl(it, idx) {
 
 const JK_WAIT = "楽曲を選ぶと自動で更新されます";
 const JK_FAIL = "ジャケットの取得に失敗しました。自分でジャケットの設定ができます";
+// ジャケット未設定の曲に出す画像（scripts/make_now_printing.py で作成）
+const NOW_PRINTING = "assets/now_printing.png";
 
 // ジャケットの表示位置。表と裏が横に並んだジャケットを正方形の中央で切ると背表紙が映るので、
 // 横長（幅が高さの WIDE_RATIO 倍以上）の画像は表紙側を見せる。今のデータで横長なのはランティスの
@@ -464,7 +466,9 @@ function paintJacket(el, it, typing = false) {
   const span = el.querySelector("span");
   const token = (el._tok = (el._tok || 0) + 1);
   const fail = () => {
-    setBg(el, "");
+    // 未設定・読み込み失敗は「NOW PRINTING...」画像を出し、上に「自分で設定できます」の案内を重ねる
+    setBg(el, NOW_PRINTING);
+    setBgPos(el, "");
     el.classList.add("is-failed");
     span.textContent = JK_FAIL;
   };
@@ -797,10 +801,12 @@ async function exportImage() {
   try {
     const jackets = new Map();
     let failed = 0;
+    let nowPrinting; // ジャケットが無い・読めない曲は「NOW PRINTING...」画像にする（1回だけ読み込む）
+    const placeholder = () => (nowPrinting ??= resolveJacket(new URL(NOW_PRINTING, location.href).href).then((d) => d || ""));
     await Promise.all(state.items.map(async (it) => {
       const [d, pos] = await Promise.all([resolveJacket(it.jacket), it.jacket ? jacketPos(it.jacket, it.jkPos) : "center"]);
       if (d === null) failed++;
-      jackets.set(it.id, { src: d || "", pos });
+      jackets.set(it.id, d ? { src: d, pos } : { src: await placeholder(), pos: "center" });
     }));
     await document.fonts.ready;
     const stage = $("#export-stage");
@@ -821,7 +827,7 @@ async function exportImage() {
     lastExport = { blob, url: URL.createObjectURL(blob) };
     $("#ex-img").src = lastExport.url;
     $("#ex-note").textContent = failed
-      ? `ジャケット ${failed} 件は配信元の制限で読み込めず「NO IMAGE」になりました。端末に保存した画像を選ぶと確実です。`
+      ? `ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。端末に保存した画像を選ぶと確実です。`
       : "";
     $("#ex-share").hidden = !canShareFile();
     $("#dlg-export").showModal();
