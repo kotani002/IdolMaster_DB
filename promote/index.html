@@ -4,9 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-  // 公開先を Cloudflare Pages に移転したので、旧URL（GitHub Pages）で開かれたら新URLへ移動する
+  // 公開先を Cloudflare Pages に移転したので、旧URL（GitHub Pages）で開かれたら新URLへ移動する。
+  // ただし新URLがまだ公開されていない（応答がない）間は移動せず、このページをそのまま使う。
   if (location.hostname.endsWith("github.io")) {
-    location.replace("https://imas-presen-songs.pages.dev/" + location.search + location.hash);
+    var NEW_SITE = "https://imas-presen-songs.pages.dev/";
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 3000);
+    fetch(NEW_SITE + "assets/ogp.png?probe=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+      .then(function () { location.replace(NEW_SITE + location.search + location.hash); })
+      .catch(function () { /* 新URLが未公開・通信不可 → 旧URLのまま使う */ });
   }
 </script>
 <title>アイマス楽曲プレゼンシート</title>
