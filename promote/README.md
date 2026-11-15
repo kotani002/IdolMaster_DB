@@ -86,7 +86,9 @@ python scripts/fetch_jackets.py sidem
 - 取得元：シンデレラガールズは公式ポータル、ミリオンライブ・シャイニーカラーズ・SideM はランティスのサイト（`scripts/fetch_jackets.py` の `SOURCES`）。
 - 同じ曲が複数のCDに入っている場合は、本人歌唱版が入ったCDのうち一番早く発売されたもののジャケットを使います。ライブBD・カラオケ版は、CDで見つからない曲にだけ使います。
 - 取得したページは `scripts/.cache/` に保存されます。照合ルールだけ変えたいときは `--offline` を付ければ再取得しません。
-- 照合できなかった曲は `scripts/.cache/<brand>_unmatched.txt` に出力されます。これらの曲は、サイト上でユーザーが自分でジャケットを設定します。
+- 照合できなかった曲は `scripts/.cache/<brand>_unmatched.txt` に出力されます。
+- 公式で見つからなかった曲は、iTunes Search API（Apple Music）でも探せます。`python scripts/fetch_jackets_itunes.py` で結果を `scripts/.cache/itunes_report.txt` に出し、内容を確認してから `--apply` で `data/jackets.json` に書き込みます（設定済みのジャケットは変えません。出典はサイト下部に記載）。
+- それでも見つからない曲は、サイト上で「NOW PRINTING...」画像になり、ユーザーが自分でジャケットを設定できます。
 
 ### 照合できなかった曲を手作業で登録する
 
