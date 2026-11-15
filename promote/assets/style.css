@@ -313,18 +313,31 @@ a { color: inherit; }
 .mem-list {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px;
   overflow: auto; min-height: 120px; max-height: 46dvh; padding: 2px;
+  align-content: start; /* 件数が少ないとき、行が縦に引き伸ばされないように */
 }
 .mem-item {
   display: flex; align-items: center; gap: 8px; text-align: left;
   border: 1px solid var(--line); background: var(--paper); border-radius: 10px;
   padding: 7px 9px; cursor: pointer; font-size: 13px; font-weight: 700;
 }
-.mem-item .dot { width: 12px; height: 12px; border-radius: 50%; flex: none; background: var(--c, #ccc); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.mem-item .dot { width: 12px; height: 12px; border-radius: 50%; flex: none; background: var(--c, #ccc); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
 .mem-item small { display: block; font-size: 10px; color: var(--muted); font-weight: 400; }
 .mem-item.on { border-color: var(--ink); background: #2a2730; color: #fff; }
 .mem-item.on small { color: #bbb; }
-.mem-item.mem-all { grid-column: 1 / -1; border-style: dashed; border-color: #b9b1a4; }
-.mem-item.mem-all.on { border-style: solid; }
+.mem-item > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+/* 「○○全員」：一覧の先頭に、小さめのボタンを1行（折り返し）で並べる */
+.mem-alls { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 2px 0 4px; }
+.mem-alls-label { font-size: 11px; font-weight: 800; color: var(--muted); margin-right: 2px; }
+.mem-all {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px dashed #b9b1a4; background: var(--paper); border-radius: 999px;
+  padding: 4px 11px 4px 8px; font-size: 12px; font-weight: 800; cursor: pointer;
+}
+.mem-all .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c, #ccc); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
+.mem-all.on { border-style: solid; border-color: var(--ink); background: #2a2730; color: #fff; }
+/* 白に近い色のタグは縁取り */
+.tag.light { box-shadow: inset 0 0 0 1.5px rgba(0, 0, 0, .18); }
+.tag.light button { background: rgba(0, 0, 0, .08); }
 .mem-custom { display: flex; gap: 8px; }
 
 .jk-preview {
@@ -375,6 +388,29 @@ a { color: inherit; }
   .song-input::placeholder { font-size: 15px; }
   .theme-input { font-size: 16px; flex-basis: calc(100% - 40px); }
   .card-theme { flex-wrap: wrap; justify-content: flex-end; }
+  /* 歌唱メンバー選択：ブランド・グループのタグは横スクロールの1行にして、一覧の高さを確保する */
+  #mem-brands, #mem-groups {
+    flex: none; /* 縦並びのダイアログ内で横スクロール領域が潰れないように */
+    flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    padding-block: 2px;
+    margin: 0 -18px; padding: 0 18px;
+    /* 右端をぼかして「横に続きがある」ことを示す */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  #mem-brands::-webkit-scrollbar, #mem-groups::-webkit-scrollbar, .mem-alls::-webkit-scrollbar { display: none; }
+  /* 「全員」ボタンも横スクロールの1行に（対バンでは6個あり、折り返すと一覧が見えなくなるため） */
+  .mem-alls {
+    min-height: 36px; /* 一覧のグリッド内で横スクロール領域が潰れないように */
+    flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+  }
+  .mem-alls > * { flex: none; white-space: nowrap; }
+  #mem-brands .chip, #mem-groups .chip { flex: none; white-space: nowrap; }
+  #mem-groups:empty { display: none; }
+  .mem-list { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 56dvh; }
+  .mem-item { padding: 7px 8px; gap: 6px; font-size: 12.5px; }
 }
 
 /* =================================================================

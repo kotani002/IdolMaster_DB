@@ -14,10 +14,42 @@
   "ink": "#ffffff"
  },
  {
+  "id": "as",
+  "name": "765プロオールスターズ",
+  "short": "765AS",
+  "color": "#e22b30",
+  "ink": "#ffffff",
+  "selectable": false
+ },
+ {
   "id": "gm",
   "name": "学園アイドルマスター",
   "short": "学マス",
   "color": "#ff7a2f",
+  "ink": "#ffffff",
+  "selectable": false
+ },
+ {
+  "id": "876",
+  "name": "876プロダクション",
+  "short": "876プロ",
+  "color": "#8e5fc2",
+  "ink": "#ffffff",
+  "selectable": false
+ },
+ {
+  "id": "sc",
+  "name": "シャイニーカラーズ",
+  "short": "シャニマス",
+  "color": "#5bbbd6",
+  "ink": "#123b47",
+  "selectable": false
+ },
+ {
+  "id": "sidem",
+  "name": "SideM",
+  "short": "SideM",
+  "color": "#14a37f",
   "ink": "#ffffff",
   "selectable": false
  }

@@ -113,13 +113,18 @@ function hexToRgb(hex) {
   if (Number.isNaN(n) || x.length !== 6) return null;
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
-function inkFor(hex) {
+function luminance(hex) {
   const rgb = hexToRgb(hex);
-  if (!rgb) return "#fff";
+  if (!rgb) return 0;
   const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
-  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return L > 0.45 ? "#2a2730" : "#ffffff";
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
+function inkFor(hex) {
+  if (!hexToRgb(hex)) return "#fff";
+  return luminance(hex) > 0.45 ? "#2a2730" : "#ffffff";
+}
+// 白に近いイメージカラー（及川雫 #ffffff・桑山千雪など）は白地に溶けるので、タグに縁取りを付ける
+const isLight = (hex) => luminance(hex) > 0.75;
 // 白と混ぜた淡色（html2canvas 用に color-mix を使わず計算）
 function tint(hex, ratio) {
   const rgb = hexToRgb(hex) || [200, 200, 200];
@@ -357,7 +362,7 @@ function cardEl(it, idx) {
     tags.replaceChildren(
       ...it.members.map((m, i) => {
         const c = memberColor(m);
-        return h("span", { class: "tag", style: { "--tag-bg": c, "--tag-ink": inkFor(c) } },
+        return h("span", { class: "tag" + (isLight(c) ? " light" : ""), style: { "--tag-bg": c, "--tag-ink": inkFor(c) } },
           m.name,
           h("button", {
             type: "button", "aria-label": `${m.name}を外す`,
@@ -463,6 +468,15 @@ function drawBrandChips() {
       }, e.name);
     }),
   );
+  scrollChipIntoView(box);
+}
+
+// スマホではタグが横スクロールの1行になるので、選択中のタグが見える位置までずらす
+function scrollChipIntoView(box) {
+  const on = box.querySelector(".chip.on");
+  if (!on || box.scrollWidth <= box.clientWidth) return;
+  const left = on.offsetLeft - box.offsetLeft;
+  if (left < box.scrollLeft || left + on.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = Math.max(0, left - 24);
 }
 
 // いま表示する候補（ブランドならそのアイドル、イベントなら出演日ごとの出演者）
@@ -504,6 +518,8 @@ function drawGroupChips() {
         onclick: () => { memDlg.group = o.key; gbox.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.g === o.key)); drawMemList(); },
       }, o.label))
     : []));
+  gbox.scrollLeft = 0;
+  scrollChipIntoView(gbox);
 }
 
 // 「○○全員」タグ：個別のアイドルを選ばず、まとめて1つのタグとして追加する
@@ -541,10 +557,14 @@ function drawMemList() {
     (!memDlg.group || i.groups.includes(memDlg.group)) &&
     (!q || norm(i.name).includes(q) || norm(i.kana).includes(q) || norm(i.cv).includes(q)));
   const chosen = new Set(it.members.map((m) => m.name));
-  const alls = allRows().filter((r) => !q || norm(r.label).includes(q)).map((r) => h("button", {
-    type: "button", class: "mem-item mem-all" + (chosen.has(r.label) ? " on" : ""), "aria-pressed": String(chosen.has(r.label)),
+  // 「全員」は1行にまとめた小さめのボタンにする（全幅の行が並ぶと、スマホでアイドル一覧が画面外に押し出されるため）
+  const allBtns = allRows().filter((r) => !q || norm(r.label).includes(q)).map((r) => h("button", {
+    type: "button", class: "mem-all" + (chosen.has(r.label) ? " on" : ""), "aria-pressed": String(chosen.has(r.label)),
     onclick: () => toggleMember({ name: r.label, color: r.color, brand: r.brand, all: true }),
-  }, h("span", { class: "dot", style: { "--c": r.color } }), h("span", {}, r.label, h("small", {}, "まとめて1タグで追加"))));
+  }, h("span", { class: "dot", style: { "--c": r.color } }), r.label));
+  const alls = allBtns.length
+    ? [h("div", { class: "mem-alls" }, h("span", { class: "mem-alls-label" }, "まとめて1タグで追加"), ...allBtns)]
+    : [];
   $("#mem-list").replaceChildren(...alls, ...idols.map((i) => {
     const b = brand(i.brand);
     const sub = [showBrand ? b.short : "", i.cv ? `CV.${i.cv}` : ""].filter(Boolean).join(" / ");
@@ -644,7 +664,9 @@ function buildSheet(jackets) {
             it.members.length ? h("div", { class: "x-mem-label" }, "歌唱予想メンバー") : null,
             it.members.length ? h("div", { class: "x-tags" }, it.members.map((m) => {
               const c = memberColor(m);
-              return h("span", { class: "x-tag", style: { background: c, color: inkFor(c) } }, m.name);
+              // 白に近い色は縁取り（html2canvas が確実に描ける border で付ける）
+              const edge = isLight(c) ? { border: "2px solid rgba(0,0,0,.18)", padding: "3px 14px 5px" } : {};
+              return h("span", { class: "x-tag", style: { background: c, color: inkFor(c), ...edge } }, m.name);
             })) : null,
           ),
         ),

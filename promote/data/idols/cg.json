@@ -1,10 +1,37 @@
 [
  {
+  "id": "cg-chinatsu",
+  "name": "相川千夏",
+  "kana": "あいかわちなつ",
+  "cv": "",
+  "color": "#7a508f",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-nagisa",
+  "name": "愛野渚",
+  "kana": "あいのなぎさ",
+  "cv": "",
+  "color": "#ffcb49",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-yukino",
+  "name": "相原雪乃",
+  "kana": "あいはらゆきの",
+  "cv": "",
+  "color": "#d06447",
+  "group": "",
+  "count": 0
+ },
+ {
   "id": 60,
   "name": "相葉夕美",
   "kana": "あいばゆみ",
   "cv": "木村珠莉",
-  "color": "",
+  "color": "#f0e991",
   "group": "",
   "count": 21
  },
@@ -13,52 +40,124 @@
   "name": "赤城みりあ",
   "kana": "あかぎみりあ",
   "cv": "黒沢ともよ",
-  "color": "",
+  "color": "#ffcd00",
   "group": "",
   "count": 37
+ },
+ {
+  "id": "cg-erika",
+  "name": "赤西瑛梨華",
+  "kana": "あかにしえりか",
+  "cv": "",
+  "color": "#eb306d",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-fuka",
+  "name": "浅野風香",
+  "kana": "あさのふうか",
+  "cv": "",
+  "color": "#618d75",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2546,
   "name": "浅利七海",
   "kana": "あさりななみ",
   "cv": "井上ほの花",
-  "color": "",
+  "color": "#009cbd",
   "group": "",
   "count": 8
+ },
+ {
+  "id": 34,
+  "name": "アナスタシア",
+  "kana": "あなすたしあ",
+  "cv": "上坂すみれ",
+  "color": "#b1c9e8",
+  "group": "",
+  "count": 31
  },
  {
   "id": 31,
   "name": "安部菜々",
   "kana": "あべなな",
   "cv": "三宅麻理恵",
-  "color": "",
+  "color": "#ef4a81",
   "group": "",
   "count": 41
+ },
+ {
+  "id": "cg-honoka",
+  "name": "綾瀬穂乃香",
+  "kana": "あやせほのか",
+  "cv": "",
+  "color": "#f5d6ff",
+  "group": "",
+  "count": 0
  },
  {
   "id": 806,
   "name": "荒木比奈",
   "kana": "あらきひな",
   "cv": "田辺留依",
-  "color": "",
+  "color": "#a0d884",
   "group": "",
   "count": 15
+ },
+ {
+  "id": "cg-kanna",
+  "name": "有浦柑奈",
+  "kana": "ありうらかんな",
+  "cv": "",
+  "color": "#ec4b6e",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-miyako",
+  "name": "安斎都",
+  "kana": "あんざいみやこ",
+  "cv": "",
+  "color": "#fa9063",
+  "group": "",
+  "count": 0
  },
  {
   "id": 73,
   "name": "五十嵐響子",
   "kana": "いがらしきょうこ",
   "cv": "種﨑敦美",
-  "color": "",
+  "color": "#fabbcb",
   "group": "",
   "count": 19
+ },
+ {
+  "id": "cg-akiha",
+  "name": "池袋晶葉",
+  "kana": "いけぶくろあきは",
+  "cv": "",
+  "color": "#de2f4d",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-megumi",
+  "name": "伊集院惠",
+  "kana": "いじゅういんめぐみ",
+  "cv": "",
+  "color": "#521078",
+  "group": "",
+  "count": 0
  },
  {
   "id": 61,
   "name": "一ノ瀬志希",
   "kana": "いちのせしき",
   "cv": "藍原ことみ",
-  "color": "",
+  "color": "#a50050",
   "group": "",
   "count": 37
  },
@@ -67,25 +166,97 @@
   "name": "市原仁奈",
   "kana": "いちはらにな",
   "cv": "久野美咲",
-  "color": "",
+  "color": "#f8e08e",
   "group": "",
   "count": 21
+ },
+ {
+  "id": "cg-kana",
+  "name": "今井加奈",
+  "kana": "いまいかな",
+  "cv": "",
+  "color": "#ff3de5",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-setsuna",
+  "name": "井村雪菜",
+  "kana": "いむらせつな",
+  "cv": "",
+  "color": "#ed3767",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": 3248,
+  "name": "イヴ・サンタクロース",
+  "kana": "いゔ・さんたくろーす",
+  "cv": "松永あかね",
+  "color": "#e5e1e6",
+  "group": "",
+  "count": 8
  },
  {
   "id": 65,
   "name": "上田鈴帆",
   "kana": "うえだすずほ",
   "cv": "春野ななみ",
-  "color": "",
+  "color": "#cc8a00",
   "group": "",
   "count": 3
+ },
+ {
+  "id": "cg-mutsumi",
+  "name": "氏家むつみ",
+  "kana": "うじいえむつみ",
+  "cv": "",
+  "color": "#375637",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-otoha",
+  "name": "梅木音葉",
+  "kana": "うめきおとは",
+  "cv": "",
+  "color": "#75bbae",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-tsubaki",
+  "name": "江上椿",
+  "kana": "えがみつばき",
+  "cv": "",
+  "color": "#e95b64",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-misaki",
+  "name": "衛藤美紗希",
+  "kana": "えとうみさき",
+  "cv": "",
+  "color": "#fe85c7",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-naho",
+  "name": "海老原菜帆",
+  "kana": "えびはらなほ",
+  "cv": "",
+  "color": "#819832",
+  "group": "",
+  "count": 0
  },
  {
   "id": 52,
   "name": "及川雫",
   "kana": "おいかわしずく",
   "cv": "のぐちゆり",
-  "color": "",
+  "color": "#ffffff",
   "group": "",
   "count": 16
  },
@@ -94,34 +265,88 @@
   "name": "大石泉",
   "kana": "おおいしいずみ",
   "cv": "大木咲絵子",
-  "color": "",
+  "color": "#74d1ea",
   "group": "",
   "count": 7
+ },
+ {
+  "id": "cg-yuu",
+  "name": "太田優",
+  "kana": "おおたゆう",
+  "cv": "",
+  "color": "#f851a7",
+  "group": "",
+  "count": 0
  },
  {
   "id": 6,
   "name": "大槻唯",
   "kana": "おおつきゆい",
   "cv": "山下七海",
-  "color": "",
+  "color": "#f6be00",
   "group": "",
   "count": 23
+ },
+ {
+  "id": "cg-yuriko",
+  "name": "大西由里子",
+  "kana": "おおにしゆりこ",
+  "cv": "",
+  "color": "#c90f74",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-kurumi",
+  "name": "大沼くるみ",
+  "kana": "おおぬまくるみ",
+  "cv": "",
+  "color": "#ffc1bd",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-michiru",
+  "name": "大原みちる",
+  "kana": "おおはらみちる",
+  "cv": "",
+  "color": "#d8843e",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-yasuha",
+  "name": "岡崎泰葉",
+  "kana": "おかざきやすは",
+  "cv": "",
+  "color": "#ade5f6",
+  "group": "",
+  "count": 0
  },
  {
   "id": 35,
   "name": "緒方智絵里",
   "kana": "おがたちえり",
   "cv": "大空直美",
-  "color": "",
+  "color": "#6cc24a",
   "group": "",
   "count": 39
+ },
+ {
+  "id": "cg-saori",
+  "name": "奥山沙織",
+  "kana": "おくやまさおり",
+  "cv": "",
+  "color": "#e87487",
+  "group": "",
+  "count": 0
  },
  {
   "id": 165,
   "name": "乙倉悠貴",
   "kana": "おとくらゆうき",
   "cv": "中島由貴",
-  "color": "",
+  "color": "#e4bec3",
   "group": "",
   "count": 17
  },
@@ -130,7 +355,7 @@
   "name": "片桐早苗",
   "kana": "かたぎりさなえ",
   "cv": "和氣あず未",
-  "color": "",
+  "color": "#fc4c02",
   "group": "",
   "count": 20
  },
@@ -139,7 +364,7 @@
   "name": "上条春菜",
   "kana": "かみじょうはるな",
   "cv": "長島光那",
-  "color": "",
+  "color": "#5bc2e7",
   "group": "",
   "count": 11
  },
@@ -148,7 +373,7 @@
   "name": "神谷奈緒",
   "kana": "かみやなお",
   "cv": "松井恵理子",
-  "color": "",
+  "color": "#9678d3",
   "group": "",
   "count": 31
  },
@@ -157,7 +382,7 @@
   "name": "川島瑞樹",
   "kana": "かわしまみずき",
   "cv": "東山奈央",
-  "color": "",
+  "color": "#485cc7",
   "group": "",
   "count": 20
  },
@@ -166,16 +391,34 @@
   "name": "神崎蘭子",
   "kana": "かんざきらんこ",
   "cv": "内田真礼",
-  "color": "",
+  "color": "#84329b",
   "group": "",
   "count": 39
+ },
+ {
+  "id": "cg-ayaka",
+  "name": "岸部彩華",
+  "kana": "きしべあやか",
+  "cv": "",
+  "color": "#f14fee",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-mahiro",
+  "name": "北川真尋",
+  "kana": "きたがわまひろ",
+  "cv": "",
+  "color": "#4fd962",
+  "group": "",
+  "count": 0
  },
  {
   "id": 911,
   "name": "喜多日菜子",
   "kana": "きたひなこ",
   "cv": "深川芹亜",
-  "color": "",
+  "color": "#fcd757",
   "group": "",
   "count": 10
  },
@@ -184,43 +427,124 @@
   "name": "喜多見柚",
   "kana": "きたみゆず",
   "cv": "武田羅梨沙多胡",
-  "color": "",
+  "color": "#f8f283",
   "group": "",
   "count": 13
+ },
+ {
+  "id": "cg-manami",
+  "name": "木場真奈美",
+  "kana": "きばまなみ",
+  "cv": "",
+  "color": "#8d8696",
+  "group": "",
+  "count": 0
  },
  {
   "id": 63,
   "name": "木村夏樹",
   "kana": "きむらなつき",
   "cv": "安野希世乃",
-  "color": "",
+  "color": "#53565a",
   "group": "",
   "count": 20
+ },
+ {
+  "id": "cg-cathy",
+  "name": "キャシー・グラハム",
+  "kana": "きゃしー・ぐらはむ",
+  "cv": "",
+  "color": "#ffdc00",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-aya",
+  "name": "桐野アヤ",
+  "kana": "きりのあや",
+  "cv": "",
+  "color": "#c3396c",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2177,
   "name": "桐生つかさ",
   "kana": "きりゅうつかさ",
   "cv": "河瀬茉希",
-  "color": "",
+  "color": "#ab4ec6",
   "group": "",
   "count": 16
+ },
+ {
+  "id": "cg-wakaba",
+  "name": "日下部若葉",
+  "kana": "くさかべわかば",
+  "cv": "",
+  "color": "#c4d673",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-shinobu",
+  "name": "工藤忍",
+  "kana": "くどうしのぶ",
+  "cv": "",
+  "color": "#eb3249",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-clarice",
+  "name": "クラリス",
+  "kana": "くらりす",
+  "cv": "",
+  "color": "#ffda7b",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-nene",
+  "name": "栗原ネネ",
+  "kana": "くりはらねね",
+  "cv": "",
+  "color": "#0f7bf8",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-chiaki",
+  "name": "黒川千秋",
+  "kana": "くろかわちあき",
+  "cv": "",
+  "color": "#bc1212",
+  "group": "",
+  "count": 0
  },
  {
   "id": 1772,
   "name": "黒埼ちとせ",
   "kana": "くろさきちとせ",
   "cv": "佐倉薫",
-  "color": "",
+  "color": "#ef3340",
   "group": "",
   "count": 17
+ },
+ {
+  "id": "cg-kate",
+  "name": "ケイト",
+  "kana": "けいと",
+  "cv": "",
+  "color": "#cf142b",
+  "group": "",
+  "count": 0
  },
  {
   "id": 3108,
   "name": "古賀小春",
   "kana": "こがこはる",
   "cv": "小森結梨",
-  "color": "",
+  "color": "#c2e189",
   "group": "",
   "count": 10
  },
@@ -229,7 +553,7 @@
   "name": "輿水幸子",
   "kana": "こしみずさちこ",
   "cv": "竹達彩奈",
-  "color": "",
+  "color": "#c1a0da",
   "group": "",
   "count": 19
  },
@@ -238,7 +562,7 @@
   "name": "小関麗奈",
   "kana": "こせきれいな",
   "cv": "長野佑紀",
-  "color": "",
+  "color": "#9b26b6",
   "group": "",
   "count": 8
  },
@@ -247,7 +571,7 @@
   "name": "小早川紗枝",
   "kana": "こばやかわさえ",
   "cv": "立花理香",
-  "color": "",
+  "color": "#e56db1",
   "group": "",
   "count": 21
  },
@@ -256,25 +580,70 @@
   "name": "小日向美穂",
   "kana": "こひなたみほ",
   "cv": "津田美波",
-  "color": "",
+  "color": "#db3eb1",
   "group": "",
   "count": 30
+ },
+ {
+  "id": "cg-ibuki",
+  "name": "小松伊吹",
+  "kana": "こまついぶき",
+  "cv": "",
+  "color": "#fffb4e",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-chinami",
+  "name": "小室千奈美",
+  "kana": "こむろちなみ",
+  "cv": "",
+  "color": "#acc0e6",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2547,
   "name": "西園寺琴歌",
   "kana": "さいおんじことか",
   "cv": "安齋由香里",
-  "color": "",
+  "color": "#e8cdd0",
   "group": "",
   "count": 11
+ },
+ {
+  "id": "cg-yoko",
+  "name": "斉藤洋子",
+  "kana": "さいとうようこ",
+  "cv": "",
+  "color": "#cbfc9f",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-kiyomi",
+  "name": "冴島清美",
+  "kana": "さえじまきよみ",
+  "cv": "",
+  "color": "#f6bd30",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-satomi",
+  "name": "榊原里美",
+  "kana": "さかきばらさとみ",
+  "cv": "",
+  "color": "#fec520",
+  "group": "",
+  "count": 0
  },
  {
   "id": 45,
   "name": "鷺沢文香",
   "kana": "さぎさわふみか",
   "cv": "M・A・O",
-  "color": "",
+  "color": "#606eb2",
   "group": "",
   "count": 20
  },
@@ -283,7 +652,7 @@
   "name": "佐久間まゆ",
   "kana": "さくままゆ",
   "cv": "牧野由依",
-  "color": "",
+  "color": "#da1884",
   "group": "",
   "count": 28
  },
@@ -292,7 +661,7 @@
   "name": "櫻井桃華",
   "kana": "さくらいももか",
   "cv": "照井春佳",
-  "color": "",
+  "color": "#ef95cf",
   "group": "",
   "count": 21
  },
@@ -301,7 +670,7 @@
   "name": "佐々木千枝",
   "kana": "ささきちえ",
   "cv": "今井麻夏",
-  "color": "",
+  "color": "#0072ce",
   "group": "",
   "count": 19
  },
@@ -310,7 +679,7 @@
   "name": "佐城雪美",
   "kana": "さじょうゆきみ",
   "cv": "中澤ミナ",
-  "color": "",
+  "color": "#171c8f",
   "group": "",
   "count": 13
  },
@@ -319,16 +688,34 @@
   "name": "佐藤心",
   "kana": "さとうしん",
   "cv": "花守ゆみり",
-  "color": "",
+  "color": "#f04e98",
   "group": "",
   "count": 20
+ },
+ {
+  "id": "cg-marina",
+  "name": "沢田麻理菜",
+  "kana": "さわだまりな",
+  "cv": "",
+  "color": "#fca538",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-tokiko",
+  "name": "財前時子",
+  "kana": "ざいぜんときこ",
+  "cv": "",
+  "color": "#7d0837",
+  "group": "",
+  "count": 0
  },
  {
   "id": 57,
   "name": "椎名法子",
   "kana": "しいなのりこ",
   "cv": "都丸ちよ",
-  "color": "",
+  "color": "#f8485e",
   "group": "",
   "count": 11
  },
@@ -336,17 +723,26 @@
   "id": 59,
   "name": "塩見周子",
   "kana": "しおみしゅうこ",
-  "cv": "ルゥティン",
-  "color": "",
+  "cv": "ルゥ ティン",
+  "color": "#dce6ed",
   "group": "",
   "count": 23
+ },
+ {
+  "id": "cg-rei",
+  "name": "篠原礼",
+  "kana": "しのはられい",
+  "cv": "",
+  "color": "#bb68fe",
+  "group": "",
+  "count": 0
  },
  {
   "id": 14,
   "name": "渋谷凛",
   "kana": "しぶやりん",
   "cv": "福原綾香",
-  "color": "",
+  "color": "#009cde",
   "group": "",
   "count": 64
  },
@@ -355,16 +751,25 @@
   "name": "島村卯月",
   "kana": "しまむらうづき",
   "cv": "大橋彩香",
-  "color": "",
+  "color": "#f67599",
   "group": "",
   "count": 71
+ },
+ {
+  "id": "cg-aoi",
+  "name": "首藤葵",
+  "kana": "しゅとうあおい",
+  "cv": "",
+  "color": "#fbe983",
+  "group": "",
+  "count": 0
  },
  {
   "id": 1689,
   "name": "白菊ほたる",
   "kana": "しらぎくほたる",
   "cv": "天野聡美",
-  "color": "",
+  "color": "#c964cf",
   "group": "",
   "count": 18
  },
@@ -373,7 +778,7 @@
   "name": "白坂小梅",
   "kana": "しらさかこうめ",
   "cv": "桜咲千依",
-  "color": "",
+  "color": "#abcae9",
   "group": "",
   "count": 22
  },
@@ -382,7 +787,7 @@
   "name": "白雪千夜",
   "kana": "しらゆきちよ",
   "cv": "関口理咲",
-  "color": "",
+  "color": "#efd7e5",
   "group": "",
   "count": 17
  },
@@ -391,7 +796,7 @@
   "name": "城ヶ崎美嘉",
   "kana": "じょうがさきみか",
   "cv": "佳村はるか",
-  "color": "",
+  "color": "#fe9d1a",
   "group": "",
   "count": 37
  },
@@ -400,16 +805,34 @@
   "name": "城ヶ崎莉嘉",
   "kana": "じょうがさきりか",
   "cv": "山本希望",
-  "color": "",
+  "color": "#fedd00",
   "group": "",
   "count": 34
+ },
+ {
+  "id": "cg-umi",
+  "name": "杉坂海",
+  "kana": "すぎさかうみ",
+  "cv": "",
+  "color": "#d83c6a",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-seika",
+  "name": "涼宮星花",
+  "kana": "すずみやせいか",
+  "cv": "",
+  "color": "#f994c4",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2176,
   "name": "砂塚あきら",
   "kana": "すなづかあきら",
   "cv": "富田美憂",
-  "color": "",
+  "color": "#7e93a7",
   "group": "",
   "count": 15
  },
@@ -418,43 +841,79 @@
   "name": "関裕美",
   "kana": "せきひろみ",
   "cv": "会沢紗弥",
-  "color": "",
+  "color": "#ffb3ab",
   "group": "",
   "count": 22
  },
  {
-  "id": 823,
-  "name": "千川ちひろ",
-  "kana": "せんかわちひろ",
-  "cv": "佐藤利奈",
-  "color": "",
+  "id": "cg-shiori",
+  "name": "瀬名詩織",
+  "kana": "せなしおり",
+  "cv": "",
+  "color": "#52c6c3",
   "group": "",
-  "count": 1
+  "count": 0
+ },
+ {
+  "id": "cg-ema",
+  "name": "仙崎恵磨",
+  "kana": "せんざきえま",
+  "cv": "",
+  "color": "#d30d85",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-natsumi",
+  "name": "相馬夏美",
+  "kana": "そうまなつみ",
+  "cv": "",
+  "color": "#fcc138",
+  "group": "",
+  "count": 0
  },
  {
   "id": 17,
   "name": "高垣楓",
   "kana": "たかがきかえで",
   "cv": "早見沙織",
-  "color": "",
+  "color": "#47d7ac",
   "group": "",
   "count": 41
+ },
+ {
+  "id": "cg-reiko",
+  "name": "高橋礼子",
+  "kana": "たかはしれいこ",
+  "cv": "",
+  "color": "#781000",
+  "group": "",
+  "count": 0
  },
  {
   "id": 909,
   "name": "鷹富士茄子",
   "kana": "たかふじかこ",
   "cv": "森下来奈",
-  "color": "",
+  "color": "#5c068c",
   "group": "",
   "count": 13
+ },
+ {
+  "id": "cg-noa",
+  "name": "高峯のあ",
+  "kana": "たかみねのあ",
+  "cv": "",
+  "color": "#9fe1fd",
+  "group": "",
+  "count": 0
  },
  {
   "id": 38,
   "name": "高森藍子",
   "kana": "たかもりあいこ",
   "cv": "金子有希",
-  "color": "",
+  "color": "#cdea80",
   "group": "",
   "count": 27
  },
@@ -463,7 +922,7 @@
   "name": "多田李衣菜",
   "kana": "ただりいな",
   "cv": "青木瑠璃子",
-  "color": "",
+  "color": "#0077c8",
   "group": "",
   "count": 58
  },
@@ -472,25 +931,52 @@
   "name": "橘ありす",
   "kana": "たちばなありす",
   "cv": "佐藤亜美菜",
-  "color": "",
+  "color": "#5c88da",
   "group": "",
   "count": 28
+ },
+ {
+  "id": "cg-miyabi",
+  "name": "月宮雅",
+  "kana": "つきみやみやび",
+  "cv": "",
+  "color": "#ffd9db",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2175,
   "name": "辻野あかり",
   "kana": "つじのあかり",
   "cv": "梅澤めぐ",
-  "color": "",
+  "color": "#e10600",
   "group": "",
   "count": 18
+ },
+ {
+  "id": "cg-ako",
+  "name": "土屋亜子",
+  "kana": "つちやあこ",
+  "cv": "",
+  "color": "#ffbe60",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-ai",
+  "name": "東郷あい",
+  "kana": "とうごうあい",
+  "cv": "",
+  "color": "#9b274a",
+  "group": "",
+  "count": 0
  },
  {
   "id": 26,
   "name": "十時愛梨",
   "kana": "とときあいり",
   "cv": "原田ひとみ",
-  "color": "",
+  "color": "#df4661",
   "group": "",
   "count": 13
  },
@@ -499,7 +985,7 @@
   "name": "道明寺歌鈴",
   "kana": "どうみょうじかりん",
   "cv": "新田ひより",
-  "color": "",
+  "color": "#d22630",
   "group": "",
   "count": 16
  },
@@ -508,16 +994,52 @@
   "name": "中野有香",
   "kana": "なかのゆか",
   "cv": "下地紫野",
-  "color": "",
+  "color": "#e277cd",
   "group": "",
   "count": 21
+ },
+ {
+  "id": "cg-hasumi",
+  "name": "長富蓮実",
+  "kana": "ながとみはすみ",
+  "cv": "",
+  "color": "#ea8a91",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": 1875,
+  "name": "ナターリア",
+  "kana": "なたーりあ",
+  "cv": "生田輝",
+  "color": "#f4633a",
+  "group": "",
+  "count": 14
+ },
+ {
+  "id": "cg-meiko",
+  "name": "並木芽衣子",
+  "kana": "なみきめいこ",
+  "cv": "",
+  "color": "#feea9c",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-yume",
+  "name": "成宮由愛",
+  "kana": "なるみやゆめ",
+  "cv": "",
+  "color": "#2b5cd5",
+  "group": "",
+  "count": 0
  },
  {
   "id": 910,
   "name": "南条光",
   "kana": "なんじょうひかる",
   "cv": "神谷早矢佳",
-  "color": "",
+  "color": "#e4002b",
   "group": "",
   "count": 9
  },
@@ -526,16 +1048,34 @@
   "name": "難波笑美",
   "kana": "なんばえみ",
   "cv": "伊達朱里紗",
-  "color": "",
+  "color": "#e03c31",
   "group": "",
   "count": 7
+ },
+ {
+  "id": "cg-honami",
+  "name": "西川保奈美",
+  "kana": "にしかわほなみ",
+  "cv": "",
+  "color": "#5756d8",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-kai",
+  "name": "西島櫂",
+  "kana": "にしじまかい",
+  "cv": "",
+  "color": "#f16029",
+  "group": "",
+  "count": 0
  },
  {
   "id": 32,
   "name": "新田美波",
   "kana": "にったみなみ",
   "cv": "洲崎綾",
-  "color": "",
+  "color": "#71c5e8",
   "group": "",
   "count": 33
  },
@@ -544,16 +1084,52 @@
   "name": "二宮飛鳥",
   "kana": "にのみやあすか",
   "cv": "青木志貴",
-  "color": "",
+  "color": "#5f259f",
   "group": "",
   "count": 20
+ },
+ {
+  "id": "cg-hitomi",
+  "name": "丹羽仁美",
+  "kana": "にわひとみ",
+  "cv": "",
+  "color": "#a80826",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-sora",
+  "name": "野々村そら",
+  "kana": "ののむらそら",
+  "cv": "",
+  "color": "#fc6e2e",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-toko",
+  "name": "服部瞳子",
+  "kana": "はっとりとうこ",
+  "cv": "",
+  "color": "#633aa1",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-ayuna",
+  "name": "浜川愛結奈",
+  "kana": "はまかわあゆな",
+  "cv": "",
+  "color": "#a42678",
+  "group": "",
+  "count": 0
  },
  {
   "id": 66,
   "name": "浜口あやめ",
   "kana": "はまぐちあやめ",
   "cv": "田澤茉純",
-  "color": "",
+  "color": "#440099",
   "group": "",
   "count": 12
  },
@@ -562,7 +1138,7 @@
   "name": "早坂美玲",
   "kana": "はやさかみれい",
   "cv": "朝井彩加",
-  "color": "",
+  "color": "#c800a1",
   "group": "",
   "count": 17
  },
@@ -571,16 +1147,34 @@
   "name": "速水奏",
   "kana": "はやみかなで",
   "cv": "飯田友子",
-  "color": "",
+  "color": "#003087",
   "group": "",
   "count": 30
+ },
+ {
+  "id": "cg-miyo",
+  "name": "原田美世",
+  "kana": "はらだみよ",
+  "cv": "",
+  "color": "#e94047",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-shino",
+  "name": "柊志乃",
+  "kana": "ひいらぎしの",
+  "cv": "",
+  "color": "#ad1e66",
+  "group": "",
+  "count": 0
  },
  {
   "id": 1802,
   "name": "久川凪",
   "kana": "ひさかわなぎ",
   "cv": "立花日菜",
-  "color": "",
+  "color": "#f8a4bd",
   "group": "",
   "count": 20
  },
@@ -589,7 +1183,7 @@
   "name": "久川颯",
   "kana": "ひさかわはやて",
   "cv": "長江里加",
-  "color": "",
+  "color": "#7eddd3",
   "group": "",
   "count": 16
  },
@@ -598,7 +1192,7 @@
   "name": "日野茜",
   "kana": "ひのあかね",
   "cv": "赤﨑千夏",
-  "color": "",
+  "color": "#f9423a",
   "group": "",
   "count": 19
  },
@@ -607,16 +1201,43 @@
   "name": "姫川友紀",
   "kana": "ひめかわゆき",
   "cv": "杜野まこ",
-  "color": "",
+  "color": "#ed8b00",
   "group": "",
   "count": 21
+ },
+ {
+  "id": "cg-rena",
+  "name": "兵藤レナ",
+  "kana": "ひょうどうれな",
+  "cv": "",
+  "color": "#d8076b",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-mai",
+  "name": "福山舞",
+  "kana": "ふくやままい",
+  "cv": "",
+  "color": "#ff68b5",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-tomo",
+  "name": "藤居朋",
+  "kana": "ふじいとも",
+  "cv": "",
+  "color": "#9b58c2",
+  "group": "",
+  "count": 0
  },
  {
   "id": 58,
   "name": "藤本里奈",
   "kana": "ふじもとりな",
   "cv": "金子真由美",
-  "color": "",
+  "color": "#623b2a",
   "group": "",
   "count": 15
  },
@@ -625,7 +1246,7 @@
   "name": "藤原肇",
   "kana": "ふじわらはじめ",
   "cv": "鈴木みのり",
-  "color": "",
+  "color": "#9595d2",
   "group": "",
   "count": 21
  },
@@ -634,16 +1255,34 @@
   "name": "双葉杏",
   "kana": "ふたばあんず",
   "cv": "五十嵐裕美",
-  "color": "",
+  "color": "#f8a3bc",
   "group": "",
   "count": 38
+ },
+ {
+  "id": "cg-yoriko",
+  "name": "古澤頼子",
+  "kana": "ふるさわよりこ",
+  "cv": "",
+  "color": "#3f3c8b",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-helen",
+  "name": "ヘレン",
+  "kana": "へれん",
+  "cv": "",
+  "color": "#ba910f",
+  "group": "",
+  "count": 0
  },
  {
   "id": 41,
   "name": "北条加蓮",
   "kana": "ほうじょうかれん",
   "cv": "渕上舞",
-  "color": "",
+  "color": "#2ad2c9",
   "group": "",
   "count": 34
  },
@@ -652,7 +1291,7 @@
   "name": "星輝子",
   "kana": "ほししょうこ",
   "cv": "松田颯水",
-  "color": "",
+  "color": "#a6093d",
   "group": "",
   "count": 27
  },
@@ -661,7 +1300,7 @@
   "name": "堀裕子",
   "kana": "ほりゆうこ",
   "cv": "鈴木絵理",
-  "color": "",
+  "color": "#eca154",
   "group": "",
   "count": 21
  },
@@ -670,7 +1309,7 @@
   "name": "本田未央",
   "kana": "ほんだみお",
   "cv": "原紗友里",
-  "color": "",
+  "color": "#ffb81c",
   "group": "",
   "count": 89
  },
@@ -679,34 +1318,115 @@
   "name": "前川みく",
   "kana": "まえかわみく",
   "cv": "高森奈津美",
-  "color": "",
+  "color": "#ce0037",
   "group": "",
   "count": 33
+ },
+ {
+  "id": "cg-shiho",
+  "name": "槙原志保",
+  "kana": "まきはらしほ",
+  "cv": "",
+  "color": "#f97f4b",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-chizuru",
+  "name": "松尾千鶴",
+  "kana": "まつおちづる",
+  "cv": "",
+  "color": "#99e3fc",
+  "group": "",
+  "count": 0
  },
  {
   "id": 71,
   "name": "松永涼",
   "kana": "まつながりょう",
   "cv": "千菅春香",
-  "color": "",
+  "color": "#211551",
   "group": "",
   "count": 17
+ },
+ {
+  "id": "cg-saya",
+  "name": "松原早耶",
+  "kana": "まつばらさや",
+  "cv": "",
+  "color": "#f743a6",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-sarina",
+  "name": "松本沙理奈",
+  "kana": "まつもとさりな",
+  "cv": "",
+  "color": "#2943cb",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-kumiko",
+  "name": "松山久美子",
+  "kana": "まつやまくみこ",
+  "cv": "",
+  "color": "#ff7b2c",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2014,
   "name": "的場梨沙",
   "kana": "まとばりさ",
   "cv": "集貝はな",
-  "color": "",
+  "color": "#ff00a0",
   "group": "",
   "count": 20
+ },
+ {
+  "id": "cg-misato",
+  "name": "間中美里",
+  "kana": "まなかみさと",
+  "cv": "",
+  "color": "#d1f9e6",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-itsuki",
+  "name": "真鍋いつき",
+  "kana": "まなべいつき",
+  "cv": "",
+  "color": "#58eabd",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-seira",
+  "name": "水木聖來",
+  "kana": "みずきせいら",
+  "cv": "",
+  "color": "#86dbff",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-midori",
+  "name": "水野翠",
+  "kana": "みずのみどり",
+  "cv": "",
+  "color": "#43a0ab",
+  "group": "",
+  "count": 0
  },
  {
   "id": 55,
   "name": "水本ゆかり",
   "kana": "みずもとゆかり",
   "cv": "藤田茜",
-  "color": "",
+  "color": "#eabedb",
   "group": "",
   "count": 11
  },
@@ -715,34 +1435,43 @@
   "name": "三船美優",
   "kana": "みふねみゆ",
   "cv": "原田彩楓",
-  "color": "",
+  "color": "#12bfb2",
   "group": "",
-  "count": 22
+  "count": 21
  },
  {
   "id": 16,
   "name": "三村かな子",
   "kana": "みむらかなこ",
   "cv": "大坪由佳",
-  "color": "",
+  "color": "#ffb1bb",
   "group": "",
   "count": 32
  },
  {
   "id": 46,
   "name": "宮本フレデリカ",
-  "kana": "みやもとフレデリカ",
+  "kana": "みやもとふれでりか",
   "cv": "髙野麻美",
-  "color": "",
+  "color": "#a20067",
   "group": "",
   "count": 29
+ },
+ {
+  "id": "cg-sana",
+  "name": "三好紗南",
+  "kana": "みよしさな",
+  "cv": "",
+  "color": "#45f05b",
+  "group": "",
+  "count": 0
  },
  {
   "id": 62,
   "name": "向井拓海",
   "kana": "むかいたくみ",
   "cv": "原優子",
-  "color": "",
+  "color": "#b0008e",
   "group": "",
   "count": 17
  },
@@ -751,7 +1480,7 @@
   "name": "棟方愛海",
   "kana": "むなかたあつみ",
   "cv": "藤本彩花",
-  "color": "",
+  "color": "#c7579a",
   "group": "",
   "count": 12
  },
@@ -760,25 +1489,61 @@
   "name": "村上巴",
   "kana": "むらかみともえ",
   "cv": "花井美春",
-  "color": "",
+  "color": "#ab192c",
   "group": "",
   "count": 17
+ },
+ {
+  "id": "cg-sakura",
+  "name": "村松さくら",
+  "kana": "むらまつさくら",
+  "cv": "",
+  "color": "#eb6174",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-mary",
+  "name": "メアリー・コクラン",
+  "kana": "めありー・こくらん",
+  "cv": "",
+  "color": "#f196ff",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-arisa",
+  "name": "持田亜里沙",
+  "kana": "もちだありさ",
+  "cv": "",
+  "color": "#fd9286",
+  "group": "",
+  "count": 0
  },
  {
   "id": 2993,
   "name": "望月聖",
   "kana": "もちづきひじり",
   "cv": "原涼子",
-  "color": "",
+  "color": "#b7dde1",
   "group": "",
-  "count": 8
+  "count": 7
+ },
+ {
+  "id": "cg-azuki",
+  "name": "桃井あずき",
+  "kana": "ももいあずき",
+  "cv": "",
+  "color": "#93256c",
+  "group": "",
+  "count": 0
  },
  {
   "id": 427,
   "name": "森久保乃々",
   "kana": "もりくぼのの",
   "cv": "高橋花林",
-  "color": "",
+  "color": "#9cdbd9",
   "group": "",
   "count": 22
  },
@@ -787,25 +1552,61 @@
   "name": "諸星きらり",
   "kana": "もろぼしきらり",
   "cv": "松嵜麗",
-  "color": "",
+  "color": "#ffd100",
   "group": "",
   "count": 36
  },
  {
+  "id": "cg-yao",
+  "name": "楊菲菲",
+  "kana": "やおふぇいふぇい",
+  "cv": "",
+  "color": "#e56f66",
+  "group": "",
+  "count": 0
+ },
+ {
   "id": 2548,
   "name": "八神マキノ",
-  "kana": "やがみマキノ",
+  "kana": "やがみまきの",
   "cv": "二ノ宮ゆい",
-  "color": "",
+  "color": "#a6a4e0",
   "group": "",
   "count": 6
+ },
+ {
+  "id": "cg-miu",
+  "name": "矢口美羽",
+  "kana": "やぐちみう",
+  "cv": "",
+  "color": "#ec5800",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-kiyora",
+  "name": "柳清良",
+  "kana": "やなぎきよら",
+  "cv": "",
+  "color": "#e7cbee",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-miyuki",
+  "name": "柳瀬美由紀",
+  "kana": "やなせみゆき",
+  "cv": "",
+  "color": "#ff5d14",
+  "group": "",
+  "count": 0
  },
  {
   "id": 54,
   "name": "大和亜季",
   "kana": "やまとあき",
   "cv": "村中知",
-  "color": "",
+  "color": "#28724f",
   "group": "",
   "count": 11
  },
@@ -814,7 +1615,7 @@
   "name": "結城晴",
   "kana": "ゆうきはる",
   "cv": "小市眞琴",
-  "color": "",
+  "color": "#71dad4",
   "group": "",
   "count": 22
  },
@@ -823,7 +1624,7 @@
   "name": "遊佐こずえ",
   "kana": "ゆさこずえ",
   "cv": "花谷麻妃",
-  "color": "",
+  "color": "#f4a6d7",
   "group": "",
   "count": 15
  },
@@ -832,71 +1633,80 @@
   "name": "夢見りあむ",
   "kana": "ゆめみりあむ",
   "cv": "星希成奏",
-  "color": "",
+  "color": "#e89cdc",
   "group": "",
   "count": 21
+ },
+ {
+  "id": "cg-chika",
+  "name": "横山千佳",
+  "kana": "よこやまちか",
+  "cv": "",
+  "color": "#fc87bf",
+  "group": "",
+  "count": 0
+ },
+ {
+  "id": "cg-saki",
+  "name": "吉岡沙紀",
+  "kana": "よしおかさき",
+  "cv": "",
+  "color": "#1b24c2",
+  "group": "",
+  "count": 0
  },
  {
   "id": 168,
   "name": "依田芳乃",
   "kana": "よりたよしの",
   "cv": "高田憂希",
-  "color": "",
+  "color": "#c4bcb7",
   "group": "",
   "count": 21
+ },
+ {
+  "id": 3100,
+  "name": "ライラ",
+  "kana": "らいら",
+  "cv": "市ノ瀬加那",
+  "color": "#7ce0d3",
+  "group": "",
+  "count": 5
  },
  {
   "id": 69,
   "name": "龍崎薫",
   "kana": "りゅうざきかおる",
   "cv": "春瀬なつみ",
-  "color": "",
+  "color": "#fae053",
   "group": "",
   "count": 18
+ },
+ {
+  "id": "cg-tomoka",
+  "name": "若林智香",
+  "kana": "わかばやしともか",
+  "cv": "",
+  "color": "#fdff4e",
+  "group": "",
+  "count": 0
  },
  {
   "id": 67,
   "name": "脇山珠美",
   "kana": "わきやまたまみ",
   "cv": "嘉山未紗",
-  "color": "",
+  "color": "#407ec9",
   "group": "",
   "count": 14
  },
  {
-  "id": 34,
-  "name": "アナスタシア",
-  "kana": "アナスタシア",
-  "cv": "上坂すみれ",
-  "color": "",
+  "id": "cg-rumi",
+  "name": "和久井留美",
+  "kana": "わくいるみ",
+  "cv": "",
+  "color": "#2e347e",
   "group": "",
-  "count": 31
- },
- {
-  "id": 3248,
-  "name": "イヴ・サンタクロース",
-  "kana": "イヴ・サンタクロース",
-  "cv": "松永あかね",
-  "color": "",
-  "group": "",
-  "count": 8
- },
- {
-  "id": 1875,
-  "name": "ナターリア",
-  "kana": "ナターリア",
-  "cv": "生田輝",
-  "color": "",
-  "group": "",
-  "count": 14
- },
- {
-  "id": 3100,
-  "name": "ライラ",
-  "kana": "ライラ",
-  "cv": "市ノ瀬加那",
-  "color": "",
-  "group": "",
-  "count": 5
+  "count": 0
  }
 ]
