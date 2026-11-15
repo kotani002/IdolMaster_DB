@@ -80,7 +80,7 @@ def main() -> None:
 
     # --- 左側：タイトル
     x0 = 72
-    d.text((x0, 92), "IDOLM@STER 対バン", font=font("bold", 26), fill=MUTED)
+    d.text((x0, 92), "IDOLM@STER", font=font("bold", 26), fill=MUTED)
     d.text((x0, 128), "楽曲プレゼンシート", font=font("bold", 76), fill=INK)
     fp = font("bold", 26)
     x = pill(d, x0, 240, a["name"], ca, ia, fp)
