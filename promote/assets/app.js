@@ -816,9 +816,8 @@ function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
   );
 }
 
-// 1枚の画像の高さの上限（CSS px、幅は 1080px）。X のタイムラインで切れずに見える縦長の上限 4:5（1080×1350）に合わせる。
-// 通常のカードは2曲で約1170px。プレゼン文が長いカードは1曲で1枚になることもある（1曲で上限を超える場合はそのまま）
-const SHEET_MAX_H = 1350;
+// 1枚の画像に入れる曲数。これより多いときは複数枚に分ける
+const SONGS_PER_IMAGE = 4;
 
 let lastExport = []; // [{ blob, url, name }]
 
@@ -840,17 +839,9 @@ async function exportImage() {
     const stage = $("#export-stage");
     const items = exportItems();
 
-    // カードを上から順に詰め、1枚の高さが SHEET_MAX_H を超える手前で次の画像に分ける（実際に組んで高さを測る）
+    // 上から順に SONGS_PER_IMAGE 曲ずつ1枚にする
     const chunks = [];
-    let cur = [];
-    for (const it of items) {
-      if (cur.length) {
-        stage.replaceChildren(buildSheet([...cur, it], jackets, 0, 1, 2)); // 「1 / 2」表示ありの高さで測る
-        if (stage.firstChild.offsetHeight > SHEET_MAX_H) { chunks.push(cur); cur = []; }
-      }
-      cur.push(it);
-    }
-    if (cur.length) chunks.push(cur);
+    for (let k = 0; k < items.length; k += SONGS_PER_IMAGE) chunks.push(items.slice(k, k + SONGS_PER_IMAGE));
 
     const blobs = [];
     let start = 0;
@@ -876,7 +867,7 @@ async function exportImage() {
     lastExport = blobs.map((blob, k) => ({ blob, url: URL.createObjectURL(blob), name: fileName(k + 1, blobs.length) }));
     renderExportImages();
     const notes = [];
-    if (lastExport.length > 1) notes.push(`${items.length}曲を${lastExport.length}枚に分けました（X で見やすい縦横比にするため、1枚あたり2曲ほど）。` +
+    if (lastExport.length > 1) notes.push(`${items.length}曲を${lastExport.length}枚に分けました（1枚あたり${SONGS_PER_IMAGE}曲）。` +
       (lastExport.length > 4 ? "X は1回の投稿に4枚まで添付できるので、5枚目以降はリプライなどで続けて投稿してください。" : ""));
     if (failed) notes.push(`ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。端末に保存した画像を選ぶと確実です。`);
     $("#ex-note").textContent = notes.join(" ");
