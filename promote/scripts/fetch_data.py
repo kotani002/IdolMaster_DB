@@ -47,7 +47,7 @@ BRANDS = {
     "as": {"music_type": None, "pick": [
         {"production": "765", "names": None, "only": "AS_765", "group": "", "sitemap": "765pro"},
     ]},
-    "sc": {"music_type": None, "production": "sc", "sitemap": "sc"},
+    "sc": {"music_type": "sc", "production": "sc", "sitemap": "sc"},
     # 876プロ：API に所属区分が無いので、他の所属から集めてグループ分けする
     #   names が None ならその所属の全員。sitemap はパーソナルカラー取得用
     "876": {"music_type": None, "pick": [
@@ -221,6 +221,9 @@ def build_brand(brand_id: str, conf: dict) -> None:
         print(f"[{brand_id}] songs")
         songs = get_json(f"{API}/list?type=music&music_type={conf['music_type']}&orderby=title&order=asc")
         kana = kana_map(conf["music_type"])
+        # 前回付けた歌唱者は引き継ぐ（ブランドを指定して実行したときは、他ブランドのアイドル分を調べ直さないため）
+        old_path = DATA / "songs" / f"{brand_id}.json"
+        old = {r["id"]: r.get("singers", []) for r in json.loads(old_path.read_text(encoding="utf-8"))} if old_path.exists() else {}
         song_rows = []
         for s in songs:
             title = s["name"]
@@ -229,6 +232,7 @@ def build_brand(brand_id: str, conf: dict) -> None:
                 "title": title,
                 "kana": kana.get(title, ""),
                 "url": s["link"],
+                "singers": old.get(s["song_id"], []),
             })
         song_rows += extra_song_rows(brand_id, {r["id"] for r in song_rows})
         song_rows.sort(key=lambda r: (r["kana"] or r["title"]))
@@ -322,10 +326,12 @@ def build_brand(brand_id: str, conf: dict) -> None:
     print(f"[{brand_id}] {len(song_rows) if song_rows is not None else '-'} songs / {len(idol_rows)} idols")
 
 
-def attach_singers() -> None:
+def attach_singers(only: list[str] | None = None) -> None:
     """各アイドルの参加曲（/tax）を集め、data/songs/<brand>.json の各曲に singers（歌唱メンバー名）を付ける。
-    曲名検索で歌唱者名（完全一致）からも曲を探せるようにするため。"""
-    song_files = [DATA / "songs" / f"{b}.json" for b, c in BRANDS.items() if c["music_type"]]
+    曲名検索で歌唱者名（完全一致）からも曲を探せるようにするため。
+    only を指定したときは、そのブランドの曲・アイドルだけを調べ、既存の singers に足す（全ブランドだと約20分かかるため）。"""
+    brands = [b for b in BRANDS if only is None or b in only]
+    song_files = [DATA / "songs" / f"{b}.json" for b in brands if BRANDS[b]["music_type"]]
     song_files = [f for f in song_files if f.exists()]
     if not song_files:
         return
@@ -333,7 +339,7 @@ def attach_singers() -> None:
     plain = lambda n: re.sub(r"\s", "", SHODAI.sub("", n or ""))
     singers: dict[int, list[str]] = {}
     seen: set[str] = set()
-    for b in BRANDS:
+    for b in brands:
         path = DATA / "idols" / f"{b}.json"
         if not path.exists():
             continue
@@ -367,7 +373,11 @@ def attach_singers() -> None:
     for f in song_files:
         rows = json.loads(f.read_text(encoding="utf-8"))
         for s in rows:
-            s["singers"] = singers.get(s["id"], [])
+            found = singers.get(s["id"], [])
+            if only is None:
+                s["singers"] = found
+            else:
+                s["singers"] = list(dict.fromkeys((s.get("singers") or []) + found))
         write(f, rows)
         print(f"[singers] {f.name}: {sum(1 for s in rows if s['singers'])}/{len(rows)} songs have singers")
 
@@ -378,10 +388,10 @@ def write(path: Path, obj) -> None:
 
 
 def main() -> None:
-    targets = sys.argv[1:] or list(BRANDS)
-    for b in targets:
+    only = sys.argv[1:] or None
+    for b in only or list(BRANDS):
         build_brand(b, BRANDS[b])
-    attach_singers()
+    attach_singers(only)
     jst = timezone(timedelta(hours=9))
     write(DATA / "meta.json", {"updated_at": datetime.now(jst).strftime("%Y-%m-%d")})
 

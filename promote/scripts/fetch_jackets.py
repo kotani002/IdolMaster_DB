@@ -43,6 +43,11 @@ SOURCES = {
         "link_re": r'href="(release_[^"]+\.html)"',
         "parser": "lantis",
     },
+    "sc": {  # ランティス シャイニーカラーズサイト（ミリオンと同じページ構成）
+        "index": "https://shinycolors.lantis.jp/discography/",
+        "link_re": r'href="(https://shinycolors\.lantis\.jp/releaseinfo/[^"]+)"',
+        "parser": "lantis",
+    },
 }
 
 
@@ -107,6 +112,8 @@ def parse_lantis(page: str, url: str) -> dict | None:
     # 収録曲は「index」見出しの後ろに「01：曲名<br>」の形で並ぶ
     tracks = []
     i = page.find("h3_index")
+    if i < 0:
+        i = page.find("release_index")  # シャイニーカラーズのサイトは見出し画像の名前が違う
     if i >= 0:
         seg = page[i:]
         end = re.search(r"<h3|<section|class=\"CD_area\"", seg[10:])
@@ -175,6 +182,8 @@ def classify(track: str) -> tuple[str, int]:
     # 「曲名 [歌唱者]」「曲名 作詞:…」のような後ろの付記を落とす
     t = re.sub(r"\s*\[[^\]]*\]\s*$", "", t)
     t = re.sub(r"\s*(作詞|作曲|編曲)\s*[・:：\s].*$", "", t)
+    # 「曲名 / アイドル名 (CV.声優)」（シャイニーカラーズ HOPEFUL FE@THERS など）の歌唱者部分を落とす
+    t = re.sub(r"\s+/\s+[^/]*\(CV\.[^)]*\)\s*$", "", t)
     rank = 0
     if re.search(r"カラオケ|off ?vocal|instrumental|inst\.", t, re.I):
         rank = 2
