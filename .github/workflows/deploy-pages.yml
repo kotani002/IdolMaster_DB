@@ -13,7 +13,7 @@ on:
     branches: ["**"]
   delete:                 # ブランチを消したら確認用URLからも消す
   workflow_dispatch:
-  workflow_run:           # 週1回のデータ更新（release への bot の commit）の後にも公開し直す
+  workflow_run:           # データ更新（手動実行。release への bot の commit）の後にも公開し直す
     workflows: ["Update promote song data"]
     types: [completed]
 

@@ -80,14 +80,13 @@ def main() -> None:
 
     # --- 左側：タイトル
     x0 = 72
-    d.text((x0, 92), "IDOLM@STER 対バン", font=font("bold", 26), fill=MUTED)
+    d.text((x0, 92), "IDOLM@STER", font=font("bold", 26), fill=MUTED)
     d.text((x0, 128), "楽曲プレゼンシート", font=font("bold", 76), fill=INK)
-    fp = font("bold", 26)
-    x = pill(d, x0, 240, a["name"], ca, ia, fp)
-    d.text((x + 12, 266), "のおすすめ曲を、", font=font("bold", 30), fill=INK, anchor="lm")
-    d.text((x0, 316), "1枚の画像に。", font=font("bold", 30), fill=INK)
-    d.text((x0, 372), "推し曲を選んで、プレゼン文と", font=font("regular", 24), fill=MUTED)
-    d.text((x0, 406), "歌ってほしいアイドルを書くだけ。", font=font("regular", 24), fill=MUTED)
+    # キャッチコピー（右のカード見本と重ならないよう2行に分ける）
+    fc = font("bold", 40)
+    d.text((x0, 248), "ブランドの垣根を越えて、", font=fc, fill=INK)
+    d.text((x0, 304), "曲を届けよう。", font=fc, fill=INK)
+    d.text((x0, 384), "曲のプレゼンを1枚で簡単に", font=font("regular", 26), fill=MUTED)
 
     # --- 右側：カードの見本（ジャケットはプレースホルダー）
     cx, cy, cw, ch = 690, 300, 450, 260

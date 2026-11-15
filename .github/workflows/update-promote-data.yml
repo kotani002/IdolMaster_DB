@@ -1,12 +1,11 @@
-# プレゼンシート（promote/）の曲・アイドルデータを ふじわらはじめAPI から毎週更新する。
-# - スケジュール実行は「デフォルトブランチ（develop）にあるこのファイル」が動く
-# - 更新は公開ブランチ（release）に commit するので、Cloudflare Pages に自動で反映される
+# プレゼンシート（promote/）の曲・アイドルデータを ふじわらはじめAPI から取り直す。
+# - 定期実行はしない（必要なときに Actions 画面から手動で実行する。手動実行は develop にこのファイルが必要）
+#   ※ 手元で python scripts/fetch_data.py を実行して commit しても同じ
+# - 更新は公開ブランチ（release）に commit するので、Cloudflare に自動で反映される
 #   ※ release に直接 commit されるため、develop へは必要に応じて release をマージして取り込む
 name: Update promote song data
 
 on:
-  schedule:
-    - cron: "30 19 * * 0"   # 毎週月曜 4:30 JST（ふじわらはじめ側が空いている早朝帯）
   workflow_dispatch:
 
 permissions:
