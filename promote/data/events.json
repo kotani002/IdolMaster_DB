@@ -72,5 +72,83 @@
     ]
    }
   ]
+ },
+ {
+  "id": "sparkleshowdown",
+  "name": "エムシャニ対バン",
+  "title": "THE IDOLM@STER SideM × SHINY COLORS SPARKLE SHOWDOWN",
+  "source": "https://idolmaster-official.jp/live_event/sidem_shinycolors_ss/cast/",
+  "days": [
+   {
+    "id": "day1",
+    "label": "Day1 6/5(土)",
+    "members": [
+     {"brand": "sidem", "name": "蒼井悠介"},
+     {"brand": "sidem", "name": "蒼井享介"},
+     {"brand": "sidem", "name": "握野英雄"},
+     {"brand": "sidem", "name": "木村龍"},
+     {"brand": "sidem", "name": "信玄誠司"},
+     {"brand": "sidem", "name": "冬美旬"},
+     {"brand": "sidem", "name": "榊夏来"},
+     {"brand": "sidem", "name": "若里春名"},
+     {"brand": "sidem", "name": "伊瀬谷四季"},
+     {"brand": "sidem", "name": "紅井朱雀"},
+     {"brand": "sidem", "name": "黒野玄武"},
+     {"brand": "sidem", "name": "岡村直央"},
+     {"brand": "sidem", "name": "橘志狼"},
+     {"brand": "sidem", "name": "姫野かのん"},
+     {"brand": "sidem", "name": "天峰秀"},
+     {"brand": "sidem", "name": "花園百々人"},
+     {"brand": "sidem", "name": "眉見鋭心"},
+     {"brand": "sc", "name": "小宮果穂"},
+     {"brand": "sc", "name": "西城樹里"},
+     {"brand": "sc", "name": "杜野凛世"},
+     {"brand": "sc", "name": "有栖川夏葉"},
+     {"brand": "sc", "name": "大崎甜花"},
+     {"brand": "sc", "name": "桑山千雪"},
+     {"brand": "sc", "name": "七草にちか"},
+     {"brand": "sc", "name": "緋田美琴"},
+     {"brand": "sc", "name": "斑鳩ルカ"},
+     {"brand": "sc", "name": "鈴木羽那"},
+     {"brand": "sc", "name": "郁田はるき"}
+    ]
+   },
+   {
+    "id": "day2",
+    "label": "Day2 6/6(日)",
+    "members": [
+     {"brand": "sidem", "name": "都築圭"},
+     {"brand": "sidem", "name": "神楽麗"},
+     {"brand": "sidem", "name": "神谷幸広"},
+     {"brand": "sidem", "name": "東雲荘一郎"},
+     {"brand": "sidem", "name": "卯月巻緒"},
+     {"brand": "sidem", "name": "水嶋咲"},
+     {"brand": "sidem", "name": "硲道夫"},
+     {"brand": "sidem", "name": "舞田類"},
+     {"brand": "sidem", "name": "山下次郎"},
+     {"brand": "sidem", "name": "秋月涼"},
+     {"brand": "sidem", "name": "兜大吾"},
+     {"brand": "sidem", "name": "九十九一希"},
+     {"brand": "sidem", "name": "葛之葉雨彦"},
+     {"brand": "sidem", "name": "北村想楽"},
+     {"brand": "sidem", "name": "古論クリス"},
+     {"brand": "sc", "name": "櫻木真乃"},
+     {"brand": "sc", "name": "風野灯織"},
+     {"brand": "sc", "name": "八宮めぐる"},
+     {"brand": "sc", "name": "月岡恋鐘"},
+     {"brand": "sc", "name": "田中摩美々"},
+     {"brand": "sc", "name": "白瀬咲耶"},
+     {"brand": "sc", "name": "三峰結華"},
+     {"brand": "sc", "name": "幽谷霧子"},
+     {"brand": "sc", "name": "芹沢あさひ"},
+     {"brand": "sc", "name": "黛冬優子"},
+     {"brand": "sc", "name": "和泉愛依"},
+     {"brand": "sc", "name": "浅倉透"},
+     {"brand": "sc", "name": "樋口円香"},
+     {"brand": "sc", "name": "福丸小糸"},
+     {"brand": "sc", "name": "市川雛菜"}
+    ]
+   }
+  ]
  }
 ]

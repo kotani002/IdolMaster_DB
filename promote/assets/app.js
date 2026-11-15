@@ -192,7 +192,7 @@ async function changeBrands(nextFrom) {
     const names = [...new Set(stale.map((it) => brand(songBrand(it)).name))].join("・");
     const ok = confirm(
       `${names}の曲が${stale.length}曲入っています。\n` +
-      `おすすめするブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌唱予想メンバーがリセットされます（お題は残ります）。\n変更しますか？`);
+      `おすすめするブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌って欲しいアイドルがリセットされます（お題は残ります）。\n変更しますか？`);
     if (!ok) {
       $("#sel-from").value = state.from;
       return;
@@ -372,7 +372,7 @@ function cardEl(it, idx) {
   pitch.value = it.pitch;
   pitch.addEventListener("input", () => { it.pitch = pitch.value; autosize(pitch); save(); });
 
-  // --- 歌唱予想メンバー
+  // --- 歌って欲しいアイドル
   const tags = h("div", { class: "tags" });
   const drawTags = () => {
     tags.replaceChildren(
@@ -385,7 +385,7 @@ function cardEl(it, idx) {
             onclick: () => { it.members.splice(i, 1); drawTags(); save(); },
           }, "×"));
       }),
-      h("button", { type: "button", class: "tag-add", onclick: () => openMembers(it, drawTags) }, "＋ メンバーを選ぶ"),
+      h("button", { type: "button", class: "tag-add", onclick: () => openMembers(it, drawTags) }, "＋ アイドルを選ぶ"),
     );
   };
   drawTags();
@@ -398,7 +398,7 @@ function cardEl(it, idx) {
         songField,
         pitch,
         h("div", { class: "members" },
-          h("div", { class: "members-label" }, "歌唱予想メンバー"),
+          h("div", { class: "members-label" }, "歌って欲しいアイドル"),
           tags),
       ),
     ),
@@ -542,9 +542,13 @@ async function openMembers(item, onDone) {
 // memDlg.brand は ブランドID か "event:<イベントID>"
 const EVENT_PREFIX = "event:";
 const isEventTab = (v) => v.startsWith(EVENT_PREFIX);
-const EVENT_BRAND_ORDER = ["cg", "ml"];
 const ALL_COLOR = "#57525f"; // 「全員」タグ（ブランドをまたぐもの）の色
 const eventOf = (v) => DB.events.find((e) => EVENT_PREFIX + e.id === v);
+// イベント内のブランドの並び順＝ events.json に最初に出てくる順（デレミリ：デレ→ミリオン、エムシャニ：SideM→シャニマス）
+const eventBrandRank = (ev) => {
+  const order = [...new Set(ev.days.flatMap((d) => d.members.map((m) => m.brand)))];
+  return (b) => { const k = order.indexOf(b); return k < 0 ? order.length : k; };
+};
 
 function drawBrandChips() {
   const box = $("#mem-brands");
@@ -595,8 +599,8 @@ function memberPool() {
       pool.get(key).groups.push(d.id);
     }
   }
-  // 並び順：デレ → ミリオン → その他（対バンの出演日をまたいでも、ブランドごとにまとまる）
-  const rank = (b) => { const k = EVENT_BRAND_ORDER.indexOf(b); return k < 0 ? EVENT_BRAND_ORDER.length : k; };
+  // 並び順：イベントのブランド順（対バンの出演日をまたいでも、ブランドごとにまとまる）
+  const rank = eventBrandRank(ev);
   return [...pool.values()].sort((a, b) => rank(a.brand) - rank(b.brand)); // sort は安定ソート
 }
 
@@ -629,12 +633,12 @@ function allRows() {
     return [{ label: `${b.short}全員`, brand: b.id, color: b.color }];
   }
   const rows = [];
+  const rank = eventBrandRank(ev);
   for (const d of ev.days) {
     if (memDlg.group && memDlg.group !== d.id) continue;
     const day = d.label.split(/\s/)[0]; // "Day1 2/27(土)" → "Day1"
     rows.push({ label: `${day}全員`, brand: "", color: ALL_COLOR });
-    const ids = [...new Set(d.members.map((m) => m.brand))]
-      .sort((a, b) => (EVENT_BRAND_ORDER.indexOf(a) + 1 || 99) - (EVENT_BRAND_ORDER.indexOf(b) + 1 || 99));
+    const ids = [...new Set(d.members.map((m) => m.brand))].sort((a, b) => rank(a) - rank(b));
     for (const id of ids) rows.push({ label: `${day}${brand(id).short}全員`, brand: id, color: brand(id).color });
   }
   return rows;
@@ -781,7 +785,7 @@ function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
           h("div", { class: "x-main" },
             h("div", { class: "x-title" }, it.title.trim() || "（曲名未入力）"),
             h("div", { class: "x-pitch" }, it.pitch.trim()),
-            it.members.length ? h("div", { class: "x-mem-label" }, "歌唱予想メンバー") : null,
+            it.members.length ? h("div", { class: "x-mem-label" }, "歌って欲しいアイドル") : null,
             it.members.length ? h("div", { class: "x-tags" }, it.members.map((m) => {
               const c = memberColor(m);
               // 白に近い色は縁取り（html2canvas が確実に描ける border で付ける）

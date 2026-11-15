@@ -29,11 +29,11 @@ API = "https://api.fujiwarahaji.me/v4"
 WAIT_SEC = 1.5
 
 # サイトで扱うブランド。追加するときはここと data/brands.json に足す。
-# music_type が None のブランドは楽曲を取得しない（歌唱予想メンバーの候補だけに使う。brands.json では selectable:false）
+# music_type が None のブランドは楽曲を取得しない（歌って欲しいアイドルの候補だけに使う。brands.json では selectable:false）
 BRANDS = {
     "ml": {
         "music_type": "ml",       # 楽曲の種類（API music_type）
-        "production": "765",      # 歌唱予想メンバーに使うアイドルの所属
+        "production": "765",      # 歌って欲しいアイドルに使うアイドルの所属
         "sitemap": "765pro",      # パーソナルカラー取得用ページ（無ければ None）
     },
     "cg": {
@@ -120,7 +120,7 @@ def idol_colors(sitemap: str) -> dict[str, str]:
     return out
 
 
-# 歌唱予想メンバーの候補から外す（アイドル以外・重複表記）
+# 歌って欲しいアイドルの候補から外す（アイドル以外・重複表記）
 EXCLUDE_IDOLS = {
     "P(赤羽根健治)", "プロデューサー（ぷちます）", "プロデューサー", "高木順二朗", "双海亜美・真美",
     # 事務所スタッフ・社長など
