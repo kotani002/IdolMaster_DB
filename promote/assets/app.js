@@ -423,7 +423,7 @@ function cardEl(it, idx) {
 const JK_WAIT = "楽曲を選ぶと自動で更新されます";
 const JK_FAIL = "ジャケットの取得に失敗しました。自分でジャケットの設定ができます";
 // ジャケット未設定の曲に出す画像（scripts/make_now_printing.py で作成）
-const NOW_PRINTING = "assets/now_printing.png";
+const NOW_PRINTING = "assets/now_printing.png?v=3"; // 画像を作り直したら ?v= を変える
 
 // ジャケットの表示位置。表と裏が横に並んだジャケットを正方形の中央で切ると背表紙が映るので、
 // 横長（幅が高さの WIDE_RATIO 倍以上）の画像は表紙側を見せる。今のデータで横長なのはランティスの
