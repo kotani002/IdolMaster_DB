@@ -216,6 +216,14 @@ a { color: inherit; }
   background: rgba(0, 0, 0, .55); color: #fff; font-size: 12px; opacity: 0; transition: opacity .15s;
 }
 .jacket:hover::after, .jacket:focus-visible::after { opacity: 1; }
+/* スマホは2回タップで開く：1回目は「もう一度タップでジャケット変更」を出す（ダブルタップで拡大されないよう touch-action も指定） */
+.jacket { touch-action: manipulation; }
+@media (hover: none) { .jacket:hover::after, .jacket:focus-visible::after { opacity: 0; } }
+.jacket.armed::after, .jacket.is-failed.has-img.armed::after {
+  content: "もう一度タップでジャケット変更"; opacity: 1;
+  inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, .5); font-size: 13px; font-weight: 800; z-index: 2;
+}
 
 .card-main { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 /* 曲名欄：名前欄と同じく、未入力の間は「から」側の色の破線枠 + 検索アイコンで目立たせる */

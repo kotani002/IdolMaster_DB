@@ -274,8 +274,22 @@ function cardEl(it, idx) {
   );
 
   // --- ジャケット
-  const jacket = h("button", { type: "button", class: "jacket", "aria-label": "ジャケット画像を設定", onclick: () => openJacket(it) },
-    h("span", {}));
+  // スマホ（指で操作する画面）はスクロール中に誤ってジャケットに触れやすいので、2回タップで開く。
+  // 1回目は「もう一度タップでジャケット変更」を出して待つ（少し経つと戻る）。マウス・キーボードは1回で開く
+  const jacket = h("button", {
+    type: "button", class: "jacket", "aria-label": "ジャケット画像を設定",
+    onclick: (e) => {
+      const touch = matchMedia("(pointer: coarse)").matches && e.detail !== 0; // detail 0 はキーボード操作
+      if (!touch || jacket.classList.contains("armed")) {
+        jacket.classList.remove("armed"); clearTimeout(jacket._armT);
+        openJacket(it);
+        return;
+      }
+      jacket.classList.add("armed");
+      clearTimeout(jacket._armT);
+      jacket._armT = setTimeout(() => jacket.classList.remove("armed"), 2500);
+    },
+  }, h("span", {}));
   // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
   if (it.songId && (!it.jacket || it.jacketAuto)) {
     const jk = DB.jackets[String(it.songId)];
