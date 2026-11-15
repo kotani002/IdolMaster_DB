@@ -940,7 +940,11 @@ async function init() {
   await onBrandChange();
 }
 
-init().catch((e) => {
+// 起動中の「読み込み中…」を外して画面を出す（ブランド色を塗り終えてから。失敗時もエラー文を見せるため外す）
+const finishBoot = () => document.documentElement.classList.remove("booting");
+
+init().then(finishBoot).catch((e) => {
   console.error(e);
   document.querySelector("#items").textContent = "データの読み込みに失敗しました。ページを再読み込みしてください。";
+  finishBoot();
 });

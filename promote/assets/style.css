@@ -119,6 +119,8 @@ a { color: inherit; }
   background-size: 5px 5px; background-repeat: no-repeat;
 }
 #sel-from { background-color: var(--from); color: var(--from-ink); }
+/* 開いたときの選択肢一覧はブランド色に染めず白のまま（ボタン部分だけブランド色） */
+#sel-from option { background-color: #fff; color: var(--ink); }
 
 /* ---------- song card ---------- */
 .items { display: flex; flex-direction: column; gap: 16px; }
@@ -369,6 +371,24 @@ a { color: inherit; }
   border: 4px solid #eee; border-top-color: var(--from); animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* 起動中：ブランド色が決まるまで画面を隠して「読み込み中…」を出す
+   （CSS の初期色＝ミリオンの色が一瞬見えてから選んだブランドの色に変わるのを防ぐ）。
+   <html class="booting"> は app.js の初期化が終わると外れる */
+.boot { display: none; }
+html.booting .boot {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  background: var(--bg); color: var(--muted); font-weight: 700; font-size: 14px;
+}
+.boot p { margin: 0; }
+.boot-spinner {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 3px solid var(--line); border-top-color: var(--muted); animation: spin 1s linear infinite;
+}
+html.booting body { background: var(--bg); }
+.topbar, .wrap { transition: opacity .25s ease; }
+html.booting .topbar, html.booting .wrap { visibility: hidden; opacity: 0; }
 
 .toast {
   position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);

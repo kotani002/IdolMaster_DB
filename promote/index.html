@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="booting">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,11 @@
       .then(function () { location.replace(NEW_SITE + location.search + location.hash); })
       .catch(function () { /* 新URLが未公開・通信不可 → 旧URLのまま使う */ });
   }
+  // 起動中は画面を隠して「読み込み中…」を出している（class="booting"、app.js の初期化完了で外れる）。
+  // スクリプトの読み込みに失敗しても画面が隠れたままにならないよう、一定時間で必ず外す
+  setTimeout(function () { document.documentElement.classList.remove("booting"); }, 10000);
 </script>
+<noscript><style>html.booting .topbar, html.booting .wrap { visibility: visible; opacity: 1; } html.booting .boot { display: none; }</style></noscript>
 <title>アイマス楽曲プレゼンシート</title>
 <link rel="canonical" href="https://imas-presen-songs.283production-staff.workers.dev/">
 <meta name="description" content="アイドルマスターの推しブランドの曲を、プレゼン文と歌ってほしいアイドルと一緒に1枚の画像にできる非公式ファンメイドツール。">
@@ -40,9 +44,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261116c">
+<link rel="stylesheet" href="assets/style.css?v=20261116e">
 </head>
 <body>
+<div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand-mark">
@@ -154,6 +159,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261116g" type="module"></script>
+<script src="assets/app.js?v=20261116h" type="module"></script>
 </body>
 </html>
