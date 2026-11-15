@@ -7,7 +7,7 @@
   // 公開先を Cloudflare Pages に移転したので、旧URL（GitHub Pages）で開かれたら新URLへ移動する。
   // ただし新URLがまだ公開されていない（応答がない）間は移動せず、このページをそのまま使う。
   if (location.hostname.endsWith("github.io")) {
-    var NEW_SITE = "https://imas-presen-songs.pages.dev/";
+    var NEW_SITE = "https://imas-presen-songs.283production-staff.workers.dev/";
     var ctl = window.AbortController ? new AbortController() : null;
     if (ctl) setTimeout(function () { ctl.abort(); }, 3000);
     fetch(NEW_SITE + "assets/ogp.png?probe=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
@@ -16,23 +16,23 @@
   }
 </script>
 <title>アイマス楽曲プレゼンシート</title>
-<link rel="canonical" href="https://imas-presen-songs.pages.dev/">
+<link rel="canonical" href="https://imas-presen-songs.283production-staff.workers.dev/">
 <meta name="description" content="アイドルマスターの対バンに向けて、他ブランドのPさんへ自分の推しブランドの曲をプレゼンする画像を作れる非公式ファンメイドツール。">
 <meta property="og:title" content="アイマス楽曲プレゼンシート">
 <meta property="og:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。推し曲とプレゼン文・歌ってほしいアイドルを1枚の画像にできる非公式ファンメイドツール。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://imas-presen-songs.pages.dev/">
+<meta property="og:url" content="https://imas-presen-songs.283production-staff.workers.dev/">
 <meta property="og:site_name" content="アイマス楽曲プレゼンシート">
 <meta property="og:locale" content="ja_JP">
 <!-- SNS のクローラーは相対パスを解決しないので画像は絶対URL。画像を作り直したら ?v= を変える -->
-<meta property="og:image" content="https://imas-presen-songs.pages.dev/assets/ogp.png?v=1">
+<meta property="og:image" content="https://imas-presen-songs.283production-staff.workers.dev/assets/ogp.png?v=1">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="アイマス楽曲プレゼンシート：ミリオンライブ！からシンデレラガールズへのオススメ曲を1枚の画像に">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="アイマス楽曲プレゼンシート">
 <meta name="twitter:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。">
-<meta name="twitter:image" content="https://imas-presen-songs.pages.dev/assets/ogp.png?v=1">
+<meta name="twitter:image" content="https://imas-presen-songs.283production-staff.workers.dev/assets/ogp.png?v=1">
 <meta name="theme-color" content="#fff8ec">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
