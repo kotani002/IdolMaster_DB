@@ -49,7 +49,6 @@
   "name": "SideM",
   "short": "SideM",
   "color": "#14a37f",
-  "ink": "#ffffff",
-  "selectable": false
+  "ink": "#ffffff"
  }
 ]
