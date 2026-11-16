@@ -16,6 +16,7 @@ import json
 import re
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -56,9 +57,12 @@ BRANDS = {
         {"production": "va-liv", "names": None, "group": "vα-liv", "sitemap": "va-liv"},
     ]},
     # SideM のアイドルは /tax（アイドル別の参加曲）が API 非対応なので、歌唱者は曲ごとに取る
-    "sidem": {"music_type": "sidem", "production": "315", "sitemap": None, "singers_by_song": True},
-    # 学マス：人の並び・顔ぶれは手で作った data/idols/gm.json を正とし、CV・よみ だけ API で埋める
-    "gm": {"music_type": None, "production": "gakuen", "sitemap": None, "keep_file": True},
+    # 色はふじわらはじめに無いので imas-db.jp のカラーコード一覧（SideM のタブ）から取る
+    "sidem": {"music_type": "sidem", "production": "315", "sitemap": None, "singers_by_song": True, "imasdb_colors": "sidem"},
+    # 学マス：楽曲は music_type=gakuen。
+    # アイドルは人の並び・顔ぶれを手で作った data/idols/gm.json を正とし、CV・よみ・色 だけ API で埋める
+    # （手で付けたIDなので /tax が使えない。歌唱者は SideM と同じく曲ごとに取る）
+    "gm": {"music_type": "gakuen", "production": "gakuen", "sitemap": "hatsuboshi", "keep_file": True, "singers_by_song": True},
 }
 
 # 876プロ（ディアリースターズ）として別ブランドに出すので、765プロ（ミリオンの「その他」）からは外す
@@ -117,6 +121,29 @@ def idol_colors(sitemap: str) -> dict[str, str]:
             # <ruby>名前<rt>よみ</rt></ruby> の場合も、ルビなしの場合も名前だけ取り出す
             name = re.sub(r"<rt>.*?</rt>|<[^>]+>", "", h5.group(1))
             out[html.unescape(name).strip()] = color.group(1).lower()
+    return out
+
+
+IMAS_DB_COLORS = "https://imas-db.jp/misc/color.html"
+
+
+def color_key(name: str) -> str:
+    """色の一覧と名前を突き合わせるためのキー（空白・全角半角の違いを吸収。例：＝/=、Ⅱ/II）"""
+    return re.sub(r"\s", "", unicodedata.normalize("NFKC", name or ""))
+
+
+def imas_db_colors(section: str) -> dict[str, str]:
+    """imas-db.jp のカラーコード一覧（1リクエスト）から、ブランドのタブ（id="sidem" など）の 名前 -> 色 を作る。
+    ふじわらはじめに色が無いブランド（SideM）用。行は「<td>名前(CV)</td> <td><span title="#xxxxxx" …」の形。"""
+    page = get(IMAS_DB_COLORS).decode("utf-8", "replace")
+    start = page.find(f'id="{section}"')
+    if start < 0:
+        return {}
+    end = page.find('class="tab-pane', start + 10)
+    part = page[start:end if end > 0 else len(page)]
+    out: dict[str, str] = {}
+    for name, color in re.findall(r"<td>([^<]+?)(?:[（(][^)）]*[)）])?</td>\s*<td[^>]*><span title=\"(#[0-9a-fA-F]{6})\"", part):
+        out[color_key(html.unescape(name))] = color.lower()
     return out
 
 
@@ -260,6 +287,9 @@ def build_brand(brand_id: str, conf: dict) -> None:
     else:
         idols = get_json(f"{API}/list?type=idol&production={urllib.parse.quote(conf['production'])}&orderby=name&order=asc")
         colors = idol_colors(conf["sitemap"]) if conf.get("sitemap") else {}
+        if conf.get("imasdb_colors"):  # ふじわらはじめに色が無いブランドは imas-db.jp の一覧で補う
+            colors = {**{color_key(k): v for k, v in colors.items()}, **imas_db_colors(conf["imasdb_colors"])}
+            colors = {i["name"]: colors[color_key(i["name"])] for i in idols if color_key(i["name"]) in colors}
     idol_rows = []
     for i in idols:
         name = i["name"]
@@ -304,7 +334,7 @@ def build_brand(brand_id: str, conf: dict) -> None:
     idol_rows.sort(key=lambda r: (group_order.get(r["group"], 0), r["kana"] or r["name"]))
 
     if conf.get("keep_file"):
-        # 手で作った一覧はそのまま（並び・人・色を変えない）。空の CV・よみ だけ API の値で埋める
+        # 手で作った一覧はそのまま（並び・人を変えない）。空の CV・よみ・色 だけ API の値で埋める
         path = DATA / "idols" / f"{brand_id}.json"
         api = {re.sub(r"\s", "", r["name"]): r for r in idol_rows}
         kept = json.loads(path.read_text(encoding="utf-8"))
@@ -315,6 +345,7 @@ def build_brand(brand_id: str, conf: dict) -> None:
                 continue
             r["cv"] = a["cv"] or r.get("cv", "")
             r["kana"] = r.get("kana") or a["kana"]
+            r["color"] = r.get("color") or a.get("color", "")
         idol_rows = kept
 
     for r in idol_rows:

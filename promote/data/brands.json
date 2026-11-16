@@ -40,8 +40,7 @@
   "name": "学園アイドルマスター",
   "short": "学マス",
   "color": "#ff7a2f",
-  "ink": "#ffffff",
-  "selectable": false
+  "ink": "#ffffff"
  },
  {
   "id": "876",
