@@ -1,10 +1,11 @@
 [
  {
-  "id": "ml",
-  "name": "ミリオンライブ！",
-  "short": "ミリオン",
-  "color": "#ffc30b",
-  "ink": "#4a3500"
+  "id": "as",
+  "name": "765プロオールスターズ",
+  "short": "765AS",
+  "color": "#e22b30",
+  "ink": "#ffffff",
+  "selectable": false
  },
  {
   "id": "cg",
@@ -14,12 +15,25 @@
   "ink": "#ffffff"
  },
  {
-  "id": "as",
-  "name": "765プロオールスターズ",
-  "short": "765AS",
-  "color": "#e22b30",
-  "ink": "#ffffff",
-  "selectable": false
+  "id": "ml",
+  "name": "ミリオンライブ！",
+  "short": "ミリオン",
+  "color": "#ffc30b",
+  "ink": "#4a3500"
+ },
+ {
+  "id": "sidem",
+  "name": "SideM",
+  "short": "SideM",
+  "color": "#14a37f",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "sc",
+  "name": "シャイニーカラーズ",
+  "short": "シャニマス",
+  "color": "#5bbbd6",
+  "ink": "#123b47"
  },
  {
   "id": "gm",
@@ -36,19 +50,5 @@
   "color": "#8e5fc2",
   "ink": "#ffffff",
   "selectable": false
- },
- {
-  "id": "sc",
-  "name": "シャイニーカラーズ",
-  "short": "シャニマス",
-  "color": "#5bbbd6",
-  "ink": "#123b47"
- },
- {
-  "id": "sidem",
-  "name": "SideM",
-  "short": "SideM",
-  "color": "#14a37f",
-  "ink": "#ffffff"
  }
 ]

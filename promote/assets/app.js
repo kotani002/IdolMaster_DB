@@ -287,7 +287,7 @@ function cardEl(it, idx) {
       }
       jacket.classList.add("armed");
       clearTimeout(jacket._armT);
-      jacket._armT = setTimeout(() => jacket.classList.remove("armed"), 2500);
+      jacket._armT = setTimeout(() => jacket.classList.remove("armed"), 1500);
     },
   }, h("span", {}));
   // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）

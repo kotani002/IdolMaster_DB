@@ -71,7 +71,9 @@ def pill(d: ImageDraw.ImageDraw, x, y, text, bg, fg, f, pad_x=22, h=52):
 
 def main() -> None:
     brands = json.loads((ROOT / "data" / "brands.json").read_text(encoding="utf-8"))
-    a, b = brands[0], brands[1]
+    # 背景・カード見本の色（brands.json の並び順が変わっても同じ見た目になるよう ID で指定）
+    by_id = {x["id"]: x for x in brands}
+    a, b = by_id["ml"], by_id["cg"]
     ca, cb = hex_rgb(a["color"]), hex_rgb(b["color"])
     ia, ib = hex_rgb(a["ink"]), hex_rgb(b["ink"])
 
