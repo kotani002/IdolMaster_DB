@@ -25,6 +25,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from fetch_data import CROSSOVER_SONGS  # 越境曲（ブランドごとにジャケットを持つ）
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 CACHE = Path(__file__).resolve().parent / ".cache"
@@ -264,6 +266,8 @@ def main() -> None:
 
     # 照合キー -> 最良の (優先度, 発売日, ジャケット, CD名)
     best: dict[str, tuple] = {}
+    # 越境曲用：ライブ映像を除いて一番早いCD（各ブランド盤のシングルはカラオケ版しか拾えないことがあるので、版は問わない）
+    first_cd: dict[str, tuple] = {}
     for d in discs:
         for t in d["tracks"]:
             key, rank = classify(t)
@@ -273,12 +277,24 @@ def main() -> None:
             cand = (prio, d["date"], d["jacket"], d["title"])
             if key not in best or cand[:2] < best[key][:2]:
                 best[key] = cand
+            c2 = (d.get("penalty", 0), d["date"], d["jacket"], d["title"])
+            if re.search(r"SOLO COLLECTION", d["title"], re.I):  # ライブ会場限定のソロ集は越境曲のジャケットにしない
+                continue
+            if key not in first_cd or c2[:2] < first_cd[key][:2]:
+                first_cd[key] = c2
 
     songs = json.loads((DATA / "songs" / f"{brand}.json").read_text(encoding="utf-8"))
     jf = DATA / "jackets.json"
     jackets = json.loads(jf.read_text(encoding="utf-8")) if jf.exists() else {}
     matched, unmatched = 0, []
     for s in songs:
+        if s["id"] in CROSSOVER_SONGS:
+            # 越境曲はブランドごとに別の盤が出るので「ブランド:曲ID」に、そのブランドの盤のジャケットを入れる
+            hit = first_cd.get(song_key(s["title"]))
+            if hit and hit[0] == 0:
+                jackets[f"{brand}:{s['id']}"] = hit[2]
+                matched += 1
+            continue
         hit = best.get(song_key(s["title"]))
         if hit:
             jackets[str(s["id"])] = hit[2]
@@ -286,10 +302,14 @@ def main() -> None:
         else:
             unmatched.append(s["title"])
 
-    # 手で指定したジャケット（data/jacket_overrides.json）は自動の照合より優先する
+    # 手で指定したジャケット（data/jacket_overrides.json）は自動の照合より優先する。
+    # "_all" は越境曲などの既定のジャケット（そのブランドの盤が無いときに使う）
     of = DATA / "jacket_overrides.json"
-    overrides = json.loads(of.read_text(encoding="utf-8")).get(brand, {}) if of.exists() else {}
+    all_ov = json.loads(of.read_text(encoding="utf-8")) if of.exists() else {}
+    overrides = all_ov.get(brand, {})
     for sid, o in overrides.items():
+        jackets[f"{brand}:{sid}" if int(sid) in CROSSOVER_SONGS else sid] = o["jacket"]
+    for sid, o in all_ov.get("_all", {}).items():
         jackets[sid] = o["jacket"]
     if overrides:
         print(f"[{brand}] {len(overrides)} jackets from jacket_overrides.json")

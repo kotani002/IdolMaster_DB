@@ -37,6 +37,11 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 const DB = { brands: [], themes: [], jackets: {}, meta: {}, events: [], units: {}, songs: {}, idols: {} };
 
+// 楽曲のジャケット。越境曲はブランドごとに別の盤があるので「ブランド:曲ID」を先に見る
+function jacketOf(songId, brandId) {
+  return DB.jackets[`${brandId}:${songId}`] || DB.jackets[String(songId)];
+}
+
 async function getJSON(path) {
   const r = await fetch(path, { cache: "no-cache" });
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
@@ -292,7 +297,7 @@ function cardEl(it, idx) {
   }, h("span", {}));
   // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
   if (it.songId && (!it.jacket || it.jacketAuto)) {
-    const jk = DB.jackets[String(it.songId)];
+    const jk = jacketOf(it.songId, it.brand || state.from);
     if (jk && jk !== it.jacket) { it.jacket = jk; it.jacketAuto = true; save(); }
   }
   paintJacket(jacket, it);
@@ -322,7 +327,7 @@ function cardEl(it, idx) {
     pickedAt = performance.now();
     it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
     // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
-    const jk = DB.jackets[String(s.id)];
+    const jk = jacketOf(s.id, state.from);
     if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; it.jkPos = "auto"; }
     else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
     paintJacket(jacket, it);
@@ -334,7 +339,10 @@ function cardEl(it, idx) {
     list.replaceChildren(...(results.length
       ? results.map((s, i) => h("li", {
           role: "option", class: i === active ? "active" : "",
-          onpointerdown: (e) => { e.preventDefault(); pick(s); },
+          // 押した瞬間に選ぶとスマホで候補をスクロールできない（触れた曲が選ばれる）ので、タップ（click）で選ぶ。
+          // pointerdown は入力欄からフォーカスが外れて候補が閉じないように止めるだけ
+          onpointerdown: (e) => e.preventDefault(),
+          onclick: () => pick(s),
         }, s.title, hitNote.has(s) ? h("small", {}, hitNote.get(s))
           : s.kana && norm(s.kana) !== norm(s.title) ? h("small", {}, s.kana) : null))
       : [h("li", { class: "empty" }, "見つかりません（このまま自由入力もできます）")]));

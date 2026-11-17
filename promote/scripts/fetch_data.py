@@ -239,9 +239,42 @@ EXTRA_SONGS: dict[str, list[int]] = {
 }
 
 
+# 越境曲：ブランドの垣根を越えた曲（ふじわらはじめでは「合同」）。指定したブランドの曲一覧に入れ、
+# 検索ではユニット名の代わりに「越境曲」と出す（曲ID → 入れるブランド）
+CROSSOVER = "越境曲"
+_ALL = {"cg", "ml", "sidem", "sc", "gm"}
+CROSSOVER_SONGS: dict[int, set[str]] = {
+    9498: _ALL,                  # アイ NEED YOU (FOR WONDERFUL STORY)
+    4411: _ALL,                  # VOY@GER
+    3525: _ALL,                  # なんどでも笑おう
+    5323: _ALL,                  # CRYST@LOUD
+    3982: _ALL - {"gm"},         # POPLINKS TUNE!!!!!（学マスを除く）
+    2611: {"cg", "ml"},          # IDOL POWER RAINBOW（学マス・SideM・シャニマスを除く）
+    2691: {"cg", "ml"},          # アイ MUST GO!（学マス・SideM・シャニマスを除く）
+    # SideM・学マスには入れない越境曲
+    4072: {"cg", "ml", "sc"},    # SESSION!
+    4387: {"cg", "ml", "sc"},    # 夏のBang!!
+    4421: {"cg", "ml", "sc"},    # アイシテの呪縛～Je vous aime～
+    4422: {"cg", "ml", "sc"},    # GR@TITUDE
+    4596: {"cg", "ml", "sc"},    # ダンス・ダンス・ダンス
+    4775: {"cg", "ml", "sc"},    # KAWAIIウォーズ
+    4801: {"cg", "ml", "sc"},    # 全力★ドリーミングガールズ
+}
+# 越境曲に付ける検索用の名前（「スターリットシーズン」「スタマス」で検索すると出る）。名前 → よみ
+STARLIT = {"スターリットシーズン": "すたーりっとしーずん", "スタマス": "すたます"}
+CROSSOVER_TAGS: dict[int, list[str]] = {
+    sid: list(STARLIT) for sid in (4072, 4387, 4421, 4422, 4596, 4775, 4801)  # アイドルマスター スターリットシーズンの曲
+}
+
+
+def crossover_units(sid: int) -> list[str]:
+    return [CROSSOVER] + CROSSOVER_TAGS.get(sid, [])
+
+
 def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
     rows = []
-    for sid in EXTRA_SONGS.get(brand_id, []):
+    ids = EXTRA_SONGS.get(brand_id, []) + [sid for sid, bs in CROSSOVER_SONGS.items() if brand_id in bs]
+    for sid in ids:
         if sid in have:
             continue
         m = get_json(f"{API}/music?id={sid}")
@@ -250,7 +283,9 @@ def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
         rows.append({
             "id": m["song_id"],
             "title": title,
-            "kana": m.get("kana") or "",
+            # API のよみはカタカナ・空白区切りのことがあるので、他の曲と同じひらがなにそろえる
+            "kana": "".join(chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c
+                            for c in re.sub(r"\s", "", m.get("kana") or "")),
             "url": m["link"],
             "singers": [x["name"] for x in m.get("member") or []],
         })
@@ -513,7 +548,9 @@ def attach_units(only: list[str] | None = None) -> None:
             kana.setdefault(cols[1].strip(), cols[0].strip())
     names = {x for v in by_song.values() for x in v}
     kana[WHOLE_SONG] = "ぜんたいきょく"
-    names.add(WHOLE_SONG)
+    kana[CROSSOVER] = "えっきょうきょく"
+    kana.update(STARLIT)
+    names |= {WHOLE_SONG, CROSSOVER, *STARLIT}
     write(DATA / "units.json", {k: kana[k] for k in sorted(kana) if k in names})
     for b in only or list(BRANDS):
         f = DATA / "songs" / f"{b}.json"
@@ -522,7 +559,9 @@ def attach_units(only: list[str] | None = None) -> None:
         rows = json.loads(f.read_text(encoding="utf-8"))
         for s in rows:
             u = by_song.get(int(s["id"])) if str(s.get("id", "")).isdigit() else None
-            if s.get("id") in WHOLE_SONG_IDS.get(b, set()):
+            if s.get("id") in CROSSOVER_SONGS:
+                s["units"] = crossover_units(s["id"])
+            elif s.get("id") in WHOLE_SONG_IDS.get(b, set()):
                 s["units"] = [WHOLE_SONG]
             elif u:
                 s["units"] = whole_song_units(u)
