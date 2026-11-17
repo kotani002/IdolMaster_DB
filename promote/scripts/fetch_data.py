@@ -424,6 +424,58 @@ def attach_singers(only: list[str] | None = None) -> None:
         print(f"[singers] {f.name}: {sum(1 for s in rows if s['singers'])}/{len(rows)} songs have singers")
 
 
+def attach_units(only: list[str] | None = None) -> None:
+    """曲名検索でユニット名から曲を探せるように、各曲に歌唱ユニット名（songs[].units）を付ける。
+
+    ユニット一覧ページ（1リクエスト）でユニットのIDを集め、ユニットごとに API の /tax で持ち歌を取る。
+    ユニットのよみ（ひらがなで検索できるように）は data/units.json に 名前 -> よみ で書き出す。
+    """
+    page = get("https://fujiwarahaji.me/sitemap/unit").decode("utf-8", "replace")
+    ids = list(dict.fromkeys(re.findall(r'href="https://fujiwarahaji\.me/unit/(\d+)"', page)))
+    print(f"[units] {len(ids)} units")
+    by_song: dict[int, list[str]] = {}
+    kana: dict[str, str] = {}
+    for n, uid in enumerate(ids, 1):
+        try:
+            u = get_json(f"{API}/tax?id={uid}&limit=3000")
+        except RuntimeError as e:
+            print(f"  ! unit {uid}: {e}", file=sys.stderr)
+            continue
+        name = html.unescape(u.get("name") or "").strip()
+        if not name:
+            continue
+        if u.get("kana"):
+            kana[name] = u["kana"]
+        for s in u.get("song") or []:
+            if s.get("song_id"):
+                by_song.setdefault(int(s["song_id"]), []).append(name)
+        if n % 50 == 0:
+            print(f"  {n}/{len(ids)}")
+    # よみは IME データ（1リクエスト）でも補う
+    q = urllib.parse.urlencode({"enc": "utf8", "types": "unit",
+                                "brand": "cg,ml,shiny,as,godo,cover,sidem,gakuen,876",
+                                "production": "cg,765,sc,315,va-liv,hatsuboshi"})
+    for line in get(f"https://fujiwarahaji.me/api/ime/main?{q}").decode("utf-8", "replace").splitlines():
+        cols = line.split("\t")
+        if len(cols) >= 2 and cols[0] and cols[1] and not cols[0].startswith("!"):
+            kana.setdefault(cols[1].strip(), cols[0].strip())
+    names = {x for v in by_song.values() for x in v}
+    write(DATA / "units.json", {k: kana[k] for k in sorted(kana) if k in names})
+    for b in only or list(BRANDS):
+        f = DATA / "songs" / f"{b}.json"
+        if not BRANDS[b].get("music_type") or not f.exists():
+            continue
+        rows = json.loads(f.read_text(encoding="utf-8"))
+        for s in rows:
+            u = by_song.get(int(s["id"])) if str(s.get("id", "")).isdigit() else None
+            if u:
+                s["units"] = u
+            else:
+                s.pop("units", None)
+        write(f, rows)
+        print(f"[units] {f.name}: {sum(1 for s in rows if s.get('units'))}/{len(rows)} songs have units")
+
+
 def write(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -431,9 +483,13 @@ def write(path: Path, obj) -> None:
 
 def main() -> None:
     only = sys.argv[1:] or None
+    if only == ["units"]:  # ユニット名だけ取り直す
+        attach_units()
+        return
     for b in only or list(BRANDS):
         build_brand(b, BRANDS[b])
     attach_singers(only)
+    attach_units(only)
     jst = timezone(timedelta(hours=9))
     write(DATA / "meta.json", {"updated_at": datetime.now(jst).strftime("%Y-%m-%d")})
 

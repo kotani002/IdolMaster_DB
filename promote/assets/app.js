@@ -35,7 +35,7 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 // ---------------------------------------------------------------- data
 
-const DB = { brands: [], themes: [], jackets: {}, meta: {}, events: [], songs: {}, idols: {} };
+const DB = { brands: [], themes: [], jackets: {}, meta: {}, events: [], units: {}, songs: {}, idols: {} };
 
 async function getJSON(path) {
   const r = await fetch(path, { cache: "no-cache" });
@@ -299,7 +299,7 @@ function cardEl(it, idx) {
 
   // --- 曲名（検索 + 自由入力）
   const songIn = h("input", {
-    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名・歌唱アイドル名で検索`,
+    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名・ユニット名・アイドル名で検索`,
     autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false",
     "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
   });
@@ -312,7 +312,7 @@ function cardEl(it, idx) {
   syncSongField();
 
   let results = [], active = -1;
-  let singerHits = new Set(), singerName = ""; // 歌唱者名で見つかった曲（候補に「歌：名前」と出す）
+  let hitNote = new Map(); // ユニット名・歌唱者名で見つかった曲 → 候補に出す「ユニット：名前」「歌：名前」
   // スマホの日本語入力は変換中の文字が確定されずに残るため、候補をタップした時に
   // 「候補の曲名 + 入力途中の文字」になってしまう。先に入力欄を外して変換を確定させてから曲名で上書きし、
   // 直後に遅れて届く入力イベントも無視する。
@@ -335,7 +335,7 @@ function cardEl(it, idx) {
       ? results.map((s, i) => h("li", {
           role: "option", class: i === active ? "active" : "",
           onpointerdown: (e) => { e.preventDefault(); pick(s); },
-        }, s.title, singerHits.has(s) ? h("small", {}, `歌：${singerName}`)
+        }, s.title, hitNote.has(s) ? h("small", {}, hitNote.get(s))
           : s.kana && norm(s.kana) !== norm(s.title) ? h("small", {}, s.kana) : null))
       : [h("li", { class: "empty" }, "見つかりません（このまま自由入力もできます）")]));
     list.hidden = false;
@@ -345,19 +345,26 @@ function cardEl(it, idx) {
     const q = norm(songIn.value);
     if (!q) { results = []; close(); return; }
     const songs = DB.songs[state.from] || [];
-    const starts = [], contains = [], bySinger = [];
+    const starts = [], contains = [], byUnit = [], byUnitPart = [], bySinger = [];
+    hitNote = new Map();
+    // ユニット名（よみでも可）：完全一致はそのユニットの曲を全部、2文字以上の部分一致でも出す（例：「すとれい」→ストレイライト）
+    const unitMatch = (u) => {
+      const a = norm(u), k = norm(DB.units[u]);
+      if (a === q || k === q) return 2;
+      return q.length >= 2 && (a.includes(q) || (k && k.includes(q))) ? 1 : 0;
+    };
     for (const s of songs) {
       const a = norm(s.title), k = norm(s.kana);
-      if (a.startsWith(q) || k.startsWith(q)) starts.push(s);
-      else if (a.includes(q) || k.includes(q)) contains.push(s);
+      if (a.startsWith(q) || k.startsWith(q)) { starts.push(s); continue; }
+      if (a.includes(q) || k.includes(q)) { contains.push(s); continue; }
+      let best = 0, unit = "";
+      for (const u of s.units || []) { const m = unitMatch(u); if (m > best) { best = m; unit = u; } }
+      if (best) { (best === 2 ? byUnit : byUnitPart).push(s); hitNote.set(s, `ユニット：${unit}`); continue; }
       // 歌唱者名と完全一致（「春日 未来」のような空白の有無は区別しない）なら、その人の参加曲を全部出す
-      else {
-        const n = (s.singers || []).find((n) => norm(n) === q);
-        if (n) { bySinger.push(s); singerName = n; }
-      }
+      const n = (s.singers || []).find((n) => norm(n) === q);
+      if (n) { bySinger.push(s); hitNote.set(s, `歌：${n}`); }
     }
-    singerHits = new Set(bySinger);
-    results = starts.concat(contains).slice(0, 30).concat(bySinger);
+    results = starts.concat(contains).slice(0, 30).concat(byUnit, byUnitPart, bySinger);
     active = results.length ? 0 : -1;
     draw();
   };
@@ -1010,12 +1017,13 @@ function wire() {
 }
 
 async function init() {
-  [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events] = await Promise.all([
+  [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events, DB.units] = await Promise.all([
     getJSON("data/brands.json"),
     getJSON("data/themes.json").catch(() => []),
     getJSON("data/jackets.json").catch(() => ({})),
     getJSON("data/meta.json").catch(() => ({})),
     getJSON("data/events.json").catch(() => []),
+    getJSON("data/units.json").catch(() => ({})),
   ]);
   state = loadState() || defaultState();
   const pk = pickableBrands();

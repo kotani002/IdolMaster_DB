@@ -11,7 +11,7 @@
 - 名前を入力できます（未入力なら「名無しP」）。おすすめするブランド（A）を選べます。
 - 1曲ごとにカードを作れます。カードには次の内容を入れられます。
   - お題（○○な曲）：既定のお題から選ぶことも、自由に入力することもできます（`data/themes.json`）。
-  - 曲名：A ブランドの曲を検索できます（ひらがな・カタカナどちらでも可）。リストにない曲は自由に入力できます。
+  - 曲名：A ブランドの曲を検索できます（ひらがな・カタカナどちらでも可）。ユニット名（一部やよみでも可）を入れるとそのユニットの曲が、アイドル名を正確に入れるとその人が歌った曲が出ます。リストにない曲は自由に入力できます。
   - ジャケット：画像 URL を埋め込むか、端末の画像を選びます。
   - プレゼン内容：自由に書けます。
   - 歌って欲しいアイドル：初期表示はその曲のブランドのアイドル。ブランドのタグや、対バンライブの出演者のタグ（「デレミリ対バン」「エムシャニ対バン」。Day1/Day2 で絞り込み、`data/events.json`）で切り替えられます。リストにない名前やユニット名も追加できます。
@@ -29,7 +29,8 @@ data/brands.json        ブランド定義（名前・テーマカラー）
 data/themes.json        お題の候補
 data/events.json        イベントの出演者（デレミリ対バン・エムシャニ対バン Day1/Day2。公式の出演者ページを見て手で更新）
 data/jackets.json       楽曲ID → ジャケットURL の対応表（任意。書いた曲は選曲時に自動で入る）
-data/songs/<brand>.json ブランド別の曲一覧（自動生成）
+data/songs/<brand>.json ブランド別の曲一覧（自動生成。units に歌唱ユニット名）
+data/units.json         ユニット名 → よみ（自動生成。ひらがなでユニット検索するため）
 data/idols/<brand>.json ブランド別のアイドル一覧（自動生成）
 scripts/fetch_data.py   ふじわらはじめ API から songs / idols を生成
 scripts/fetch_jackets.py 公式ディスコグラフィーからジャケットURLを照合
@@ -72,6 +73,7 @@ python scripts/fetch_data.py
 
 ブランドを追加するときは、`scripts/fetch_data.py` の `BRANDS` と `data/brands.json` の両方に追記します。例：シャイニーカラーズは `music_type: "sc"`、`production: "sc"`、学園アイドルマスターは `music_type: "gakuen"`、`production: "gakuen"`。
 アイドルの色はふじわらはじめの一覧から取ります。SideM はふじわらはじめに色が無いので、[imas-db.jp のカラーコード一覧](https://imas-db.jp/misc/color.html) から取ります（`BRANDS` の `imasdb_colors`）。
+ユニット名（曲検索用）はふじわらはじめのユニット一覧と API から取ります。ユニットだけ取り直すときは `python scripts/fetch_data.py units`（約300ユニット分を取るので10分ほどかかります）。
 `python scripts/fetch_data.py sc` のようにブランドを指定すると、そのブランドだけを取り直します（歌唱者もそのブランドのアイドル分だけ調べ、前回の内容に足します）。
 
 ## ジャケットを更新する
