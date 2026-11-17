@@ -286,6 +286,14 @@ def main() -> None:
         else:
             unmatched.append(s["title"])
 
+    # 手で指定したジャケット（data/jacket_overrides.json）は自動の照合より優先する
+    of = DATA / "jacket_overrides.json"
+    overrides = json.loads(of.read_text(encoding="utf-8")).get(brand, {}) if of.exists() else {}
+    for sid, o in overrides.items():
+        jackets[sid] = o["jacket"]
+    if overrides:
+        print(f"[{brand}] {len(overrides)} jackets from jacket_overrides.json")
+
     jf.write_text(json.dumps(jackets, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     (CACHE / f"{brand}_unmatched.txt").write_text("\n".join(unmatched) + "\n", encoding="utf-8")
     print(f"[{brand}] matched {matched}/{len(songs)}  (unmatched list: scripts/.cache/{brand}_unmatched.txt)")

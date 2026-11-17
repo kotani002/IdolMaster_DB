@@ -224,6 +224,18 @@ EXTRA_SONGS: dict[str, list[int]] = {
     "cg": [
         2812,  # ハーモニクス（ミリオン：ジュリア・最上静香 × シンデレラ：多田李衣菜・木村夏樹。ふじわらはじめではミリオン扱い）
     ],
+    # Migratory Echoes はユニットごとに曲調もジャケット（ECHOES 01〜08）も違うので、ユニット版を別の曲として並べる
+    # （ふじわらはじめではリミックス扱い。ジャケットは data/jacket_overrides.json で指定）
+    "sc": [
+        11429,  # イルミネーションスターズVer.
+        11430,  # アンティーカVer.
+        11431,  # 放課後クライマックスガールズVer.
+        11432,  # アルストロメリアVer.
+        11433,  # ストレイライトVer.
+        11434,  # ノクチルVer.
+        11437,  # シーズVer.
+        11439,  # コメティックVer.
+    ],
 }
 
 
@@ -233,9 +245,11 @@ def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
         if sid in have:
             continue
         m = get_json(f"{API}/music?id={sid}")
+        # 「曲名 （ユニットVer.）」の全角かっこ・空白の揺れをそろえる → 「曲名 (ユニットVer.)」
+        title = re.sub(r"\s*[（(]\s*([^（()）]*?)\s*[）)]\s*$", r" (\1)", m["name"])
         rows.append({
             "id": m["song_id"],
-            "title": m["name"],
+            "title": title,
             "kana": m.get("kana") or "",
             "url": m["link"],
             "singers": [x["name"] for x in m.get("member") or []],
@@ -263,6 +277,10 @@ def build_brand(brand_id: str, conf: dict) -> None:
                 "singers": old.get(s["song_id"], []),
             })
         song_rows += extra_song_rows(brand_id, {r["id"] for r in song_rows})
+        # よみが無い「曲名 (○○Ver.)」は元の曲名のよみを使う（ひらがなでも探せるように）
+        for r in song_rows:
+            if not r["kana"]:
+                r["kana"] = kana.get(re.sub(r"\s*\([^()]*\)$", "", r["title"]), "")
         song_rows.sort(key=lambda r: (r["kana"] or r["title"]))
 
     print(f"[{brand_id}] idols")
@@ -424,6 +442,21 @@ def attach_singers(only: list[str] | None = None) -> None:
         print(f"[singers] {f.name}: {sum(1 for s in rows if s['singers'])}/{len(rows)} songs have singers")
 
 
+WHOLE_SONG = "全体曲"
+# ブランド全員のユニット（これが付いた曲は全体曲）
+WHOLE_UNIT_RE = re.compile(r"^シャイニーカラーズ\(|^765 MILLION ALLSTARS$|^765 MILLIONSTARS$|^765THEATER ALLSTARS$|^315 ALLSTARS$")
+
+
+def whole_song_units(units: list[str]) -> list[str]:
+    """全ユニットで歌う曲（全体曲）は、個別のユニット名で検索しても出ないよう「全体曲」だけにする。
+
+    ブランド全員のユニットが付いている曲か、5ユニット以上が歌っている曲を全体曲とみなす。
+    """
+    if any(WHOLE_UNIT_RE.search(u) for u in units) or len(set(units)) >= 5:
+        return [WHOLE_SONG]
+    return units
+
+
 def attach_units(only: list[str] | None = None) -> None:
     """曲名検索でユニット名から曲を探せるように、各曲に歌唱ユニット名（songs[].units）を付ける。
 
@@ -460,6 +493,8 @@ def attach_units(only: list[str] | None = None) -> None:
         if len(cols) >= 2 and cols[0] and cols[1] and not cols[0].startswith("!"):
             kana.setdefault(cols[1].strip(), cols[0].strip())
     names = {x for v in by_song.values() for x in v}
+    kana[WHOLE_SONG] = "ぜんたいきょく"
+    names.add(WHOLE_SONG)
     write(DATA / "units.json", {k: kana[k] for k in sorted(kana) if k in names})
     for b in only or list(BRANDS):
         f = DATA / "songs" / f"{b}.json"
@@ -469,7 +504,7 @@ def attach_units(only: list[str] | None = None) -> None:
         for s in rows:
             u = by_song.get(int(s["id"])) if str(s.get("id", "")).isdigit() else None
             if u:
-                s["units"] = u
+                s["units"] = whole_song_units(u)
             else:
                 s.pop("units", None)
         write(f, rows)

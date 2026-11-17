@@ -73,7 +73,8 @@ python scripts/fetch_data.py
 
 ブランドを追加するときは、`scripts/fetch_data.py` の `BRANDS` と `data/brands.json` の両方に追記します。例：シャイニーカラーズは `music_type: "sc"`、`production: "sc"`、学園アイドルマスターは `music_type: "gakuen"`、`production: "gakuen"`。
 アイドルの色はふじわらはじめの一覧から取ります。SideM はふじわらはじめに色が無いので、[imas-db.jp のカラーコード一覧](https://imas-db.jp/misc/color.html) から取ります（`BRANDS` の `imasdb_colors`）。
-ユニット名（曲検索用）はふじわらはじめのユニット一覧と API から取ります。ユニットだけ取り直すときは `python scripts/fetch_data.py units`（約300ユニット分を取るので10分ほどかかります）。
+ユニット名（曲検索用）はふじわらはじめのユニット一覧と API から取ります。全ユニットで歌う曲（ブランド全員のユニットが付いた曲か、5ユニット以上が歌う曲）は個別のユニット名では出さず、「全体曲」で探せるようにしています（`scripts/fetch_data.py` の `whole_song_units`）。
+Migratory Echoes（シャニマス）はユニットごとに曲調とジャケットが違うので、「Migratory Echoes (ユニット名Ver.)」を別の曲として登録しています（`EXTRA_SONGS` と `data/jacket_overrides.json`）。ユニットだけ取り直すときは `python scripts/fetch_data.py units`（約300ユニット分を取るので10分ほどかかります）。
 `python scripts/fetch_data.py sc` のようにブランドを指定すると、そのブランドだけを取り直します（歌唱者もそのブランドのアイドル分だけ調べ、前回の内容に足します）。
 
 ## ジャケットを更新する
@@ -90,6 +91,7 @@ python scripts/fetch_jackets.py gm
 
 - 取得元：シンデレラガールズは公式ポータル、ミリオンライブ・シャイニーカラーズ・SideM はランティスのサイト、学園アイドルマスターは公式レーベルサイト（`scripts/fetch_jackets.py` の `SOURCES`）。
 - 同じ曲が複数のCDに入っている場合は、本人歌唱版が入ったCDのうち一番早く発売されたもののジャケットを使います。ライブBD・カラオケ版は、CDで見つからない曲にだけ使います。
+- 使うジャケットを手で決めた曲は `data/jacket_overrides.json`（ブランド → 曲ID → ジャケットURL）に書きます。ここに書いた曲は、照合結果より優先されます。
 - 取得したページは `scripts/.cache/` に保存されます。照合ルールだけ変えたいときは `--offline` を付ければ再取得しません。
 - 照合できなかった曲は `scripts/.cache/<brand>_unmatched.txt` に出力されます。
 - 公式で見つからなかった曲は、iTunes Search API（Apple Music）でも探せます。`python scripts/fetch_jackets_itunes.py` で結果を `scripts/.cache/itunes_report.txt` に出し、内容を確認してから `--apply` で `data/jackets.json` に書き込みます（設定済みのジャケットは変えません。出典はサイト下部に記載）。
