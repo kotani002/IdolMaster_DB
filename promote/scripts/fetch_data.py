@@ -447,6 +447,25 @@ WHOLE_SONG = "全体曲"
 WHOLE_UNIT_RE = re.compile(r"^シャイニーカラーズ\(|^765 MILLION ALLSTARS$|^765 MILLIONSTARS$|^765THEATER ALLSTARS$|^315 ALLSTARS$")
 
 
+# 自動の判定では拾えない全体曲（曲ID で指定）
+WHOLE_SONG_IDS: dict[str, set[int]] = {
+    "cg": {
+        26,    # お願い！シンデレラ
+        192,   # 輝く世界の魔法
+        193,   # We’re the friends!
+        194,   # メッセージ
+        195,   # Take me☆Take you
+        191,   # EVERMORE
+        681,   # イリュージョニスタ！
+        1166,  # Trust me
+        3692,  # Brand new!
+        4508,  # EVERLASTING
+        4340,  # Let's Sail Away!!!
+        4341,  # ココカラミライヘ！
+    },
+}
+
+
 def whole_song_units(units: list[str]) -> list[str]:
     """全ユニットで歌う曲（全体曲）は、個別のユニット名で検索しても出ないよう「全体曲」だけにする。
 
@@ -503,7 +522,9 @@ def attach_units(only: list[str] | None = None) -> None:
         rows = json.loads(f.read_text(encoding="utf-8"))
         for s in rows:
             u = by_song.get(int(s["id"])) if str(s.get("id", "")).isdigit() else None
-            if u:
+            if s.get("id") in WHOLE_SONG_IDS.get(b, set()):
+                s["units"] = [WHOLE_SONG]
+            elif u:
                 s["units"] = whole_song_units(u)
             else:
                 s.pop("units", None)
