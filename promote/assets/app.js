@@ -955,19 +955,33 @@ const SONGS_PER_IMAGE = 4;
 
 let lastExport = []; // [{ blob, url, name }]
 
+// 画像作成中の進み具合（0〜1）と、いま何をしているかの文
+function setProgress(frac, text) {
+  const pct = Math.round(Math.max(0, Math.min(1, frac)) * 100);
+  $("#loading-bar").style.width = `${pct}%`;
+  $("#loading .progress").setAttribute("aria-valuenow", String(pct));
+  if (text) $("#loading-text").textContent = text;
+}
+
 async function exportImage() {
   if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
   if (typeof html2canvas !== "function") { toast("画像ライブラリを読み込めませんでした。通信状態を確認してください"); return; }
+  // 進み具合：ジャケットの読み込みで前半3割、画像（1枚ずつ）の作成で残り7割
+  const JK_SHARE = 0.3;
+  setProgress(0, "ジャケットを読み込み中…");
   $("#loading").hidden = false;
   try {
     const jackets = new Map();
-    let failed = 0;
+    let failed = 0, loaded = 0;
+    const total = state.items.length;
     let nowPrinting; // ジャケットが無い・読めない曲は「NOW PRINTING...」画像にする（1回だけ読み込む）
     const placeholder = () => (nowPrinting ??= resolveJacket(new URL(NOW_PRINTING, location.href).href).then((d) => d || ""));
     await Promise.all(state.items.map(async (it) => {
       const [d, pos] = await Promise.all([resolveJacket(it.jacket), it.jacket ? jacketPos(it.jacket, it.jkPos) : "center"]);
       if (d === null) failed++;
       jackets.set(it.id, d ? { src: d, pos } : { src: await placeholder(), pos: "center" });
+      loaded++;
+      setProgress(JK_SHARE * loaded / total, `ジャケットを読み込み中… ${loaded}/${total}`);
     }));
     await document.fonts.ready;
     const stage = $("#export-stage");
@@ -980,6 +994,8 @@ async function exportImage() {
     const blobs = [];
     let start = 0;
     for (const [k, chunk] of chunks.entries()) {
+      setProgress(JK_SHARE + (1 - JK_SHARE) * k / chunks.length,
+        chunks.length > 1 ? `画像を作成中… ${k + 1}/${chunks.length}枚目` : "画像を作成中…");
       const sheet = buildSheet(chunk, jackets, start, k + 1, chunks.length);
       start += chunk.length;
       stage.replaceChildren(sheet);
@@ -994,6 +1010,7 @@ async function exportImage() {
       const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
       if (!blob) throw new Error("toBlob failed");
       blobs.push(blob);
+      setProgress(JK_SHARE + (1 - JK_SHARE) * (k + 1) / chunks.length);
     }
     stage.replaceChildren();
 

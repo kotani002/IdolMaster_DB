@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261118k">
+<link rel="stylesheet" href="assets/style.css?v=20261118l">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -174,11 +174,18 @@
   </div>
 </dialog>
 
-<div id="loading" class="loading" hidden><div class="spinner"></div><p>画像を作成中…</p></div>
+<!-- 画像作成中の表示。進み具合はバーと「ジャケットを読み込み中 2/5」などの文で出す（app.js の setProgress） -->
+<div id="loading" class="loading" hidden>
+  <div class="spinner"></div>
+  <p id="loading-text">画像を作成中…</p>
+  <div class="progress" role="progressbar" aria-label="画像作成の進み具合" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="progress-bar" id="loading-bar"></div>
+  </div>
+</div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261118t" type="module"></script>
+<script src="assets/app.js?v=20261118u" type="module"></script>
 </body>
 </html>
