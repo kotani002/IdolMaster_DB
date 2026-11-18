@@ -1,0 +1,10 @@
+# Cloudflare Pages のキャッシュ設定（2回目以降に開くとき、ファイルが新しくなっていないかの問い合わせを減らす）
+#
+# assets（app.js・style.css・画像）は index.html から「?v=日付」付きで読んでいるので、中身を変えたら ?v= を上げれば
+# 新しいものが読まれる。そのため長め（30日）に保存してよい。※ ?v= を上げ忘れると最大30日古いままになるので注意
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+# data（曲・アイドル・ジャケットの JSON）は5分間はそのまま使い、それ以降は古いものを表示しつつ裏で新しいものを取りに行く
+/data/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400

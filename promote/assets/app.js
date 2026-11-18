@@ -49,14 +49,41 @@ function altsOf(songId, brandId) {
 }
 
 async function getJSON(path) {
-  const r = await fetch(path, { cache: "no-cache" });
+  // 保存のしかたは _headers（data は5分間そのまま使い、以降は裏で更新）に任せる。
+  // （以前は no-cache で毎回問い合わせていたが、開くのが遅くなるのでやめた）
+  const r = await fetch(path);
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
   return r.json();
 }
 
+// ブランドの曲とアイドルは同時に取りに行く（順番に待たない）。起動時は、保存してあるブランドの分を
+// ブランド一覧などと同時に先に取りに行っておく（init の prefetchBrand）
+const brandFetches = {};
+function prefetchBrand(id) {
+  return (brandFetches[id] ??= Promise.all([
+    getJSON(`data/songs/${id}.json`).catch(() => null), // 楽曲データの無いブランドは null
+    getJSON(`data/idols/${id}.json`).catch(() => []),
+  ]));
+}
 async function ensureBrand(id) {
-  if (!DB.songs[id]) DB.songs[id] = isPickable(brand(id)) ? await getJSON(`data/songs/${id}.json`).catch(() => []) : [];
-  if (!DB.idols[id]) DB.idols[id] = await getJSON(`data/idols/${id}.json`).catch(() => []);
+  if (DB.songs[id] && DB.idols[id]) return;
+  const [songs, idols] = await prefetchBrand(id);
+  if (!DB.songs[id]) DB.songs[id] = isPickable(brand(id)) ? songs || [] : [];
+  if (!DB.idols[id]) DB.idols[id] = idols;
+}
+
+// 画像作成の部品（html2canvas）。ページを開いたときには読まず、画面が出たあと空いた時間か、「画像を作成」を押したときに読む
+const HTML2CANVAS_URL = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+let html2canvasLoad = null;
+function loadHtml2canvas() {
+  if (typeof html2canvas === "function") return Promise.resolve();
+  return (html2canvasLoad ??= new Promise((res, rej) => {
+    const s = document.createElement("script");
+    s.src = HTML2CANVAS_URL; s.async = true;
+    s.onload = () => (typeof html2canvas === "function" ? res() : rej(new Error("html2canvas")));
+    s.onerror = () => { html2canvasLoad = null; s.remove(); rej(new Error("html2canvas")); }; // 次に押したとき読み直す
+    document.head.append(s);
+  }));
 }
 
 // データを取りに行く間は、起動時と同じ「読み込み中…」を出す（<html class="booting">）。
@@ -1013,11 +1040,17 @@ function setProgress(frac, text) {
 
 async function exportImage() {
   if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
-  if (typeof html2canvas !== "function") { toast("画像ライブラリを読み込めませんでした。通信状態を確認してください"); return; }
   // 進み具合：ジャケットの読み込みで前半3割、画像（1枚ずつ）の作成で残り7割
   const JK_SHARE = 0.3;
-  setProgress(0, "ジャケットを読み込み中…");
+  setProgress(0, "準備中…");
   $("#loading").hidden = false;
+  // 画像作成の部品（まだ届いていなければここで読む）
+  try { await loadHtml2canvas(); } catch {
+    $("#loading").hidden = true;
+    toast("画像ライブラリを読み込めませんでした。通信状態を確認してください");
+    return;
+  }
+  setProgress(0, "ジャケットを読み込み中…");
   try {
     const jackets = new Map();
     let failed = 0, loaded = 0;
@@ -1199,6 +1232,8 @@ function wire() {
 }
 
 async function init() {
+  // 前回のブランド（初めての人は先頭の 765AS）の曲・アイドルを、ブランド一覧などと同時に取りに行く
+  prefetchBrand(loadState()?.from || "as");
   [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events, DB.units, DB.jacketAlts] = await Promise.all([
     getJSON("data/brands.json"),
     getJSON("data/themes.json").catch(() => []),
@@ -1220,7 +1255,11 @@ async function init() {
 // 起動中の「読み込み中…」を外して画面を出す（ブランド色を塗り終えてから。失敗時もエラー文を見せるため外す）
 const finishBoot = () => document.documentElement.classList.remove("booting");
 
-init().then(() => { finishBoot(); showGuideFirstTime(); }).catch((e) => {
+init().then(() => {
+  finishBoot(); showGuideFirstTime();
+  // 画像作成の部品は、画面が出て落ち着いてから裏で読んでおく（「画像を作成」ですぐ作れるように）
+  setTimeout(() => loadHtml2canvas().catch(() => {}), 3000);
+}).catch((e) => {
   console.error(e);
   document.querySelector("#items").textContent = "データの読み込みに失敗しました。ページを再読み込みしてください。";
   finishBoot();
