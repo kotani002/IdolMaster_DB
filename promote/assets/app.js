@@ -232,48 +232,6 @@ function renderItems() {
   box.querySelectorAll(".pitch, .theme-input").forEach(autosize);
 }
 
-// カードのドラッグでの並べ替え。つまみを押したまま上下に動かすと、指（マウス）の位置に合わせてカードの順番が入れ替わり、
-// 離したところで決まる。画面の上下の端に近づけると自動でスクロールする
-function startCardDrag(e, card) {
-  if (e.pointerType === "mouse" && e.button !== 0) return;
-  e.preventDefault();
-  const box = $("#items");
-  const before = [...box.children].map((c) => c.dataset.id).join(",");
-  let lastY = e.clientY;
-  card.classList.add("dragging");
-  document.body.classList.add("card-dragging");
-  const place = () => {
-    // 指の位置より下にある最初のカード（の中央）の前に置く
-    const next = [...box.children].find((c) => c !== card && lastY < c.getBoundingClientRect().top + c.offsetHeight / 2) || null;
-    if (next !== card.nextElementSibling) box.insertBefore(card, next);
-  };
-  const onMove = (ev) => { if (ev.pointerId === e.pointerId) { lastY = ev.clientY; place(); } };
-  const EDGE = 80;
-  const timer = setInterval(() => { // 端に近いときの自動スクロール
-    if (lastY < EDGE) window.scrollBy(0, -14);
-    else if (lastY > innerHeight - EDGE) window.scrollBy(0, 14);
-    else return;
-    place();
-  }, 16);
-  const onUp = (ev) => {
-    if (ev.pointerId !== e.pointerId) return;
-    clearInterval(timer);
-    window.removeEventListener("pointermove", onMove);
-    window.removeEventListener("pointerup", onUp);
-    window.removeEventListener("pointercancel", onUp);
-    card.classList.remove("dragging");
-    document.body.classList.remove("card-dragging");
-    const order = [...box.children].map((c) => c.dataset.id);
-    if (order.join(",") === before) return;
-    const byId = new Map(state.items.map((it) => [it.id, it]));
-    state.items = order.map((id) => byId.get(id)).filter(Boolean);
-    renderItems(); save(); // 番号と↑↓ボタンを付け直す
-  };
-  window.addEventListener("pointermove", onMove);
-  window.addEventListener("pointerup", onUp);
-  window.addEventListener("pointercancel", onUp);
-}
-
 function cardEl(it, idx) {
   const n = state.items.length;
   const card = h("article", { class: "card", "data-id": it.id });
@@ -313,11 +271,6 @@ function cardEl(it, idx) {
     h("span", { class: "card-no" }, String(idx + 1)),
     themeBox,
     h("button", { type: "button", class: "tool theme-pick", title: "お題の候補から選ぶ", onclick: () => card.classList.toggle("show-themes") }, "お題を選ぶ ▾"),
-    // つまみ（⠿）をつかんで上下にドラッグすると並べ替えられる（スマホは指で。↑↓ボタンも残す）
-    n > 1 ? h("button", {
-      type: "button", class: "tool drag-handle", title: "ドラッグで並べ替え", "aria-label": "ドラッグで並べ替え",
-      onpointerdown: (e) => startCardDrag(e, card),
-    }, "⠿") : null,
     h("button", { type: "button", class: "tool", title: "上へ", disabled: idx === 0, onclick: () => move(-1) }, "↑"),
     h("button", { type: "button", class: "tool", title: "下へ", disabled: idx === n - 1, onclick: () => move(1) }, "↓"),
     h("button", {
