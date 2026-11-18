@@ -374,7 +374,7 @@ function cardEl(it, idx) {
     const q = norm(songIn.value);
     if (!q) { results = []; close(); return; }
     const songs = DB.songs[state.from] || [];
-    const starts = [], contains = [], byUnit = [], byUnitPart = [], bySinger = [];
+    const starts = [], contains = [], byUnit = [], byUnitPart = [], bySinger = [], bySingerPart = [];
     hitNote = new Map();
     // ユニット名（よみでも可）：完全一致はそのユニットの曲を全部、2文字以上の部分一致でも出す（例：「すとれい」→ストレイライト）
     const unitMatch = (u) => {
@@ -389,12 +389,18 @@ function cardEl(it, idx) {
       let best = 0, unit = "";
       for (const u of s.units || []) { const m = unitMatch(u); if (m > best) { best = m; unit = u; } }
       if (best) { (best === 2 ? byUnit : byUnitPart).push(s); hitNote.set(s, `ユニット：${unit}`); continue; }
-      // 歌唱者名と完全一致（「春日 未来」のような空白の有無は区別しない）なら、その人の参加曲を全部出す
+      // 歌唱者名・よみで探す（「春日 未来」のような空白の有無は区別しない）。
+      // フルネーム（またはよみ）と一致した人の曲を先に、名前・よみの一部（2文字以上。「千早」「ちはや」「如月」など）で当たった人の曲をその後に出す。
       // 旧キャストで登録された曲（「姫野かのん（初代）」）も、今の名前で探して出す
-      const n = (s.singers || []).find((n) => norm(dropShodai(n)) === q);
-      if (n) { bySinger.push(s); hitNote.set(s, singerNote(s)); }
+      let hit = 0;
+      for (const raw of s.singers || []) {
+        const name = dropShodai(raw), a2 = norm(name), k2 = norm(idolKana(name));
+        if (a2 === q || k2 === q) { hit = 2; break; }
+        if (q.length >= 2 && (a2.includes(q) || (k2 && k2.includes(q)))) hit = 1;
+      }
+      if (hit) { (hit === 2 ? bySinger : bySingerPart).push(s); hitNote.set(s, singerNote(s)); }
     }
-    results = starts.concat(contains).slice(0, 30).concat(byUnit, byUnitPart, bySinger);
+    results = starts.concat(contains).slice(0, 30).concat(byUnit, byUnitPart, bySinger, bySingerPart);
     active = results.length ? 0 : -1;
     draw();
   };
@@ -473,6 +479,18 @@ function cardEl(it, idx) {
 // （「ディアリースターズ」は「Dearly Stars」の検索用の別表記）
 const NOT_UNIT = new Set(["越境曲", "全体曲", "スターリットシーズン", "スタマス", "ディアリースターズ"]);
 const dropShodai = (n) => n.replace(/\s*[（(]初代[)）]\s*/g, "");
+// アイドル名 → よみ（全ブランドのアイドル一覧から。越境曲の他ブランドの歌唱者も、よみで探せるように）
+// （アイドル一覧はブランドを開いたときに読み込むので、読み込んだブランドが増えたら作り直す）
+let kanaByName = null, kanaBrands = 0;
+function idolKana(name) {
+  const loaded = Object.keys(DB.idols).length;
+  if (!kanaByName || kanaBrands !== loaded) {
+    kanaBrands = loaded;
+    kanaByName = new Map();
+    for (const list of Object.values(DB.idols)) for (const i of list || []) if (i.kana && !kanaByName.has(i.name)) kanaByName.set(i.name, i.kana);
+  }
+  return kanaByName.get(name) || "";
+}
 function singerNote(s) {
   // 全体曲は「歌：SideM全体」のようにブランド名＋全体（ユーザー判断）。複数ユニットは「歌：Beit、Jupiter、THE 虎牙道」
   if ((s.units || []).includes("全体曲")) return `歌：${brand(state.from).name}全体`;
@@ -1156,20 +1174,8 @@ function wire() {
     } catch (e) { if (e?.name !== "AbortError") toast("共有できませんでした"); }
   };
   $("#ex-x").onclick = async () => {
-    // X の投稿画面（intent）は文字しか渡せず、サイトから画像を添付した状態で開く方法は無い。
-    // スマホ（画像の共有ができるブラウザ）は共有シートに画像と文を渡し、X アプリを選ぶと画像付きの投稿画面になる
-    if (matchMedia("(pointer: coarse)").matches && canShareFile()) {
-      const files = lastExport.slice(0, X_MAX_IMAGES).map((e) => new File([e.blob], e.name, { type: "image/png" }));
-      try {
-        await navigator.share({ files, text: shareText() });
-        if (lastExport.length > X_MAX_IMAGES) toast(`X は1回の投稿に${X_MAX_IMAGES}枚までなので、${X_MAX_IMAGES + 1}枚目以降はリプライなどで続けて投稿してください`, 5000);
-        return;
-      } catch (e) {
-        if (e?.name === "AbortError") return; // 共有シートを閉じた
-        // 共有できなかったときは下の方法（保存して添付）にする
-      }
-    }
-    // パソコン：1枚ならコピーして貼り付け。複数枚はクリップボードに入らないので保存して添付してもらう
+    // X の投稿画面（intent）は文字しか渡せないので、文字入りの投稿画面を開き、画像は添付してもらう（ユーザー判断で改修前の形）。
+    // 1枚なら（PC は）コピーして貼り付け。複数枚はクリップボードに入らないので保存して添付してもらう
     const one = lastExport.length === 1;
     const copied = one && matchMedia("(pointer:fine)").matches ? await copyImage(0) : false;
     if (!copied) await download();
