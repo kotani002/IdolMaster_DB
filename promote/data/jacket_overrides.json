@@ -495,5 +495,17 @@
    "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14763.jpg",
    "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 13"
   }
+ },
+ "as": {
+  "8123": {
+   "title": "ID:[OL]",
+   "jacket": "https://columbia.jp/idolmaster/2007new/images/COCX-34521.jpg",
+   "cd": "THE IDOLM@STER MASTER ARTIST FINALE"
+  },
+  "8115": {
+   "title": "destiny",
+   "jacket": "https://columbia.jp/idolmaster/2008/images/COCX-34829L.jpg",
+   "cd": "THE IDOLM@STER RADIO VOCAL MASTER（2016年の「Destiny」とは別の曲）"
+  }
  }
 }

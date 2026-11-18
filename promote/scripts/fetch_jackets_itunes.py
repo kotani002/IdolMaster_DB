@@ -10,7 +10,7 @@
 - 曲名が一致し、さらに次のどれかを満たす結果だけを使う（同名の別アーティストの曲を拾わないため）
     ・アーティスト名に歌唱者の名前が入っている
     ・アルバム名・アーティスト名に「アイドルマスター」「IDOLM@STER」などが入っている
-    ・アルバムの著作権表記がアイマスのレーベル（BANDAI NAMCO / Lantis）
+    ・アルバムの著作権表記がアイマスのレーベル（BANDAI NAMCO / Lantis。日本コロムビアは別アーティストを拾うので入れない）
 - 候補が複数あれば、本人歌唱（カラオケ等でない）の中で一番早く発売されたものを使う。
 - Apple の画像は「Apple Music・iTunes の紹介」としての利用が前提。サイトの下部に出典を書いている。
 - API は1分あたり約20回までなので、間を空けて問い合わせる。結果は scripts/.cache/itunes/ に保存。
@@ -41,11 +41,16 @@ BRAND_WORDS = {
     "sc": ["シャイニーカラーズ", "SHINY COLORS", "SHINYCOLORS"],
     "sidem": ["SideM", "315"],
     "gm": ["学園アイドルマスター", "学マス", "GAKUEN", "初星"],
+    "as": ["765PRO ALLSTARS", "765プロ"],
 }
 IMAS_WORDS = ["アイドルマスター", "IDOLM@STER", "IDOLMASTER", "アイマス"]
-# 「Columbia」は Sony の Columbia Records など別会社の曲も拾ってしまうので入れない
+# 「Columbia」だけだと Sony の Columbia Records など別会社の曲も拾ってしまうので入れない
 # （シンデレラガールズ（日本コロムビア）の曲は、作品名の「CINDERELLA」などで拾える）
+# 765AS でも「日本コロムビア」までは入れない（試したところ、同じ曲名の別アーティスト（kobore・猿岩石など）ばかり拾った）
 LABEL_WORDS = ["BANDAI NAMCO", "Lantis", "LANTIS", "バンダイナムコ"]
+# 使わない結果（歌唱者の声優さん個人のアルバムなど、アイマスのジャケットではないもの）。ブランド → 曲名
+SKIP_SONGS = {"as": {"月下祭～la festa sotto la luna～",  # 今井麻美さんのアルバム
+                     "ギフト"}}  # TRUE（同じレーベルの別アーティスト）
 
 
 def get_json(url: str):
@@ -134,7 +139,7 @@ def main() -> None:
     report, added = [], 0
     for b in brands:
         songs = json.loads((DATA / "songs" / f"{b}.json").read_text(encoding="utf-8"))
-        missing = [s for s in songs if not jackets.get(str(s["id"]))]
+        missing = [s for s in songs if not jackets.get(str(s["id"])) and s["title"] not in SKIP_SONGS.get(b, set())]
         print(f"[{b}] {len(missing)} songs without jacket")
         for s in missing:
             hit = find(s, b)

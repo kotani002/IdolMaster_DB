@@ -60,6 +60,15 @@ SOURCES = {
         "link_re": r'href="(/discography/[A-Za-z0-9_-]+)"',
         "parser": "gakuen_label",
     },
+    "as": {  # 日本コロムビア アイドルマスターサイト（765AS とシンデレラが同じページ。765AS の見出しの範囲だけ使う）
+        "index": "https://columbia.jp/idolmaster/",
+        "link_re": r'href="([^"#]+\.html)',
+        # （開始の目印, 終わりの目印）。ディスコグラフィーの「MASTERPIECE」〜「OTHER」、「STARLIT SEASON」〜「DVD / BD」、
+        # ラジオ（RADIO・STATION!!!。DEAD or ALIVE などラジオの曲も 765AS の曲として登録されている）
+        "regions": [('id="discography"', "CINDERELLA MASTER Series 001-072"),
+                    ("STARLIT SEASON", "CINDERELLA PARTY! Series")],
+        "parser": "columbia",
+    },
 }
 
 
@@ -200,7 +209,100 @@ def parse_gakuen_label(page: str, url: str) -> dict | None:
     }
 
 
-PARSERS = {"official_wp": parse_official_wp, "lantis": parse_lantis, "gakuen_label": parse_gakuen_label}
+COLUMBIA_NOTE = re.compile(r"[（(][^（()）]*(より|新曲|カバー|新録|収録|共通|用\s*[)）]|試聴)[^（()）]*([)）]|$)")
+
+
+def columbia_track(s: str) -> str:
+    """コロムビアの収録曲1行から、照合に使う曲名（＋カラオケ・ソロリミックスの区別）だけを残す"""
+    t = text(re.sub(r"<br\s*/?>", " ", s, flags=re.I))
+    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"^ボーナス・?トラック\s*|^M\d+\.\s*", "", t)  # 「M11. はっぴぃ☆ほりっく」
+    t = re.sub(r"\s*[（(]([^（()）]*ソロ・?リミックス)[)）]", r" \1", t)  # 「君のままで（春香ソロ・リミックス）」→ 空白区切りに
+    t = re.sub(r"\s*\[試聴\].*$", "", t)
+    t = re.sub(r"\s*歌\s*[：:].*$", "", t)  # 「曲名　歌：天海春香」
+    t = re.sub(r"\s*[（(]?\s*(作詞|作曲|編曲)\s*[：:].*$", "", t)  # 「団結（作詞：…」
+    t = re.sub(r"\s*「[^」]*」\s*で選ばれた.*$", "", t)  # 「…REQUEST FESTIVAL！」で選ばれたカバー曲
+    t = re.sub(r"^.*?(テーマ|劇中歌|挿入歌|主題歌|新曲)\s*「", "", t)  # 「#6劇中歌「SMOKY THRILL…」「新曲「空」」
+    t = re.sub(r"\s*[-－‐]\s*[^-－‐]*(バージョン|Ver\.?)\s*[-－‐]\s*$", "", t, flags=re.I)  # 「-765PRO ALLSTARS バージョン-」
+    t = re.sub(r"\s+\S*バージョン$", "", t)  # 「VOY＠GER 765PRO ALLSTARSバージョン」
+    t = re.sub(r"\s+新曲$|\s*\*$", "", t)  # 「ふるふるフューチャー☆ 新曲」「GO MY WAY!! *」
+    t = COLUMBIA_NOTE.sub("", t)  # 「（春香用新曲)」「（アルバム「Your Song」より)」などの説明
+    t = re.sub(r"\s*[（(]\s*$", "", t)
+    return t.strip(" 　「」")
+
+
+# 使わないページ（ジャケット画像が 120px と小さい：RADIO～歌姫楽園～／MASTER MOVIE）
+COLUMBIA_SKIP = ("/2006/33906-4585.html",)
+
+
+def parse_columbia(page: str, url: str) -> list[dict]:
+    """columbia.jp/idolmaster/ の CD ページ。年代でページの作りが違う（2006〜2010年は表組み、
+    2011年以降は discoTitle / section.CD）。1ページに複数の CD が載っていることがあるので CD ごとのリストで返す"""
+    for mark in ('id="ContentNav"', "<footer", 'id="footer"'):  # 下の「ほかの CD」一覧は除く
+        i = page.find(mark)
+        if i > 0:
+            page = page[:i]
+    # CD ごとの区切り（MASTER ARTIST 4 のページは class="cinderella" という名前の枠）
+    starts = [m.start() for m in re.finditer(r'class="discoTitle"|<section class="CD"|<div class="cinderella"', page)]
+    blocks = [page[a:b] for a, b in zip(starts, starts[1:] + [len(page)])] if starts else [page]
+    page_title = re.search(r"<title[^>]*>(.*?)</title>", page, re.S | re.I)
+    page_title = re.sub(r"^.*?[｜|]\s*", "", text(page_title.group(1))) if page_title else ""
+    year_dir = re.search(r"/idolmaster/(\d{4})(?:new)?/", url)
+    if any(url.endswith(s) for s in COLUMBIA_SKIP):
+        return []
+    out = []
+    for blk in blocks:
+        m = (re.search(r'class="jacket"[^>]*>\s*<img[^>]+src="([^"]+)"', blk)
+             # 古いページ：images/COCX-34387.jpg のように品番だけの名前の画像がジャケット（png は飾り付きの合成画像なので使わない）
+             or re.search(r'<img[^>]+src="((?:[^"]*/)?[A-Z]{2,4}-?\d{3,5}\.jpg)"', blk, re.I))
+        if not m:
+            continue
+        d = (re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})\s*on\s*sale", blk, re.I)
+             or re.search(r"(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日\s*(?:[（(][^）)]*[）)])?\s*発売", blk)
+             or re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})\s*on\s*sale", page, re.I))
+        # 日付の無い古いページは、置き場所の年（/2007new/ など）の年末として扱う
+        date = (f"{d.group(1)}-{int(d.group(2)):02d}-{int(d.group(3)):02d}" if d
+                else f"{year_dir.group(1)}-12-31" if year_dir else "9999-99-99")
+        blk2 = re.sub(r"<!--.*?-->", "", blk, flags=re.S)
+        # メドレーの中身（MASTER ARTIST 3 Prologue の「ソロ新曲メドレー」）は曲として数えない
+        blk2 = re.sub(r'<ul id="medley">.*?</ul>', "", blk2, flags=re.S)
+        blk2 = re.sub(r"<a\s[^>]*>.*?</a>", "", blk2, flags=re.S | re.I)  # 試聴リンク
+        rows = []
+        for tag, ol in re.findall(r"<(ol|ul)[^>]*>(.*?)</(?:ol|ul)>", blk2, re.S | re.I):
+            for li in re.split(r"<li[^>]*>", ol, flags=re.I)[1:]:
+                h = re.search(r"<h\d[^>]*>(.*?)</h\d>", li, re.S | re.I)
+                if h:
+                    rows.append(h.group(1))
+                elif tag.lower() == "ol":  # <ul> は曲名の見出し（<h3>）がある行だけ（メニューなどを拾わない）
+                    rows.append(re.split(r"<br\s*/?>", li, flags=re.I)[0])
+        rows += re.findall(r'<td class="no">\s*\d+\.?\s*</td>\s*<td[^>]*>(.*?)</td>', blk2, re.S | re.I)
+        rows += [re.split(r"<br\s*/?>", r, flags=re.I)[0]
+                 for r in re.findall(r"<dt>\s*\d+\.?\s*</dt>\s*<dd>(.*?)</dd>", blk2, re.S | re.I)]
+        tracks = [t for t in (columbia_track(r) for r in rows) if t]
+        # 「紅白応援V(ビクトリー)」「灯（あかし)」のような読み・副題のかっこを外した形でも照合できるようにする
+        # （カラオケ・バージョン・ソロリミックスのかっこは外さない）
+        tracks += [v for t in tracks
+                   if (v := re.sub(r"\s*[（(](?![^（()）]*(カラオケ|vocal|instrumental|ver|mix|size|ソロ|m@ster))[^（()）]*[)）]\s*",
+                                   "", t, flags=re.I).strip()) and v != t]
+        h = re.search(r"<h[12][^>]*>(.*?)</h[12]>", blk, re.S)
+        title = re.sub(r"\s+", " ", text(re.sub(r"<br[^>]*>", " ", h.group(1)))) if h and starts else page_title
+        cat = re.search(r"([A-Z]{2,4})-?\d+", m.group(1).split("/")[-1])
+        out.append({
+            "url": url,
+            "title": title or page_title,
+            "jacket": clean_url(m.group(1), url),
+            "date": date,
+            "tracks": tracks,
+            # Blu-ray・DVD（COXC/COBC/XT）のジャケットは CD で見つからない曲にだけ使う。
+            # ラジオの CD（歌姫楽園・STATION!!! など）は、ほかの CD に無い曲（ラジオの曲）にだけ使う
+            "penalty": (2 if cat and cat.group(1).upper() in ("COXC", "COBC", "COBA", "XT")
+                        else 1 if re.search(r"RADIO|STATION", title or page_title, re.I) else 0),
+        })
+    return out
+
+
+PARSERS = {"official_wp": parse_official_wp, "lantis": parse_lantis, "gakuen_label": parse_gakuen_label,
+           "columbia": parse_columbia}
 
 
 # ---------------------------------------------------------------- match
@@ -288,6 +390,17 @@ def main() -> None:
     src = SOURCES[brand]
 
     index = fetch(src["index"], offline) or ""
+    if src.get("regions"):  # 一覧ページの一部（そのブランドの見出しの範囲）だけ使う
+        parts, pos = [], 0
+        for a, b in src["regions"]:
+            s = index.find(a, pos)
+            e = index.find(b, s + 1) if s >= 0 else -1
+            if s < 0 or e < 0:
+                print(f"  ! region not found: {a} 〜 {b}", file=sys.stderr)
+                continue
+            parts.append(index[s:e])
+            pos = e
+        index = "\n".join(parts)
     urls = list(dict.fromkeys(urllib.parse.urljoin(src["index"], html.unescape(u))
                               for u in re.findall(src["link_re"], index)))
     parse = PARSERS[src["parser"]]
@@ -297,7 +410,7 @@ def main() -> None:
     for i, u in enumerate(urls, 1):
         page = fetch(u, offline)
         if page and (d := parse(page, u)):
-            discs.append(d)
+            discs.extend(d if isinstance(d, list) else [d])  # 1ページに複数の CD があるサイト（コロムビア）はリスト
         if i % 25 == 0:
             print(f"  {i}/{len(urls)}")
     print(f"[{brand}] parsed {len(discs)} discs")

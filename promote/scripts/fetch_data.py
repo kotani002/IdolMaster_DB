@@ -44,8 +44,9 @@ BRANDS = {
         # ふじわらはじめには「曲に参加したアイドル」しかいないので、公式の全アイドル一覧で補う（色も公式から）
         "roster": "https://cinderellagirls.idolmaster-official.jp/idol/",
     },
-    # 765AS：ミリオンのグループではなく独立したブランドのタグにする（765プロ所属から13人を拾う）
-    "as": {"music_type": None, "pick": [
+    # 765AS：ミリオンのグループではなく独立したブランドにする（765プロ所属から13人を拾う）。楽曲は music_type=as
+    # 歌唱者は曲ごとに取る（旧キャストの「萩原雪歩（初代）」や「双海亜美・真美」で登録された曲があり、アイドル別の参加曲では漏れるため）
+    "as": {"music_type": "as", "singers_by_song": True, "pick": [
         {"production": "765", "names": None, "only": "AS_765", "group": "", "sitemap": "765pro"},
     ]},
     "sc": {"music_type": "sc", "production": "sc", "sitemap": "sc"},
@@ -158,6 +159,10 @@ EXCLUDE_IDOLS = {
 SHODAI = re.compile(r"\s*[（(]初代[)）]\s*")
 
 
+# 2人まとめて登録されている歌唱者（曲ごとに歌唱者を取るときに分ける）
+SPLIT_SINGERS = {"双海亜美・真美": ["双海亜美", "双海真美"]}
+
+
 def excluded(name: str) -> bool:
     return name in EXCLUDE_IDOLS
 
@@ -242,23 +247,24 @@ EXTRA_SONGS: dict[str, list[int]] = {
 # 越境曲：ブランドの垣根を越えた曲（ふじわらはじめでは「合同」）。指定したブランドの曲一覧に入れ、
 # 検索ではユニット名の代わりに「越境曲」と出す（曲ID → 入れるブランド）
 CROSSOVER = "越境曲"
-_ALL = {"cg", "ml", "sidem", "sc", "gm"}
+_ALL = {"as", "cg", "ml", "sidem", "sc", "gm"}
+_STARLIT = {"as", "cg", "ml", "sc"}  # スターリットシーズン（765AS・シンデレラ・ミリオン・シャニマス）
 CROSSOVER_SONGS: dict[int, set[str]] = {
     9498: _ALL,                  # アイ NEED YOU (FOR WONDERFUL STORY)
     4411: _ALL,                  # VOY@GER
     3525: _ALL,                  # なんどでも笑おう
     5323: _ALL,                  # CRYST@LOUD
     3982: _ALL - {"gm"},         # POPLINKS TUNE!!!!!（学マスを除く）
-    2611: {"cg", "ml"},          # IDOL POWER RAINBOW（学マス・SideM・シャニマスを除く）
-    2691: {"cg", "ml"},          # アイ MUST GO!（学マス・SideM・シャニマスを除く）
+    2611: {"as", "cg", "ml"},    # IDOL POWER RAINBOW（学マス・SideM・シャニマスを除く）
+    2691: {"as", "cg", "ml"},    # アイ MUST GO!（学マス・SideM・シャニマスを除く）
     # SideM・学マスには入れない越境曲
-    4072: {"cg", "ml", "sc"},    # SESSION!
-    4387: {"cg", "ml", "sc"},    # 夏のBang!!
-    4421: {"cg", "ml", "sc"},    # アイシテの呪縛～Je vous aime～
-    4422: {"cg", "ml", "sc"},    # GR@TITUDE
-    4596: {"cg", "ml", "sc"},    # ダンス・ダンス・ダンス
-    4775: {"cg", "ml", "sc"},    # KAWAIIウォーズ
-    4801: {"cg", "ml", "sc"},    # 全力★ドリーミングガールズ
+    4072: _STARLIT,              # SESSION!
+    4387: _STARLIT,              # 夏のBang!!
+    4421: _STARLIT,              # アイシテの呪縛～Je vous aime～
+    4422: _STARLIT,              # GR@TITUDE
+    4596: _STARLIT,              # ダンス・ダンス・ダンス
+    4775: _STARLIT,              # KAWAIIウォーズ
+    4801: _STARLIT,              # 全力★ドリーミングガールズ
 }
 # 越境曲に付ける検索用の名前（「スターリットシーズン」「スタマス」で検索すると出る）。名前 → よみ
 STARLIT = {"スターリットシーズン": "すたーりっとしーずん", "スタマス": "すたます"}
@@ -465,7 +471,10 @@ def attach_singers(only: list[str] | None = None) -> None:
                     m = get_json(f"{API}/music?id={s['id']}")
                 except Exception:
                     continue
-                names = [x["name"] for x in m.get("member") or [] if not excluded(x.get("name", ""))]
+                # 「萩原雪歩（初代）」（旧キャストでの登録）は今の名前に、「双海亜美・真美」は2人に分ける
+                names = [n for x in m.get("member") or []
+                         for n in SPLIT_SINGERS.get(SHODAI.sub("", x.get("name", "")), [SHODAI.sub("", x.get("name", ""))])
+                         if n and not excluded(n)]
                 singers[s["id"]] = list(dict.fromkeys(singers.get(s["id"], []) + names))
         for s in rows:
             found = singers.get(s["id"], [])
@@ -508,12 +517,21 @@ WHOLE_SONG_IDS: dict[str, set[int]] = {
 }
 
 
-def whole_song_units(units: list[str]) -> list[str]:
+# そのブランドの中だけで「ブランド全員のユニット」とみなすもの
+# （765PRO ALLSTARS はミリオンの曲（LEADER!!）にも付いているので、765AS の曲のときだけ全体曲にする）
+WHOLE_UNIT_RE_BRAND = {"as": re.compile(r"^(IM@S )?765PRO ALLSTARS$|^IM@S ALLSTARS$")}
+# ブランドの全員（ユニット名が付いていなくても、全員が歌っていれば全体曲）
+WHOLE_MEMBERS = {"as": AS_765}
+
+
+def whole_song_units(units: list[str], brand: str = "", singers: list[str] | None = None) -> list[str]:
     """全ユニットで歌う曲（全体曲）は、個別のユニット名で検索しても出ないよう「全体曲」だけにする。
 
     ブランド全員のユニットが付いている曲か、5ユニット以上が歌っている曲を全体曲とみなす。
     """
-    if any(WHOLE_UNIT_RE.search(u) for u in units) or len(set(units)) >= 5:
+    brand_re = WHOLE_UNIT_RE_BRAND.get(brand)
+    if (any(WHOLE_UNIT_RE.search(u) or (brand_re and brand_re.search(u)) for u in units) or len(set(units)) >= 5
+            or (brand in WHOLE_MEMBERS and WHOLE_MEMBERS[brand] <= set(singers or []))):
         return [WHOLE_SONG]
     return units
 
@@ -572,8 +590,8 @@ def attach_units(only: list[str] | None = None) -> None:
                 s["units"] = crossover_units(s["id"])
             elif s.get("id") in WHOLE_SONG_IDS.get(b, set()):
                 s["units"] = [WHOLE_SONG]
-            elif u:
-                s["units"] = whole_song_units(u)
+            elif u or whole_song_units([], b, s.get("singers")):
+                s["units"] = whole_song_units(u or [], b, s.get("singers"))
             else:
                 s.pop("units", None)
         write(f, rows)

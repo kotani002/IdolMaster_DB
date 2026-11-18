@@ -497,7 +497,9 @@ async function jacketPos(url, pos) {
   if (pos && pos !== "auto") return `${pos} center`;
   const r = await imageRatio(url);
   if (r < TALL_RATIO) return FIT_WHOLE;
-  return r >= WIDE_RATIO ? "left center" : "center";
+  if (r < WIDE_RATIO) return "center";
+  // 日本コロムビア（765AS）の横長画像は見開き（左が裏・右が表）なので右側、ほかは左側
+  return /^https?:\/\/columbia\.jp\//.test(url) ? "right center" : "left center";
 }
 
 // ジャケット枠の表示：画像 / 選曲待ち / 取得失敗（＝自分で設定してね）
