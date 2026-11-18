@@ -322,7 +322,11 @@ function cardEl(it, idx) {
 
   // --- 曲名（検索 + 自由入力）
   const songIn = h("input", {
-    class: "song-input", type: "text", value: it.title, placeholder: `${brand(state.from).short}の曲名・ユニット名・アイドル名で検索`,
+    // スマホ（幅の狭い画面）では長い案内が見切れるので短くする
+    class: "song-input", type: "text", value: it.title,
+    placeholder: matchMedia("(max-width: 640px)").matches
+      ? "曲名・ユニット・アイドルで検索"
+      : `${brand(state.from).short}の曲名・ユニット名・アイドル名で検索`,
     autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false",
     "aria-label": "曲名", role: "combobox", "aria-expanded": "false",
   });

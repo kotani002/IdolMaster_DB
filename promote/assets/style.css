@@ -473,7 +473,8 @@ html.booting .topbar, html.booting .wrap { visibility: hidden; opacity: 0; }
   .pitch { order: 3; }
   .members { order: 4; }
   .song-input { font-size: 19px; }
-  .song-input::placeholder { font-size: 15px; }
+  /* 案内文（スマホは短い文）が幅の狭い機種（320px など）でも1行に収まるよう、画面幅に合わせて少し小さくする */
+  .song-input::placeholder { font-size: min(15px, 3.8vw); }
   /* お題は番号の横の1行を丸ごと使い、ボタン類（お題を選ぶ・↑↓×）は次の行の右側へ */
   .theme-input { font-size: 16px; }
   .theme-box { flex: 1 1 calc(100% - 44px); }
