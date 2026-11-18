@@ -277,6 +277,14 @@ a { color: inherit; }
   border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; outline: none;
   font-size: 15px; line-height: 1.7; background: #fffdfa;
 }
+/* プレゼン内容と残りの文字数 */
+.pitch-box { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pitch-count { align-self: flex-end; font-size: 11px; font-weight: 700; color: var(--muted); }
+.pitch-count.full { color: #c0483a; }
+/* 画像を作る前の確認 */
+.pre-notes { margin: 4px 0 2px; padding-left: 1.2em; line-height: 1.7; font-size: 14px; }
+.pre-notes li + li { margin-top: 6px; }
+#pre-count:empty { display: none; }
 .pitch:focus { border-color: color-mix(in srgb, var(--from) 70%, #fff); }
 
 .members-label { font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
@@ -475,7 +483,7 @@ html.booting .topbar, html.booting .wrap { visibility: hidden; opacity: 0; }
   .card-main { display: contents; }
   .song-field { order: 1; }
   .jacket { order: 2; width: 100%; max-width: 240px; margin: 0 auto; }
-  .pitch { order: 3; }
+  .pitch-box { order: 3; }
   .members { order: 4; }
   .song-input { font-size: 19px; }
   /* 案内文（スマホは短い文）が幅の狭い機種（320px など）でも1行に収まるよう、画面幅に合わせて少し小さくする */

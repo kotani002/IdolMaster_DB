@@ -2,15 +2,23 @@
 """
 ふじわらはじめAPI から楽曲・アイドル情報を取得して data/ 以下の JSON を生成する。
 
-  python scripts/fetch_data.py
+  python scripts/fetch_data.py                 # 全ブランド（ユニットも取り直す）
+  python scripts/fetch_data.py sc              # そのブランドだけ（ユニットは前回の結果を使い回す）
+  python scripts/fetch_data.py sc --units      # そのブランドだけ、ユニットも取り直す
+  python scripts/fetch_data.py units           # ユニットだけ取り直す
+  python scripts/fetch_data.py sc --no-cache   # 一時保存（24時間）を使わずに取り直す
 
 - 依存ライブラリなし（Python 3.9+ 標準ライブラリのみ）
+- ふじわらはじめへの負荷を減らすため、取得した内容は scripts/.cache/fujiwarahaji/ に一時保存し、
+  24時間以内に同じURLを取るときは保存したものを使う（--no-cache で使わない）。
+  ユニット（約300件）は scripts/.cache/units.json に保存し、1ブランドだけ取り直すときは使い回す。
 - データ: アイマス楽曲DB ふじわらはじめ (https://fujiwarahaji.me) / CC BY-NC 4.0
 - 先方の案内 (https://fujiwarahaji.me/llms.txt) に従い、API経由・独自UserAgent・
   リクエスト間隔を空けて取得する。
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -104,12 +112,27 @@ AS_765 = {
 }
 
 
+# 一時保存（同じURLを24時間以内に取るときは保存したものを使い、相手に取りに行かない）
+CACHE = Path(__file__).resolve().parent / ".cache" / "fujiwarahaji"
+CACHE_HOURS = 24
+USE_CACHE = True  # main() で --no-cache のとき False
+
+
+def cache_file(url: str) -> Path:
+    return CACHE / (hashlib.sha1(url.encode()).hexdigest() + ".bin")
+
+
 def get(url: str) -> bytes:
+    f = cache_file(url)
+    if USE_CACHE and f.exists() and time.time() - f.stat().st_mtime < CACHE_HOURS * 3600:
+        return f.read_bytes()
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     for attempt in range(4):
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 body = r.read()
+            CACHE.mkdir(parents=True, exist_ok=True)
+            f.write_bytes(body)
             time.sleep(WAIT_SEC)
             return body
         except Exception as e:  # 503 などは少し待って再試行
@@ -665,12 +688,12 @@ def whole_song_units(units: list[str], brand: str = "", singers: list[str] | Non
     return units
 
 
-def attach_units(only: list[str] | None = None) -> None:
-    """曲名検索でユニット名から曲を探せるように、各曲に歌唱ユニット名（songs[].units）を付ける。
+UNITS_SAVED = Path(__file__).resolve().parent / ".cache" / "units.json"  # ユニットの取得結果（使い回し用）
 
-    ユニット一覧ページ（1リクエスト）でユニットのIDを集め、ユニットごとに API の /tax で持ち歌を取る。
-    ユニットのよみ（ひらがなで検索できるように）は data/units.json に 名前 -> よみ で書き出す。
-    """
+
+def fetch_units() -> tuple[dict[int, list[str]], dict[str, str]]:
+    """ユニット一覧ページ（1リクエスト）でユニットのIDを集め、ユニットごとに API の /tax で持ち歌を取る（約300リクエスト）。
+    よみは IME データ（1リクエスト）でも補う。結果は UNITS_SAVED に保存する。"""
     page = get("https://fujiwarahaji.me/sitemap/unit").decode("utf-8", "replace")
     ids = list(dict.fromkeys(re.findall(r'href="https://fujiwarahaji\.me/unit/(\d+)"', page)))
     print(f"[units] {len(ids)} units")
@@ -692,7 +715,6 @@ def attach_units(only: list[str] | None = None) -> None:
                 by_song.setdefault(int(s["song_id"]), []).append(name)
         if n % 50 == 0:
             print(f"  {n}/{len(ids)}")
-    # よみは IME データ（1リクエスト）でも補う
     q = urllib.parse.urlencode({"enc": "utf8", "types": "unit",
                                 "brand": "cg,ml,shiny,as,godo,cover,sidem,gakuen,876",
                                 "production": "cg,765,sc,315,va-liv,hatsuboshi"})
@@ -700,6 +722,29 @@ def attach_units(only: list[str] | None = None) -> None:
         cols = line.split("\t")
         if len(cols) >= 2 and cols[0] and cols[1] and not cols[0].startswith("!"):
             kana.setdefault(cols[1].strip(), cols[0].strip())
+    UNITS_SAVED.parent.mkdir(parents=True, exist_ok=True)
+    jst = timezone(timedelta(hours=9))
+    UNITS_SAVED.write_text(json.dumps({"fetched_at": datetime.now(jst).isoformat(timespec="seconds"),
+                                       "by_song": by_song, "kana": kana}, ensure_ascii=False), encoding="utf-8")
+    return by_song, kana
+
+
+def load_units(refresh: bool) -> tuple[dict[int, list[str]], dict[str, str]]:
+    """ユニットは変わることが少ないので、保存した前回の結果があれば使い回す（refresh=True なら取り直す）"""
+    if not refresh and UNITS_SAVED.exists():
+        saved = json.loads(UNITS_SAVED.read_text(encoding="utf-8"))
+        print(f"[units] 前回の取得結果を使います（{saved.get('fetched_at', '?')} 取得。取り直すときは --units）")
+        return {int(k): v for k, v in saved["by_song"].items()}, saved["kana"]
+    return fetch_units()
+
+
+def attach_units(only: list[str] | None = None, refresh: bool = True) -> None:
+    """曲名検索でユニット名から曲を探せるように、各曲に歌唱ユニット名（songs[].units）を付ける。
+    ユニットのよみ（ひらがなで検索できるように）は data/units.json に 名前 -> よみ で書き出す。
+    refresh=False なら、保存した前回のユニットの取得結果を使い回す（1ブランドだけ取り直すとき）。
+    """
+    by_song, kana = load_units(refresh)
+    kana = dict(kana)
     names = {x for v in by_song.values() for x in v}
     off = official_unit_kana()  # 公式表記のユニット名（illumination STARS など）
     kana.update(off)
@@ -836,7 +881,10 @@ def write(path: Path, obj) -> None:
 
 
 def main() -> None:
-    only = sys.argv[1:] or None
+    global USE_CACHE
+    flags = {a for a in sys.argv[1:] if a.startswith("--")}
+    USE_CACHE = "--no-cache" not in flags
+    only = [a for a in sys.argv[1:] if not a.startswith("--")] or None
     if only == ["units"]:  # ユニット名だけ取り直す
         attach_units()
         return
@@ -844,7 +892,8 @@ def main() -> None:
         build_brand(b, BRANDS[b])
     attach_unit_groups(only)
     attach_singers(only)
-    attach_units(only)
+    # 全ブランドのときと --units のときはユニットも取り直す。1ブランドだけのときは前回の結果を使い回す
+    attach_units(only, refresh=only is None or "--units" in flags)
     split_versions(only)
     add_manual_songs(only)
     jst = timezone(timedelta(hours=9))

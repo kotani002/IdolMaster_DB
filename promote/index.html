@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261118l">
+<link rel="stylesheet" href="assets/style.css?v=20261118m">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -155,6 +155,25 @@
   </form>
 </dialog>
 
+<!-- 「画像を作る」を押したときの確認：何が起きるか・何枚になるかを知らせてから作る（app.js の confirmExport） -->
+<dialog id="dlg-preexport" class="dlg">
+  <div class="dlg-inner">
+    <div class="dlg-head">
+      <h2>画像を作る前に</h2>
+      <button type="button" class="icon-btn" id="pre-close" aria-label="閉じる">×</button>
+    </div>
+    <ul class="pre-notes">
+      <li>入力したプレゼンシート（名前・曲・プレゼン内容・歌って欲しいアイドル）を、そのまま画像にします。</li>
+      <li>画像は<strong>4曲で1枚</strong>が目安です。曲が多いときは、何枚かに分かれます。</li>
+      <li id="pre-count"></li>
+    </ul>
+    <div class="dlg-foot">
+      <button type="button" class="btn ghost" id="pre-cancel">戻る</button>
+      <button type="button" class="btn primary" id="pre-ok">画像を作成</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog id="dlg-export" class="dlg dlg-wide">
   <div class="dlg-inner">
     <div class="dlg-head">
@@ -186,6 +205,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261118u" type="module"></script>
+<script src="assets/app.js?v=20261118x" type="module"></script>
 </body>
 </html>

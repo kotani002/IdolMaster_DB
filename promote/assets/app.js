@@ -417,11 +417,21 @@ function cardEl(it, idx) {
   });
 
   // --- プレゼン内容
+  // 1曲につき PITCH_MAX 文字まで（ユーザー判断）。残りの文字数を下に出す
   const pitch = h("textarea", {
-    class: "pitch", placeholder: "プレゼン内容：この曲のここが好き！こんな人に刺さる！", maxlength: "400", "aria-label": "プレゼン内容",
+    class: "pitch", placeholder: "プレゼン内容：この曲のここが好き！こんな人に刺さる！", maxlength: String(PITCH_MAX), "aria-label": "プレゼン内容",
   });
+  // 以前の版で上限より長く書いていた文は、上限で切る
+  if (it.pitch.length > PITCH_MAX) { it.pitch = it.pitch.slice(0, PITCH_MAX); save(); }
   pitch.value = it.pitch;
-  pitch.addEventListener("input", () => { it.pitch = pitch.value; autosize(pitch); save(); });
+  const pitchCount = h("span", { class: "pitch-count", "aria-live": "polite" });
+  const syncCount = () => {
+    pitchCount.textContent = `${pitch.value.length}/${PITCH_MAX}文字`; // maxlength と同じ数え方
+    pitchCount.classList.toggle("full", pitch.value.length >= PITCH_MAX);
+  };
+  syncCount();
+  pitch.addEventListener("input", () => { it.pitch = pitch.value; autosize(pitch); syncCount(); save(); });
+  const pitchBox = h("div", { class: "pitch-box" }, pitch, pitchCount);
 
   // --- 歌って欲しいアイドル
   const tags = h("div", { class: "tags" });
@@ -447,7 +457,7 @@ function cardEl(it, idx) {
       jacket,
       h("div", { class: "card-main" },
         songField,
-        pitch,
+        pitchBox,
         h("div", { class: "members" },
           h("div", { class: "members-label" }, "歌って欲しいアイドル"),
           tags),
@@ -952,6 +962,17 @@ function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
 
 // 1枚の画像に入れる曲数。これより多いときは複数枚に分ける
 const SONGS_PER_IMAGE = 4;
+const PITCH_MAX = 200; // プレゼン内容の上限（1曲あたりの文字数）
+
+// 「画像を作る」を押したら、まず何が起きるか（プレゼンシートが画像になる・4曲で1枚が目安・今の曲数なら何枚か）を
+// 知らせる画面を出し、そこで「画像を作成」を押したら作り始める
+function confirmExport() {
+  if (!state.items.some((it) => it.title || it.pitch)) { toast("曲名かプレゼン内容を入力してください"); return; }
+  const n = exportItems().length;
+  const pages = Math.max(1, Math.ceil(n / SONGS_PER_IMAGE));
+  $("#pre-count").textContent = `いまは${n}曲なので、画像は${pages}枚になります。`;
+  $("#dlg-preexport").showModal();
+}
 
 let lastExport = []; // [{ blob, url, name }]
 
@@ -1019,7 +1040,7 @@ async function exportImage() {
     renderExportImages();
     const notes = [];
     if (lastExport.length > 1) notes.push(`${items.length}曲を${lastExport.length}枚に分けました（1枚あたり${SONGS_PER_IMAGE}曲）。` +
-      (lastExport.length > 4 ? "X は1回の投稿に4枚まで添付できるので、5枚目以降はリプライなどで続けて投稿してください。" : ""));
+      (lastExport.length > X_MAX_IMAGES ? `X は1回の投稿に${X_MAX_IMAGES}枚まで添付できるので、${X_MAX_IMAGES + 1}枚目以降はリプライなどで続けて投稿してください。` : ""));
     if (failed) notes.push(`ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。`);
     $("#ex-note").textContent = notes.join(" ");
     $("#ex-share").hidden = !canShareFile();
@@ -1050,6 +1071,8 @@ function renderExportImages() {
   )));
 }
 
+// X の1回の投稿に添付できる画像の数（以前は4枚、今は20枚まで）
+const X_MAX_IMAGES = 20;
 function canShareFile() {
   try {
     return !!navigator.canShare && navigator.canShare({ files: [new File([""], "a.png", { type: "image/png" })] });
@@ -1091,7 +1114,10 @@ function wire() {
     state = defaultState();
     renderHead(); onBrandChange();
   };
-  $("#btn-export").onclick = exportImage;
+  $("#btn-export").onclick = confirmExport;
+  $("#pre-ok").onclick = () => { $("#dlg-preexport").close(); exportImage(); };
+  $("#pre-cancel").onclick = () => $("#dlg-preexport").close();
+  $("#pre-close").onclick = () => $("#dlg-preexport").close();
   let rz = 0;
   window.addEventListener("resize", () => {
     clearTimeout(rz);
@@ -1130,14 +1156,27 @@ function wire() {
     } catch (e) { if (e?.name !== "AbortError") toast("共有できませんでした"); }
   };
   $("#ex-x").onclick = async () => {
-    // 1枚なら（PC は）コピーして貼り付け。複数枚はクリップボードに入らないので保存して添付してもらう
+    // X の投稿画面（intent）は文字しか渡せず、サイトから画像を添付した状態で開く方法は無い。
+    // スマホ（画像の共有ができるブラウザ）は共有シートに画像と文を渡し、X アプリを選ぶと画像付きの投稿画面になる
+    if (matchMedia("(pointer: coarse)").matches && canShareFile()) {
+      const files = lastExport.slice(0, X_MAX_IMAGES).map((e) => new File([e.blob], e.name, { type: "image/png" }));
+      try {
+        await navigator.share({ files, text: shareText() });
+        if (lastExport.length > X_MAX_IMAGES) toast(`X は1回の投稿に${X_MAX_IMAGES}枚までなので、${X_MAX_IMAGES + 1}枚目以降はリプライなどで続けて投稿してください`, 5000);
+        return;
+      } catch (e) {
+        if (e?.name === "AbortError") return; // 共有シートを閉じた
+        // 共有できなかったときは下の方法（保存して添付）にする
+      }
+    }
+    // パソコン：1枚ならコピーして貼り付け。複数枚はクリップボードに入らないので保存して添付してもらう
     const one = lastExport.length === 1;
     const copied = one && matchMedia("(pointer:fine)").matches ? await copyImage(0) : false;
     if (!copied) await download();
     window.open(`https://x.com/intent/post?text=${encodeURIComponent(shareText())}`, "_blank", "noopener,noreferrer");
     toast(copied ? "画像をコピーしました。ポスト画面に貼り付けてください"
       : one ? "画像を保存しました。ポストに添付してください"
-      : `画像を${lastExport.length}枚保存しました。ポストに添付してください（1回の投稿は4枚まで）`, 5000);
+      : `画像を${lastExport.length}枚保存しました。ポストに添付してください（1回の投稿は${X_MAX_IMAGES}枚まで）`, 5000);
   };
 }
 
