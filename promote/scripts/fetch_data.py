@@ -61,7 +61,8 @@ BRANDS = {
     # 961プロ：ふじわらはじめに区分が無いので、曲は ID で指定（SONGS_961）。765AS からは外す（ミリオンの ZWEIGLANZ は両方）
     #   アイドルは玲音・詩花・亜夜、Jupiter（SideM にも残る）、961時代の美希・貴音・響（765AS にも残る）（ユーザー判断）
     "961": {"music_type": None, "song_ids": "SONGS_961", "singers_by_song": True, "pick": [
-        {"production": "765", "names": ["玲音", "詩花", "亜夜"], "group": "961 PRODUCTION", "sitemap": "765pro"},
+        # 玲音・詩花・亜夜はグループ名を付けない（ブランド名と同じ「961 PRODUCTION」のタグは重複するので出さない：ユーザー判断）
+        {"production": "765", "names": ["玲音", "詩花", "亜夜"], "group": "", "sitemap": "765pro"},
         {"production": "315", "names": ["天ヶ瀬冬馬", "伊集院北斗", "御手洗翔太"], "group": "Jupiter"},
         {"production": "765", "names": ["星井美希", "四条貴音", "我那覇響"], "group": "プロジェクト・フェアリー"},
     ]},
@@ -199,6 +200,32 @@ def imas_db_units(section: str) -> list[dict]:
     return units
 
 
+# ユニット名を公式表記にそろえる（ふじわらはじめ・imas-db.jp はカタカナ表記）。ブランド → カタカナ表記 → 公式表記。
+# カタカナ表記は units.json の「よみ」に入れるので、カタカナ・ひらがな・略称（「いるみね」など）でも探せる（ユーザー判断）
+UNIT_OFFICIAL: dict[str, dict[str, str]] = {
+    "sc": {
+        "イルミネーションスターズ": "illumination STARS",
+        "アンティーカ": "L'Antica",
+        "アンティーカ（初代）": "L'Antica",  # 旧キャストでの登録
+        "アルストロメリア": "ALSTROEMERIA",
+        "ストレイライト": "Straylight",
+        "ノクチル": "noctchill",
+        "シーズ": "SHHis",
+        "コメティック": "CoMETIK",
+        # 放課後クライマックスガールズは国内公式も日本語表記のまま
+    },
+}
+
+
+def to_hiragana(s: str) -> str:
+    return "".join(chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c for c in s)
+
+
+def official_unit_kana() -> dict[str, str]:
+    """公式表記のユニット名 → よみ（カタカナ表記をひらがなにしたもの。「（初代）」は外す）"""
+    return {o: to_hiragana(SHODAI.sub("", ja)) for m in UNIT_OFFICIAL.values() for ja, o in m.items()}
+
+
 def attach_unit_groups(only: list[str] | None = None) -> None:
     """data/idols/<brand>.json の各アイドルに group（ユニット名）と group_color を付け、ユニット順に並べる。"""
     for b, section in UNIT_GROUP_BRANDS.items():
@@ -211,7 +238,7 @@ def attach_unit_groups(only: list[str] | None = None) -> None:
         missing = []
         for r in rows:
             i, u = where.get(color_key(r["name"]), (len(units), None))
-            r["group"] = u["name"] if u else ""
+            r["group"] = UNIT_OFFICIAL.get(b, {}).get(u["name"], u["name"]) if u else ""
             r["group_color"] = u["color"] if u else ""
             r["_order"] = (i, u["members"].index(color_key(r["name"])) if u else 0)
             if not u:
@@ -674,6 +701,9 @@ def attach_units(only: list[str] | None = None) -> None:
         if len(cols) >= 2 and cols[0] and cols[1] and not cols[0].startswith("!"):
             kana.setdefault(cols[1].strip(), cols[0].strip())
     names = {x for v in by_song.values() for x in v}
+    off = official_unit_kana()  # 公式表記のユニット名（illumination STARS など）
+    kana.update(off)
+    names |= set(off)
     kana[WHOLE_SONG] = "ぜんたいきょく"
     kana[CROSSOVER] = "えっきょうきょく"
     kana.update(STARLIT)
@@ -699,8 +729,17 @@ def attach_units(only: list[str] | None = None) -> None:
                     s["units"] = list(dict.fromkeys(s["units"] + group_tags(b, s.get("singers"))))
             else:
                 s.pop("units", None)
+        rename_units(b, rows)
         write(f, rows)
         print(f"[units] {f.name}: {sum(1 for s in rows if s.get('units'))}/{len(rows)} songs have units")
+
+
+def rename_units(brand: str, rows: list[dict]) -> None:
+    """曲のユニット名を公式表記にする（UNIT_OFFICIAL。同じユニットが2回にならないようにまとめる）"""
+    m = UNIT_OFFICIAL.get(brand, {})
+    for s in rows:
+        if s.get("units"):
+            s["units"] = list(dict.fromkeys(m.get(u, u) for u in s["units"]))
 
 
 # バージョンごとに歌唱メンバーもジャケットも違う曲は、バージョン別の曲に分けて登録する（元の曲は消す）。

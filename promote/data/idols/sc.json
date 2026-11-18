@@ -5,7 +5,7 @@
   "kana": "さくらぎまの",
   "cv": "関根瞳",
   "color": "#ffbad6",
-  "group": "イルミネーションスターズ",
+  "group": "illumination STARS",
   "count": 61,
   "group_color": "#fff68d"
  },
@@ -15,7 +15,7 @@
   "kana": "かざのひおり",
   "cv": "近藤玲奈",
   "color": "#144384",
-  "group": "イルミネーションスターズ",
+  "group": "illumination STARS",
   "count": 56,
   "group_color": "#fff68d"
  },
@@ -25,7 +25,7 @@
   "kana": "はちみやめぐる",
   "cv": "峯田茉優",
   "color": "#ffe012",
-  "group": "イルミネーションスターズ",
+  "group": "illumination STARS",
   "count": 60,
   "group_color": "#fff68d"
  },
@@ -35,7 +35,7 @@
   "kana": "つきおかこがね",
   "cv": "礒部花凜",
   "color": "#f84cad",
-  "group": "アンティーカ",
+  "group": "L'Antica",
   "count": 59,
   "group_color": "#853998"
  },
@@ -45,7 +45,7 @@
   "kana": "たなかまみみ",
   "cv": "菅沼千紗",
   "color": "#a846fb",
-  "group": "アンティーカ",
+  "group": "L'Antica",
   "count": 59,
   "group_color": "#853998"
  },
@@ -55,7 +55,7 @@
   "kana": "しらせさくや",
   "cv": "八巻アンナ",
   "color": "#006047",
-  "group": "アンティーカ",
+  "group": "L'Antica",
   "count": 60,
   "group_color": "#853998"
  },
@@ -65,7 +65,7 @@
   "kana": "みつみねゆいか",
   "cv": "成海瑠奈/希水しお",
   "color": "#3b91c4",
-  "group": "アンティーカ",
+  "group": "L'Antica",
   "count": 57,
   "group_color": "#853998"
  },
@@ -75,7 +75,7 @@
   "kana": "ゆうこくきりこ",
   "cv": "結名美月",
   "color": "#d9f2ff",
-  "group": "アンティーカ",
+  "group": "L'Antica",
   "count": 57,
   "group_color": "#853998"
  },
@@ -135,7 +135,7 @@
   "kana": "おおさきあまな",
   "cv": "黒木ほの香",
   "color": "#f54275",
-  "group": "アルストロメリア",
+  "group": "ALSTROEMERIA",
   "count": 61,
   "group_color": "#ff699e"
  },
@@ -145,7 +145,7 @@
   "kana": "おおさきてんか",
   "cv": "前川涼子",
   "color": "#e75bec",
-  "group": "アルストロメリア",
+  "group": "ALSTROEMERIA",
   "count": 60,
   "group_color": "#ff699e"
  },
@@ -155,7 +155,7 @@
   "kana": "くわやまちゆき",
   "cv": "芝崎典子",
   "color": "#fbfafa",
-  "group": "アルストロメリア",
+  "group": "ALSTROEMERIA",
   "count": 56,
   "group_color": "#ff699e"
  },
@@ -165,7 +165,7 @@
   "kana": "せりざわあさひ",
   "cv": "田中有紀",
   "color": "#f30100",
-  "group": "ストレイライト",
+  "group": "Straylight",
   "count": 55,
   "group_color": "#af011c"
  },
@@ -175,7 +175,7 @@
   "kana": "まゆずみふゆこ",
   "cv": "幸村恵理",
   "color": "#5ce626",
-  "group": "ストレイライト",
+  "group": "Straylight",
   "count": 54,
   "group_color": "#af011c"
  },
@@ -185,7 +185,7 @@
   "kana": "いずみめい",
   "cv": "北原沙弥香",
   "color": "#ff00ff",
-  "group": "ストレイライト",
+  "group": "Straylight",
   "count": 53,
   "group_color": "#af011c"
  },
@@ -195,7 +195,7 @@
   "kana": "あさくらとおる",
   "cv": "和久井優",
   "color": "#50d0d0",
-  "group": "ノクチル",
+  "group": "noctchill",
   "count": 49,
   "group_color": "#384d98"
  },
@@ -205,7 +205,7 @@
   "kana": "ひぐちまどか",
   "cv": "土屋李央",
   "color": "#be1e3e",
-  "group": "ノクチル",
+  "group": "noctchill",
   "count": 47,
   "group_color": "#384d98"
  },
@@ -215,7 +215,7 @@
   "kana": "ふくまるこいと",
   "cv": "田嶌紗蘭",
   "color": "#7967c3",
-  "group": "ノクチル",
+  "group": "noctchill",
   "count": 49,
   "group_color": "#384d98"
  },
@@ -225,7 +225,7 @@
   "kana": "いちかわひなな",
   "cv": "岡咲美保",
   "color": "#ffc639",
-  "group": "ノクチル",
+  "group": "noctchill",
   "count": 48,
   "group_color": "#384d98"
  },
@@ -255,7 +255,7 @@
   "kana": "いかるがルカ",
   "cv": "川口莉奈",
   "color": "#35281f",
-  "group": "コメティック",
+  "group": "CoMETIK",
   "count": 29,
   "group_color": "#333333"
  },
@@ -265,7 +265,7 @@
   "kana": "すずきはな",
   "cv": "三川華月",
   "color": "#e0b5d3",
-  "group": "コメティック",
+  "group": "CoMETIK",
   "count": 27,
   "group_color": "#333333"
  },
@@ -275,7 +275,7 @@
   "kana": "いくたはるき",
   "cv": "小澤麗那",
   "color": "#ead7a4",
-  "group": "コメティック",
+  "group": "CoMETIK",
   "count": 27,
   "group_color": "#333333"
  }
