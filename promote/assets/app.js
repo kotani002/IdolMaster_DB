@@ -386,8 +386,9 @@ function cardEl(it, idx) {
       for (const u of s.units || []) { const m = unitMatch(u); if (m > best) { best = m; unit = u; } }
       if (best) { (best === 2 ? byUnit : byUnitPart).push(s); hitNote.set(s, `ユニット：${unit}`); continue; }
       // 歌唱者名と完全一致（「春日 未来」のような空白の有無は区別しない）なら、その人の参加曲を全部出す
-      const n = (s.singers || []).find((n) => norm(n) === q);
-      if (n) { bySinger.push(s); hitNote.set(s, `歌：${n}`); }
+      // 旧キャストで登録された曲（「姫野かのん（初代）」）も、今の名前で探して出す
+      const n = (s.singers || []).find((n) => norm(dropShodai(n)) === q);
+      if (n) { bySinger.push(s); hitNote.set(s, singerNote(s)); }
     }
     results = starts.concat(contains).slice(0, 30).concat(byUnit, byUnitPart, bySinger);
     active = results.length ? 0 : -1;
@@ -450,6 +451,21 @@ function cardEl(it, idx) {
     ),
   );
   return card;
+}
+
+// 歌唱者名で見つかった曲の候補に出す「歌：…」。ユニットで登録されている曲はユニット名、
+// そうでない曲は歌唱者名を全員並べる（ユーザー判断：人数が多くても省略しない）。
+// 「越境曲」「全体曲」「スタマス」などは検索用の名前でユニットではないので、ユニット名としては出さない
+// （「ディアリースターズ」は「Dearly Stars」の検索用の別表記）
+const NOT_UNIT = new Set(["越境曲", "全体曲", "スターリットシーズン", "スタマス", "ディアリースターズ"]);
+const dropShodai = (n) => n.replace(/\s*[（(]初代[)）]\s*/g, "");
+function singerNote(s) {
+  // 全体曲は「歌：SideM全体」のようにブランド名＋全体（ユーザー判断）。複数ユニットは「歌：Beit、Jupiter、THE 虎牙道」
+  if ((s.units || []).includes("全体曲")) return `歌：${brand(state.from).name}全体`;
+  const units = (s.units || []).filter((u) => !NOT_UNIT.has(u));
+  // 「姫野かのん（初代）」のような旧キャストでの登録は今の名前にそろえる（「（初代）」は出さない）
+  const names = [...new Set((s.singers || []).map(dropShodai))];
+  return `歌：${(units.length ? units : names).join("、")}`;
 }
 
 const JK_WAIT = "楽曲を選ぶと自動で更新されます";

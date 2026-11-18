@@ -622,7 +622,8 @@ GROUP_TAG_KANA = {"Dearly Stars": "でぃありーすたーず", "ディアリ�
 
 
 def group_tags(brand: str, singers: list[str] | None) -> list[str]:
-    return [n for members, names in GROUP_TAGS.get(brand, []) if members <= set(singers or []) for n in names]
+    plain = {SHODAI.sub("", n) for n in singers or []}
+    return [n for members, names in GROUP_TAGS.get(brand, []) if members <= plain for n in names]
 
 
 def whole_song_units(units: list[str], brand: str = "", singers: list[str] | None = None) -> list[str]:
@@ -632,7 +633,7 @@ def whole_song_units(units: list[str], brand: str = "", singers: list[str] | Non
     """
     brand_re = WHOLE_UNIT_RE_BRAND.get(brand)
     if (any(WHOLE_UNIT_RE.search(u) or (brand_re and brand_re.search(u)) for u in units) or len(set(units)) >= 5
-            or (brand in WHOLE_MEMBERS and WHOLE_MEMBERS[brand] <= set(singers or []))):
+            or (brand in WHOLE_MEMBERS and WHOLE_MEMBERS[brand] <= {SHODAI.sub("", n) for n in singers or []})):
         return [WHOLE_SONG]
     return units
 
