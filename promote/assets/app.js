@@ -35,11 +35,15 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 // ---------------------------------------------------------------- data
 
-const DB = { brands: [], themes: [], jackets: {}, meta: {}, events: [], units: {}, songs: {}, idols: {} };
+const DB = { brands: [], themes: [], jackets: {}, jacketAlts: {}, meta: {}, events: [], units: {}, songs: {}, idols: {} };
 
 // 楽曲のジャケット。越境曲はブランドごとに別の盤があるので「ブランド:曲ID」を先に見る
 function jacketOf(songId, brandId) {
   return DB.jackets[`${brandId}:${songId}`] || DB.jackets[String(songId)];
+}
+// 選べる公式ジャケット（2ユニットの合同曲など、盤ごとにジャケットが違う曲）。[{ jacket, label, cd }]
+function altsOf(songId) {
+  return (songId != null && DB.jacketAlts[String(songId)]) || [];
 }
 
 async function getJSON(path) {
@@ -296,7 +300,8 @@ function cardEl(it, idx) {
     },
   }, h("span", {}));
   // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
-  if (it.songId && (!it.jacket || it.jacketAuto)) {
+  // （公式ジャケットの中から別の盤を選んだ曲はそのまま）
+  if (it.songId && (!it.jacket || it.jacketAuto) && !(it.jacketAlt && altsOf(it.songId).some((a) => a.jacket === it.jacket))) {
     const jk = jacketOf(it.songId, it.brand || state.from);
     if (jk && jk !== it.jacket) { it.jacket = jk; it.jacketAuto = true; save(); }
   }
@@ -328,6 +333,7 @@ function cardEl(it, idx) {
     it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
     // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
     const jk = jacketOf(s.id, state.from);
+    it.jacketAlt = false;
     if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; it.jkPos = "auto"; }
     else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
     paintJacket(jacket, it);
@@ -379,7 +385,7 @@ function cardEl(it, idx) {
   songIn.addEventListener("input", () => {
     if (performance.now() - pickedAt < 400) { songIn.value = it.title; return; } // 選曲直後の確定による入力は無視
     it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
-    if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
+    if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jacketAlt = false; it.jkPos = "auto"; }
     paintJacket(jacket, it, true);
     syncSongField();
     save(); search();
@@ -757,6 +763,20 @@ function paintJkPreview() {
     type: "button", class: "chip" + (id === pos ? " on" : ""), "aria-pressed": String(id === pos),
     onclick: () => { jkDlg.pos = id; paintJkPreview(); },
   }, label)));
+  // 盤ごとにジャケットが違う曲（F＠NTASTIC COMBINATION の合同曲など）は、公式ジャケットから選べる
+  const alts = altsOf(jkDlg.item?.songId);
+  const altBox = $("#jk-alts");
+  altBox.hidden = !alts.length;
+  altBox.querySelector(".jk-alt-btns").replaceChildren(...alts.map((a) => {
+    const on = a.jacket === v;
+    const img = h("img", { alt: "", loading: "lazy", decoding: "async" });
+    img.referrerPolicy = "no-referrer";
+    img.src = imgUrl(a.jacket);
+    return h("button", {
+      type: "button", class: "jk-alt" + (on ? " on" : ""), "aria-pressed": String(on), title: a.cd,
+      onclick: () => { jkDlg.value = a.jacket; jkDlg.pos = "auto"; $("#jk-url").value = a.jacket; paintJkPreview(); },
+    }, img, h("span", {}, a.label));
+  }));
 }
 
 async function fileToDataURL(file, max = 640) {
@@ -998,8 +1018,13 @@ function wire() {
     if (!jkDlg.item) return;
     const v = jkDlg.value;
     if (v && !v.startsWith("data:") && !/^https?:\/\//i.test(v)) { toast("http(s) で始まる画像URLを入力してください"); return; }
-    // 表示位置だけ変えた場合は、自動で入ったジャケットのまま（選曲し直したら差し替わる）にする
-    if (v !== jkDlg.item.jacket) {
+    // 公式ジャケットの中から選んだ場合は、自動で入ったジャケットと同じ扱い（選曲し直したら差し替わる）
+    if (altsOf(jkDlg.item.songId).some((a) => a.jacket === v)) {
+      jkDlg.item.jacket = v;
+      jkDlg.item.jacketAuto = true;
+      jkDlg.item.jacketAlt = v !== jacketOf(jkDlg.item.songId, jkDlg.item.brand || state.from);
+    } else if (v !== jkDlg.item.jacket) {
+      jkDlg.item.jacketAlt = false;
       jkDlg.item.jacket = v;
       jkDlg.item.jacketAuto = false; // 自分で設定したものは選曲し直しても消さない
     }
@@ -1034,13 +1059,14 @@ function wire() {
 }
 
 async function init() {
-  [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events, DB.units] = await Promise.all([
+  [DB.brands, DB.themes, DB.jackets, DB.meta, DB.events, DB.units, DB.jacketAlts] = await Promise.all([
     getJSON("data/brands.json"),
     getJSON("data/themes.json").catch(() => []),
     getJSON("data/jackets.json").catch(() => ({})),
     getJSON("data/meta.json").catch(() => ({})),
     getJSON("data/events.json").catch(() => []),
     getJSON("data/units.json").catch(() => ({})),
+    getJSON("data/jacket_alts.json").catch(() => ({})),
   ]);
   state = loadState() || defaultState();
   const pk = pickableBrands();

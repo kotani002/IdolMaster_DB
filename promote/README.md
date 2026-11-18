@@ -93,6 +93,7 @@ python scripts/fetch_jackets.py gm
 
 - 取得元：シンデレラガールズは公式ポータル、ミリオンライブ・シャイニーカラーズ・SideM はランティスのサイト、学園アイドルマスターは公式レーベルサイト（`scripts/fetch_jackets.py` の `SOURCES`）。
 - 同じ曲が複数のCDに入っている場合は、本人歌唱版が入ったCDのうち一番早く発売されたもののジャケットを使います。ライブBD・カラオケ版は、CDで見つからない曲にだけ使います。
+- SideM の F＠NTASTIC COMBINATION のように2つのユニットが同じ曲をそれぞれのCDで出している曲は、両方のジャケットを `data/jacket_alts.json` に書き出し、サイトのジャケット画面で「公式ジャケットから選ぶ」として切り替えられます（`scripts/fetch_jackets.py` の `ALT_SERIES`）。
 - 使うジャケットを手で決めた曲は `data/jacket_overrides.json`（ブランド → 曲ID → ジャケットURL）に書きます。ここに書いた曲は、照合結果より優先されます。
 - 取得したページは `scripts/.cache/` に保存されます。照合ルールだけ変えたいときは `--offline` を付ければ再取得しません。
 - 照合できなかった曲は `scripts/.cache/<brand>_unmatched.txt` に出力されます。

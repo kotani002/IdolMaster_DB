@@ -241,6 +241,44 @@ def song_key(title: str) -> str:
     return norm(VERSION_PAREN.sub("", unicodedata.normalize("NFKC", title)))
 
 
+# ---------------------------------------------------------------- 選べる公式ジャケット
+
+# 2つのユニットが同じ曲をそれぞれのCDで出すシリーズ。曲ごとに両方のジャケットを data/jacket_alts.json に書き、
+# サイトのジャケット画面で選べるようにする（例：ムゲンダイグロウアップ！ → FRAME盤 / もふもふえん盤）
+ALT_SERIES = {"sidem": re.compile(r"F[@＠]NTASTIC COMBINATION")}
+
+
+def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
+    pat = ALT_SERIES.get(brand)
+    af = DATA / "jacket_alts.json"
+    alts = json.loads(af.read_text(encoding="utf-8")) if af.exists() else {}
+    ids = {str(s["id"]) for s in songs}
+    alts = {k: v for k, v in alts.items() if k not in ids}  # このブランドの分は作り直す
+    if pat:
+        found: dict[str, dict[str, tuple]] = {}
+        for d in discs:
+            if not pat.search(d["title"]) or d.get("penalty", 0):
+                continue
+            title = re.sub(r"\s+", " ", d["title"]).strip()
+            label = re.split(r"[～\-]\s", title)[-1].strip()  # CD名の最後のユニット名
+            for t in d["tracks"]:
+                key, rank = classify(t)
+                if key and rank < 2:
+                    found.setdefault(key, {})[d["jacket"]] = (d["date"], label, title)
+        for s in songs:
+            key = song_key(s["title"])
+            js = found.get(key, {})
+            hit = best.get(key)
+            # そのシリーズが初出の合同曲だけ（2枚あって、自動で選ぶジャケットもその中にある曲）。全体曲などは除く
+            if len(js) == 2 and hit and hit[2] in js:
+                alts[str(s["id"])] = [{"jacket": j, "label": f"{lb}盤", "cd": t}
+                                      for j, (dt, lb, t) in sorted(js.items(), key=lambda kv: (kv[1][0], kv[0]))]
+    af.write_text(json.dumps(alts, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    n = sum(1 for k in alts if k in ids)
+    if n:
+        print(f"[{brand}] {n} songs with selectable jackets (data/jacket_alts.json)")
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> None:
@@ -284,6 +322,7 @@ def main() -> None:
                 first_cd[key] = c2
 
     songs = json.loads((DATA / "songs" / f"{brand}.json").read_text(encoding="utf-8"))
+    write_alts(brand, discs, songs, best)
     jf = DATA / "jackets.json"
     jackets = json.loads(jf.read_text(encoding="utf-8")) if jf.exists() else {}
     matched, unmatched = 0, []
