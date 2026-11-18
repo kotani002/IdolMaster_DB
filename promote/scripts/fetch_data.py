@@ -58,6 +58,13 @@ BRANDS = {
         {"production": "315", "names": ["秋月涼"], "group": "ディアリースターズ"},
         {"production": "va-liv", "names": None, "group": "vα-liv", "sitemap": "va-liv"},
     ]},
+    # 961プロ：ふじわらはじめに区分が無いので、曲は ID で指定（SONGS_961）。765AS からは外す（ミリオンの ZWEIGLANZ は両方）
+    #   アイドルは玲音・詩花・亜夜、Jupiter（SideM にも残る）、961時代の美希・貴音・響（765AS にも残る）（ユーザー判断）
+    "961": {"music_type": None, "song_ids": "SONGS_961", "singers_by_song": True, "pick": [
+        {"production": "765", "names": ["玲音", "詩花", "亜夜"], "group": "961 PRODUCTION", "sitemap": "765pro"},
+        {"production": "315", "names": ["天ヶ瀬冬馬", "伊集院北斗", "御手洗翔太"], "group": "Jupiter"},
+        {"production": "765", "names": ["星井美希", "四条貴音", "我那覇響"], "group": "プロジェクト・フェアリー"},
+    ]},
     # SideM のアイドルは /tax（アイドル別の参加曲）が API 非対応なので、歌唱者は曲ごとに取る
     # 色はふじわらはじめに無いので imas-db.jp のカラーコード一覧（SideM のタブ）から取る
     "sidem": {"music_type": "sidem", "production": "315", "sitemap": None, "singers_by_song": True, "imasdb_colors": "sidem"},
@@ -66,6 +73,24 @@ BRANDS = {
     # （手で付けたIDなので /tax が使えない。歌唱者は SideM と同じく曲ごとに取る）
     "gm": {"music_type": "gakuen", "production": "gakuen", "sitemap": "hatsuboshi", "keep_file": True, "singers_by_song": True},
 }
+
+# 961プロの曲（曲ID）。MOVED_961 は 765AS の曲一覧から外す（961プロだけに出す）。ZWEIGLANZ の2曲はミリオンにも残す
+MOVED_961 = {
+    3117,        # オーバーマスター
+    8092,        # KisS
+    8055,        # 黒い犬
+    8008, 8011, 8012, 8009, 8010,  # Jupiter：Alice or Guilty・恋をはじめよう・BANG×BANG・On Sunday・結晶～Crystal Dust～
+    7938, 3484,  # アクセルレーション（我那覇響・玲音／詩花・玲音）
+    7918,        # アルティメットアイズ
+    2808,        # Blooming Star
+    11578,       # REALIZE!!!（961 PRODUCTION presents）
+    4593,        # 1st Call（DIAMANT）
+    4592,        # EVER RISING（アルバノクト）
+}
+SONGS_961 = sorted(MOVED_961) + [
+    3551,  # アライアンス・スターダスト（ZWEIGLANZ、ミリオンにも）
+    3956,  # Shine My Way（ZWEIGLANZ、ミリオンにも）
+]
 
 # 876プロ（ディアリースターズ）として別ブランドに出すので、765プロ（ミリオンの「その他」）からは外す
 # （秋月涼は SideM にも所属しているので SideM には残す）
@@ -147,6 +172,53 @@ def imas_db_colors(section: str) -> dict[str, str]:
     for name, color in re.findall(r"<td>([^<]+?)(?:[（(][^)）]*[)）])?</td>\s*<td[^>]*><span title=\"(#[0-9a-fA-F]{6})\"", part):
         out[color_key(html.unescape(name))] = color.lower()
     return out
+
+
+# ユニット活動が中心のブランドは、歌って欲しいアイドルの一覧をユニットごとに分ける（ユーザー判断）。
+# ユニット名・ユニットの色・並びは imas-db.jp のカラーコード一覧（ブランドのタブ → タブの id）
+UNIT_GROUP_BRANDS = {"sc": "shinycolors", "sidem": "sidem"}
+
+
+def imas_db_units(section: str) -> list[dict]:
+    """imas-db.jp のカラーコード一覧のブランドのタブから [{name, color, members: [名前キー...]}] を作る。
+    行は「<th>ユニット名</th><td><span title="#色">」の見出し行と、その下の「<td>名前(CV)</td>…」のメンバー行。"""
+    page = get(IMAS_DB_COLORS).decode("utf-8", "replace")
+    start = page.find(f'id="{section}"')
+    if start < 0:
+        return []
+    end = page.find('class="tab-pane', start + 10)
+    part = page[start:end if end > 0 else len(page)]
+    units: list[dict] = []
+    for tag, name, color in re.findall(
+            r"<(th|td)>([^<]+?)(?:[（(][^)）]*[)）])?</t[hd]>\s*<td[^>]*><span title=\"(#[0-9a-fA-F]{6})\"", part):
+        name = html.unescape(name).strip()
+        if tag == "th":
+            units.append({"name": name, "color": color.lower(), "members": []})
+        elif units:
+            units[-1]["members"].append(color_key(name))
+    return units
+
+
+def attach_unit_groups(only: list[str] | None = None) -> None:
+    """data/idols/<brand>.json の各アイドルに group（ユニット名）と group_color を付け、ユニット順に並べる。"""
+    for b, section in UNIT_GROUP_BRANDS.items():
+        f = DATA / "idols" / f"{b}.json"
+        if (only and b not in only) or not f.exists():
+            continue
+        units = imas_db_units(section)
+        where = {m: (i, u) for i, u in enumerate(units) for m in u["members"]}
+        rows = json.loads(f.read_text(encoding="utf-8"))
+        missing = []
+        for r in rows:
+            i, u = where.get(color_key(r["name"]), (len(units), None))
+            r["group"] = u["name"] if u else ""
+            r["group_color"] = u["color"] if u else ""
+            r["_order"] = (i, u["members"].index(color_key(r["name"])) if u else 0)
+            if not u:
+                missing.append(r["name"])
+        rows.sort(key=lambda r: r.pop("_order"))
+        write(f, rows)
+        print(f"[unit groups] {b}: {len(units)} units" + (f" / no unit: {', '.join(missing)}" if missing else ""))
 
 
 # 歌って欲しいアイドルの候補から外す（アイドル以外・重複表記）
@@ -244,8 +316,7 @@ EXTRA_SONGS: dict[str, list[int]] = {
     ],
     "876": [
         10515,  # RELOADING（ディアリースターズ・vα-liv の6人。ふじわらはじめではリローディングのリミックス扱い）
-        5041,   # The world is all one !!（765AS の曲。876 PRODUCTION FES. Alternative Tracks Collection で
-                # ディアリースターズ版・vα-liv版が出たので、876プロでも選べるように（ユーザー判断）。ジャケットは2盤から選べる）
+        # The world is all one !!（5041）は 765AS だけ。Alternative Tracks Collection のカバー版は入れない（ユーザー判断）
     ],
 }
 
@@ -253,8 +324,8 @@ EXTRA_SONGS: dict[str, list[int]] = {
 # 越境曲：ブランドの垣根を越えた曲（ふじわらはじめでは「合同」）。指定したブランドの曲一覧に入れ、
 # 検索ではユニット名の代わりに「越境曲」と出す（曲ID → 入れるブランド）
 CROSSOVER = "越境曲"
-_ALL = {"as", "cg", "ml", "sidem", "sc", "gm"}
-_STARLIT = {"as", "cg", "ml", "sc"}  # スターリットシーズン（765AS・シンデレラ・ミリオン・シャニマス）
+_ALL = {"as", "cg", "ml", "sidem", "sc", "gm", "961"}
+_STARLIT = {"as", "cg", "ml", "sc", "961"}  # スターリットシーズン（765AS・シンデレラ・ミリオン・シャニマス、961プロも出演）
 CROSSOVER_SONGS: dict[int, set[str]] = {
     9498: _ALL,                  # アイ NEED YOU (FOR WONDERFUL STORY)
     4411: _ALL,                  # VOY@GER
@@ -285,7 +356,8 @@ def crossover_units(sid: int) -> list[str]:
 
 def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
     rows = []
-    ids = EXTRA_SONGS.get(brand_id, []) + [sid for sid, bs in CROSSOVER_SONGS.items() if brand_id in bs]
+    ids = (EXTRA_SONGS.get(brand_id, []) + (SONGS_961 if brand_id == "961" else [])
+           + [sid for sid, bs in CROSSOVER_SONGS.items() if brand_id in bs])
     for sid in ids:
         if sid in have:
             continue
@@ -306,10 +378,12 @@ def extra_song_rows(brand_id: str, have: set[int]) -> list[dict]:
 
 def build_brand(brand_id: str, conf: dict) -> None:
     song_rows = None
-    if conf["music_type"]:
+    if conf["music_type"] or conf.get("song_ids"):
         print(f"[{brand_id}] songs")
-        songs = get_json(f"{API}/list?type=music&music_type={conf['music_type']}&orderby=title&order=asc")
-        kana = kana_map(conf["music_type"])
+        # 曲を ID で指定するブランド（961プロ）は、一覧の代わりに1曲ずつ取る（extra_song_rows）
+        songs = (get_json(f"{API}/list?type=music&music_type={conf['music_type']}&orderby=title&order=asc")
+                 if conf["music_type"] else [])
+        kana = kana_map(conf["music_type"]) if conf["music_type"] else {}
         # 前回付けた歌唱者は引き継ぐ（ブランドを指定して実行したときは、他ブランドのアイドル分を調べ直さないため）
         old_path = DATA / "songs" / f"{brand_id}.json"
         old = {r["id"]: r.get("singers", []) for r in json.loads(old_path.read_text(encoding="utf-8"))} if old_path.exists() else {}
@@ -323,6 +397,8 @@ def build_brand(brand_id: str, conf: dict) -> None:
                 "url": s["link"],
                 "singers": old.get(s["song_id"], []),
             })
+        if brand_id == "as":  # 961プロへ移した曲
+            song_rows = [r for r in song_rows if r["id"] not in MOVED_961]
         song_rows += extra_song_rows(brand_id, {r["id"] for r in song_rows})
         # よみが無い「曲名 (○○Ver.)」は元の曲名のよみを使う（ひらがなでも探せるように）
         for r in song_rows:
@@ -395,7 +471,13 @@ def build_brand(brand_id: str, conf: dict) -> None:
             merged.extend(by_name.values())
         idol_rows = merged
 
-    group_order = {"MILLION STARS": 0, "765AS": 1, "その他": 2, "ディアリースターズ": 0, "vα-liv": 1}
+    group_order = {"MILLION STARS": 0, "765AS": 1, "その他": 2, "ディアリースターズ": 0, "vα-liv": 1,
+                   "961 PRODUCTION": 0, "Jupiter": 1, "プロジェクト・フェアリー": 2}
+    if brand_id == "961":  # Jupiter の色はふじわらはじめに無いので、SideM の一覧（imas-db.jp から取った色）を使う
+        sidem = DATA / "idols" / "sidem.json"
+        sc = {r["name"]: r.get("color", "") for r in json.loads(sidem.read_text(encoding="utf-8"))} if sidem.exists() else {}
+        for r in idol_rows:
+            r["color"] = r["color"] or sc.get(r["name"], "")
     idol_rows.sort(key=lambda r: (group_order.get(r["group"], 0), r["kana"] or r["name"]))
 
     if conf.get("keep_file"):
@@ -428,7 +510,7 @@ def attach_singers(only: list[str] | None = None) -> None:
     曲名検索で歌唱者名（完全一致）からも曲を探せるようにするため。
     only を指定したときは、そのブランドの曲・アイドルだけを調べ、既存の singers に足す（全ブランドだと約20分かかるため）。"""
     brands = [b for b in BRANDS if only is None or b in only]
-    song_files = [DATA / "songs" / f"{b}.json" for b in brands if BRANDS[b]["music_type"]]
+    song_files = [DATA / "songs" / f"{b}.json" for b in brands if BRANDS[b]["music_type"] or BRANDS[b].get("song_ids")]
     song_files = [f for f in song_files if f.exists()]
     if not song_files:
         return
@@ -598,7 +680,7 @@ def attach_units(only: list[str] | None = None) -> None:
     write(DATA / "units.json", {k: kana[k] for k in sorted(kana) if k in names})
     for b in only or list(BRANDS):
         f = DATA / "songs" / f"{b}.json"
-        if not BRANDS[b].get("music_type") or not f.exists():
+        if not (BRANDS[b].get("music_type") or BRANDS[b].get("song_ids")) or not f.exists():
             continue
         rows = json.loads(f.read_text(encoding="utf-8"))
         for s in rows:
@@ -664,23 +746,44 @@ def split_versions(only: list[str] | None = None) -> None:
 _DS = ["日高愛", "水谷絵理", "秋月涼"]
 MANUAL_SONGS: dict[str, list[dict]] = {
     "876": [
-        # “HELLO!!”（ディアリースターズ、DREAM SYMPHONY 00）。ふじわらはじめには vα-liv の "HELLO!"（6044、
-        # 同じ作詞 yura・作曲 神前暁）だけが登録されている。ユーザー判断で1曲にまとめ、SideM の F＠NTASTIC COMBINATION と
-        # 同じく、ジャケットをディアリースターズ盤・vα-liv盤から選べるようにする（data/jacket_alts.json）
+        # “HELLO!!”（ディアリースターズ、DREAM SYMPHONY 00）。ふじわらはじめには vα-liv のカバー "HELLO!"（6044、
+        # 同じ作詞 yura・作曲 神前暁）だけが登録されている。ユーザー判断でディアリースターズの曲として登録し、カバー版は入れない
         {"id": 6044, "title": "“HELLO!!”", "kana": "はろー", "url": "https://fujiwarahaji.me/music/876/6044",
-         "singers": _DS + ["上水流宇宙", "灯里愛夏", "レトラ"],
-         "units": ["Dearly Stars", "ディアリースターズ", "vα-liv"]},
+         "singers": _DS, "units": ["Dearly Stars", "ディアリースターズ"]},
     ],
+    # IDOL WORLD SUPER FESTIVAL 2026 会場オリジナルCD【961PRODUCTION & KOHAKU & 765PRO ALLSTARS】（SACX-1149～1150）の新曲。
+    # ふじわらはじめ未登録なので手で足す（https://columbia.jp/idolmaster/imasnews/260911.html）
+    "961": [
+        {"id": "961-extreme", "title": "エクストリーム・オーバードライブ", "kana": "えくすとりーむ・おーばーどらいぶ",
+         "url": "https://columbia.jp/idolmaster/imasnews/260911.html", "singers": ["玲音"]},
+        {"id": "961-flame", "title": "FlaME", "kana": "ふれいむ",
+         "url": "https://columbia.jp/idolmaster/imasnews/260911.html", "singers": ["星井美希", "玲音"]},
+    ],
+}
+# 歌唱者・ユニットの手直し（ブランド → 曲ID → 上書きする項目）。ディアリースターズのカバー版（Alternative Tracks
+# Collection）は入れず、vα-liv の曲として登録する（ユーザー判断）
+_VALIV = ["上水流宇宙", "灯里愛夏", "レトラ"]
+SONG_FIXES: dict[str, dict[int, dict]] = {
+    "876": {
+        10515: {"singers": _VALIV, "units": ["vα-liv"]},  # RELOADING
+        11081: {"singers": _VALIV, "units": ["vα-liv"]},  # クリスタライン
+    },
+    # Jupiter の曲はふじわらはじめでユニット（Jupiter）だけの登録で、歌唱メンバーが空なので3人を入れる
+    "961": {sid: {"singers": ["天ヶ瀬冬馬", "伊集院北斗", "御手洗翔太"], "units": ["Jupiter"]}
+            for sid in (8008, 8009, 8010, 8011, 8012)},
 }
 
 
 def add_manual_songs(only: list[str] | None = None) -> None:
-    for b, songs in MANUAL_SONGS.items():
+    for b in set(MANUAL_SONGS) | set(SONG_FIXES):
+        songs = MANUAL_SONGS.get(b, [])
         f = DATA / "songs" / f"{b}.json"
         if (only and b not in only) or not f.exists():
             continue
         ids = {s["id"] for s in songs} | {"6044-ds"}  # 6044-ds は以前の分け方（2曲）のときの ID
         rows = [s for s in json.loads(f.read_text(encoding="utf-8")) if s["id"] not in ids] + songs
+        for s in rows:
+            s.update(SONG_FIXES.get(b, {}).get(s["id"], {}))
         rows.sort(key=lambda r: (r["kana"] or r["title"]))
         write(f, rows)
         print(f"[manual] {f.name}: {len(songs)} songs")
@@ -698,6 +801,7 @@ def main() -> None:
         return
     for b in only or list(BRANDS):
         build_brand(b, BRANDS[b])
+    attach_unit_groups(only)
     attach_singers(only)
     attach_units(only)
     split_versions(only)

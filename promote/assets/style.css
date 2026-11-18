@@ -328,6 +328,27 @@ a { color: inherit; }
   width: 100%; height: 40px; border-radius: 10px; border: 1px solid var(--line); padding: 0 12px; outline: none;
 }
 .dlg input:focus { border-color: #bdb4a6; }
+/* 横スクロールのタグの左右の矢印（続きがある側だけ出る。app.js の setupChipArrows） */
+.chip-scroll { position: relative; flex: none; min-width: 0; }
+.chip-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line);
+  background: #fff; color: var(--ink, #2a2730); font-size: 20px; font-weight: 800; line-height: 1;
+  display: grid; place-items: center; padding: 0 0 2px; cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+}
+.chip-arrow[hidden] { display: none; }
+.chip-arrow.left { left: -6px; }
+.chip-arrow.right { right: -6px; }
+/* 歌って欲しいアイドル：ブランドのプルダウン（スマホだけ表示。パソコンはタグ） */
+#mem-brand-sel {
+  display: none; width: 100%; height: 40px; border-radius: 10px; border: 2px solid var(--line);
+  padding: 0 34px 0 12px; font-size: 15px; font-weight: 700; background-color: #fff; color: inherit; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 17px) 17px, calc(100% - 12px) 17px;
+  background-size: 5px 5px; background-repeat: no-repeat;
+}
 .lbl { font-size: 12px; font-weight: 700; color: var(--muted); }
 
 .mem-list {
@@ -346,6 +367,7 @@ a { color: inherit; }
 .mem-item.on small { color: #bbb; }
 .mem-item > span:last-child { min-width: 0; overflow-wrap: anywhere; }
 /* 「○○全員」：一覧の先頭に、小さめのボタンを1行（折り返し）で並べる */
+.mem-alls-wrap { grid-column: 1 / -1; }
 .mem-alls { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 2px 0 4px; }
 .mem-alls-label { font-size: 11px; font-weight: 800; color: var(--muted); margin-right: 2px; }
 .mem-all {
@@ -466,16 +488,25 @@ html.booting .topbar, html.booting .wrap { visibility: hidden; opacity: 0; }
             mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
   }
   #mem-brands::-webkit-scrollbar, #mem-groups::-webkit-scrollbar, .mem-alls::-webkit-scrollbar { display: none; }
-  /* 「全員」ボタンも横スクロールの1行に（対バンでは6個あり、折り返すと一覧が見えなくなるため） */
-  .mem-alls {
-    min-height: 36px; /* 一覧のグリッド内で横スクロール領域が潰れないように */
-    flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
-            mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
-  }
+  /* 「全員」ボタンは多くても3個（対バンは出演日を選んだときだけブランド別を出す）なので、折り返して全部見せる
+     （はみ出さないので左右の矢印も出ない） */
+  .mem-alls { min-height: 36px; row-gap: 6px; }
   .mem-alls > * { flex: none; white-space: nowrap; }
   #mem-brands .chip, #mem-groups .chip { flex: none; white-space: nowrap; }
   #mem-groups:empty { display: none; }
+  /* ブランド・合同ライブのタグは数が多く、選んだものが画面外に隠れるので、スマホではプルダウンにする */
+  #mem-brands { display: none; }
+  #mem-brand-sel { display: block; flex: none; }
+  /* ユニット・出演日のタグ：矢印がある側をぼかす（左端にいるときは右だけ、途中は両側） */
+  .chip-scroll:not(.at-start) #mem-groups, .chip-scroll:not(.at-start) .mem-alls {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+            mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  }
+  .chip-scroll.at-end:not(.at-start) #mem-groups, .chip-scroll.at-end:not(.at-start) .mem-alls {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 40px);
+            mask-image: linear-gradient(to right, transparent, #000 40px);
+  }
+  .chip-scroll.at-start.at-end #mem-groups, .chip-scroll.at-start.at-end .mem-alls { -webkit-mask-image: none; mask-image: none; }
   .mem-list { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 56dvh; }
   .mem-item { padding: 7px 8px; gap: 6px; font-size: 12.5px; }
 }

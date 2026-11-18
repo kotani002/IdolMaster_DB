@@ -285,26 +285,6 @@
   ]
  },
  {
-  "id": 7938,
-  "title": "アクセルレーション",
-  "kana": "あくせるれーしょん",
-  "url": "https://fujiwarahaji.me/music/as/7938",
-  "singers": [
-   "我那覇響",
-   "玲音"
-  ]
- },
- {
-  "id": 3484,
-  "title": "アクセルレーション",
-  "kana": "あくせるれーしょん",
-  "url": "https://fujiwarahaji.me/music/as/3484",
-  "singers": [
-   "詩花",
-   "玲音"
-  ]
- },
- {
   "id": 8109,
   "title": "あしたアイシテル",
   "kana": "あしたあいしてる",
@@ -392,31 +372,12 @@
   ]
  },
  {
-  "id": 8008,
-  "title": "Alice or Guilty",
-  "kana": "ありすおあぎるてぃ",
-  "url": "https://fujiwarahaji.me/music/as/8008",
-  "singers": [],
-  "units": [
-   "Jupiter"
-  ]
- },
- {
   "id": 8082,
   "title": "arcadia",
   "kana": "あるかでぃあ",
   "url": "https://fujiwarahaji.me/music/as/8082",
   "singers": [
    "如月千早"
-  ]
- },
- {
-  "id": 7918,
-  "title": "アルティメットアイズ",
-  "kana": "あるてぃめっとあいず",
-  "url": "https://fujiwarahaji.me/music/as/7918",
-  "singers": [
-   "玲音"
   ]
  },
  {
@@ -636,19 +597,6 @@
   ]
  },
  {
-  "id": 4592,
-  "title": "EVER RISING",
-  "kana": "えばーらいじんぐ",
-  "url": "https://fujiwarahaji.me/music/as/4592",
-  "singers": [
-   "奥空心白",
-   "亜夜"
-  ],
-  "units": [
-   "アルバノクト"
-  ]
- },
- {
   "id": 7952,
   "title": "エピソードラブ",
   "kana": "えぴそーどらぶ",
@@ -786,13 +734,6 @@
   ]
  },
  {
-  "id": 8009,
-  "title": "On Sunday",
-  "kana": "おんさんでー",
-  "url": "https://fujiwarahaji.me/music/as/8009",
-  "singers": []
- },
- {
   "id": 7958,
   "title": "♪",
   "kana": "おんぷ",
@@ -835,27 +776,6 @@
   "singers": [
    "たかはし智秋",
    "今井麻美"
-  ]
- },
- {
-  "id": 3117,
-  "title": "オーバーマスター",
-  "kana": "おーばーますたー",
-  "url": "https://fujiwarahaji.me/music/as/3117",
-  "singers": [
-   "我那覇響",
-   "四条貴音",
-   "星井美希",
-   "レトラ",
-   "上水流宇宙",
-   "亜夜",
-   "灯里愛夏",
-   "玲音",
-   "詩花"
-  ],
-  "units": [
-   "ディアマント",
-   "プロジェクト・フェアリー"
   ]
  },
  {
@@ -977,18 +897,6 @@
    "水瀬伊織",
    "天空橋朋花",
    "百瀬莉緒"
-  ]
- },
- {
-  "id": 8092,
-  "title": "KisS",
-  "kana": "きす",
-  "url": "https://fujiwarahaji.me/music/as/8092",
-  "singers": [
-   "我那覇響",
-   "四条貴音",
-   "星井美希",
-   "原田彩楓"
   ]
  },
  {
@@ -1120,13 +1028,6 @@
   ]
  },
  {
-  "id": 8010,
-  "title": "結晶～Crystal Dust～",
-  "kana": "くりすたるだすと",
-  "url": "https://fujiwarahaji.me/music/as/8010",
-  "singers": []
- },
- {
   "id": 5322,
   "title": "CRIMSON LOVERS",
   "kana": "くりむぞんらばーず",
@@ -1145,17 +1046,6 @@
   "url": "https://fujiwarahaji.me/music/as/8023",
   "singers": [
    "原由実"
-  ]
- },
- {
-  "id": 8055,
-  "title": "黒い犬",
-  "kana": "くろいいぬ",
-  "url": "https://fujiwarahaji.me/music/as/8055",
-  "singers": [
-   "我那覇響",
-   "四条貴音",
-   "星井美希"
   ]
  },
  {
@@ -1279,16 +1169,6 @@
   "url": "https://fujiwarahaji.me/music/as/8032",
   "singers": [
    "秋月律子"
-  ]
- },
- {
-  "id": 8011,
-  "title": "恋をはじめよう",
-  "kana": "こいをはじめよう",
-  "url": "https://fujiwarahaji.me/music/as/8011",
-  "singers": [],
-  "units": [
-   "Jupiter"
   ]
  },
  {
@@ -2910,13 +2790,6 @@
   ]
  },
  {
-  "id": 8012,
-  "title": "BANG×BANG",
-  "kana": "ばんぐばんぐ",
-  "url": "https://fujiwarahaji.me/music/as/8012",
-  "singers": []
- },
- {
   "id": 3521,
   "title": "Vertex Meister",
   "kana": "ばーてっくすまいすたー",
@@ -3005,20 +2878,6 @@
    "高槻やよい",
    "双海亜美",
    "双海真美"
-  ]
- },
- {
-  "id": 4593,
-  "title": "1st Call",
-  "kana": "ふぁーすとこーる",
-  "url": "https://fujiwarahaji.me/music/as/4593",
-  "singers": [
-   "詩花",
-   "玲音",
-   "亜夜"
-  ],
-  "units": [
-   "DIAMANT"
   ]
  },
  {
@@ -3132,16 +2991,6 @@
   "singers": [
    "我那覇響",
    "菊地真"
-  ]
- },
- {
-  "id": 2808,
-  "title": "Blooming Star",
-  "kana": "ぶるーみんぐすたー",
-  "url": "https://fujiwarahaji.me/music/as/2808",
-  "singers": [
-   "四条貴音",
-   "詩花"
   ]
  },
  {
@@ -3814,20 +3663,6 @@
   ],
   "units": [
    "ARCANA"
-  ]
- },
- {
-  "id": 11578,
-  "title": "REALIZE!!!",
-  "kana": "りあらいず",
-  "url": "https://fujiwarahaji.me/music/as/11578",
-  "singers": [
-   "我那覇響",
-   "四条貴音",
-   "星井美希"
-  ],
-  "units": [
-   "プロジェクト・フェアリー"
   ]
  },
  {

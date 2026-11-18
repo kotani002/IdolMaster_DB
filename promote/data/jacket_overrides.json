@@ -752,12 +752,19 @@
   "6044": {
    "title": "“HELLO!!”",
    "jacket": "https://columbia.jp/idolmaster/ds/images/COCC-16298.png",
-   "cd": "THE IDOLM@STER DREAM SYMPHONY 00 “HELLO!!”（ディアリースターズ盤。vα-liv盤は jacket_alts.json で選べるようにする）"
+   "cd": "THE IDOLM@STER DREAM SYMPHONY 00 “HELLO!!”"
+  }
+ },
+ "961": {
+  "961-extreme": {
+   "title": "エクストリーム・オーバードライブ",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1149L.jpg",
+   "cd": "IDOL WORLD SUPER FESTIVAL 2026 会場オリジナルCD【961PRODUCTION & KOHAKU & 765PRO ALLSTARS】（SACX-1149～1150）"
   },
-  "5041": {
-   "title": "The world is all one !!",
-   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1148L.jpg",
-   "cd": "876 PRODUCTION FES. Alternative Tracks Collection【Dearly Stars盤】（SACX-1148）。vα-liv盤は jacket_alts.json（876:5041）で選べる"
+  "961-flame": {
+   "title": "FlaME",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1149L.jpg",
+   "cd": "IDOL WORLD SUPER FESTIVAL 2026 会場オリジナルCD【961PRODUCTION & KOHAKU & 765PRO ALLSTARS】（SACX-1149～1150）"
   }
  }
 }

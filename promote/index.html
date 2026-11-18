@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261118c">
+<link rel="stylesheet" href="assets/style.css?v=20261118h">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -111,7 +111,14 @@
     </div>
     <input type="search" id="mem-search" placeholder="名前・よみ・CVで検索" autocomplete="off">
     <div id="mem-brands" class="chip-row" role="group" aria-label="ブランドで絞り込み"></div>
-    <div id="mem-groups" class="chip-row"></div>
+    <!-- スマホではブランドのタグが横に長くなるので、代わりにプルダウンで選ぶ（style.css で切り替え） -->
+    <select id="mem-brand-sel" aria-label="ブランドで絞り込み"></select>
+    <!-- ユニット・出演日のタグ。スマホでは横スクロールの1行になるので、左右の矢印ボタンでも動かせる -->
+    <div class="chip-scroll" id="mem-groups-wrap">
+      <button type="button" class="chip-arrow left" aria-label="左へ" hidden>‹</button>
+      <div id="mem-groups" class="chip-row"></div>
+      <button type="button" class="chip-arrow right" aria-label="右へ" hidden>›</button>
+    </div>
     <div id="mem-list" class="mem-list"></div>
     <div class="mem-custom">
       <input type="text" id="mem-custom-in" placeholder="リストにない名前を追加（ユニット名なども可）" maxlength="30">
@@ -176,6 +183,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261118f" type="module"></script>
+<script src="assets/app.js?v=20261118l" type="module"></script>
 </body>
 </html>

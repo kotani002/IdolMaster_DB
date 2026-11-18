@@ -72,6 +72,8 @@ SOURCES = {
 }
 # 876プロ（ディアリースターズ）の CD も同じ日本コロムビアのサイト（DREAM SYMPHONY・OTHER など）にある
 SOURCES["876"] = SOURCES["as"]
+# 961プロの曲（Jupiter・玲音・詩花など）も日本コロムビアのサイト（ミリオンの ZWEIGLANZ はランティスで設定済み）
+SOURCES["961"] = SOURCES["as"]
 
 
 # ---------------------------------------------------------------- fetch
@@ -362,40 +364,9 @@ def song_key(title: str) -> str:
 # サイトのジャケット画面で選べるようにする（例：ムゲンダイグロウアップ！ → FRAME盤 / もふもふえん盤）
 ALT_SERIES = {"sidem": re.compile(r"F[@＠]NTASTIC COMBINATION")}
 # 手で決めた「選べるジャケット」（ブランド → 曲ID → 盤のリスト）。1つ目は jacket_overrides.json の既定と同じにする
-_DS_ALT = "https://columbia.jp/idolmaster/imasnews/images/SACX-1148L.jpg"
-_DS_ALT_CD = "876 PRODUCTION FES. Alternative Tracks Collection【Dearly Stars盤】（SACX-1148）"
-_VALIV_ALT = ("https://wsrv.nl/?url=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHLgCCwAbsAAUxqz%3Fformat%3Djpg%26name%3Dlarge"
-              "&cx=142&cy=164&cw=427&ch=427&output=jpg&q=90")
-_VALIV_PORTAL = "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/"  # vα-liv 公式ディスコグラフィー
-MANUAL_ALTS = {
-    "876": {
-        # “HELLO!!”：ディアリースターズ盤（DREAM SYMPHONY 00）と vα-liv盤（876 PRODUCTION FES. Alternative Tracks
-        # Collection【vα-liv盤】）。vα-liv盤は公式サイトに画像が無いので、ASOBINOTES（レーベル）の X の告知画像
-        # （https://x.com/ASOBINOTES876/status/2069406367241392191）からジャケット部分を画像変換サービスで切り出す
-        "6044": [
-            {"jacket": "https://columbia.jp/idolmaster/ds/images/COCC-16298.png", "label": "Dearly Stars盤",
-             "cd": "THE IDOLM@STER DREAM SYMPHONY 00 “HELLO!!”"},
-            {"jacket": _VALIV_ALT,
-             "label": "vα-liv盤", "cd": "876 PRODUCTION FES. Alternative Tracks Collection【vα-liv盤】"},
-        ],
-        # ディアリースターズも歌った曲（876 PRODUCTION FES. Alternative Tracks Collection【Dearly Stars盤】SACX-1148）は、
-        # vα-liv（または元）の盤と選べるようにする（ユーザー判断）。The world is all one !! は 765AS の曲なので「876:曲ID」
-        "876:5041": [
-            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
-            {"jacket": _VALIV_ALT, "label": "vα-liv盤", "cd": "876 PRODUCTION FES. Alternative Tracks Collection【vα-liv盤】"},
-        ],
-        "10515": [  # RELOADING（vα-liv 版は配信でリローディングの曲名）
-            {"jacket": _VALIV_PORTAL + "1bbb5bddfa5f4427a144273ef3e9adef/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400.jpg?fm=jpg&w=600&q=85",
-             "label": "vα-liv盤", "cd": "vα-liv Project 1st song『リローディング』"},
-            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
-        ],
-        "11081": [  # クリスタライン
-            {"jacket": _VALIV_PORTAL + "164eafa44cb241b7ba230b6a179f596a/%E3%82%AF%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%83%B3_resize.jpg?fm=jpg&w=600&q=85",
-             "label": "vα-liv盤", "cd": "vα-liv Project 2nd song『クリスタライン』"},
-            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
-        ],
-    },
-}
+# 他ブランドの曲は「ブランド:曲ID」をキーにする。
+# （876プロのカバー版（Alternative Tracks Collection）で2盤から選べるようにしたが、ユーザー判断でカバー版ごと外した。今は無し）
+MANUAL_ALTS: dict[str, dict[str, list[dict]]] = {}
 
 
 def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
@@ -403,7 +374,7 @@ def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
     af = DATA / "jacket_alts.json"
     alts = json.loads(af.read_text(encoding="utf-8")) if af.exists() else {}
     ids = {str(s["id"]) for s in songs}
-    alts = {k: v for k, v in alts.items() if k not in ids}  # このブランドの分は作り直す
+    alts = {k: v for k, v in alts.items() if k not in ids and not k.startswith(f"{brand}:")}  # このブランドの分は作り直す
     if pat:
         found: dict[str, dict[str, tuple]] = {}
         for d in discs:

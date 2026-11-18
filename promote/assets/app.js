@@ -618,6 +618,17 @@ function drawBrandChips() {
     }),
   );
   scrollChipIntoView(box);
+  // スマホ用のプルダウン（ブランドと合同ライブを分けて並べる。選んだブランドの色を枠に付ける）
+  const sel = $("#mem-brand-sel");
+  sel.replaceChildren(
+    h("optgroup", { label: "ブランド" }, ...DB.brands.map((b) => h("option", { value: b.id }, b.name))),
+    ...(DB.events.length ? [h("optgroup", { label: "合同ライブ・イベント" },
+      ...DB.events.map((e) => h("option", { value: EVENT_PREFIX + e.id }, e.name)))] : []),
+  );
+  sel.value = memDlg.brand;
+  const cur = DB.brands.find((b) => b.id === memDlg.brand);
+  sel.style.borderColor = cur ? cur.color : ALL_COLOR;
+  sel.onchange = () => pick(sel.value);
 }
 
 // スマホではタグが横スクロールの1行になるので、選択中のタグが見える位置までずらす
@@ -654,8 +665,11 @@ function memberPool() {
 function groupOptions() {
   const ev = eventOf(memDlg.brand);
   if (ev) return ev.days.map((d) => ({ key: d.id, label: d.label }));
-  const groups = [...new Set((DB.idols[memDlg.brand] || []).map((i) => i.group).filter(Boolean))];
-  return groups.length > 1 ? groups.map((g) => ({ key: g, label: g })) : [];
+  const idols = DB.idols[memDlg.brand] || [];
+  const groups = [...new Set(idols.map((i) => i.group).filter(Boolean))];
+  // ユニットの色があれば（シャニマス・SideM）タグの縁に付ける
+  const colorOf = (g) => (idols.find((i) => i.group === g && i.group_color) || {}).group_color || "";
+  return groups.length > 1 ? groups.map((g) => ({ key: g, label: g, color: colorOf(g) })) : [];
 }
 
 function drawGroupChips() {
@@ -664,19 +678,54 @@ function drawGroupChips() {
   gbox.replaceChildren(...(opts.length
     ? [{ key: "", label: "すべて" }, ...opts].map((o) => h("button", {
         type: "button", class: "chip" + (o.key === memDlg.group ? " on" : ""), "data-g": o.key,
+        style: o.color ? { borderColor: isLight(o.color) ? "#cfc8bc" : o.color, borderLeft: `6px solid ${o.color}` } : {},
         onclick: () => { memDlg.group = o.key; gbox.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.g === o.key)); drawMemList(); },
       }, o.label))
     : []));
   gbox.scrollLeft = 0;
   scrollChipIntoView(gbox);
+  setupChipArrows($("#mem-groups-wrap"));
+}
+
+// 横スクロールのタグの左右に矢印ボタンを出す（続きがある側だけ）。押すと表示幅の7割ずつ動く
+const chipArrowUpdaters = new Set(); // 画面の幅が変わったら測り直す（消えた列は外す）
+window.addEventListener("resize", () => {
+  for (const u of chipArrowUpdaters) { if (u.wrap.isConnected) u(); else chipArrowUpdaters.delete(u); }
+});
+function setupChipArrows(wrap) {
+  const row = wrap.querySelector(".chip-row, .mem-alls");
+  const [left, right] = wrap.querySelectorAll(".chip-arrow");
+  const update = () => {
+    const max = row.scrollWidth - row.clientWidth;
+    left.hidden = !(max > 4 && row.scrollLeft > 4);
+    right.hidden = !(max > 4 && row.scrollLeft < max - 4);
+    wrap.classList.toggle("at-start", left.hidden);
+    wrap.classList.toggle("at-end", right.hidden);
+  };
+  if (!wrap._arrows) {
+    wrap._arrows = true;
+    const step = (dir) => row.scrollBy({ left: dir * Math.max(120, row.clientWidth * 0.7), behavior: "smooth" });
+    left.onclick = () => step(-1);
+    right.onclick = () => step(1);
+    row.addEventListener("scroll", update, { passive: true });
+    update.wrap = wrap;
+    chipArrowUpdaters.add(update);
+  }
+  // ダイアログを開く前に描いたときは幅が 0 なので、開いたあとにも測り直す
+  requestAnimationFrame(update);
+  setTimeout(update, 80);
 }
 
 // 「○○全員」タグ：個別のアイドルを選ばず、まとめて1つのタグとして追加する
-function allRows() {
+function allRows(searching = false) {
   const ev = eventOf(memDlg.brand);
   if (!ev) {
-    if (memDlg.group) return [];
     const b = brand(memDlg.brand);
+    if (memDlg.group) {
+      // ユニットで分けているブランド（シャニマス・SideM）は、ユニット名を1つのタグとして追加できる（色はユニットの色）
+      const u = (DB.idols[b.id] || []).find((i) => i.group === memDlg.group && i.group_color);
+      return u ? [{ label: u.group, brand: b.id, color: u.group_color }] : [];
+    }
     return [{ label: `${b.short}全員`, brand: b.id, color: b.color }];
   }
   const rows = [];
@@ -685,6 +734,9 @@ function allRows() {
     if (memDlg.group && memDlg.group !== d.id) continue;
     const day = d.label.split(/\s/)[0]; // "Day1 2/27(土)" → "Day1"
     rows.push({ label: `${day}全員`, brand: "", color: ALL_COLOR });
+    // ブランド別（Day1シンデレラ全員など）は、出演日を選んだとき（か検索したとき）だけ出す。
+    // 「すべて」のときは Day ごとの全員だけにして、スマホでも横にはみ出さないようにする
+    if (!memDlg.group && !searching) continue;
     const ids = [...new Set(d.members.map((m) => m.brand))].sort((a, b) => rank(a) - rank(b));
     for (const id of ids) rows.push({ label: `${day}${brand(id).short}全員`, brand: id, color: brand(id).color });
   }
@@ -707,13 +759,19 @@ function drawMemList() {
     (!q || norm(i.name).includes(q) || norm(i.kana).includes(q) || norm(i.cv).includes(q)));
   const chosen = new Set(it.members.map((m) => m.name));
   // 「全員」は1行にまとめた小さめのボタンにする（全幅の行が並ぶと、スマホでアイドル一覧が画面外に押し出されるため）
-  const allBtns = allRows().filter((r) => !q || norm(r.label).includes(q)).map((r) => h("button", {
+  const allBtns = allRows(!!q).filter((r) => !q || norm(r.label).includes(q)).map((r) => h("button", {
     type: "button", class: "mem-all" + (chosen.has(r.label) ? " on" : ""), "aria-pressed": String(chosen.has(r.label)),
     onclick: () => toggleMember({ name: r.label, color: r.color, brand: r.brand, all: true }),
   }, h("span", { class: "dot", style: { "--c": r.color } }), r.label));
-  const alls = allBtns.length
-    ? [h("div", { class: "mem-alls" }, h("span", { class: "mem-alls-label" }, "まとめて1タグで追加"), ...allBtns)]
-    : [];
+  // 合同ライブでは「Day1全員」「Day1SideM全員」…と数が多く見切れるので、ユニットのタグと同じく左右の矢印を付ける
+  const allsWrap = allBtns.length
+    ? h("div", { class: "chip-scroll mem-alls-wrap" },
+        h("button", { type: "button", class: "chip-arrow left", "aria-label": "左へ", hidden: true }, "‹"),
+        h("div", { class: "mem-alls" }, h("span", { class: "mem-alls-label" }, "まとめて1タグで追加"), ...allBtns),
+        h("button", { type: "button", class: "chip-arrow right", "aria-label": "右へ", hidden: true }, "›"))
+    : null;
+  const alls = allsWrap ? [allsWrap] : [];
+  const prevScroll = $("#mem-list .mem-alls")?.scrollLeft || 0; // 押すたびに描き直すので、横の位置を引き継ぐ
   $("#mem-list").replaceChildren(...alls, ...idols.map((i) => {
     const b = brand(i.brand);
     // CV はふだん出さない。CV で検索して見つかった人（名前・よみでは当たらない人）にだけ、理由が分かるよう出す
@@ -730,6 +788,10 @@ function drawMemList() {
     }, h("span", { class: "dot", style: { "--c": i.color || b.color } }),
        h("span", {}, i.name, sub ? h("small", {}, sub) : null));
   }));
+  if (allsWrap) {
+    allsWrap.querySelector(".mem-alls").scrollLeft = prevScroll;
+    setupChipArrows(allsWrap);
+  }
   $("#mem-count").textContent = `${it.members.length}人選択中`;
 }
 
