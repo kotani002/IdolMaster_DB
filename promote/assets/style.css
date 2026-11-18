@@ -43,9 +43,11 @@ a { color: inherit; }
   max-width: 920px; margin: 0 auto; padding: 10px 16px;
   display: flex; align-items: center; gap: 12px;
 }
-.brand-mark { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-kicker { font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--muted); }
-.brand-mark h1 { margin: 0; font-size: 18px; font-weight: 800; }
+.brand-mark { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
+.brand-kicker { font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--muted); white-space: nowrap; }
+/* タイトルは途中で改行しない（スマホでは文字を少し小さくし、ボタンを詰めて1行に収める） */
+.brand-mark h1 { margin: 0; font-size: 18px; font-weight: 800; white-space: nowrap; }
+.reset-short { display: none; }
 .topbar-actions { margin-left: auto; display: flex; gap: 8px; }
 
 .btn {
@@ -286,11 +288,19 @@ a { color: inherit; }
   #btn-guide { padding: 0; width: 36px; justify-content: center; }
   .topbar-actions { gap: 5px; }
   .topbar-actions .btn:not(#btn-guide) { padding: 0 10px; }
+  .topbar-inner { gap: 8px; padding-inline: 12px; }
+  .topbar .brand-mark h1 { font-size: clamp(12px, 3.8vw, 15px); } /* 後ろの幅640px以下の指定より優先させる */
   .guide-full { display: none; }
   .guide-short { display: inline; }
   /* カードの見出しのボタン（お題・↑↓・×）が1行に収まるよう少し詰める */
   .card-theme { gap: 5px; }
   .card-theme .tool:not(.theme-pick) { min-width: 28px; height: 28px; padding: 0 6px; }
+}
+/* とても狭いスマホ（幅360px以下）：リセットも「↺」だけにして、タイトルを1行に収める */
+@media (max-width: 360px) {
+  #btn-reset { padding: 0; width: 36px; }
+  .reset-full { display: none; }
+  .reset-short { display: inline; font-size: 16px; }
 }
 /* 使い方 */
 .guide-lead { margin: 2px 0 10px; font-weight: 700; line-height: 1.6; }

@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261119d">
+<link rel="stylesheet" href="assets/style.css?v=20261119g">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -66,7 +66,8 @@
     <div class="topbar-actions">
       <!-- 幅の狭いスマホでは「？」だけにする（style.css） -->
       <button type="button" class="btn ghost" id="btn-guide" title="使い方を見る" aria-label="使い方"><span class="guide-full">使い方</span><span class="guide-short" aria-hidden="true">？</span></button>
-      <button type="button" class="btn ghost" id="btn-reset" title="すべてリセット">リセット</button>
+      <!-- 幅のとても狭いスマホでは「↺」だけにする（タイトルが改行されないように。style.css） -->
+      <button type="button" class="btn ghost" id="btn-reset" title="すべてリセット" aria-label="リセット"><span class="reset-full">リセット</span><span class="reset-short" aria-hidden="true">↺</span></button>
       <button type="button" class="btn primary" id="btn-export">画像を作る</button>
     </div>
   </div>
