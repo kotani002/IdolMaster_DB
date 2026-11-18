@@ -170,6 +170,10 @@ a { color: inherit; }
 .tool.theme-pick:hover { border-color: rgba(0, 0, 0, .3); filter: brightness(.96); }
 .card.show-themes .tool.theme-pick { box-shadow: inset 0 2px 0 rgba(0, 0, 0, .15); }
 .tool.danger:hover { color: #d33; }
+/* 並べ替えのつまみ（ドラッグ中は指でスクロールしないよう touch-action: none） */
+.tool.drag-handle { cursor: grab; touch-action: none; font-size: 16px; letter-spacing: -1px; }
+.card.dragging { opacity: .85; box-shadow: 0 14px 40px rgba(60, 40, 0, .25); outline: 2px solid var(--from); z-index: 5; }
+body.card-dragging, body.card-dragging * { cursor: grabbing !important; user-select: none; -webkit-user-select: none; }
 .theme-chips {
   display: none; flex-wrap: wrap; gap: 6px; padding: 10px 18px;
   border-bottom: 1px solid var(--line); background: #fffdf9;
@@ -281,6 +285,28 @@ a { color: inherit; }
 .pitch-box { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .pitch-count { align-self: flex-end; font-size: 11px; font-weight: 700; color: var(--muted); }
 .pitch-count.full { color: #c0483a; }
+/* 使い方ボタン（幅の狭いスマホでは「？」だけ） */
+.guide-short { display: none; }
+@media (max-width: 400px) {
+  #btn-guide { padding: 0; width: 36px; justify-content: center; }
+  .topbar-actions { gap: 5px; }
+  .topbar-actions .btn:not(#btn-guide) { padding: 0 10px; }
+  .guide-full { display: none; }
+  .guide-short { display: inline; }
+  /* カードの見出しのボタン（お題・つまみ・↑↓・×）が1行に収まるよう少し詰める */
+  .card-theme { gap: 5px; }
+  .card-theme .tool:not(.theme-pick) { min-width: 28px; height: 28px; padding: 0 6px; }
+}
+/* 使い方 */
+.guide-lead { margin: 2px 0 10px; font-weight: 700; line-height: 1.6; }
+.guide-steps { margin: 0; padding: 0; list-style: none; counter-reset: g; display: grid; gap: 10px; }
+.guide-steps li { counter-increment: g; display: grid; grid-template-columns: 26px 1fr; column-gap: 10px; line-height: 1.55; font-size: 14px; }
+.guide-steps li::before {
+  content: counter(g); grid-row: span 2; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--from); color: var(--from-ink); font-weight: 800; display: grid; place-items: center; font-size: 13px;
+}
+.guide-steps strong { font-weight: 800; }
+.guide-steps span { color: var(--muted); font-size: 13px; }
 /* 画像を作る前の確認 */
 .pre-notes { margin: 4px 0 2px; padding-left: 1.2em; line-height: 1.7; font-size: 14px; }
 .pre-notes li + li { margin-top: 6px; }
