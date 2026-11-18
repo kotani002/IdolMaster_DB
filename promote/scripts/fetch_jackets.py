@@ -368,6 +368,33 @@ ALT_SERIES = {"sidem": re.compile(r"F[@＠]NTASTIC COMBINATION")}
 # （876プロのカバー版（Alternative Tracks Collection）で2盤から選べるようにしたが、ユーザー判断でカバー版ごと外した。今は無し）
 MANUAL_ALTS: dict[str, dict[str, list[dict]]] = {}
 
+# 越境曲で、ブランド盤のほかに全ブランド共通の盤（THE IDOLM@STER FIVE STARS!!!!! の配信）がある曲。
+# 各ブランドでは「そのブランドの盤（既定）／共通盤」から選べるようにする（ユーザー判断）。曲ID → (共通盤の画像, 盤の名前)
+COMMON_ALTS = {
+    4411: ("https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+           "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"),  # VOY@GER
+    3525: ("https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+           "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"),  # なんどでも笑おう
+}
+BRAND_LABEL = {"as": "765AS盤", "cg": "シンデレラ盤", "ml": "ミリオン盤", "sidem": "SideM盤", "sc": "シャニマス盤",
+               "gm": "学マス盤", "876": "876プロ盤", "961": "961プロ盤"}
+
+
+def write_common_alts(brand: str, songs: list, jackets: dict) -> None:
+    """COMMON_ALTS の曲を、このブランドの盤と共通盤から選べるように data/jacket_alts.json に「ブランド:曲ID」で書く。"""
+    af = DATA / "jacket_alts.json"
+    alts = json.loads(af.read_text(encoding="utf-8")) if af.exists() else {}
+    ids = {s["id"] for s in songs}
+    for sid, (common, cd) in COMMON_ALTS.items():
+        key = f"{brand}:{sid}"
+        own = jackets.get(key)
+        if sid not in ids or not own or own == common:
+            alts.pop(key, None)
+            continue
+        alts[key] = [{"jacket": own, "label": BRAND_LABEL.get(brand, "ブランド盤"), "cd": "このブランドの盤"},
+                     {"jacket": common, "label": "共通盤", "cd": cd}]
+    af.write_text(json.dumps(alts, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
 
 def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
     pat = ALT_SERIES.get(brand)
@@ -493,6 +520,7 @@ def main() -> None:
         print(f"[{brand}] {len(overrides)} jackets from jacket_overrides.json")
 
     jf.write_text(json.dumps(jackets, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    write_common_alts(brand, songs, jackets)
     (CACHE / f"{brand}_unmatched.txt").write_text("\n".join(unmatched) + "\n", encoding="utf-8")
     print(f"[{brand}] matched {matched}/{len(songs)}  (unmatched list: scripts/.cache/{brand}_unmatched.txt)")
 

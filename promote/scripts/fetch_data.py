@@ -328,10 +328,11 @@ _ALL = {"as", "cg", "ml", "sidem", "sc", "gm", "961"}
 _STARLIT = {"as", "cg", "ml", "sc", "961"}  # スターリットシーズン（765AS・シンデレラ・ミリオン・シャニマス、961プロも出演）
 CROSSOVER_SONGS: dict[int, set[str]] = {
     9498: _ALL,                  # アイ NEED YOU (FOR WONDERFUL STORY)
-    4411: _ALL,                  # VOY@GER
-    3525: _ALL,                  # なんどでも笑おう
-    5323: _ALL,                  # CRYST@LOUD
-    3982: _ALL - {"gm"},         # POPLINKS TUNE!!!!!（学マスを除く）
+    # 学マス・961プロが歌った音源が無い曲は外す（ユーザー判断。初星音楽祭のカバーは配信に無い）
+    4411: _ALL - {"961", "gm"},  # VOY@GER
+    3525: _ALL - {"961", "gm"},  # なんどでも笑おう
+    5323: _ALL - {"gm"},         # CRYST@LOUD
+    3982: _ALL - {"gm", "961"},  # POPLINKS TUNE!!!!!（学マス・961プロを除く）
     2611: {"as", "cg", "ml"},    # IDOL POWER RAINBOW（学マス・SideM・シャニマスを除く）
     2691: {"as", "cg", "ml"},    # アイ MUST GO!（学マス・SideM・シャニマスを除く）
     # SideM・学マスには入れない越境曲

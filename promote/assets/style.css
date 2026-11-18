@@ -198,7 +198,7 @@ a { color: inherit; }
 }
 .jacket span { padding: 0 14px; text-align: center; line-height: 1.6; }
 .jacket.has-img span { display: none; }
-/* 未設定・読み込み失敗：NOW PRINTING 画像の上部に「自分で設定できます」の案内を帯で重ねる */
+/* 未設定・読み込み失敗：NOW PRINTING 画像の上部に「ジャケット画像はありません」の案内を帯で重ねる */
 .jacket.is-failed.has-img span {
   display: block; position: absolute; top: 0; left: 0; right: 0; z-index: 1;
   padding: 6px 10px; background: rgba(255, 255, 255, .88);
@@ -211,16 +211,18 @@ a { color: inherit; }
   object-fit: cover; object-position: center; pointer-events: none;
 }
 .jacket.is-failed { background-color: #fdf0ee; color: #c0483a; box-shadow: inset 0 0 0 1px #f3c9c2; }
-.jacket::after {
-  content: "画像を変更"; position: absolute; inset: auto 0 0 0; padding: 6px 0;
+/* ジャケットは公式のものだけ。押せるのは公式ジャケットが複数ある曲（.can-pick）だけ */
+.jacket:not(.can-pick) { cursor: default; }
+.jacket.can-pick::after {
+  content: "ジャケットを選ぶ"; position: absolute; inset: auto 0 0 0; padding: 6px 0;
   background: rgba(0, 0, 0, .55); color: #fff; font-size: 12px; opacity: 0; transition: opacity .15s;
 }
-.jacket:hover::after, .jacket:focus-visible::after { opacity: 1; }
-/* スマホは2回タップで開く：1回目は「もう一度タップでジャケット変更」を出す（ダブルタップで拡大されないよう touch-action も指定） */
+.jacket.can-pick:hover::after, .jacket.can-pick:focus-visible::after { opacity: 1; }
+/* スマホは2回タップで開く：1回目は「もう一度タップでジャケットを選ぶ」を出す（ダブルタップで拡大されないよう touch-action も指定） */
 .jacket { touch-action: manipulation; }
 @media (hover: none) { .jacket:hover::after, .jacket:focus-visible::after { opacity: 0; } }
-.jacket.armed::after, .jacket.is-failed.has-img.armed::after {
-  content: "もう一度タップでジャケット変更"; opacity: 1;
+.jacket.can-pick.armed::after {
+  content: "もう一度タップでジャケットを選ぶ"; opacity: 1;
   inset: 0; display: flex; align-items: center; justify-content: center;
   background: rgba(0, 0, 0, .5); font-size: 13px; font-weight: 800; z-index: 2;
 }

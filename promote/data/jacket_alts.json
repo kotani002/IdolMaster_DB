@@ -94,5 +94,125 @@
    "label": "神速一魂盤",
    "cd": "THE IDOLM@STER SideM F＠NTASTIC COMBINATION ～HEARTMAKER!!!!～ -SPIRIT'S WAY- 神速一魂"
   }
+ ],
+ "as:4411": [
+  {
+   "jacket": "https://columbia.jp/idolmaster/img/COCC-17911.jpg",
+   "label": "765AS盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "as:3525": [
+  {
+   "jacket": "https://columbia.jp/idolmaster/15th/images/15th_765.jpg",
+   "label": "765AS盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "cg:4411": [
+  {
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17912.jpg",
+   "label": "シンデレラ盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "cg:3525": [
+  {
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17813.jpg",
+   "label": "シンデレラ盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "ml:4411": [
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/12/7d/83/127d835a-0ae8-0f0a-9311-6bca304c482f/4540774241637.jpg/600x600bb.jpg",
+   "label": "ミリオン盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "ml:3525": [
+  {
+   "jacket": "https://lantis.jp/imas/img/LACM-24025.jpg",
+   "label": "ミリオン盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "sidem:4411": [
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/97/88/8b/97888b6d-e799-2183-9dcc-b928f3933763/4540774241644.jpg/600x600bb.jpg",
+   "label": "SideM盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "sidem:3525": [
+  {
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/LACM-24026.jpg",
+   "label": "SideM盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "sc:4411": [
+  {
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2021/12/LACM-24165.jpg",
+   "label": "シャニマス盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/14/88/94/148894a6-9957-57b5-52bc-12ca594c08b9/COKM-43445.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "THE IDOLM@STERシリーズ イメージソング2021「VOY@GER」（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
+ ],
+ "sc:3525": [
+  {
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2021/12/LACM-24027.jpg",
+   "label": "シャニマス盤",
+   "cd": "このブランドの盤"
+  },
+  {
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/74/c1/98/74c198c7-a08a-617e-96c3-4a22e0dd34b6/COKM-42965.jpg/600x600bb.jpg",
+   "label": "共通盤",
+   "cd": "なんどでも笑おう（THE IDOLM@STER FIVE STARS!!!!!）"
+  }
  ]
 }

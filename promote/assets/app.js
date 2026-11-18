@@ -285,11 +285,14 @@ function cardEl(it, idx) {
   );
 
   // --- ジャケット
+  // 自分で画像を設定する機能は無い（不適切な画像を登録・書き出しできないように）。
+  // 公式ジャケットが複数ある曲（F＠NTASTIC COMBINATION など）だけ、押すと公式の中から選べる（paintJacket で切り替え）。
   // スマホ（指で操作する画面）はスクロール中に誤ってジャケットに触れやすいので、2回タップで開く。
-  // 1回目は「もう一度タップでジャケット変更」を出して待つ（少し経つと戻る）。マウス・キーボードは1回で開く
+  // 1回目は「もう一度タップでジャケットを選ぶ」を出して待つ（少し経つと戻る）。マウス・キーボードは1回で開く
   const jacket = h("button", {
-    type: "button", class: "jacket", "aria-label": "ジャケット画像を設定",
+    type: "button", class: "jacket", "aria-label": "ジャケット画像",
     onclick: (e) => {
+      if (!altsOf(it.songId, it.brand || state.from).length) return;
       const touch = matchMedia("(pointer: coarse)").matches && e.detail !== 0; // detail 0 はキーボード操作
       if (!touch || jacket.classList.contains("armed")) {
         jacket.classList.remove("armed"); clearTimeout(jacket._armT);
@@ -301,11 +304,19 @@ function cardEl(it, idx) {
       jacket._armT = setTimeout(() => jacket.classList.remove("armed"), 1500);
     },
   }, h("span", {}));
-  // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
-  // （公式ジャケットの中から別の盤を選んだ曲はそのまま）
-  if (it.songId && (!it.jacket || it.jacketAuto) && !(it.jacketAlt && altsOf(it.songId, it.brand || state.from).some((a) => a.jacket === it.jacket))) {
-    const jk = jacketOf(it.songId, it.brand || state.from);
-    if (jk && jk !== it.jacket) { it.jacket = jk; it.jacketAuto = true; save(); }
+  // ジャケットは公式のもの（jackets.json と、盤ごとに違う曲の jacket_alts.json）だけ。
+  // 以前の版で自分で設定した画像（URL・端末の画像）が保存に残っていたら外し、公式のジャケットに戻す。
+  // データ追加前に選んだ曲・URLが更新された曲も、jackets.json の最新の内容で補完する（公式の別の盤を選んだ曲はそのまま）
+  {
+    const b = it.brand || state.from;
+    const jk = it.songId ? jacketOf(it.songId, b) || "" : "";
+    const alts = it.songId ? altsOf(it.songId, b).map((a) => a.jacket) : [];
+    const keepAlt = it.jacketAlt && alts.includes(it.jacket);
+    if (!keepAlt && it.jacket !== jk) {
+      Object.assign(it, { jacket: jk, jacketAuto: !!jk, jacketAlt: false, jkPos: "auto" });
+      save();
+    }
+    if (!alts.length && it.jkPos && it.jkPos !== "auto") { it.jkPos = "auto"; save(); } // 位置も選べる曲だけ
   }
   paintJacket(jacket, it);
 
@@ -333,11 +344,9 @@ function cardEl(it, idx) {
     if (document.activeElement === songIn) songIn.blur();
     pickedAt = performance.now();
     it.title = s.title; it.songId = s.id; it.url = s.url; it.brand = state.from;
-    // 楽曲に対応するジャケットがあれば自動で差し替える（自分で設定したジャケットは残す）
-    const jk = jacketOf(s.id, state.from);
-    it.jacketAlt = false;
-    if (jk && (it.jacketAuto || !it.jacket)) { it.jacket = jk; it.jacketAuto = true; it.jkPos = "auto"; }
-    else if (!jk && it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jkPos = "auto"; }
+    // 楽曲の公式ジャケットにする（無ければ NOW PRINTING）
+    const jk = jacketOf(s.id, state.from) || "";
+    Object.assign(it, { jacket: jk, jacketAuto: !!jk, jacketAlt: false, jkPos: "auto" });
     paintJacket(jacket, it);
     songIn.value = s.title;
     close(); syncSongField(); save();
@@ -387,7 +396,7 @@ function cardEl(it, idx) {
   songIn.addEventListener("input", () => {
     if (performance.now() - pickedAt < 400) { songIn.value = it.title; return; } // 選曲直後の確定による入力は無視
     it.title = songIn.value; it.songId = null; it.url = ""; it.brand = state.from;
-    if (it.jacketAuto) { it.jacket = ""; it.jacketAuto = false; it.jacketAlt = false; it.jkPos = "auto"; }
+    Object.assign(it, { jacket: "", jacketAuto: false, jacketAlt: false, jkPos: "auto" }); // 一覧に無い曲名はジャケット無し
     paintJacket(jacket, it, true);
     syncSongField();
     save(); search();
@@ -444,7 +453,7 @@ function cardEl(it, idx) {
 }
 
 const JK_WAIT = "楽曲を選ぶと自動で更新されます";
-const JK_FAIL = "ジャケットの取得に失敗しました。自分でジャケットの設定ができます";
+const JK_FAIL = "この曲のジャケット画像はありません";
 // ジャケット未設定の曲に出す画像（scripts/make_now_printing.py で作成）
 const NOW_PRINTING = "assets/now_printing.png?v=3"; // 画像を作り直したら ?v= を変える
 
@@ -504,13 +513,18 @@ async function jacketPos(url, pos) {
   return /^https?:\/\/columbia\.jp\//.test(url) ? "right center" : "left center";
 }
 
-// ジャケット枠の表示：画像 / 選曲待ち / 取得失敗（＝自分で設定してね）
+// ジャケット枠の表示：画像 / 選曲待ち / ジャケット無し・読み込み失敗（NOW PRINTING）
 // typing=true の間は入力途中なので失敗表示にしない
 function paintJacket(el, it, typing = false) {
   const span = el.querySelector("span");
   const token = (el._tok = (el._tok || 0) + 1);
+  // 押せるのは公式ジャケットが複数ある曲だけ
+  const canPick = !!it.songId && altsOf(it.songId, it.brand || state.from).length > 0;
+  el.classList.toggle("can-pick", canPick);
+  el.setAttribute("aria-label", canPick ? "ジャケットを選ぶ" : "ジャケット画像");
+  el.tabIndex = canPick ? 0 : -1;
   const fail = () => {
-    // 未設定・読み込み失敗は「NOW PRINTING...」画像を出し、上に「自分で設定できます」の案内を重ねる
+    // 未設定・読み込み失敗は「NOW PRINTING...」画像を出し、上に「ジャケット画像はありません」の案内を重ねる
     setBg(el, NOW_PRINTING);
     setBgPos(el, "");
     el.classList.add("is-failed");
@@ -811,7 +825,6 @@ const jkDlg = { item: null, value: "", pos: "auto" };
 
 function openJacket(item) {
   jkDlg.item = item; jkDlg.value = item.jacket || ""; jkDlg.pos = item.jkPos || "auto";
-  $("#jk-url").value = jkDlg.value.startsWith("data:") ? "" : jkDlg.value;
   paintJkPreview();
   $("#dlg-jacket").showModal();
 }
@@ -840,18 +853,9 @@ function paintJkPreview() {
     img.src = imgUrl(a.jacket);
     return h("button", {
       type: "button", class: "jk-alt" + (on ? " on" : ""), "aria-pressed": String(on), title: a.cd,
-      onclick: () => { jkDlg.value = a.jacket; jkDlg.pos = "auto"; $("#jk-url").value = a.jacket; paintJkPreview(); },
+      onclick: () => { jkDlg.value = a.jacket; jkDlg.pos = "auto"; paintJkPreview(); },
     }, img, h("span", {}, a.label));
   }));
-}
-
-async function fileToDataURL(file, max = 640) {
-  const bmp = await createImageBitmap(file);
-  const s = Math.min(1, max / Math.max(bmp.width, bmp.height));
-  const c = document.createElement("canvas");
-  c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
-  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
-  return c.toDataURL("image/jpeg", 0.86);
 }
 
 // ---------------------------------------------------------------- export
@@ -979,7 +983,7 @@ async function exportImage() {
     const notes = [];
     if (lastExport.length > 1) notes.push(`${items.length}曲を${lastExport.length}枚に分けました（1枚あたり${SONGS_PER_IMAGE}曲）。` +
       (lastExport.length > 4 ? "X は1回の投稿に4枚まで添付できるので、5枚目以降はリプライなどで続けて投稿してください。" : ""));
-    if (failed) notes.push(`ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。端末に保存した画像を選ぶと確実です。`);
+    if (failed) notes.push(`ジャケット ${failed} 件は配信元の制限で読み込めず「NOW PRINTING」画像になりました。`);
     $("#ex-note").textContent = notes.join(" ");
     $("#ex-share").hidden = !canShareFile();
     $("#ex-save").textContent = lastExport.length > 1 ? `${lastExport.length}枚まとめて保存` : "画像を保存";
@@ -1062,37 +1066,14 @@ function wire() {
   $("#mem-custom-in").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addCustomMember(); } });
   $("#mem-search").addEventListener("keydown", (e) => { if (e.key === "Enter") e.preventDefault(); });
 
-  $("#jk-url").addEventListener("input", () => {
-    jkDlg.value = $("#jk-url").value.trim();
-    jkDlg.pos = "auto";
-    paintJkPreview();
-  });
-  $("#jk-file").addEventListener("change", async (e) => {
-    const f = e.target.files?.[0];
-    e.target.value = "";
-    if (!f) return;
-    try {
-      jkDlg.value = await fileToDataURL(f);
-      jkDlg.pos = "auto";
-      $("#jk-url").value = "";
-      paintJkPreview();
-    } catch { toast("画像を読み込めませんでした"); }
-  });
-  $("#jk-clear").onclick = () => { jkDlg.value = ""; jkDlg.pos = "auto"; $("#jk-url").value = ""; paintJkPreview(); };
-  // 「決定」で反映（dialog の close イベントには頼らない）
+  // 「決定」で反映（dialog の close イベントには頼らない）。選べるのは公式ジャケット（jacket_alts.json）だけ
   const applyJacket = () => {
     if (!jkDlg.item) return;
     const v = jkDlg.value;
-    if (v && !v.startsWith("data:") && !/^https?:\/\//i.test(v)) { toast("http(s) で始まる画像URLを入力してください"); return; }
-    // 公式ジャケットの中から選んだ場合は、自動で入ったジャケットと同じ扱い（選曲し直したら差し替わる）
     if (altsOf(jkDlg.item.songId, jkDlg.item.brand || state.from).some((a) => a.jacket === v)) {
       jkDlg.item.jacket = v;
       jkDlg.item.jacketAuto = true;
       jkDlg.item.jacketAlt = v !== jacketOf(jkDlg.item.songId, jkDlg.item.brand || state.from);
-    } else if (v !== jkDlg.item.jacket) {
-      jkDlg.item.jacketAlt = false;
-      jkDlg.item.jacket = v;
-      jkDlg.item.jacketAuto = false; // 自分で設定したものは選曲し直しても消さない
     }
     jkDlg.item.jkPos = jkDlg.pos;
     const el = document.querySelector(`.card[data-id="${jkDlg.item.id}"] .jacket`);
@@ -1101,7 +1082,6 @@ function wire() {
     $("#dlg-jacket").close();
   };
   $("#jk-ok").addEventListener("click", (e) => { e.preventDefault(); applyJacket(); });
-  $("#jk-url").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); applyJacket(); } });
   $("#jk-close").addEventListener("click", (e) => { e.preventDefault(); $("#dlg-jacket").close(); });
 
   $("#ex-close").onclick = () => $("#dlg-export").close();

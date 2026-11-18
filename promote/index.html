@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261118h">
+<link rel="stylesheet" href="assets/style.css?v=20261118i">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -96,7 +96,7 @@
   <footer class="site-foot">
     <p>楽曲・アイドルデータ：<a href="https://fujiwarahaji.me/" target="_blank" rel="noopener">アイマス楽曲DB ふじわらはじめ</a>（<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC 4.0</a>）<span id="data-date"></span></p>
     <p>ジャケット画像：各ブランド公式ディスコグラフィー・<a href="https://music.apple.com/jp/" target="_blank" rel="noopener">Apple Music</a></p>
-    <p>入力内容（名前・プレゼン内容・選んだ画像など）は、お使いの端末（ブラウザ）にのみ保存されます。サーバーには送信しません。</p>
+    <p>入力内容（名前・プレゼン内容・選んだアイドルなど）は、お使いの端末（ブラウザ）にのみ保存されます。サーバーには送信しません。</p>
     <p>本サイトは非公式のファンメイドツールです。楽曲・ジャケット等の著作権は各権利者に帰属します。© BANDAI NAMCO Entertainment Inc.</p>
     <p>エラーや不具合を見つけたら、X（Twitter）の <a href="https://x.com/donguri_283" target="_blank" rel="noopener">@donguri_283</a> までお知らせください。</p>
   </footer>
@@ -134,9 +134,11 @@
 <dialog id="dlg-jacket" class="dlg">
   <form method="dialog" class="dlg-inner">
     <div class="dlg-head">
-      <h2>ジャケット画像</h2>
+      <h2>ジャケットを選ぶ</h2>
       <button type="button" class="icon-btn" id="jk-close" aria-label="閉じる">×</button>
     </div>
+    <!-- 自分で画像を設定する機能は無い（不適切な画像を登録・書き出しできないように）。
+         公式ジャケットが複数ある曲（F＠NTASTIC COMBINATION など）だけ、この画面で選べる -->
     <div class="jk-preview" id="jk-preview"><span>NO IMAGE</span></div>
     <div class="jk-alts" id="jk-alts" hidden>
       <span class="lbl">公式ジャケットから選ぶ<small>（ユニットごとに別のCDが出ている曲）</small></span>
@@ -146,13 +148,6 @@
       <span class="lbl">表示する位置<small>（表と裏が並んだ横長の画像は、自動で左側を表示します）</small></span>
       <div class="jk-pos-btns chip-row" role="group" aria-label="ジャケットの表示する位置"></div>
     </div>
-    <label class="lbl">画像URL（右クリック →「画像アドレスをコピー」したものを貼り付け）</label>
-    <input type="url" id="jk-url" placeholder="https://..." autocomplete="off">
-    <div class="jk-actions">
-      <label class="btn">端末の画像を使う<input type="file" id="jk-file" accept="image/*" hidden></label>
-      <button type="button" class="btn ghost" id="jk-clear">画像を外す</button>
-    </div>
-    <p class="muted small">URL埋め込みの画像は、配信元の設定によっては画像出力時に読み込めないことがあります。その場合は端末に保存した画像を選んでください。</p>
     <div class="dlg-foot">
       <button type="button" class="btn primary" id="jk-ok">決定</button>
     </div>
@@ -183,6 +178,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="assets/app.js?v=20261118l" type="module"></script>
+<script src="assets/app.js?v=20261118m" type="module"></script>
 </body>
 </html>
