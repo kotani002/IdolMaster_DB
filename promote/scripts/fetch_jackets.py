@@ -70,6 +70,8 @@ SOURCES = {
         "parser": "columbia",
     },
 }
+# 876プロ（ディアリースターズ）の CD も同じ日本コロムビアのサイト（DREAM SYMPHONY・OTHER など）にある
+SOURCES["876"] = SOURCES["as"]
 
 
 # ---------------------------------------------------------------- fetch
@@ -255,8 +257,19 @@ def parse_columbia(page: str, url: str) -> list[dict]:
         m = (re.search(r'class="jacket"[^>]*>\s*<img[^>]+src="([^"]+)"', blk)
              # 古いページ：images/COCX-34387.jpg のように品番だけの名前の画像がジャケット（png は飾り付きの合成画像なので使わない）
              or re.search(r'<img[^>]+src="((?:[^"]*/)?[A-Z]{2,4}-?\d{3,5}\.jpg)"', blk, re.I))
-        if not m:
+        # 2009年ごろのページ（RADIO LONG TIME・歌道場・STATION!!! FIRST TRAVEL など）は、ジャケットを CSS の背景画像
+        # （#jacket { background: url(images/COCX-35616.png) }）で出している。画像は 924×561 の透過 PNG で、
+        # 左上の 494px 四方がジャケット（下は鏡の映り込み）なので、画像変換サービスでその部分だけ切り出して使う。
+        # ほかの CD に入っていない曲（ラジオの曲・ディアリースターズの曲など）にだけ使う（下の penalty。
+        # 同じ作りの DREAM SYMPHONY などに入っている 765AS の曲は、今の公式ジャケットのままにする）
+        bg = None if m else re.search(r"#jacket\s*\{[^}]*url\(([^)]+\.png)\)", page)
+        # DREAM SYMPHONY（ディアリースターズ、/idolmaster/ds/）は <img src="images/COCX-35795.png" class="jacket">（四角いジャケット）
+        ds = None if m or bg else re.search(r'<img[^>]+src="([^"]+\.png)"[^>]*class="jacket"', blk)
+        if not m and not bg and not ds:
             continue
+        jacket = (clean_url((m or ds).group(1), url) if m or ds else
+                  "https://wsrv.nl/?url=" + clean_url(bg.group(1).strip("'\""), url).split("://", 1)[1]
+                  + "&cx=30&cy=0&cw=494&ch=494&output=jpg&q=90")
         d = (re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})\s*on\s*sale", blk, re.I)
              or re.search(r"(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日\s*(?:[（(][^）)]*[）)])?\s*発売", blk)
              or re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})\s*on\s*sale", page, re.I))
@@ -286,17 +299,17 @@ def parse_columbia(page: str, url: str) -> list[dict]:
                                    "", t, flags=re.I).strip()) and v != t]
         h = re.search(r"<h[12][^>]*>(.*?)</h[12]>", blk, re.S)
         title = re.sub(r"\s+", " ", text(re.sub(r"<br[^>]*>", " ", h.group(1)))) if h and starts else page_title
-        cat = re.search(r"([A-Z]{2,4})-?\d+", m.group(1).split("/")[-1])
+        cat = re.search(r"([A-Z]{2,4})-?\d+", (m or bg or ds).group(1).split("/")[-1])
         out.append({
             "url": url,
             "title": title or page_title,
-            "jacket": clean_url(m.group(1), url),
+            "jacket": jacket,
             "date": date,
             "tracks": tracks,
             # Blu-ray・DVD（COXC/COBC/XT）のジャケットは CD で見つからない曲にだけ使う。
             # ラジオの CD（歌姫楽園・STATION!!! など）は、ほかの CD に無い曲（ラジオの曲）にだけ使う
             "penalty": (2 if cat and cat.group(1).upper() in ("COXC", "COBC", "COBA", "XT")
-                        else 1 if re.search(r"RADIO|STATION", title or page_title, re.I) else 0),
+                        else 1 if bg or ds or re.search(r"RADIO|STATION", title or page_title, re.I) else 0),
         })
     return out
 
@@ -348,6 +361,41 @@ def song_key(title: str) -> str:
 # 2つのユニットが同じ曲をそれぞれのCDで出すシリーズ。曲ごとに両方のジャケットを data/jacket_alts.json に書き、
 # サイトのジャケット画面で選べるようにする（例：ムゲンダイグロウアップ！ → FRAME盤 / もふもふえん盤）
 ALT_SERIES = {"sidem": re.compile(r"F[@＠]NTASTIC COMBINATION")}
+# 手で決めた「選べるジャケット」（ブランド → 曲ID → 盤のリスト）。1つ目は jacket_overrides.json の既定と同じにする
+_DS_ALT = "https://columbia.jp/idolmaster/imasnews/images/SACX-1148L.jpg"
+_DS_ALT_CD = "876 PRODUCTION FES. Alternative Tracks Collection【Dearly Stars盤】（SACX-1148）"
+_VALIV_ALT = ("https://wsrv.nl/?url=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHLgCCwAbsAAUxqz%3Fformat%3Djpg%26name%3Dlarge"
+              "&cx=142&cy=164&cw=427&ch=427&output=jpg&q=90")
+_VALIV_PORTAL = "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/"  # vα-liv 公式ディスコグラフィー
+MANUAL_ALTS = {
+    "876": {
+        # “HELLO!!”：ディアリースターズ盤（DREAM SYMPHONY 00）と vα-liv盤（876 PRODUCTION FES. Alternative Tracks
+        # Collection【vα-liv盤】）。vα-liv盤は公式サイトに画像が無いので、ASOBINOTES（レーベル）の X の告知画像
+        # （https://x.com/ASOBINOTES876/status/2069406367241392191）からジャケット部分を画像変換サービスで切り出す
+        "6044": [
+            {"jacket": "https://columbia.jp/idolmaster/ds/images/COCC-16298.png", "label": "Dearly Stars盤",
+             "cd": "THE IDOLM@STER DREAM SYMPHONY 00 “HELLO!!”"},
+            {"jacket": _VALIV_ALT,
+             "label": "vα-liv盤", "cd": "876 PRODUCTION FES. Alternative Tracks Collection【vα-liv盤】"},
+        ],
+        # ディアリースターズも歌った曲（876 PRODUCTION FES. Alternative Tracks Collection【Dearly Stars盤】SACX-1148）は、
+        # vα-liv（または元）の盤と選べるようにする（ユーザー判断）。The world is all one !! は 765AS の曲なので「876:曲ID」
+        "876:5041": [
+            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
+            {"jacket": _VALIV_ALT, "label": "vα-liv盤", "cd": "876 PRODUCTION FES. Alternative Tracks Collection【vα-liv盤】"},
+        ],
+        "10515": [  # RELOADING（vα-liv 版は配信でリローディングの曲名）
+            {"jacket": _VALIV_PORTAL + "1bbb5bddfa5f4427a144273ef3e9adef/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400.jpg?fm=jpg&w=600&q=85",
+             "label": "vα-liv盤", "cd": "vα-liv Project 1st song『リローディング』"},
+            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
+        ],
+        "11081": [  # クリスタライン
+            {"jacket": _VALIV_PORTAL + "164eafa44cb241b7ba230b6a179f596a/%E3%82%AF%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%83%B3_resize.jpg?fm=jpg&w=600&q=85",
+             "label": "vα-liv盤", "cd": "vα-liv Project 2nd song『クリスタライン』"},
+            {"jacket": _DS_ALT, "label": "Dearly Stars盤", "cd": _DS_ALT_CD},
+        ],
+    },
+}
 
 
 def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
@@ -375,6 +423,7 @@ def write_alts(brand: str, discs: list, songs: list, best: dict) -> None:
             if len(js) == 2 and hit and hit[2] in js:
                 alts[str(s["id"])] = [{"jacket": j, "label": f"{lb}盤", "cd": t}
                                       for j, (dt, lb, t) in sorted(js.items(), key=lambda kv: (kv[1][0], kv[0]))]
+    alts.update(MANUAL_ALTS.get(brand, {}))
     af.write_text(json.dumps(alts, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     n = sum(1 for k in alts if k in ids)
     if n:
@@ -464,7 +513,9 @@ def main() -> None:
     all_ov = json.loads(of.read_text(encoding="utf-8")) if of.exists() else {}
     overrides = all_ov.get(brand, {})
     for sid, o in overrides.items():
-        jackets[f"{brand}:{sid}" if sid.isdigit() and int(sid) in CROSSOVER_SONGS else sid] = o["jacket"]
+        # 越境曲・他ブランドから足した曲は、元のブランドのジャケットを上書きしないよう「ブランド:曲ID」に入れる
+        own = sid.isdigit() and (int(sid) in CROSSOVER_SONGS or int(sid) in EXTRA_SONGS.get(brand, []))
+        jackets[f"{brand}:{sid}" if own else sid] = o["jacket"]
     for sid, o in all_ov.get("_all", {}).items():
         jackets[sid] = o["jacket"]
     if overrides:

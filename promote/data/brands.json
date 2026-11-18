@@ -46,7 +46,6 @@
   "name": "876プロダクション",
   "short": "876プロ",
   "color": "#8e5fc2",
-  "ink": "#ffffff",
-  "selectable": false
+  "ink": "#ffffff"
  }
 ]

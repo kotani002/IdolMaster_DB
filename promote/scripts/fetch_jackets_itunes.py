@@ -42,6 +42,7 @@ BRAND_WORDS = {
     "sidem": ["SideM", "315"],
     "gm": ["学園アイドルマスター", "学マス", "GAKUEN", "初星"],
     "as": ["765PRO ALLSTARS", "765プロ"],
+    "876": ["876PRO", "876 PRODUCTION", "Dearly Stars", "ディアリースターズ", "vα-liv", "ヴイアラ"],
 }
 IMAS_WORDS = ["アイドルマスター", "IDOLM@STER", "IDOLMASTER", "アイマス"]
 # 「Columbia」だけだと Sony の Columbia Records など別会社の曲も拾ってしまうので入れない

@@ -42,8 +42,10 @@ function jacketOf(songId, brandId) {
   return DB.jackets[`${brandId}:${songId}`] || DB.jackets[String(songId)];
 }
 // 選べる公式ジャケット（2ユニットの合同曲など、盤ごとにジャケットが違う曲）。[{ jacket, label, cd }]
-function altsOf(songId) {
-  return (songId != null && DB.jacketAlts[String(songId)]) || [];
+// 他ブランドの曲として足した曲（876プロの The world is all one!! など）は「ブランド:曲ID」を先に見る
+function altsOf(songId, brandId) {
+  if (songId == null) return [];
+  return DB.jacketAlts[`${brandId}:${songId}`] || DB.jacketAlts[String(songId)] || [];
 }
 
 async function getJSON(path) {
@@ -301,7 +303,7 @@ function cardEl(it, idx) {
   }, h("span", {}));
   // 保存済みの曲も jackets.json の最新の内容で補完する（データ追加前に選んだ曲・URLが更新された曲）
   // （公式ジャケットの中から別の盤を選んだ曲はそのまま）
-  if (it.songId && (!it.jacket || it.jacketAuto) && !(it.jacketAlt && altsOf(it.songId).some((a) => a.jacket === it.jacket))) {
+  if (it.songId && (!it.jacket || it.jacketAuto) && !(it.jacketAlt && altsOf(it.songId, it.brand || state.from).some((a) => a.jacket === it.jacket))) {
     const jk = jacketOf(it.songId, it.brand || state.from);
     if (jk && jk !== it.jacket) { it.jacket = jk; it.jacketAuto = true; save(); }
   }
@@ -766,7 +768,7 @@ function paintJkPreview() {
     onclick: () => { jkDlg.pos = id; paintJkPreview(); },
   }, label)));
   // 盤ごとにジャケットが違う曲（F＠NTASTIC COMBINATION の合同曲など）は、公式ジャケットから選べる
-  const alts = altsOf(jkDlg.item?.songId);
+  const alts = altsOf(jkDlg.item?.songId, jkDlg.item?.brand || state.from);
   const altBox = $("#jk-alts");
   altBox.hidden = !alts.length;
   altBox.querySelector(".jk-alt-btns").replaceChildren(...alts.map((a) => {
@@ -1021,7 +1023,7 @@ function wire() {
     const v = jkDlg.value;
     if (v && !v.startsWith("data:") && !/^https?:\/\//i.test(v)) { toast("http(s) で始まる画像URLを入力してください"); return; }
     // 公式ジャケットの中から選んだ場合は、自動で入ったジャケットと同じ扱い（選曲し直したら差し替わる）
-    if (altsOf(jkDlg.item.songId).some((a) => a.jacket === v)) {
+    if (altsOf(jkDlg.item.songId, jkDlg.item.brand || state.from).some((a) => a.jacket === v)) {
       jkDlg.item.jacket = v;
       jkDlg.item.jacketAuto = true;
       jkDlg.item.jacketAlt = v !== jacketOf(jkDlg.item.songId, jkDlg.item.brand || state.from);

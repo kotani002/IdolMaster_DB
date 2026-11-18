@@ -52,7 +52,8 @@ BRANDS = {
     "sc": {"music_type": "sc", "production": "sc", "sitemap": "sc"},
     # 876プロ：API に所属区分が無いので、他の所属から集めてグループ分けする
     #   names が None ならその所属の全員。sitemap はパーソナルカラー取得用
-    "876": {"music_type": None, "pick": [
+    #   秋月涼は SideM 所属で /tax が使えないので、歌唱者は曲ごとに取る
+    "876": {"music_type": "876", "singers_by_song": True, "pick": [
         {"production": "765", "names": ["日高愛", "水谷絵理"], "group": "ディアリースターズ"},
         {"production": "315", "names": ["秋月涼"], "group": "ディアリースターズ"},
         {"production": "va-liv", "names": None, "group": "vα-liv", "sitemap": "va-liv"},
@@ -240,6 +241,11 @@ EXTRA_SONGS: dict[str, list[int]] = {
         11434,  # ノクチルVer.
         11437,  # シーズVer.
         11439,  # コメティックVer.
+    ],
+    "876": [
+        10515,  # RELOADING（ディアリースターズ・vα-liv の6人。ふじわらはじめではリローディングのリミックス扱い）
+        5041,   # The world is all one !!（765AS の曲。876 PRODUCTION FES. Alternative Tracks Collection で
+                # ディアリースターズ版・vα-liv版が出たので、876プロでも選べるように（ユーザー判断）。ジャケットは2盤から選べる）
     ],
 }
 
@@ -521,7 +527,19 @@ WHOLE_SONG_IDS: dict[str, set[int]] = {
 # （765PRO ALLSTARS はミリオンの曲（LEADER!!）にも付いているので、765AS の曲のときだけ全体曲にする）
 WHOLE_UNIT_RE_BRAND = {"as": re.compile(r"^(IM@S )?765PRO ALLSTARS$|^IM@S ALLSTARS$")}
 # ブランドの全員（ユニット名が付いていなくても、全員が歌っていれば全体曲）
-WHOLE_MEMBERS = {"as": AS_765}
+WHOLE_MEMBERS = {"as": AS_765,
+                 "876": {"日高愛", "水谷絵理", "秋月涼", "上水流宇宙", "灯里愛夏", "レトラ"}}
+
+
+# グループの全員が歌う曲に付けるユニット名（ふじわらはじめにユニット登録が無い曲も、グループ名で探せるように）。
+# ブランド → [(メンバー, [ユニット名]), ...]。名前 → よみ は GROUP_TAG_KANA
+GROUP_TAGS = {"876": [({"日高愛", "水谷絵理", "秋月涼"}, ["Dearly Stars", "ディアリースターズ"]),
+                      ({"上水流宇宙", "灯里愛夏", "レトラ"}, ["vα-liv"])]}
+GROUP_TAG_KANA = {"Dearly Stars": "でぃありーすたーず", "ディアリースターズ": "でぃありーすたーず", "vα-liv": "ゔぁりぶ"}
+
+
+def group_tags(brand: str, singers: list[str] | None) -> list[str]:
+    return [n for members, names in GROUP_TAGS.get(brand, []) if members <= set(singers or []) for n in names]
 
 
 def whole_song_units(units: list[str], brand: str = "", singers: list[str] | None = None) -> list[str]:
@@ -575,7 +593,8 @@ def attach_units(only: list[str] | None = None) -> None:
     kana[WHOLE_SONG] = "ぜんたいきょく"
     kana[CROSSOVER] = "えっきょうきょく"
     kana.update(STARLIT)
-    names |= {WHOLE_SONG, CROSSOVER, *STARLIT}
+    kana.update(GROUP_TAG_KANA)
+    names |= {WHOLE_SONG, CROSSOVER, *STARLIT, *GROUP_TAG_KANA}
     write(DATA / "units.json", {k: kana[k] for k in sorted(kana) if k in names})
     for b in only or list(BRANDS):
         f = DATA / "songs" / f"{b}.json"
@@ -590,8 +609,10 @@ def attach_units(only: list[str] | None = None) -> None:
                 s["units"] = crossover_units(s["id"])
             elif s.get("id") in WHOLE_SONG_IDS.get(b, set()):
                 s["units"] = [WHOLE_SONG]
-            elif u or whole_song_units([], b, s.get("singers")):
+            elif u or whole_song_units([], b, s.get("singers")) or group_tags(b, s.get("singers")):
                 s["units"] = whole_song_units(u or [], b, s.get("singers"))
+                if s["units"] != [WHOLE_SONG]:  # 全体曲はグループ名を付けない（「全体曲」で探す）
+                    s["units"] = list(dict.fromkeys(s["units"] + group_tags(b, s.get("singers"))))
             else:
                 s.pop("units", None)
         write(f, rows)
@@ -639,6 +660,32 @@ def split_versions(only: list[str] | None = None) -> None:
         print(f"[versions] {f.name}: split {sum(1 for s in rows if s['id'] in conf)} songs")
 
 
+# ふじわらはじめに単独で登録されていない曲を手で足す（ブランド → 曲）。曲ID は「元にした曲ID-キー」
+_DS = ["日高愛", "水谷絵理", "秋月涼"]
+MANUAL_SONGS: dict[str, list[dict]] = {
+    "876": [
+        # “HELLO!!”（ディアリースターズ、DREAM SYMPHONY 00）。ふじわらはじめには vα-liv の "HELLO!"（6044、
+        # 同じ作詞 yura・作曲 神前暁）だけが登録されている。ユーザー判断で1曲にまとめ、SideM の F＠NTASTIC COMBINATION と
+        # 同じく、ジャケットをディアリースターズ盤・vα-liv盤から選べるようにする（data/jacket_alts.json）
+        {"id": 6044, "title": "“HELLO!!”", "kana": "はろー", "url": "https://fujiwarahaji.me/music/876/6044",
+         "singers": _DS + ["上水流宇宙", "灯里愛夏", "レトラ"],
+         "units": ["Dearly Stars", "ディアリースターズ", "vα-liv"]},
+    ],
+}
+
+
+def add_manual_songs(only: list[str] | None = None) -> None:
+    for b, songs in MANUAL_SONGS.items():
+        f = DATA / "songs" / f"{b}.json"
+        if (only and b not in only) or not f.exists():
+            continue
+        ids = {s["id"] for s in songs} | {"6044-ds"}  # 6044-ds は以前の分け方（2曲）のときの ID
+        rows = [s for s in json.loads(f.read_text(encoding="utf-8")) if s["id"] not in ids] + songs
+        rows.sort(key=lambda r: (r["kana"] or r["title"]))
+        write(f, rows)
+        print(f"[manual] {f.name}: {len(songs)} songs")
+
+
 def write(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -654,6 +701,7 @@ def main() -> None:
     attach_singers(only)
     attach_units(only)
     split_versions(only)
+    add_manual_songs(only)
     jst = timezone(timedelta(hours=9))
     write(DATA / "meta.json", {"updated_at": datetime.now(jst).strftime("%Y-%m-%d")})
 
