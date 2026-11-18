@@ -498,6 +498,13 @@ WHOLE_SONG_IDS: dict[str, set[int]] = {
         4340,  # Let's Sail Away!!!
         4341,  # ココカラミライヘ！
     },
+    "sidem": {
+        8823,  # DRIVE A LIVE
+        8667,  # NEXT STAGE!
+        8774,  # Beyond The Dream
+        8711,  # MEET THE WORLD!
+        8742,  # Reason!!
+    },
 }
 
 
@@ -583,7 +590,14 @@ SPLIT_VERSIONS: dict[str, dict[int, list[tuple[str, str]]]] = {
         190: _JEWEL + [("Ver.MASTER EVERMORE", "evermore")],    # Near to You
         5124: _JEWEL + [("Ver.MASTER EVERAFTER", "everafter")],  # 認めてくれなくたっていいよ（EVERMORE ではなく EVERAFTER に収録）
     },
+    "sidem": {  # WORLD TRE@SURE 01〜13 で国ごとにアレンジが違う
+        8711: [(f"{c} Ver.", c.lower().replace(" ", "")) for c in (
+            "FRANCE", "AMERICA", "SPAIN", "CHINA", "HAWAII", "GERMANY", "FINLAND",
+            "CANADA", "RUSSIA", "THAILAND", "INDIA", "UNITED KINGDOM", "JAPAN")],  # MEET THE WORLD!
+    },
 }
+# 分けたあとも元の曲を残す（バージョン無しの版も別にある曲）
+SPLIT_KEEP_BASE = {8711}  # MEET THE WORLD!（UNIT COLLECTION 版）
 
 
 def split_versions(only: list[str] | None = None) -> None:
@@ -593,9 +607,13 @@ def split_versions(only: list[str] | None = None) -> None:
         f = DATA / "songs" / f"{b}.json"
         rows = json.loads(f.read_text(encoding="utf-8"))
         out = []
+        # 前回分けた版は作り直すので外す（元の曲を残す曲で二重にならないように）
+        rows = [s for s in rows if not (isinstance(s["id"], str) and s["id"].split("-")[0].isdigit()
+                                         and int(s["id"].split("-")[0]) in conf)]
         for s in rows:
-            if s["id"] not in conf:
+            if s["id"] not in conf or s["id"] in SPLIT_KEEP_BASE:
                 out.append(s)
+            if s["id"] not in conf:
                 continue
             for label, key in conf[s["id"]]:
                 out.append({**s, "id": f"{s['id']}-{key}", "title": f"{s['title']} ({label})", "units": [WHOLE_SONG]})

@@ -484,9 +484,14 @@ function isHotlinkPlaceholder(u, img) {
   try { return HOTLINK_HOSTS.has(new URL(u).host) && img.naturalWidth === 200 && img.naturalHeight === 200; }
   catch { return false; }
 }
+// 縦長のジャケット（Blu-ray サイズ・ボックス物など）は正方形に切らず、全体が入るように引きで表示する
+const TALL_RATIO = 0.95;
+const FIT_WHOLE = "contain"; // jacketPos が返す特別な値：切らずに全体を表示
 async function jacketPos(url, pos) {
   if (pos && pos !== "auto") return `${pos} center`;
-  return (await imageRatio(url)) >= WIDE_RATIO ? "left center" : "center";
+  const r = await imageRatio(url);
+  if (r < TALL_RATIO) return FIT_WHOLE;
+  return r >= WIDE_RATIO ? "left center" : "center";
 }
 
 // ジャケット枠の表示：画像 / 選曲待ち / 取得失敗（＝自分で設定してね）
@@ -542,10 +547,13 @@ function setBg(el, url) {
   if (img.getAttribute("src") !== src) img.src = src;
   el.classList.add("has-img");
 }
-// 表示位置（object-position）。横長ジャケットの左寄せ・ユーザーの選び直しに使う
+// 表示位置（object-position）。横長ジャケットの左寄せ・ユーザーの選び直しに使う。縦長は全体表示（contain）
 function setBgPos(el, pos) {
   const img = el.querySelector(":scope > img.jk-img");
-  if (img) img.style.objectPosition = pos || "";
+  if (!img) return;
+  const whole = pos === FIT_WHOLE;
+  img.style.objectFit = whole ? "contain" : "";
+  img.style.objectPosition = whole ? "center" : pos || "";
 }
 
 // ---------------------------------------------------------------- member dialog
@@ -810,7 +818,8 @@ function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
           h("span", { class: "x-no", style: { background: f.color, color: f.ink } }, String(i + 1)),
           h("span", {}, it.theme.trim() || "オススメ曲")),
         h("div", { class: "x-body" },
-          h("div", { class: "x-jacket", style: jk.src ? { backgroundImage: `url("${jk.src}")`, backgroundPosition: jk.pos } : {} }, jk.src ? "" : "NO IMAGE"),
+          h("div", { class: "x-jacket", style: jk.src ? { backgroundImage: `url("${jk.src}")`,
+            ...(jk.pos === FIT_WHOLE ? { backgroundSize: "contain", backgroundPosition: "center" } : { backgroundPosition: jk.pos }) } : {} }, jk.src ? "" : "NO IMAGE"),
           h("div", { class: "x-main" },
             h("div", { class: "x-title" }, it.title.trim() || "（曲名未入力）"),
             h("div", { class: "x-pitch" }, it.pitch.trim()),

@@ -320,6 +320,11 @@
    "title": "GR@TITUDE",
    "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/17/85/7a/17857add-2d4e-5c31-9242-2b205428a725/4540774241248.jpg/600x600bb.jpg",
    "cd": "THE IDOLM@STER STARLIT SEASON 00 GR@TITUDE【ランティス盤】 (Apple Music)"
+  },
+  "2631": {
+   "title": "Welcome!!",
+   "jacket": "https://lantis.jp/imas/img/MTG11_H1.jpg",
+   "cd": "『アイドルマスター ミリオンライブ！ シアターデイズ』 THE IDOLM@STER MILLION THE@TER GENERATION 11 UNION!!"
   }
  },
  "cg": {
@@ -407,6 +412,88 @@
    "title": "認めてくれなくたっていいよ (Ver.MASTER EVERAFTER)",
    "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/SACX-1115_6_H1.jpg",
    "cd": "THE IDOLM@STER CINDERELLA MASTER EVERAFTER"
+  }
+ },
+ "sidem": {
+  "8823": {
+   "title": "DRIVE A LIVE",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_5thAD01.jpg",
+   "cd": "THE IDOLM@STER SideM 5th ANNIVERSARY DISC 01 PRIDE STAR"
+  },
+  "8667": {
+   "title": "NEXT STAGE!",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/LACM-24181.jpg",
+   "cd": "THE IDOLM@STER SideM GROWING SIGN@L 01 Growing Smiles！"
+  },
+  "8711": {
+   "title": "MEET THE WORLD!",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/LACZ-10048.jpg",
+   "cd": "THE IDOLM@STER SideM UNIT COLLECTION -MEET THE WORLD!-"
+  },
+  "8711-france": {
+   "title": "MEET THE WORLD! (FRANCE Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14751.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 01"
+  },
+  "8711-america": {
+   "title": "MEET THE WORLD! (AMERICA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14752.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 02"
+  },
+  "8711-spain": {
+   "title": "MEET THE WORLD! (SPAIN Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14753.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 03"
+  },
+  "8711-china": {
+   "title": "MEET THE WORLD! (CHINA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14754.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 04"
+  },
+  "8711-hawaii": {
+   "title": "MEET THE WORLD! (HAWAII Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14755.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 05"
+  },
+  "8711-germany": {
+   "title": "MEET THE WORLD! (GERMANY Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14756.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 06"
+  },
+  "8711-finland": {
+   "title": "MEET THE WORLD! (FINLAND Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14757.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 07"
+  },
+  "8711-canada": {
+   "title": "MEET THE WORLD! (CANADA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14758.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 08"
+  },
+  "8711-russia": {
+   "title": "MEET THE WORLD! (RUSSIA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14759.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 09"
+  },
+  "8711-thailand": {
+   "title": "MEET THE WORLD! (THAILAND Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14760.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 10"
+  },
+  "8711-india": {
+   "title": "MEET THE WORLD! (INDIA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14761.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 11"
+  },
+  "8711-unitedkingdom": {
+   "title": "MEET THE WORLD! (UNITED KINGDOM Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14762.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 12"
+  },
+  "8711-japan": {
+   "title": "MEET THE WORLD! (JAPAN Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14763.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 13"
   }
  }
 }

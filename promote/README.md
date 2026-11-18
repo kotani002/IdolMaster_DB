@@ -75,7 +75,7 @@ python scripts/fetch_data.py
 アイドルの色はふじわらはじめの一覧から取ります。SideM はふじわらはじめに色が無いので、[imas-db.jp のカラーコード一覧](https://imas-db.jp/misc/color.html) から取ります（`BRANDS` の `imasdb_colors`）。
 ユニット名（曲検索用）はふじわらはじめのユニット一覧と API から取ります。全ユニットで歌う曲（ブランド全員のユニットが付いた曲か、5ユニット以上が歌う曲）は個別のユニット名では出さず、「全体曲」で探せるようにしています（`scripts/fetch_data.py` の `whole_song_units`）。
 ブランドの垣根を越えた曲（VOY@GER・なんどでも笑おう・スタマスの曲など）は「越境曲」として、`CROSSOVER_SONGS` に書いたブランドの曲一覧に入れ、「越境曲」で検索できます。スタマスの曲は「スターリットシーズン」「スタマス」でも出ます（`CROSSOVER_TAGS`）。ブランドごとに別の盤が出ている曲は、`data/jackets.json` の「ブランド:曲ID」にそのブランドの盤のジャケットを入れ、無いブランドは `data/jacket_overrides.json` の `_all`（既定のジャケット）を使います。
-シンデレラの「ゴキゲンParty Night」「ススメ☆オトメ」「Near to You」「認めてくれなくたっていいよ」は、Cute/Cool/Passion jewelries! と MASTER アルバムで歌うメンバーが違うので、「曲名 (Ver.Cute)」のようにバージョン別の曲に分けています（`SPLIT_VERSIONS`。曲ID は「元の曲ID-キー」）。
+シンデレラの「ゴキゲンParty Night」「ススメ☆オトメ」「Near to You」「認めてくれなくたっていいよ」は、Cute/Cool/Passion jewelries! と MASTER アルバムで歌うメンバーが違うので、「曲名 (Ver.Cute)」のようにバージョン別の曲に分けています（`SPLIT_VERSIONS`。曲ID は「元の曲ID-キー」）。SideM の「MEET THE WORLD!」も WORLD TRE@SURE 01〜13 の国別版に分け、元の曲（UNIT COLLECTION 版）も残しています（`SPLIT_KEEP_BASE`）。
 Migratory Echoes（シャニマス）はユニットごとに曲調とジャケットが違うので、「Migratory Echoes (ユニット名Ver.)」を別の曲として登録しています（`EXTRA_SONGS` と `data/jacket_overrides.json`）。ユニットだけ取り直すときは `python scripts/fetch_data.py units`（約300ユニット分を取るので10分ほどかかります）。
 `python scripts/fetch_data.py sc` のようにブランドを指定すると、そのブランドだけを取り直します（歌唱者もそのブランドのアイドル分だけ調べ、前回の内容に足します）。
 
