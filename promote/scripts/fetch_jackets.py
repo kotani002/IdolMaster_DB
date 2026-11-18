@@ -25,7 +25,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-from fetch_data import CROSSOVER_SONGS  # 越境曲（ブランドごとにジャケットを持つ）
+from fetch_data import CROSSOVER_SONGS, EXTRA_SONGS  # 越境曲・他ブランドから足した曲（ブランドごとにジャケットを持つ）
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -296,7 +296,11 @@ def main() -> None:
                 matched += 1
             continue
         hit = best.get(song_key(s["title"]))
-        if hit:
+        if hit and s["id"] in EXTRA_SONGS.get(brand, []):
+            # 他ブランドの曲として足した曲（ハーモニクスなど）は、元のブランドのジャケットを上書きしないよう「ブランド:曲ID」に入れる
+            jackets[f"{brand}:{s['id']}"] = hit[2]
+            matched += 1
+        elif hit:
             jackets[str(s["id"])] = hit[2]
             matched += 1
         else:
@@ -308,7 +312,7 @@ def main() -> None:
     all_ov = json.loads(of.read_text(encoding="utf-8")) if of.exists() else {}
     overrides = all_ov.get(brand, {})
     for sid, o in overrides.items():
-        jackets[f"{brand}:{sid}" if int(sid) in CROSSOVER_SONGS else sid] = o["jacket"]
+        jackets[f"{brand}:{sid}" if sid.isdigit() and int(sid) in CROSSOVER_SONGS else sid] = o["jacket"]
     for sid, o in all_ov.get("_all", {}).items():
         jackets[sid] = o["jacket"]
     if overrides:

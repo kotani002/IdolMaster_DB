@@ -558,7 +558,9 @@ def attach_units(only: list[str] | None = None) -> None:
             continue
         rows = json.loads(f.read_text(encoding="utf-8"))
         for s in rows:
-            u = by_song.get(int(s["id"])) if str(s.get("id", "")).isdigit() else None
+            if not str(s.get("id", "")).isdigit():
+                continue  # バージョン別に分けた曲（split_versions）は「全体曲」のまま
+            u = by_song.get(int(s["id"]))
             if s.get("id") in CROSSOVER_SONGS:
                 s["units"] = crossover_units(s["id"])
             elif s.get("id") in WHOLE_SONG_IDS.get(b, set()):
@@ -569,6 +571,36 @@ def attach_units(only: list[str] | None = None) -> None:
                 s.pop("units", None)
         write(f, rows)
         print(f"[units] {f.name}: {sum(1 for s in rows if s.get('units'))}/{len(rows)} songs have units")
+
+
+# バージョンごとに歌唱メンバーもジャケットも違う曲は、バージョン別の曲に分けて登録する（元の曲は消す）。
+# 曲ID は「元の曲ID-キー」。ジャケットは data/jacket_overrides.json で指定
+_JEWEL = [("Ver.Cute", "cute"), ("Ver.Cool", "cool"), ("Ver.Passion", "passion")]
+SPLIT_VERSIONS: dict[str, dict[int, list[tuple[str, str]]]] = {
+    "cg": {  # CINDERELLA MASTER Cute/Cool/Passion jewelries! と MASTER アルバムで、それぞれ別のメンバーが歌う
+        185: _JEWEL + [("Ver.MASTER EVERMORE", "evermore")],    # ゴキゲンParty Night
+        180: _JEWEL + [("Ver.MASTER EVERMORE", "evermore")],    # ススメ☆オトメ ～jewel parade～
+        190: _JEWEL + [("Ver.MASTER EVERMORE", "evermore")],    # Near to You
+        5124: _JEWEL + [("Ver.MASTER EVERAFTER", "everafter")],  # 認めてくれなくたっていいよ（EVERMORE ではなく EVERAFTER に収録）
+    },
+}
+
+
+def split_versions(only: list[str] | None = None) -> None:
+    for b, conf in SPLIT_VERSIONS.items():
+        if only and b not in only:
+            continue
+        f = DATA / "songs" / f"{b}.json"
+        rows = json.loads(f.read_text(encoding="utf-8"))
+        out = []
+        for s in rows:
+            if s["id"] not in conf:
+                out.append(s)
+                continue
+            for label, key in conf[s["id"]]:
+                out.append({**s, "id": f"{s['id']}-{key}", "title": f"{s['title']} ({label})", "units": [WHOLE_SONG]})
+        write(f, out)
+        print(f"[versions] {f.name}: split {sum(1 for s in rows if s['id'] in conf)} songs")
 
 
 def write(path: Path, obj) -> None:
@@ -585,6 +617,7 @@ def main() -> None:
         build_brand(b, BRANDS[b])
     attach_singers(only)
     attach_units(only)
+    split_versions(only)
     jst = timezone(timedelta(hours=9))
     write(DATA / "meta.json", {"updated_at": datetime.now(jst).strftime("%Y-%m-%d")})
 
