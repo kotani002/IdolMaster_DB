@@ -8,3 +8,12 @@
 # data（曲・アイドル・ジャケットの JSON）は5分間はそのまま使い、それ以降は古いものを表示しつつ裏で新しいものを取りに行く
 /data/*
   Cache-Control: public, max-age=300, stale-while-revalidate=86400
+
+# --- CSP（scripts/update_csp.py が作成。手で直さない）
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com 'sha256-c39yw4jgmjtzsmSTzEx7gW4pFH9akS9bZUyTUGWVt1s=' 'sha256-yC0SUktpEeP6KXurfPVuriASMwZuI4CffyAh8gHAlk0=' 'sha256-rgiiKbv6Xmm4JyUMrSTjcPmIcOVAHpkeFeoeQ37QJ74='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self' https:; media-src https://*.apple.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+# --- CSP ここまで

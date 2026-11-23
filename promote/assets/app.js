@@ -2,7 +2,7 @@
 // データ: data/*.json（scripts/fetch_data.py で ふじわらはじめAPI から生成）
 
 // 共有URL（シートの中身を URL に入れる。share.js を変えたら ?v= を上げる。view.js も同じ）
-import { packState, shareUrl, canShare } from "./share.js?v=20261123b";
+import { packState, shareUrl } from "./share.js?v=20261124a";
 
 const STORE_KEY = "imas-presen-v2"; // v2: 初期状態を「曲なし」に変更したので、以前の下書きは引き継がない
 const HASHTAG = "#アイマス楽曲プレゼン";
@@ -1128,14 +1128,25 @@ const shareText = () => (lastShareUrl ? `${HASHTAG}\n${lastShareUrl}` : HASHTAG)
 async function prepareShareUrl() {
   lastShareUrl = "";
   try {
-    if (!canShare()) throw new Error("CompressionStream unavailable");
+    // アイドルを ID にするため、選ばれたアイドルのブランドの一覧を読んでおく
+    const memBrands = new Set(state.items.flatMap((it) => it.members.map((m) => m.brand)).filter((b) => DB.brands.some((x) => x.id === b)));
+    await Promise.all([...memBrands].map(ensureBrand));
     const packed = packState(state, {
+      themes: DB.themes,
       altIndex: (it) => altsOf(it.songId, it.brand || state.from).findIndex((a) => a.jacket === it.jacket),
-      // 閲覧ページは「アイドル一覧の色 → 無ければブランド色」で表示するので、それと同じ色なら URL に入れない
-      defaultColor: (m, b) => (DB.idols[b] || []).find((i) => i.name === m.name)?.color
-        || DB.brands.find((x) => x.id === b)?.color || "",
+      // 歌って欲しいアイドル1人を、共有用の形にする（一覧のアイドル → ID、「○○全員」・ユニット → 種類だけ、それ以外は名前と色）
+      look: (it, m) => {
+        const b = m.brand || "";
+        const list = DB.idols[b] || [];
+        const idol = !m.all && list.find((i) => i.name === m.name);
+        if (idol) return { kind: "idol", brand: b, id: idol.id };
+        const br = DB.brands.find((x) => x.id === b);
+        if (m.all && br && m.name === `${br.short}全員`) return { kind: "all", brand: b };
+        if (list.some((i) => i.group === m.name && i.group_color)) return { kind: "unit", brand: b, name: m.name };
+        return { kind: "custom", name: m.name, brand: b, color: m.color || "" };
+      },
     });
-    lastShareUrl = await shareUrl(packed);
+    lastShareUrl = shareUrl(packed);
   } catch (e) { console.error(e); }
   $(".ex-share-url").hidden = !lastShareUrl;
   $("#ex-url").value = lastShareUrl;

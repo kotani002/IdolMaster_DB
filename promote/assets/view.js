@@ -2,7 +2,7 @@
 // 試聴の曲は data/previews.json（楽曲ID → Apple Music の trackId。scripts/fetch_previews_itunes.py で作成）。
 // 試聴URLは変わることがあるので保存せず、開いたときに iTunes の lookup API でまとめて1回だけ問い合わせる。
 
-import { decodeSheet, codeFromHash, canOpen } from "./share.js?v=20261123b";
+import { decodeSheet, codeFromHash } from "./share.js?v=20261124a";
 
 const DEFAULT_NAME = "名無しP";
 const NOW_PRINTING = "assets/now_printing.png?v=3";
@@ -61,13 +61,33 @@ const inkFor = (hex) => (!hexToRgb(hex) ? "#fff" : luminance(hex) > 0.45 ? "#2a2
 const isLight = (hex) => luminance(hex) > 0.75;
 
 // ---------------------------------------------------------------- data
-const DB = { brands: [], jackets: {}, jacketAlts: {}, previews: {}, songs: {}, idols: {} };
-// 歌って欲しいアイドルの色：URL に色が入っていればそれ、無ければアイドル一覧の色、それも無ければブランド色（share.js の packState と対応）
-const memberColor = (m) => m.color || (DB.idols[m.brand] || []).find((i) => i.name === m.name)?.color || brand(m.brand).color;
-const brand = (id) => DB.brands.find((b) => b.id === id) || { id, name: id, short: id, color: "#8a8593", ink: "#fff" };
-const jacketOf = (songId, b) => DB.jackets[`${b}:${songId}`] || DB.jackets[String(songId)] || "";
-const altsOf = (songId, b) => (songId == null ? [] : DB.jacketAlts[`${b}:${songId}`] || DB.jacketAlts[String(songId)] || []);
-const songOf = (it) => (it.songId == null ? null : (DB.songs[it.brand] || []).find((s) => String(s.id) === String(it.songId)) || null);
+const DB = { brands: [], themes: [], jackets: {}, jacketAlts: {}, previews: {}, songs: {}, idols: {} };
+// URL の中身は誰でも作れるので、データを引くときは「本当にある項目」だけを見る
+// （"constructor" や "__proto__" のような名前で、JavaScript の組み込みのものを引かせない）
+const own = (obj, key) => (obj && Object.prototype.hasOwnProperty.call(obj, key) ? obj[key] : undefined);
+const ownStr = (obj, key) => { const v = own(obj, key); return typeof v === "string" ? v : ""; };
+const ownList = (obj, key) => { const v = own(obj, key); return Array.isArray(v) ? v : []; };
+const ALL_COLOR = "#57525f";
+const UNKNOWN_BRAND = { id: "", name: "", short: "", color: ALL_COLOR, ink: "#fff" };
+const brand = (id) => DB.brands.find((b) => b.id === id) || UNKNOWN_BRAND;
+const jacketOf = (songId, b) => ownStr(DB.jackets, `${b}:${songId}`) || ownStr(DB.jackets, String(songId));
+const altsOf = (songId, b) => (songId == null ? [] : ownList(DB.jacketAlts, `${b}:${songId}`).length
+  ? ownList(DB.jacketAlts, `${b}:${songId}`) : ownList(DB.jacketAlts, String(songId)));
+const songOf = (it) => (it.songId == null ? null : ownList(DB.songs, it.brand).find((s) => String(s.id) === String(it.songId)) || null);
+const themeText = (t) => (!t ? "" : t.text != null ? t.text : ownStr(DB.themes, t.index));
+
+// 歌って欲しいアイドル（共有用の形）→ 表示する名前と色
+function resolveMember(m) {
+  const b = brand(m.brand);
+  const list = ownList(DB.idols, m.brand);
+  if (m.kind === "idol") {
+    const idol = list.find((i) => String(i.id) === String(m.id));
+    return idol ? { name: idol.name, color: idol.color || b.color } : null; // データから消えたアイドルは出さない
+  }
+  if (m.kind === "all") return b.short ? { name: `${b.short}全員`, color: b.color } : null;
+  if (m.kind === "unit") return { name: m.name, color: list.find((i) => i.group === m.name && i.group_color)?.group_color || b.color };
+  return { name: m.name, color: m.color || b.color };
+}
 
 // 「歌：…」（app.js の singerNote と同じ考え方。全体曲はブランド名＋全体、ユニットがあればユニット名）
 const NOT_UNIT = new Set(["越境曲", "全体曲", "スターリットシーズン", "スタマス", "ディアリースターズ"]);
@@ -183,7 +203,13 @@ async function lookupTracks(ids) {
       const d = await r.json();
       for (const t of d.results || []) {
         if (t.wrapperType === "track" && t.trackId) {
-          out.set(t.trackId, { preview: t.previewUrl || "", url: t.trackViewUrl || "", artist: t.artistName || "" });
+          // 念のため、Apple のアドレス（https）以外は使わない
+          const okUrl = (u, re) => (typeof u === "string" && re.test(u) ? u : "");
+          out.set(t.trackId, {
+            preview: okUrl(t.previewUrl, /^https:\/\/[a-z0-9.-]+\.(apple|itunes\.apple|mzstatic)\.com\//i),
+            url: okUrl(t.trackViewUrl, /^https:\/\/(music|itunes)\.apple\.com\//i),
+            artist: typeof t.artistName === "string" ? t.artistName : "",
+          });
         }
       }
     } catch (e) { console.error(e); }
@@ -244,10 +270,11 @@ audio.addEventListener("ended", () => {
 // ---------------------------------------------------------------- 表示
 function cardEl(it, idx, f, track) {
   const s = songOf(it);
-  const title = it.title || s?.title || "（曲名未入力）";
+  const title = it.title || s?.title || (it.songId != null ? "（曲が見つかりません）" : "（曲名未入力）");
   const alts = altsOf(it.songId, it.brand);
   const jk = (it.alt >= 0 && alts[it.alt]?.jacket) || (it.songId != null ? jacketOf(it.songId, it.brand) : "");
   const note = singerNote(s, it.brand);
+  const members = it.members.map(resolveMember).filter(Boolean);
 
   const btn = h("button", { type: "button", class: "v-play", "aria-label": `「${title}」を試聴する` },
     h("span", { class: "v-play-icon", "aria-hidden": "true" }));
@@ -255,17 +282,17 @@ function cardEl(it, idx, f, track) {
   const term = `${title}${track?.artist ? " " + track.artist.split(/[,、&]/)[0].replace(/\s*[（(]CV.*$/, "") : ""}`;
   const links = h("div", { class: "v-links" },
     track?.preview ? null : h("span", { class: "v-nopreview" }, "試聴はありません"),
-    h("a", { class: "v-link apple", target: "_blank", rel: "noopener",
+    h("a", { class: "v-link apple", target: "_blank", rel: "noopener noreferrer",
       href: track?.url || `https://music.apple.com/jp/search?term=${encodeURIComponent(title)}` },
       track?.url ? "Apple Musicで聴く" : "Apple Musicで探す"),
-    h("a", { class: "v-link spotify", target: "_blank", rel: "noopener",
+    h("a", { class: "v-link spotify", target: "_blank", rel: "noopener noreferrer",
       href: `https://open.spotify.com/search/${encodeURIComponent(term)}` }, "Spotifyで探す"),
   );
 
   const el = h("article", { class: "card v-card" + (track?.preview ? " has-preview" : "") },
     h("div", { class: "card-theme" },
       h("span", { class: "card-no" }, String(idx + 1)),
-      h("span", { class: "v-theme" }, it.theme || "オススメ曲")),
+      h("span", { class: "v-theme" }, themeText(it.theme) || "オススメ曲")),
     h("div", { class: "card-body" },
       h("div", { class: "v-jacket-wrap" },
         jacketEl(jk, it.pos),
@@ -276,13 +303,10 @@ function cardEl(it, idx, f, track) {
           note ? h("div", { class: "v-singers" }, note) : null),
         track?.preview ? h("div", { class: "v-progress", "aria-hidden": "true" }, bar) : null,
         links,
-        it.pitch ? h("p", { class: "v-pitch" }, it.pitch) : null,
-        it.members.length ? h("div", { class: "members" },
+        members.length ? h("div", { class: "members" },
           h("div", { class: "members-label" }, "歌って欲しいアイドル"),
-          h("div", { class: "tags" }, it.members.map((m) => {
-            const c = memberColor(m);
-            return h("span", { class: "tag v-tag" + (isLight(c) ? " light" : ""), style: { "--tag-bg": c, "--tag-ink": inkFor(c) } }, m.name);
-          }))) : null,
+          h("div", { class: "tags" }, members.map((m) =>
+            h("span", { class: "tag v-tag" + (isLight(m.color) ? " light" : ""), style: { "--tag-bg": m.color, "--tag-ink": inkFor(m.color) } }, m.name)))) : null,
       ),
     ),
   );
@@ -303,23 +327,21 @@ function showError(msg) {
 
 async function init() {
   const code = codeFromHash();
-  const metaP = Promise.all([
+  if (!code) { showError("URLにシートの内容が入っていません。共有されたURLを最後までコピーできているか確認してください。"); return; }
+  let sheet;
+  try { sheet = decodeSheet(code); }
+  catch (e) {
+    console.error(e);
+    showError("URLが途中で切れているか、壊れているようです。共有されたURLを最後までコピーできているか確認してください。");
+    return;
+  }
+  [DB.brands, DB.themes, DB.jackets, DB.jacketAlts, DB.previews] = await Promise.all([
     getJSON("data/brands.json"),
+    getJSON("data/themes.json", []),
     getJSON("data/jackets.json", {}),
     getJSON("data/jacket_alts.json", {}),
     getJSON("data/previews.json", {}),
   ]);
-  if (!code) { await metaP.catch(() => {}); showError("URLにシートの内容が入っていません。共有されたURLを最後までコピーできているか確認してください。"); return; }
-  let sheet;
-  try { sheet = await decodeSheet(code); }
-  catch (e) {
-    console.error(e);
-    showError(!canOpen()
-      ? "お使いのブラウザでは、このシートを開けません。ブラウザを最新にしてお試しください。"
-      : "URLが途中で切れているか、壊れているようです。共有されたURLを最後までコピーできているか確認してください。");
-    return;
-  }
-  [DB.brands, DB.jackets, DB.jacketAlts, DB.previews] = await metaP;
   // 曲名・歌唱者は曲のブランドの曲一覧から、アイドルの色はアイドル一覧から補う
   const known = new Set(DB.brands.map((b) => b.id));
   const songBrands = [...new Set(sheet.items.map((it) => it.brand))].filter((b) => known.has(b));
@@ -341,7 +363,7 @@ async function init() {
   pill.style.background = f.color; pill.style.color = f.ink;
 
   // 試聴：曲ID → trackId → 試聴URL
-  const trackIdOf = (it) => (it.songId == null ? null : DB.previews[String(it.songId)] || null);
+  const trackIdOf = (it) => { const t = it.songId == null ? null : own(DB.previews, String(it.songId)); return Number.isInteger(t) ? t : null; };
   const tracks = await lookupTracks([...new Set(sheet.items.map(trackIdOf).filter(Boolean))]);
   $("#v-items").replaceChildren(...sheet.items.map((it, i) => cardEl(it, i, f, tracks.get(trackIdOf(it)))));
 
