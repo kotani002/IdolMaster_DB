@@ -23,7 +23,9 @@ export const BRAND_CODES = ["as", "cg", "ml", "sidem", "sc", "gm", "876", "961"]
 const NO_BRAND = 15;
 
 // 上限（読むときもこの数で切る。細工した URL で大量のデータを作らせないため）
-export const LIMITS = { code: 20000, items: 50, members: 60, name: 30, theme: 40, title: 100, member: 40, id: 24 };
+// 曲は8曲・歌って欲しいアイドル（タグ）は1曲10人まで（エディタの MAX_SONGS・MAX_TAGS と同じ）
+// code：URL の長さの上限。全部を自由入力・最大の長さで埋めたシート（約12,100文字）が入る長さにしている
+export const LIMITS = { code: 13000, items: 8, members: 10, name: 30, theme: 40, title: 100, member: 40, id: 24 };
 
 // ---------------------------------------------------------------- ビット列
 class BitWriter {

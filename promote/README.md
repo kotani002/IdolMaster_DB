@@ -15,7 +15,7 @@
   - ジャケット：画像 URL を埋め込むか、端末の画像を選びます。
   - プレゼン内容：自由に書けます。
   - 歌って欲しいアイドル：初期表示はその曲のブランドのアイドル。ブランドのタグや、対バンライブの出演者のタグ（「デレミリ対バン」「エムシャニ対バン」。Day1/Day2 で絞り込み、`data/events.json`）で切り替えられます。リストにない名前やユニット名も追加できます。
-- 「＋ 新しい曲を追加する」でカードを増やせます。並べ替え（↑↓）と削除もできます。
+- 「＋ 新しい曲を追加する」でカードを増やせます（**8曲まで**。歌って欲しいアイドルは**1曲10人まで**（「○○全員」・ユニット名のタグも1人と数えます）。`assets/app.js` の `MAX_SONGS`・`MAX_TAGS` と、共有URLの `assets/share.js` の `LIMITS` を同じ数にしています）。並べ替え（↑↓）と削除もできます。
 - 入力内容はブラウザに自動保存されます。
 - 「画像を作る」で PNG を出力し、保存・コピー・共有・X へのポストができます。
 - 同じ画面に**共有URL**が出ます。X へのポストの投稿文にも入ります。開いた人は、ブラウザで曲・お題・歌って欲しいアイドルを見て、曲を Apple Music の試聴（約30秒）で聴けます（`view.html`）。「続けて試聴する」で上から順に流せます。各曲に「Apple Musicで聴く」「Spotifyで探す」のリンクがあります。
@@ -40,6 +40,7 @@ assets/view.js          共有ページの処理（試聴は iTunes の lookup A
 data/previews.json      楽曲ID → Apple Music の trackId（試聴用。scripts/fetch_previews_itunes.py で作成）
 data/brands.json        ブランド定義（名前・テーマカラー）
 data/themes.json        お題の候補（共有URLが番号で参照するので、並べ替え・削除はしない。追加は末尾に）
+_redirects              公開サイトで README・scripts・.claude などサイトに使わないファイルを開かれたらトップへ移す（GitHub 上では見えるので秘密は置かない）
 _headers                Cloudflare Pages のヘッダー（キャッシュ・CSP などのセキュリティ設定。CSP は scripts/update_csp.py で作る）
 scripts/update_csp.py   _headers の CSP を作り直す（index.html・view.html に直接書いた <script> を変えたら必ず実行）
 data/events.json        イベントの出演者（デレミリ対バン・エムシャニ対バン Day1/Day2。公式の出演者ページを見て手で更新）

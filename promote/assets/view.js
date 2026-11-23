@@ -2,7 +2,7 @@
 // 試聴の曲は data/previews.json（楽曲ID → Apple Music の trackId。scripts/fetch_previews_itunes.py で作成）。
 // 試聴URLは変わることがあるので保存せず、開いたときに iTunes の lookup API でまとめて1回だけ問い合わせる。
 
-import { decodeSheet, codeFromHash } from "./share.js?v=20261124a";
+import { decodeSheet, codeFromHash } from "./share.js?v=20261124c";
 
 const DEFAULT_NAME = "名無しP";
 const NOW_PRINTING = "assets/now_printing.png?v=3";
@@ -134,7 +134,9 @@ const audio = new Audio();
 audio.preload = "none";
 // 試聴の音源（audio-ssl.itunes.apple.com）は CORS 許可あり。Web Audio で音量を変えるため crossOrigin を付ける
 audio.crossOrigin = "anonymous";
-const player = { cards: [], cur: -1, chain: false };
+const player = { cards: [], cur: -1, chain: false, total: 0 };
+// 「▶ 4曲続けて試聴する」：数はシートに登録した曲数（試聴の無い曲は飛ばして流す）
+const playAllLabel = () => `▶ ${player.total}曲続けて試聴する`;
 
 // ---- 音量のフェード（いきなり大きな音で鳴って驚かせないように）
 // iPhone の Safari は audio.volume を変えられないので、Web Audio の GainNode で音量を動かす。
@@ -223,7 +225,7 @@ function setPlaying(i) {
     c.btn.setAttribute("aria-label", k === i && !audio.paused ? `「${c.title}」の試聴を止める` : `「${c.title}」を試聴する`);
     if (k !== i) c.bar.style.width = "0%";
   });
-  $("#v-playall").textContent = player.chain && !audio.paused ? "■ 試聴を止める" : "▶ 続けて試聴する";
+  $("#v-playall").textContent = player.chain && !audio.paused ? "■ 試聴を止める" : playAllLabel();
 }
 
 async function play(i, chain = false) {
@@ -371,6 +373,8 @@ async function init() {
   $("#v-items").replaceChildren(...sheet.items.map((it, i) => cardEl(it, i, f, tracks.get(trackIdOf(it)))));
 
   const playable = player.cards.filter((c) => c.preview).length;
+  player.total = sheet.items.length;
+  $("#v-playall").textContent = playAllLabel();
   $("#v-playall").hidden = playable < 2;
   $("#v-note").textContent = playable
     ? `${sheet.items.length}曲中${playable}曲を試聴できます（Apple Music・約30秒）`

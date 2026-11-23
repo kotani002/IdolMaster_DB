@@ -343,6 +343,9 @@ a { color: inherit; }
   transition: border-color .15s, color .15s, background .15s;
 }
 .add-card:hover { border-color: var(--from); color: var(--ink); background: #fff; }
+/* 曲が上限（10曲）に達したとき */
+.add-card:disabled { cursor: default; opacity: .6; border-color: #d9d1c4; color: var(--muted); background: rgba(255, 255, 255, .55); }
+.add-card:disabled .add-plus { background: #d9d1c4; color: #fff; }
 .add-plus {
   width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
   background: var(--from); color: var(--from-ink); font-size: 18px;
@@ -364,6 +367,17 @@ a { color: inherit; }
 .dlg-head h2 { margin: 0; font-size: 17px; font-weight: 800; flex: 1; }
 .dlg-head small { font-size: 12px; color: var(--muted); font-weight: 700; margin-left: 6px; }
 .dlg-foot { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+/* 上（タイトル・×）と下（ボタン）を固定し、真ん中（.dlg-body）だけスクロールするダイアログ（使い方） */
+.dlg-fixed { overflow: hidden; }
+.dlg-fixed .dlg-inner { overflow: hidden; }
+.dlg-fixed .dlg-head, .dlg-fixed .dlg-foot { flex: none; }
+.dlg-fixed .dlg-body {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  /* スクロールできることが分かるよう、上下の境目に線を出す */
+  border-block: 1px solid var(--line); margin: 0 -18px; padding: 12px 18px;
+}
+.dlg-fixed .dlg-body > :first-child { margin-top: 0; }
+.dlg-fixed .dlg-body > :last-child { margin-bottom: 0; }
 .dlg-foot .muted { margin-right: auto; font-size: 13px; }
 .dlg input[type="search"], .dlg input[type="text"], .dlg input[type="url"] {
   width: 100%; height: 40px; border-radius: 10px; border: 1px solid var(--line); padding: 0 12px; outline: none;

@@ -2,7 +2,7 @@
 // データ: data/*.json（scripts/fetch_data.py で ふじわらはじめAPI から生成）
 
 // 共有URL（シートの中身を URL に入れる。share.js を変えたら ?v= を上げる。view.js も同じ）
-import { packState, shareUrl } from "./share.js?v=20261124a";
+import { packState, shareUrl } from "./share.js?v=20261124c";
 
 const STORE_KEY = "imas-presen-v2"; // v2: 初期状態を「曲なし」に変更したので、以前の下書きは引き継がない
 const HASHTAG = "#アイマス楽曲プレゼン";
@@ -260,6 +260,10 @@ function renderItems() {
   const box = $("#items");
   box.replaceChildren(...state.items.map((it, i) => cardEl(it, i)));
   box.querySelectorAll(".pitch, .theme-input").forEach(autosize);
+  // 曲は MAX_SONGS 曲まで（ユーザー判断）。上限に達したら「新しい曲を追加する」を押せなくする
+  const full = state.items.length >= MAX_SONGS;
+  $("#btn-add").disabled = full;
+  $("#btn-add .add-label").textContent = full ? `曲は${MAX_SONGS}曲までです` : "新しい曲を追加する";
 }
 
 function cardEl(it, idx) {
@@ -835,10 +839,19 @@ function allRows(searching = false) {
   return rows;
 }
 
+// 歌って欲しいアイドル（タグ）はもう足せないか（上限 MAX_TAGS。超えるときは知らせる）
+function tagsFull(it) {
+  if (it.members.length < MAX_TAGS) return false;
+  toast(`歌って欲しいアイドルは1曲${MAX_TAGS}人までです`);
+  return true;
+}
+
 function toggleMember(m) {
   const it = memDlg.item;
   const k = it.members.findIndex((x) => x.name === m.name);
-  if (k >= 0) it.members.splice(k, 1); else it.members.push(m);
+  if (k >= 0) it.members.splice(k, 1);
+  else if (tagsFull(it)) return;
+  else it.members.push(m);
   drawMemList(); memDlg.onDone?.(); save();
 }
 
@@ -874,6 +887,7 @@ function drawMemList() {
       onclick: () => {
         const k = it.members.findIndex((m) => m.name === i.name);
         if (k >= 0) it.members.splice(k, 1);
+        else if (tagsFull(it)) return;
         else it.members.push({ name: i.name, color: i.color || "", brand: b.id });
         drawMemList(); memDlg.onDone?.(); save();
       },
@@ -884,7 +898,7 @@ function drawMemList() {
     allsWrap.querySelector(".mem-alls").scrollLeft = prevScroll;
     setupChipArrows(allsWrap);
   }
-  $("#mem-count").textContent = `${it.members.length}人選択中`;
+  $("#mem-count").textContent = `${it.members.length}/${MAX_TAGS}人選択中`;
 }
 
 function addCustomMember() {
@@ -892,7 +906,10 @@ function addCustomMember() {
   const name = inp.value.trim();
   if (!name || !memDlg.item) return;
   const b = isEventTab(memDlg.brand) ? songBrand(memDlg.item) : memDlg.brand;
-  if (!memDlg.item.members.some((m) => m.name === name)) memDlg.item.members.push({ name, color: "", brand: b });
+  if (!memDlg.item.members.some((m) => m.name === name)) {
+    if (tagsFull(memDlg.item)) return;
+    memDlg.item.members.push({ name, color: "", brand: b });
+  }
   inp.value = "";
   drawMemList(); memDlg.onDone?.(); save();
 }
@@ -1011,6 +1028,9 @@ function buildSheet(items, jackets, start = 0, page = 1, pages = 1) {
 // 1枚の画像に入れる曲数。これより多いときは複数枚に分ける
 const SONGS_PER_IMAGE = 4;
 const PITCH_MAX = 200; // プレゼン内容の上限（1曲あたりの文字数）
+// 曲数・歌って欲しいアイドル（タグ）の上限（ユーザー判断）。共有URL（share.js の LIMITS）も同じ数にしている
+const MAX_SONGS = 8;
+const MAX_TAGS = 10;
 
 // はじめての人向けの「使い方」。初回だけ自動で出し、見たことを端末に覚える（使えない環境でも動くように try）
 const GUIDE_KEY = "imas-presen-guide-seen";
@@ -1196,6 +1216,7 @@ async function copyImage(k = 0) {
 
 function wire() {
   $("#btn-add").onclick = () => {
+    if (state.items.length >= MAX_SONGS) { toast(`曲は${MAX_SONGS}曲までです`); return; }
     const used = new Set(state.items.map((i) => i.theme));
     const next = DB.themes.find((t) => !used.has(t)) || "";
     state.items.push(newItem(next));
