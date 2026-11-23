@@ -24,9 +24,9 @@ const h = (tag, attrs = {}, ...children) => {
   return el;
 };
 
-async function getJSON(path, fallback) {
+async function getJSON(path, fallback, init) {
   try {
-    const r = await fetch(path);
+    const r = await fetch(path, init);
     if (!r.ok) throw new Error(`${path}: ${r.status}`);
     return await r.json();
   } catch (e) {
@@ -340,7 +340,10 @@ async function init() {
     getJSON("data/themes.json", []),
     getJSON("data/jackets.json", {}),
     getJSON("data/jacket_alts.json", {}),
-    getJSON("data/previews.json", {}),
+    // 試聴データは毎回新しいか確かめる（変わっていなければ「変更なし」が返るだけなので軽い）。
+    // data は「古いものを表示しつつ裏で更新」の設定（_headers）なので、そのままだと試聴データを足した直後に
+    // 一度開いたことのある人には、新しく足した曲の試聴が出なかった
+    getJSON("data/previews.json", {}, { cache: "no-cache" }),
   ]);
   // 曲名・歌唱者は曲のブランドの曲一覧から、アイドルの色はアイドル一覧から補う
   const known = new Set(DB.brands.map((b) => b.id));
