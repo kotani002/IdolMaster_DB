@@ -24,7 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fetch_jackets import classify, norm, song_key  # noqa: E402
-from fetch_jackets_itunes import BRAND_WORDS, IMAS_WORDS, SKIP_SONGS, has_any, search  # noqa: E402
+from fetch_jackets_itunes import BRAND_WORDS, IMAS_WORDS, SKIP_SONGS, get_json, has_any, search  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -43,10 +43,52 @@ EXTRA_TAG = re.compile(r"[（(\[［【][^（()）\[\]［］【】]*[)）\]］】
 # Apple の曲名の「(シンデレラガールズ バージョン)」のような付記（照合の前に外す。外さないと VOY@GER などが別の曲扱いになった）
 KANA_VERSION = re.compile(r"\s*[（(][^（()）]*バージョン[)）]")
 
+# ブランドをまたぐ共通の曲（スタマス・カバー曲など）がまとまっているアルバム（ユーザー情報）。
+# 曲名が検索で見つからなかった曲は、これらのアルバムの収録曲から探す（アーティスト名にアイドル名が並んでいる）
+STARLIT_ALBUMS = [
+    1588675530,  # THE IDOLM@STER STARLIT SEASON 00 GR@TITUDE - Single
+    1588673720,  # 00 GR@TITUDE【日本コロムビア盤】
+    1717753692,  # 00 GR@TITUDE【ランティス盤】
+    1718493703,  # THE IDOLM@STER STARLIT SEASON 01
+    1602208428,  # 02
+    1718496905,  # 03
+    1618722648,  # 04
+]
+# ブランドごとの、曲名検索では見つけにくい曲がまとまったアルバム（ユーザー情報）。
+#   シャニマスの季節曲など（Let's get a chance・SWEET♡STEP…）は曲名に「-25 colors-」のような付記が付いている
+BRAND_ALBUMS = {
+    "sc": [
+        1734553272,  # THE IDOLM@STER SHINY COLORS WING COLLECTION -A side-（季節曲など。ユーザー情報：A・B 両方）
+        1734553065,  # THE IDOLM@STER SHINY COLORS WING COLLECTION -B side-（-25 colors-）
+        1836353222,  # THE IDOLM@STER SHINY COLORS -28 colors- COLLECTION
+    ],
+}
+# 照合の前に外す、アルバム独自の曲名の付記（「-25 colors-」など）
+ALBUM_SUFFIX = re.compile(r"\s*-\s*\d+\s*colors\s*-\s*$", re.I)
+_album_cache: dict[int, list[dict]] = {}
+
+
+def album_tracks(ids: list[int]) -> list[dict]:
+    out = []
+    for cid in ids:
+        if cid not in _album_cache:
+            res = get_json(f"https://itunes.apple.com/lookup?id={cid}&country=JP&entity=song&limit=200").get("results", [])
+            _album_cache[cid] = [t for t in res if t.get("wrapperType") == "track" and t.get("previewUrl")]
+        out += _album_cache[cid]
+    return out
+
+
+def starlit_tracks() -> list[dict]:
+    return album_tracks(STARLIT_ALBUMS)
+
+
 # 手で決めた試聴（照合より優先する）。キーは previews.json と同じ（越境曲は「ブランド:曲ID」）
 #   値は Apple Music の trackId（曲の URL の「?i=」の後ろの数字）
 PREVIEW_OVERRIDES = {
     "cg:4411": 1579016507,  # VOY@GER（シンデレラガールズ バージョン）。ユーザー指定
+    "9760": 1779614260,     # Clean.Clean up（コメティック / ECHOES 08）。ユーザー指定
+    "11327": 1818073120,    # GET OVER（ストレイライト / 円環 -Halo around- 02）。ユーザー指定
+    "11392": 1830422653,    # Swing it!（ノクチル / 円環 -Halo around- 04）。ユーザー指定
 }
 
 
@@ -59,17 +101,70 @@ def find(song: dict, brand: str, multi: bool = False) -> tuple[dict, str] | None
       1. 版を分けた曲（Ver.Cute など）でその版の音源が無い → 元の曲（版の指定なし）の音源を使う
       2. 越境曲でそのブランドの盤が無い → どのブランド名も付いていない共通の盤（THE IDOLM@STER …）を使う
     """
-    hit = find_strict(song, brand)
+    hit = find_strict(song, brand, multi_brand=multi)
     if not hit and SITE_VERSION.search(song["title"]):
-        hit = find_strict(song, brand, ignore_ver=True)
+        hit = find_strict(song, brand, ignore_ver=True, multi_brand=multi)
         if hit: hit = (hit[0], hit[1] + "・元の版")
+    if not hit:
+        # よくある曲名（Swing it!・GET OVER・Sparkle など）は、検索結果（1回50件）がほかのアーティストの曲で埋まって
+        # 見つからないことがあるので、「曲名＋ブランド名」「曲名＋ユニット名（カタカナ）」で探し直す
+        hit = find_strict(song, brand, terms=extra_terms(song, brand), multi_brand=multi)
+        if hit: hit = (hit[0], hit[1] + "・追加検索")
+    if not hit:
+        hit = find_starlit(song)
+    if not hit and BRAND_ALBUMS.get(brand):
+        hit = find_brand_album(song, brand)
     if not hit and multi:
         hit = find_strict(song, brand, common=True)
         if hit: hit = (hit[0], hit[1] + "・共通盤")
     return hit
 
 
-def find_strict(song: dict, brand: str, ignore_ver: bool = False, common: bool = False) -> tuple[dict, str] | None:
+def find_starlit(song: dict) -> tuple[dict, str] | None:
+    """STARLIT SEASON のアルバムの収録曲から探す。曲名が同じで、アーティスト名に歌唱者の名前が入っているものだけ使う"""
+    key = song_key(SITE_VERSION.sub("", song["title"]))
+    singers = [norm(re.sub(r"[（(]初代[)）]", "", s)) for s in song.get("singers") or []]
+    singers = [s for s in singers if len(s) >= 2]
+    cands = []
+    for t in starlit_tracks():
+        k, rank = classify(KANA_VERSION.sub("", t.get("trackName", "")))
+        if k != key or rank != 0 or (REMIX.search(t["trackName"]) and not REMIX.search(song["title"])):
+            continue
+        if singers and any(s in norm(t.get("artistName", "")) for s in singers):
+            cands.append((t.get("releaseDate", "9999"), t))
+    if not cands:
+        return None
+    return min(cands, key=lambda c: c[0])[1], "STARLIT SEASON"
+
+
+def find_brand_album(song: dict, brand: str) -> tuple[dict, str] | None:
+    """BRAND_ALBUMS のアルバムの収録曲から探す。曲名（「-25 colors-」などの付記を外したもの）が同じものを使う
+    （ブランドのアルバムなので、アーティスト名がブランド名（シャイニーカラーズ）でもよい）"""
+    key = song_key(SITE_VERSION.sub("", song["title"]))
+    cands = []
+    for t in album_tracks(BRAND_ALBUMS[brand]):
+        name = ALBUM_SUFFIX.sub("", KANA_VERSION.sub("", t.get("trackName", "")))
+        k, rank = classify(name)
+        if k != key or rank != 0 or (REMIX.search(t["trackName"]) and not REMIX.search(song["title"])):
+            continue
+        cands.append((t.get("releaseDate", "9999"), t))
+    if not cands:
+        return None
+    return min(cands, key=lambda c: c[0])[1], "ブランドのアルバム"
+
+
+def extra_terms(song: dict, brand: str) -> list[str]:
+    title = SITE_VERSION.sub("", song["title"])
+    to_kata = lambda s: "".join(chr(ord(c) + 0x60) if "ぁ" <= c <= "ゖ" else c for c in s)
+    terms = [f"{title} {w}" for w in BRAND_WORDS.get(brand, [])[:2]]
+    for u in (song.get("units") or [])[:2]:
+        if UNIT_KANA.get(u):
+            terms.append(f"{title} {to_kata(UNIT_KANA[u])}")
+    return terms
+
+
+def find_strict(song: dict, brand: str, ignore_ver: bool = False, common: bool = False,
+                terms: list[str] | None = None, multi_brand: bool = False) -> tuple[dict, str] | None:
     """
     取り違えを防ぐため、次のどちらかを満たす結果だけを使う（ジャケットより厳しくしている）
       1. アーティスト名に歌唱者かユニット名（よみでも可）が入っている
@@ -94,7 +189,7 @@ def find_strict(song: dict, brand: str, ignore_ver: bool = False, common: bool =
     own_words = BRAND_WORDS.get(brand, [])
     other_words = [w for b, ws in BRAND_WORDS.items() if b != brand for w in ws if not has_any(w, own_words)]
     seen, cands = set(), []
-    for term in (f"{title} アイドルマスター", title):
+    for term in terms or (f"{title} アイドルマスター", title):
         for r in search(term):
             tid = r.get("trackId")
             if tid in seen or not r.get("previewUrl"):
@@ -133,15 +228,18 @@ def find_strict(song: dict, brand: str, ignore_ver: bool = False, common: bool =
             if prio is not None:
                 # 曲名に無い付記（M@STER VERSION・GAME VERSION・Ver. など）が付いた音源は、付記の無いものより後にする
                 # （「M@STER VERSION」は 765AS・シンデレラの CD のもともとの音源に付いている名前なので付記扱いしない）
+                # 越境曲は「(シャイニーカラーズVer.)」のような自分のブランドの盤を最優先にする（その付記は減点しない）。
+                # （以前は付記の無い音源を優先したため、シャニマスの GR@TITUDE が玲音たちの版になってしまった）
+                own = has_any(f"{disc} {r.get('artistName', '')}", own_words)
                 extra = any(norm(t) not in norm(song["title"]) and not re.search(r"m@ster vers?[it]on", t, re.I)
-                            for t in EXTRA_TAG.findall(track))
-                cands.append((prio, 1 if extra else 0, r.get("releaseDate", "9999"), r, why))
+                            and not has_any(t, own_words) for t in EXTRA_TAG.findall(track))
+                cands.append((prio, 0 if own or not multi_brand else 1, 1 if extra else 0, r.get("releaseDate", "9999"), r, why))
         # 「曲名 アイドルマスター」で見つかれば、曲名だけの検索はしない（同名の別の曲が多いため）
         if cands:
             break
     if not cands:
         return None
-    _, _, _, r, why = min(cands, key=lambda c: (c[0], c[1], c[2]))
+    _, _, _, _, r, why = min(cands, key=lambda c: (c[0], c[1], c[2], c[3]))
     return r, why
 
 

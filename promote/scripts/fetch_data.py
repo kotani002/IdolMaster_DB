@@ -286,6 +286,12 @@ SHODAI = re.compile(r"\s*[（(]初代[)）]\s*")
 SPLIT_SINGERS = {"双海亜美・真美": ["双海亜美", "双海真美"]}
 
 
+# 曲の一覧から外す曲（ブランド → 曲ID）。ふじわらはじめに登録はあるが、プレゼンする曲として出さないもの（ユーザー判断）
+EXCLUDE_SONGS: dict[str, set[int]] = {
+    "sc": {5504},  # シャニマス アニメティザーPV曲（正式な曲名・音源が無い）
+}
+
+
 def excluded(name: str) -> bool:
     return name in EXCLUDE_IDOLS
 
@@ -450,6 +456,8 @@ def build_brand(brand_id: str, conf: dict) -> None:
             })
         if brand_id == "as":  # 961プロへ移した曲
             song_rows = [r for r in song_rows if r["id"] not in MOVED_961]
+        # 曲として選べないようにする曲（EXCLUDE_SONGS）
+        song_rows = [r for r in song_rows if r["id"] not in EXCLUDE_SONGS.get(brand_id, set())]
         song_rows += extra_song_rows(brand_id, {r["id"] for r in song_rows})
         # よみが無い「曲名 (○○Ver.)」は元の曲名のよみを使う（ひらがなでも探せるように）
         for r in song_rows:
