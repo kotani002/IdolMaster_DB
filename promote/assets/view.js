@@ -368,7 +368,12 @@ async function init() {
   pill.style.background = f.color; pill.style.color = f.ink;
 
   // 試聴：曲ID → trackId → 試聴URL
-  const trackIdOf = (it) => { const t = it.songId == null ? null : own(DB.previews, String(it.songId)); return Number.isInteger(t) ? t : null; };
+  // 越境曲はブランドごとに別の盤なので「ブランド:曲ID」を先に見る（scripts/fetch_previews_itunes.py）
+  const trackIdOf = (it) => {
+    if (it.songId == null) return null;
+    const t = own(DB.previews, `${it.brand}:${it.songId}`) ?? own(DB.previews, String(it.songId));
+    return Number.isInteger(t) ? t : null;
+  };
   const tracks = await lookupTracks([...new Set(sheet.items.map(trackIdOf).filter(Boolean))]);
   $("#v-items").replaceChildren(...sheet.items.map((it, i) => cardEl(it, i, f, tracks.get(trackIdOf(it)))));
 
