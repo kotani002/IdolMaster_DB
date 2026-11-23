@@ -18,13 +18,19 @@
 - 「＋ 新しい曲を追加する」でカードを増やせます。並べ替え（↑↓）と削除もできます。
 - 入力内容はブラウザに自動保存されます。
 - 「画像を作る」で PNG を出力し、保存・コピー・共有・X へのポストができます。
+- 同じ画面に**共有URL**が出ます。X へのポストの投稿文にも入ります。開いた人は、ブラウザでシートを見て、曲を Apple Music の試聴（約30秒）で聴けます（`view.html`）。「続けて試聴する」で上から順に流せます。各曲に「Apple Musicで聴く」「Spotifyで探す」のリンクがあります。
+  - 共有URLは、シートの中身を圧縮して URL の `#d=` 以降に入れたものです。サーバーには何も保存しません（`#` 以降はサーバーに送られません）。中身が多いほど URL が長くなります。
 
 ## ファイル構成
 
 ```
 index.html              画面
-assets/style.css        見た目（.x-* は出力画像用）
+view.html               共有ページ（共有URLで開くシートの閲覧・お試し視聴）
+assets/style.css        見た目（.x-* は出力画像用、.v-* は共有ページ用）
 assets/app.js           処理
+assets/share.js         共有URLの作成・読み取り（app.js と view.js が使う）
+assets/view.js          共有ページの処理（試聴は iTunes の lookup API で、開いたときに試聴URLを取る）
+data/previews.json      楽曲ID → Apple Music の trackId（試聴用。scripts/fetch_previews_itunes.py で作成）
 data/brands.json        ブランド定義（名前・テーマカラー）
 data/themes.json        お題の候補
 data/events.json        イベントの出演者（デレミリ対バン・エムシャニ対バン Day1/Day2。公式の出演者ページを見て手で更新）
@@ -114,8 +120,21 @@ python scripts/jackets_csv.py import
 
 `jacket_url` を記入した行だけが `data/jackets.json` に追加されます。空欄の行は何も変更しません。
 
+## お試し視聴のデータを更新する
+
+```bash
+python scripts/fetch_previews_itunes.py          # 全ブランド
+python scripts/fetch_previews_itunes.py sc       # ブランドを指定
+python scripts/fetch_previews_itunes.py sc --redo  # 登録済みの曲も探し直す
+```
+
+iTunes Search API で各曲の Apple Music の trackId を探し、`data/previews.json` に書きます。照合のしかたはジャケット（`fetch_jackets_itunes.py`）と同じです。ただし、カラオケ・インスト・ソロリミックスは使いません。歌唱者の名前が入った結果を優先します。結果は `scripts/.cache/previews_report.txt` に出るので、取り違えが無いか確認してください。API は1分あたり約20回までなので、初回は1ブランド数十分かかります。2回目以降は `scripts/.cache/itunes/` の保存分を使うので速くなります。登録済みの曲は、`--redo` を付けない限り探し直しません。
+
+試聴URL（previewUrl）は変わることがあるので保存していません。共有ページを開いたときに、trackId で lookup API へまとめて1回だけ問い合わせます。
+
 ## ライセンス・クレジット
 
 - 楽曲・アイドルデータは [アイマス楽曲DB ふじわらはじめ](https://fujiwarahaji.me/) の API を利用しています（[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ja)）。非営利で利用し、クレジット表記を残してください。
 - 楽曲・ジャケット等の著作権は各権利者に帰属します。© BANDAI NAMCO Entertainment Inc.
+- お試し視聴は Apple Music のプレビュー（iTunes Search API）を使っています。共有ページに「Apple Musicで聴く」リンクと出典を載せています。
 - URL で埋め込んだジャケット画像は、配信元が CORS を許可していない場合、画像出力の時だけ `images.weserv.nl`（画像プロキシ）経由で読み込みます。

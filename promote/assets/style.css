@@ -460,6 +460,15 @@ a { color: inherit; }
 .ex-fig-actions { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px 12px; background: #fff; }
 .btn.small { height: 32px; padding: 0 12px; font-size: 12px; }
 .ex-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+/* 共有URL（出力画面の下） */
+.ex-share-url { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.ex-share-url[hidden] { display: none; }
+.ex-share-url .lbl small { font-weight: 700; margin-left: 4px; }
+.ex-url-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.ex-url-row input {
+  flex: 1 1 220px; min-width: 0; height: 38px; padding: 0 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: #faf8f4; font-size: 13px; color: var(--muted);
+}
 .ex-actions .btn[hidden] { display: none; } /* .btn の display より優先して隠す（複数枚のときのコピー、共有できない端末の共有） */
 
 .loading {
@@ -594,3 +603,54 @@ html.booting .topbar, html.booting .wrap { visibility: hidden; opacity: 0; }
 .x-tag { display: inline-block; padding: 5px 16px 7px; border-radius: 999px; font-size: 21px; font-weight: 800; }
 .x-foot { position: relative; margin-top: 30px; display: flex; justify-content: space-between; gap: 20px; font-size: 16px; color: #8a8593; }
 .x-foot b { color: #2a2730; }
+
+/* ---------- 共有ページ（view.html） ---------- */
+.viewer .brand-mark, a.btn { text-decoration: none; }
+.viewer .brand-title { font-size: 18px; font-weight: 800; white-space: nowrap; }
+.v-head { display: flex; flex-direction: column; gap: 4px; }
+.v-name { margin: 0; font-size: 28px; font-weight: 800; line-height: 1.3; word-break: break-all; }
+.v-head .brand-line { margin-top: 6px; }
+.v-pill { display: inline-block; padding: 4px 16px 5px; border-radius: 999px; font-weight: 800; font-size: 15px; }
+.v-playall-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.v-playall-row .btn[hidden] { display: none; }
+.v-theme { flex: 1; min-width: 0; font-weight: 800; font-size: 18px; padding: 4px 2px; line-height: 1.4; }
+.v-jacket-wrap { position: relative; width: 180px; align-self: start; }
+.v-jacket { cursor: default; width: 100%; }
+/* ジャケットの上の再生ボタン（右下） */
+.v-play {
+  position: absolute; right: 10px; bottom: 10px; z-index: 3;
+  width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--from); color: var(--from-ink);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .25), inset 0 0 0 2px rgba(255, 255, 255, .55);
+  display: flex; align-items: center; justify-content: center; transition: transform .1s;
+}
+.v-play:hover { transform: scale(1.06); }
+.v-play:active { transform: scale(.95); }
+.v-play-icon { width: 0; height: 0; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent currentColor; }
+.v-card.playing .v-play-icon { margin-left: 0; width: 16px; height: 18px; border: none; border-left: 5px solid currentColor; border-right: 5px solid currentColor; }
+.v-card.playing { box-shadow: 0 0 0 3px var(--from), 0 6px 24px rgba(60, 40, 0, .08); }
+.v-title-row { display: flex; flex-direction: column; gap: 4px; padding-bottom: 8px; border-bottom: 2px solid #f0ebe3; }
+.v-title { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35; word-break: break-word; }
+.v-singers { font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.6; }
+.v-progress { height: 4px; border-radius: 999px; background: #f0ebe3; overflow: hidden; }
+.v-progress-bar { display: block; height: 100%; width: 0; background: var(--from); transition: width .25s linear; }
+.v-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.v-link {
+  display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 800; text-decoration: none; border: 1px solid var(--line); background: #fff;
+}
+.v-link:hover { border-color: #cfc8bd; }
+.v-link.apple::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fa2d48; margin-right: 6px; }
+.v-link.spotify::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #1db954; margin-right: 6px; }
+.v-nopreview { font-size: 12px; font-weight: 700; color: var(--muted); margin-right: 4px; }
+.v-pitch { margin: 0; font-size: 15px; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+.v-tag { padding: 4px 12px; }
+.v-empty { padding: 24px; text-align: center; line-height: 1.8; }
+.v-empty .btn { text-decoration: none; }
+@media (max-width: 640px) {
+  .viewer .brand-title { font-size: 15px; }
+  .v-name { font-size: 22px; }
+  .v-theme { font-size: 16px; }
+  .v-jacket-wrap { width: 100%; max-width: 240px; margin: 0 auto; }
+  .v-title { font-size: 19px; }
+}

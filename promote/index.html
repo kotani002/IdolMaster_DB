@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261119g">
+<link rel="stylesheet" href="assets/style.css?v=20261123b">
 </head>
 <body>
 <div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
@@ -215,6 +215,15 @@
       <button type="button" class="btn" id="ex-x">Xにポスト</button>
     </div>
     <p class="muted small">スマホで保存できない場合は、画像を長押しして保存してください。</p>
+    <!-- 共有URL：シートの中身を URL に入れる（サーバーには保存しない）。開いた人は曲のお試し視聴ができる（view.html） -->
+    <div class="ex-share-url">
+      <span class="lbl">共有URL<small>（開いた人はブラウザでシートを見て、曲をお試し視聴できます。Xにポストすると投稿文に入ります）</small></span>
+      <div class="ex-url-row">
+        <input type="text" id="ex-url" readonly aria-label="共有URL">
+        <button type="button" class="btn" id="ex-url-copy">URLをコピー</button>
+        <a class="btn ghost" id="ex-url-open" href="view.html" target="_blank" rel="noopener">開いて確認</a>
+      </div>
+    </div>
   </div>
 </dialog>
 
@@ -230,6 +239,6 @@
 <div id="export-stage" aria-hidden="true"></div>
 
 <!-- 画像作成の部品（html2canvas）は、ページを開くのが遅くならないよう、ここでは読まずに app.js（loadHtml2canvas）で後から読む -->
-<script src="assets/app.js?v=20261119c" type="module"></script>
+<script src="assets/app.js?v=20261123a" type="module"></script>
 </body>
 </html>

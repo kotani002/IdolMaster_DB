@@ -1,6 +1,9 @@
 // アイマス楽曲プレゼンシート
 // データ: data/*.json（scripts/fetch_data.py で ふじわらはじめAPI から生成）
 
+// 共有URL（シートの中身を URL に入れる。share.js を変えたら ?v= を上げる。view.js も同じ）
+import { packState, shareUrl } from "./share.js?v=20261123a";
+
 const STORE_KEY = "imas-presen-v2"; // v2: 初期状態を「曲なし」に変更したので、以前の下書きは引き継がない
 const HASHTAG = "#アイマス楽曲プレゼン";
 const DEFAULT_NAME = "名無しP";
@@ -1106,6 +1109,7 @@ async function exportImage() {
     $("#ex-share").hidden = !canShareFile();
     $("#ex-save").textContent = lastExport.length > 1 ? `${lastExport.length}枚まとめて保存` : "画像を保存";
     $("#ex-copy").hidden = lastExport.length > 1; // クリップボードは1枚しか入らないので、複数枚のときは各画像の下のボタンでコピー
+    await prepareShareUrl();
     $("#dlg-export").showModal();
   } catch (e) {
     console.error(e);
@@ -1116,8 +1120,22 @@ async function exportImage() {
 }
 
 const fileName = (k = 1, n = 1) => `imas-presen-${state.from}${n > 1 ? `-${k}` : ""}.png`;
-// 投稿文はハッシュタグだけ（内容は画像で伝える。サイトのURLは画像の下部に入っている）
-const shareText = () => HASHTAG;
+// 投稿文はハッシュタグと共有URL（内容は画像で伝え、URL を開くとシートを見て試聴できる）
+let lastShareUrl = "";
+const shareText = () => (lastShareUrl ? `${HASHTAG}\n${lastShareUrl}` : HASHTAG);
+
+// 共有URLを作って出力画面に出す（画像を作るたびに今の内容で作り直す）
+async function prepareShareUrl() {
+  lastShareUrl = "";
+  try {
+    const packed = packState(state, (it) =>
+      altsOf(it.songId, it.brand || state.from).findIndex((a) => a.jacket === it.jacket));
+    lastShareUrl = await shareUrl(packed);
+  } catch (e) { console.error(e); }
+  $(".ex-share-url").hidden = !lastShareUrl;
+  $("#ex-url").value = lastShareUrl;
+  $("#ex-url-open").href = lastShareUrl || "view.html";
+}
 
 // 出力画面に画像を並べる。複数枚のときは各画像に「何枚目」と、その画像だけの保存・コピーボタンを付ける
 function renderExportImages() {
@@ -1211,6 +1229,11 @@ function wire() {
   $("#jk-close").addEventListener("click", (e) => { e.preventDefault(); $("#dlg-jacket").close(); });
 
   $("#ex-close").onclick = () => $("#dlg-export").close();
+  $("#ex-url-copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(lastShareUrl); toast("共有URLをコピーしました"); }
+    catch { $("#ex-url").select(); toast("URLを選択しました。長押し（右クリック）でコピーしてください"); }
+  };
+  $("#ex-url").addEventListener("focus", (e) => e.target.select());
   $("#ex-save").onclick = () => download();
   $("#ex-copy").onclick = () => copyImage(0);
   $("#ex-share").onclick = async () => {

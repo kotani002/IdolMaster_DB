@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja" class="booting">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ジャケット画像の配信元が参照元付きの読み込みを差し替え画像にするため、参照元を送らない（index.html と同じ） -->
+<meta name="referrer" content="no-referrer">
+<script>
+  // 旧URL（GitHub Pages・Cloudflare Workers）で開かれたら新URLへ移動する（index.html と同じ。# 以降のシートの中身も引き継ぐ）
+  if (/(\.github\.io|\.workers\.dev)$/.test(location.hostname)) {
+    var NEW_SITE = "https://imasfan-presen.pages.dev/";
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 3000);
+    fetch(NEW_SITE + "assets/ogp.png?probe=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+      .then(function () { location.replace(NEW_SITE + "view.html" + location.search + location.hash); })
+      .catch(function () {});
+  }
+  setTimeout(function () { document.documentElement.classList.remove("booting"); }, 10000);
+</script>
+<title>おすすめ曲シート｜アイマス楽曲プレゼンシート</title>
+<meta name="description" content="アイドルマスターのおすすめ曲シート。プレゼン文を読みながら、曲をお試し視聴できます。">
+<meta property="og:title" content="おすすめ曲シート｜アイマス楽曲プレゼンシート">
+<meta property="og:description" content="プロデューサーのおすすめ曲を、プレゼン文と一緒にお試し視聴しよう。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="アイマス楽曲プレゼンシート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="おすすめ曲シート｜アイマス楽曲プレゼンシート">
+<meta name="twitter:description" content="プロデューサーのおすすめ曲を、プレゼン文と一緒にお試し視聴しよう。">
+<meta name="twitter:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
+<meta name="theme-color" content="#fff8ec">
+<link rel="icon" href="favicon.ico?v=1" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=1">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=1">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20261123b">
+</head>
+<body class="viewer">
+<div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand-mark" href="./" title="楽曲プレゼンシートのトップへ">
+      <span class="brand-kicker">IDOLM@STER</span>
+      <span class="brand-title">楽曲プレゼンシート</span>
+    </a>
+    <div class="topbar-actions">
+      <a class="btn primary" href="./">自分も作る</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="sheet" id="view">
+    <div class="sheet-head v-head">
+      <h1 class="v-name" id="v-name"></h1>
+      <div class="brand-line">
+        <span class="v-pill" id="v-brand"></span>
+        <span class="brand-line-text">のおすすめ曲</span>
+      </div>
+      <div class="v-playall-row">
+        <button type="button" class="btn primary" id="v-playall" hidden>▶ 続けて試聴する</button>
+        <span class="muted small" id="v-note"></span>
+      </div>
+    </div>
+    <div id="v-items" class="items"></div>
+  </section>
+
+  <footer class="site-foot">
+    <p>このシートの内容は、作成した人が入力したものです。</p>
+    <p>お試し視聴：<a href="https://music.apple.com/jp/" target="_blank" rel="noopener">Apple Music</a>（約30秒のプレビュー）</p>
+    <p>楽曲・アイドルデータ：<a href="https://fujiwarahaji.me/" target="_blank" rel="noopener">アイマス楽曲DB ふじわらはじめ</a>（<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC 4.0</a>）</p>
+    <p>ジャケット画像：各ブランド公式ディスコグラフィー・Apple Music</p>
+    <p>本サイトは非公式のファンメイドツールです。楽曲・ジャケット等の著作権は各権利者に帰属します。© BANDAI NAMCO Entertainment Inc.</p>
+    <p>エラーや不具合を見つけたら、X（Twitter）の <a href="https://x.com/donguri_283" target="_blank" rel="noopener">@donguri_283</a> までお知らせください。</p>
+  </footer>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/view.js?v=20261123c" type="module"></script>
+</body>
+</html>
