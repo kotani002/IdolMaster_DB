@@ -12,6 +12,7 @@
 # --- CSP（scripts/update_csp.py が作成。手で直さない）
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com 'sha256-c39yw4jgmjtzsmSTzEx7gW4pFH9akS9bZUyTUGWVt1s=' 'sha256-yC0SUktpEeP6KXurfPVuriASMwZuI4CffyAh8gHAlk0=' 'sha256-rgiiKbv6Xmm4JyUMrSTjcPmIcOVAHpkeFeoeQ37QJ74='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self' https:; media-src https://*.apple.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer

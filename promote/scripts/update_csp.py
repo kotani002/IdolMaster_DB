@@ -55,6 +55,10 @@ def main() -> None:
         BEGIN,
         "/*",
         f"  Content-Security-Policy: {csp}",
+        # HSTS：このサイトは1年間 https だけで開くようブラウザに覚えさせる（http で開かれても通信前に https にする）。
+        # サブドメイン（プレビュー用の URL）も https のみなので includeSubDomains も付ける。
+        # preload は付けない（pages.dev のサブドメインは登録できない。独自ドメインにしたら検討する）
+        "  Strict-Transport-Security: max-age=31536000; includeSubDomains",
         "  X-Frame-Options: DENY",
         "  X-Content-Type-Options: nosniff",
         "  Referrer-Policy: no-referrer",
