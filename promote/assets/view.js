@@ -2,7 +2,7 @@
 // 試聴の曲は data/previews.json（楽曲ID → Apple Music の trackId。scripts/fetch_previews_itunes.py で作成）。
 // 試聴URLは変わることがあるので保存せず、開いたときに iTunes の lookup API でまとめて1回だけ問い合わせる。
 
-import { decodeSheet, codeFromHash } from "./share.js?v=20261123a";
+import { decodeSheet, codeFromHash, canOpen } from "./share.js?v=20261123b";
 
 const DEFAULT_NAME = "名無しP";
 const NOW_PRINTING = "assets/now_printing.png?v=3";
@@ -61,7 +61,9 @@ const inkFor = (hex) => (!hexToRgb(hex) ? "#fff" : luminance(hex) > 0.45 ? "#2a2
 const isLight = (hex) => luminance(hex) > 0.75;
 
 // ---------------------------------------------------------------- data
-const DB = { brands: [], jackets: {}, jacketAlts: {}, previews: {}, songs: {} };
+const DB = { brands: [], jackets: {}, jacketAlts: {}, previews: {}, songs: {}, idols: {} };
+// 歌って欲しいアイドルの色：URL に色が入っていればそれ、無ければアイドル一覧の色、それも無ければブランド色（share.js の packState と対応）
+const memberColor = (m) => m.color || (DB.idols[m.brand] || []).find((i) => i.name === m.name)?.color || brand(m.brand).color;
 const brand = (id) => DB.brands.find((b) => b.id === id) || { id, name: id, short: id, color: "#8a8593", ink: "#fff" };
 const jacketOf = (songId, b) => DB.jackets[`${b}:${songId}`] || DB.jackets[String(songId)] || "";
 const altsOf = (songId, b) => (songId == null ? [] : DB.jacketAlts[`${b}:${songId}`] || DB.jacketAlts[String(songId)] || []);
@@ -278,7 +280,7 @@ function cardEl(it, idx, f, track) {
         it.members.length ? h("div", { class: "members" },
           h("div", { class: "members-label" }, "歌って欲しいアイドル"),
           h("div", { class: "tags" }, it.members.map((m) => {
-            const c = m.color || brand(m.brand || f.id).color;
+            const c = memberColor(m);
             return h("span", { class: "tag v-tag" + (isLight(c) ? " light" : ""), style: { "--tag-bg": c, "--tag-ink": inkFor(c) } }, m.name);
           }))) : null,
       ),
@@ -312,14 +314,20 @@ async function init() {
   try { sheet = await decodeSheet(code); }
   catch (e) {
     console.error(e);
-    showError(typeof DecompressionStream !== "function"
+    showError(!canOpen()
       ? "お使いのブラウザでは、このシートを開けません。ブラウザを最新にしてお試しください。"
       : "URLが途中で切れているか、壊れているようです。共有されたURLを最後までコピーできているか確認してください。");
     return;
   }
   [DB.brands, DB.jackets, DB.jacketAlts, DB.previews] = await metaP;
-  const brandIds = [...new Set(sheet.items.map((it) => it.brand))];
-  await Promise.all(brandIds.map(async (b) => { DB.songs[b] = await getJSON(`data/songs/${encodeURIComponent(b)}.json`, []); }));
+  // 曲名・歌唱者は曲のブランドの曲一覧から、アイドルの色はアイドル一覧から補う
+  const known = new Set(DB.brands.map((b) => b.id));
+  const songBrands = [...new Set(sheet.items.map((it) => it.brand))].filter((b) => known.has(b));
+  const idolBrands = [...new Set(sheet.items.flatMap((it) => it.members.map((m) => m.brand)))].filter((b) => known.has(b));
+  await Promise.all([
+    ...songBrands.map(async (b) => { DB.songs[b] = await getJSON(`data/songs/${b}.json`, []); }),
+    ...idolBrands.map(async (b) => { DB.idols[b] = await getJSON(`data/idols/${b}.json`, []); }),
+  ]);
 
   const f = brand(sheet.from);
   const root = document.documentElement.style;

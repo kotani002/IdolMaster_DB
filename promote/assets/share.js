@@ -1,57 +1,91 @@
 // 共有URL：シートの中身を URL の「#」以降に入れる（サーバーには保存しない。# 以降はサーバーに送られない）
-//   https://…/view.html#d=<形式1文字><base64url>
-//     形式 "z"：JSON を deflate-raw で圧縮（CompressionStream が使えるブラウザ）
-//     形式 "j"：JSON そのまま（圧縮できないブラウザ用）
-// JSON は短いキーで書く：{ v:1, n:名前, f:ブランド, i:[{ t:お題, s:曲ID, k:曲名, b:曲のブランド, p:プレゼン, m:[[名前,ブランド,色]], a:公式ジャケットの番号, o:表示位置 }] }
-// 既定値（空文字・おすすめブランドと同じ・自動）は書かない
+//   https://…/view.html#d=a<base64url>
+//     "a"：JSON を UTF-16 にして deflate-raw で圧縮したもの
+//          （日本語の文章は UTF-8 だと1文字3バイト、UTF-16 だと2バイトなので、圧縮後もこちらが短い）
+//
+// JSON は短いキーで書き、閲覧ページでデータから分かるものは入れない：
+//   { f:ブランド, n:名前, i:[{ t:お題, s:曲ID, k:曲名（曲IDが無い自由入力の曲だけ）, b:曲のブランド（f と違うときだけ）,
+//        p:プレゼン, m:[ "アイドル名" | [名前, ブランド, 色] ], a:公式ジャケットの番号, o:表示位置 }] }
+//   歌って欲しいアイドルは、曲のブランドのアイドルで色も一覧どおりなら名前だけ。
+//   ブランドが違う・色が一覧と違う（「○○全員」「Day1全員」・ユニット名・自由入力）ときだけ配列にする（色は一覧どおりなら省く）。
+//   アイドル・お題は番号にしない（データを更新して並びが変わると、共有済みのURLが別の人・お題を指してしまうため）
 
 export const SHARE_PAGE = "view.html";
-const VERSION = 1;
+const KIND = "a";
 
 // ---- エディタの state → 共有用の短い形
-// altIndex(it) は「公式ジャケットから選ぶ」で選んだ盤の番号（既定の盤なら -1）
-export function packState(state, altIndex = () => -1) {
+// altIndex(it)：「公式ジャケットから選ぶ」で選んだ盤の番号（既定の盤なら -1）
+// defaultColor(member, brandId)：そのアイドルを名前とブランドだけで表示したときの色（一覧の色、無ければブランド色）
+export function packState(state, { altIndex = () => -1, defaultColor = () => "" } = {}) {
   const items = state.items
     .filter((it) => it.title.trim() || it.pitch.trim() || it.members.length)
     .map((it) => {
       const o = {};
+      const songBrand = it.brand || state.from;
       if (it.theme.trim()) o.t = it.theme.trim();
       if (it.songId != null) o.s = it.songId;
-      if (it.title.trim()) o.k = it.title.trim();
-      if (it.brand && it.brand !== state.from) o.b = it.brand;
+      else if (it.title.trim()) o.k = it.title.trim();
+      if (songBrand !== state.from) o.b = songBrand;
       if (it.pitch.trim()) o.p = it.pitch.trim();
-      if (it.members.length) o.m = it.members.map((m) => [m.name, m.brand || "", m.color || ""]);
+      if (it.members.length) {
+        o.m = it.members.map((m) => {
+          const b = m.brand || "";
+          const color = m.color && m.color.toLowerCase() !== (defaultColor(m, b) || "").toLowerCase() ? m.color : "";
+          if (b === songBrand && !color) return m.name;
+          return color ? [m.name, b, color] : [m.name, b];
+        });
+      }
       const a = it.jacketAlt ? altIndex(it) : -1;
       if (a >= 0) o.a = a;
       if (it.jkPos && it.jkPos !== "auto") o.o = it.jkPos;
       return o;
     });
-  const d = { v: VERSION, f: state.from, i: items };
+  const d = { f: state.from, i: items };
   if (state.name.trim()) d.n = state.name.trim();
   return d;
 }
 
-// ---- 共有用の短い形 → 表示用
+// ---- 共有用の短い形 → 表示用（曲名・アイドルの色は閲覧ページがデータから補う）
 export function unpackSheet(d) {
   if (!d || typeof d !== "object" || !Array.isArray(d.i)) throw new Error("bad sheet");
   const str = (v, max) => (typeof v === "string" ? v.slice(0, max) : "");
+  const color = (v) => (/^#[0-9a-f]{3,8}$/i.test(v || "") ? v : "");
   const from = str(d.f, 16);
   return {
     name: str(d.n, 30),
     from,
-    items: d.i.slice(0, 50).map((o) => ({
-      theme: str(o.t, 40),
-      songId: typeof o.s === "number" || typeof o.s === "string" ? o.s : null,
-      title: str(o.k, 100),
-      brand: str(o.b, 16) || from,
-      pitch: str(o.p, 400),
-      members: (Array.isArray(o.m) ? o.m : []).slice(0, 60).map((m) => ({
-        name: str(m?.[0], 40), brand: str(m?.[1], 16), color: /^#[0-9a-f]{3,8}$/i.test(m?.[2] || "") ? m[2] : "",
-      })).filter((m) => m.name),
-      alt: Number.isInteger(o.a) ? o.a : -1,
-      pos: ["left", "center", "right"].includes(o.o) ? o.o : "auto",
-    })),
+    items: d.i.slice(0, 50).map((o) => {
+      const brand = str(o.b, 16) || from;
+      return {
+        theme: str(o.t, 40),
+        songId: typeof o.s === "number" || typeof o.s === "string" ? o.s : null,
+        title: str(o.k, 100),
+        brand,
+        pitch: str(o.p, 400),
+        members: (Array.isArray(o.m) ? o.m : []).slice(0, 60).map((m) => (typeof m === "string"
+          ? { name: str(m, 40), brand, color: "" }
+          : { name: str(m?.[0], 40), brand: str(m?.[1], 16), color: color(m?.[2]) })).filter((m) => m.name),
+        alt: Number.isInteger(o.a) ? o.a : -1,
+        pos: ["left", "center", "right"].includes(o.o) ? o.o : "auto",
+      };
+    }),
   };
+}
+
+// ---- 文字列 ⇔ UTF-16（ビッグエンディアン）のバイト列
+function toUtf16(str) {
+  const a = new Uint8Array(str.length * 2);
+  for (let i = 0; i < str.length; i++) { const c = str.charCodeAt(i); a[2 * i] = c >> 8; a[2 * i + 1] = c & 255; }
+  return a;
+}
+function fromUtf16(bytes) {
+  let s = "";
+  for (let i = 0; i + 1 < bytes.length; i += 2 * 0x4000) {
+    const codes = [];
+    for (let j = i; j + 1 < bytes.length && j < i + 2 * 0x4000; j += 2) codes.push((bytes[j] << 8) | bytes[j + 1]);
+    s += String.fromCharCode(...codes);
+  }
+  return s;
 }
 
 // ---- base64url
@@ -70,23 +104,17 @@ async function pipe(bytes, stream) {
   return new Uint8Array(await out.arrayBuffer());
 }
 
+export const canShare = () => typeof CompressionStream === "function";
+export const canOpen = () => typeof DecompressionStream === "function";
+
 export async function encodeSheet(packed) {
-  const raw = new TextEncoder().encode(JSON.stringify(packed));
-  if (typeof CompressionStream === "function") {
-    try { return "z" + toB64(await pipe(raw, new CompressionStream("deflate-raw"))); } catch {}
-  }
-  return "j" + toB64(raw);
+  return KIND + toB64(await pipe(toUtf16(JSON.stringify(packed)), new CompressionStream("deflate-raw")));
 }
 
 export async function decodeSheet(code) {
-  const kind = code[0], body = fromB64(code.slice(1));
-  let raw;
-  if (kind === "z") {
-    if (typeof DecompressionStream !== "function") throw new Error("old browser");
-    raw = await pipe(body, new DecompressionStream("deflate-raw"));
-  } else if (kind === "j") raw = body;
-  else throw new Error("unknown format");
-  return unpackSheet(JSON.parse(new TextDecoder().decode(raw)));
+  if (code[0] !== KIND) throw new Error("unknown format");
+  const raw = await pipe(fromB64(code.slice(1)), new DecompressionStream("deflate-raw"));
+  return unpackSheet(JSON.parse(fromUtf16(raw)));
 }
 
 // 共有ページのURL（エディタと同じ場所にある view.html）

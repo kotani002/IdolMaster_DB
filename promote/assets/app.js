@@ -2,7 +2,7 @@
 // データ: data/*.json（scripts/fetch_data.py で ふじわらはじめAPI から生成）
 
 // 共有URL（シートの中身を URL に入れる。share.js を変えたら ?v= を上げる。view.js も同じ）
-import { packState, shareUrl } from "./share.js?v=20261123a";
+import { packState, shareUrl, canShare } from "./share.js?v=20261123b";
 
 const STORE_KEY = "imas-presen-v2"; // v2: 初期状態を「曲なし」に変更したので、以前の下書きは引き継がない
 const HASHTAG = "#アイマス楽曲プレゼン";
@@ -1128,8 +1128,13 @@ const shareText = () => (lastShareUrl ? `${HASHTAG}\n${lastShareUrl}` : HASHTAG)
 async function prepareShareUrl() {
   lastShareUrl = "";
   try {
-    const packed = packState(state, (it) =>
-      altsOf(it.songId, it.brand || state.from).findIndex((a) => a.jacket === it.jacket));
+    if (!canShare()) throw new Error("CompressionStream unavailable");
+    const packed = packState(state, {
+      altIndex: (it) => altsOf(it.songId, it.brand || state.from).findIndex((a) => a.jacket === it.jacket),
+      // 閲覧ページは「アイドル一覧の色 → 無ければブランド色」で表示するので、それと同じ色なら URL に入れない
+      defaultColor: (m, b) => (DB.idols[b] || []).find((i) => i.name === m.name)?.color
+        || DB.brands.find((x) => x.id === b)?.color || "",
+    });
     lastShareUrl = await shareUrl(packed);
   } catch (e) { console.error(e); }
   $(".ex-share-url").hidden = !lastShareUrl;
