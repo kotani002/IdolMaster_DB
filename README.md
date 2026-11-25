@@ -16,6 +16,7 @@ js/common.js      データ読み込み共通処理
 js/index.js       トップページの一覧・絞り込み
 js/costume.js     衣装紹介ページの描画・ツイート埋め込み
 callsheet/index.html コール表メーカー(歌詞にコール・クラップ・UOを書き込んで画像にするツール。1ファイルで完結)
+callsheet/uo-icon.svg 「UOを折る」アイコン(ページのアイコンにも使用)
 ```
 
 ## コール表メーカー(callsheet/)

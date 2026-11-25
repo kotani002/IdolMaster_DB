@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" role="img" aria-label="UO（ケミカルライト ウルトラオレンジ）を折る">
+  <title>UOを折る</title>
+  <!-- 折った所から出る光 -->
+  <g stroke="#ffb300" stroke-width="1.7" stroke-linecap="round">
+    <line x1="12" y1="7.3" x2="12" y2="3.7"/>
+    <line x1="9.6" y1="7.9" x2="7.6" y2="5.3"/>
+    <line x1="14.4" y1="7.9" x2="16.4" y2="5.3"/>
+  </g>
+  <!-- 真ん中で「∧」に折ったUO（端は四角） -->
+  <g fill="#ff8c1a">
+    <polygon points="10.31,9.3 0.81,16.72 3.64,20.35 13.14,12.93"/>
+    <polygon points="10.86,12.93 20.36,20.35 23.19,16.72 13.69,9.3"/>
+  </g>
+</svg>

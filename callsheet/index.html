@@ -6,6 +6,7 @@
 <title>コール表メーカー</title>
 <meta name="description" content="歌詞にコール・クラップ・UOを書き込んで、コール表の画像を作れるツール（非公式ファンツール）">
 <meta name="theme-color" content="#3b82c4">
+<link rel="icon" href="uo-icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
@@ -240,6 +241,34 @@ const LS_KEY = 'callsheet.v1';
 const TYPE_KEYS = ['call','opt','clap','uo','ex'];
 const isMark = c => c.type === 'uo';   // 色付きの札（マーク）として描く種類
 const markPad = size => Math.round(size * 0.3);
+/* UOを折るアイコン（24×24の座標）。uo-icon.svg と同じ形。
+   真ん中で「∧」に折ったUO（端は四角）＋折った所から出る光。細かい描き込みはしない */
+const UO_ICON = {
+  bodies: [[[10.31, 9.3], [0.81, 16.72], [3.64, 20.35], [13.14, 12.93]], [[10.86, 12.93], [20.36, 20.35], [23.19, 16.72], [13.69, 9.3]]],
+  rays: [[[12, 7.3], [12, 3.7]], [[9.6, 7.9], [7.6, 5.3]], [[14.4, 7.9], [16.4, 5.3]]],
+};
+// 色: 札の上（白抜き）用と、白い背景用
+const uoPal = () => ({fill: '#ffffff', stroke: 'none', ray: '#fff3a6'});
+const UO_PLAIN = {fill: '#ff8c1a', stroke: 'none', ray: '#ffb300'};
+const iconW = size => Math.round(size * 1.1);
+function drawUOIcon(ctx, x, cy, s, pal) {
+  const k = s / 24, oy = cy - s / 2, P = ([a, b]) => [x + a * k, oy + b * k];
+  const path = (pts, close) => { ctx.beginPath(); pts.forEach((p, i) => ctx[i ? 'lineTo' : 'moveTo'](...P(p))); if (close) ctx.closePath(); };
+  ctx.save(); ctx.lineCap = 'round';
+  ctx.strokeStyle = pal.ray; ctx.lineWidth = 1.7 * k; UO_ICON.rays.forEach(r => { path(r); ctx.stroke(); });
+  ctx.fillStyle = pal.fill; UO_ICON.bodies.forEach(b => { path(b, true); ctx.fill(); });
+  ctx.restore();
+}
+function uoIconSVG(s, pal) {
+  const pts = a => a.map(p => p.join(',')).join(' ');
+  const rays = UO_ICON.rays.map(r => `<polyline points="${pts(r)}"/>`).join('');
+  const bodies = UO_ICON.bodies.map(b => `<polygon points="${pts(b)}"/>`).join('');
+  return `<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true" style="flex:none">` +
+    `<g fill="none" stroke="${pal.ray}" stroke-width="1.7" stroke-linecap="round">${rays}</g>` +
+    `<g fill="${pal.fill}">${bodies}</g></svg>`;
+}
+// UOマークの幅 = 余白 + アイコン + すき間 + 太字の文字
+const markWidth = (text, size) => markPad(size) * 2 + iconW(size) + Math.round(size * 0.15) + measurer(size, true)(text);
 const FONT_FAMILY = '"BIZ UDGothic","MS Gothic","Osaka-Mono",monospace';
 const font = (size, bold) => `${bold ? '700 ' : ''}${size}px ${FONT_FAMILY}`;
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -333,7 +362,7 @@ function layoutCalls(ln, size) {
   const chars = [...ln.text];
   const tw = m(ln.text), sp = m(' ');
   const xAt = at => at <= chars.length ? m(chars.slice(0, at).join('')) : tw + (at - chars.length) * sp;
-  const items = ln.calls.map(c => ({c, x: xAt(c.at), w: m(c.text) + (isMark(c) ? markPad(size) * 2 : 0)}));
+  const items = ln.calls.map(c => ({c, x: xAt(c.at), w: isMark(c) ? markWidth(c.text, size) : m(c.text)}));
   const rows = [];
   const gap = size * 0.5;
   const fits = (r, it) => !(rows[r] || []).some(([a, b]) => it.x < b + gap && it.x + it.w + gap > a);
@@ -359,7 +388,7 @@ function renderSheet(song, canvas, scale) {
   const used = new Set(song.lines.flatMap(l => l.calls.map(c => c.type)));
   const legend = TYPE_KEYS.filter(k => song.types[k].legend && used.has(k));
   const mLeg = measurer(S.legend, true);
-  const legParts = legend.map(k => ({k, w: mLeg(k === 'uo' ? song.types[k].label : '■ ' + song.types[k].label)}));
+  const legParts = legend.map(k => ({k, w: k === 'uo' ? mLeg(song.types[k].label) + S.legend + 4 : mLeg('■ ' + song.types[k].label)}));
   const legendW = legParts.length ? legParts.reduce((s, p) => s + p.w + (p.k === 'uo' ? 8 : 0), 0) + (legParts.length - 1) * 14 + 24 : 0;
   const titleW = measurer(S.title, true)(song.title || '');
   const W = Math.ceil(Math.max(780, contentW + S.pad * 2, titleW + legendW + S.pad * 2 + 24));
@@ -399,8 +428,9 @@ function renderSheet(song, canvas, scale) {
     legParts.forEach(p => {
       const t = song.types[p.k];
       if (p.k === 'uo') {
-        ctx.fillStyle = t.color; roundRect(ctx, lx - 4, by + 5, p.w + 8, bh - 10, 4); ctx.fill();
-        ctx.fillStyle = '#ffffff'; ctx.fillText(t.label, lx, by + bh / 2 + 1);
+        ctx.fillStyle = t.color; roundRect(ctx, lx - 4, by + 4, p.w + 8, bh - 8, 4); ctx.fill();
+        drawUOIcon(ctx, lx - 1, by + bh / 2, S.legend + 2, uoPal(t.color));
+        ctx.fillStyle = '#ffffff'; ctx.fillText(t.label, lx + S.legend + 4, by + bh / 2 + 1);
         lx += 8;
       } else { ctx.fillStyle = t.color; ctx.fillText('■ ' + t.label, lx, by + bh / 2 + 1); }
       lx += p.w + 14;
@@ -425,11 +455,12 @@ function renderSheet(song, canvas, scale) {
     lay.items.forEach(it => {
       const cy = yy + (it.row - 1) * LH + LH / 2, color = song.types[it.c.type].color;
       if (isMark(it.c)) {
-        // UOマーク: 色付きの札に白抜き文字
-        const bh = S.lyr * 1.2;
-        ctx.fillStyle = color; roundRect(ctx, S.pad + it.x, cy - bh / 2, it.w, bh, 6); ctx.fill();
+        // UOマーク: 色付きの札に「折るアイコン」と白抜き文字
+        const bh = S.lyr * 1.25, x0 = S.pad + it.x;
+        ctx.fillStyle = color; roundRect(ctx, x0, cy - bh / 2, it.w, bh, 6); ctx.fill();
+        drawUOIcon(ctx, x0 + markPad(S.lyr), cy, iconW(S.lyr), uoPal(color));
         ctx.font = font(S.lyr, true); ctx.fillStyle = '#ffffff';
-        ctx.fillText(it.c.text, S.pad + it.x + markPad(S.lyr), cy + 1);
+        ctx.fillText(it.c.text, x0 + markPad(S.lyr) + iconW(S.lyr) + Math.round(S.lyr * 0.15), cy + 1);
         ctx.font = font(S.lyr);
       } else {
         ctx.fillStyle = color; ctx.fillText(it.c.text, S.pad + it.x, cy);
@@ -546,7 +577,11 @@ function renderStage(stage, ln, i) {
     const chip = h('span', {class: 'chip', title: 'クリックで編集・ドラッグで移動'}, it.c.text);
     chip.style.left = it.x + 'px'; chip.style.top = ((it.row - 1) * ED.rowH) + 'px'; chip.style.color = types[it.c.type].color;
     if (isMark(it.c)) {
-      Object.assign(chip.style, {background: types[it.c.type].color, color: '#fff', fontWeight: '700', padding: `0 ${markPad(ED.size)}px`, borderRadius: '5px', height: '24px', lineHeight: '24px', top: ((it.row - 1) * ED.rowH + 1) + 'px'});
+      Object.assign(chip.style, {background: types[it.c.type].color, color: '#fff', fontWeight: '700', padding: `0 ${markPad(ED.size)}px`, borderRadius: '5px', height: '24px', lineHeight: '24px', top: ((it.row - 1) * ED.rowH + 1) + 'px',
+        display: 'inline-flex', alignItems: 'center', gap: Math.round(ED.size * 0.15) + 'px', width: it.w + 'px', boxSizing: 'border-box'});
+      chip.textContent = '';
+      chip.insertAdjacentHTML('afterbegin', uoIconSVG(iconW(ED.size), uoPal(types[it.c.type].color)));
+      chip.append(it.c.text);
     }
     attachDrag(chip, it.c, lay, i);
     layer.append(chip);
@@ -615,6 +650,7 @@ function renderPresets() {
   const box = $('#popPresets'); box.innerHTML = '';
   store.presets.split(/[,、]/).map(s => s.trim()).filter(Boolean).forEach(t => {
     const b = h('button', {type: 'button'}, t);
+    if (/^UO/i.test(t)) { b.insertAdjacentHTML('afterbegin', uoIconSVG(18, UO_PLAIN)); b.style.display = 'inline-flex'; b.style.alignItems = 'center'; b.style.gap = '3px'; }
     b.onclick = () => {
       $('#popText').value = t;
       const auto = isClap(t) ? 'clap' : /^UO/i.test(t) ? 'uo' : null;
@@ -822,7 +858,7 @@ setTab('edit');
 /* スマホ: キーボードが出てもボトムシートが隠れないようにする */
 if (window.visualViewport) {
   const fit = () => {
-    const p = $('#pop'); if (p.hidden || innerWidth > 980) { p.style.bottom = ''; return; }
+    const p = $('#pop'); if (!p) return; if (p.hidden || innerWidth > 980) { p.style.bottom = ''; return; }
     p.style.bottom = Math.max(0, innerHeight - visualViewport.height - visualViewport.offsetTop) + 'px';
   };
   visualViewport.addEventListener('resize', fit); visualViewport.addEventListener('scroll', fit);
