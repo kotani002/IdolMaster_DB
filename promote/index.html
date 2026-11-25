@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ja" class="booting">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ジャケット画像の配信元（シャイニーカラーズのランティスサイトなど）は、他サイトからの参照元付きの読み込みを
+     「hotlinked」画像に差し替えるため、参照元を送らない -->
+<meta name="referrer" content="no-referrer">
+<script>
+  // 公開先は Cloudflare Pages（imasfan-presen.pages.dev）。旧URLで開かれたら新URLへ移動する。
+  //   旧URL：GitHub Pages（kotani002.github.io/IdolMaster_DB/promote/）、Cloudflare Workers（imas-presen-songs.283production-staff.workers.dev）
+  // ただし新URLが応答しない間は移動せず、このページをそのまま使う。
+  // ※ GitHub Pages の確認用URL（/preview/）では、ワークフローがこの <script> ごと消す
+  if (/(\.github\.io|\.workers\.dev)$/.test(location.hostname)) {
+    var NEW_SITE = "https://imasfan-presen.pages.dev/";
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 3000);
+    fetch(NEW_SITE + "assets/ogp.png?probe=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+      .then(function () { location.replace(NEW_SITE + location.search + location.hash); })
+      .catch(function () { /* 新URLが未公開・通信不可 → 旧URLのまま使う */ });
+  }
+</script>
+<script>
+  // 起動中は画面を隠して「読み込み中…」を出している（class="booting"、app.js の初期化完了で外れる）。
+  // スクリプトの読み込みに失敗しても画面が隠れたままにならないよう、一定時間で必ず外す
+  setTimeout(function () { document.documentElement.classList.remove("booting"); }, 10000);
+</script>
+<noscript><style>html.booting .topbar, html.booting .wrap { visibility: visible; opacity: 1; } html.booting .boot { display: none; }</style></noscript>
+<title>アイマス楽曲プレゼンシート</title>
+<link rel="canonical" href="https://imasfan-presen.pages.dev/">
+<meta name="description" content="アイドルマスターの推しブランドの曲を、プレゼン文と歌ってほしいアイドルと一緒に1枚の画像にできる非公式ファンメイドツール。">
+<meta property="og:title" content="アイマス楽曲プレゼンシート">
+<meta property="og:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。推し曲とプレゼン文・歌ってほしいアイドルを1枚の画像にできる非公式ファンメイドツール。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://imasfan-presen.pages.dev/">
+<meta property="og:site_name" content="アイマス楽曲プレゼンシート">
+<meta property="og:locale" content="ja_JP">
+<!-- SNS のクローラーは相対パスを解決しないので画像は絶対URL。画像を作り直したら ?v= を変える -->
+<meta property="og:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="アイマス楽曲プレゼンシート：ブランドの垣根を越えて、曲を届けよう。曲のプレゼンを1枚で簡単に">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="アイマス楽曲プレゼンシート">
+<meta name="twitter:description" content="ブランドの垣根を越えて、推し曲をプレゼンしよう。">
+<meta name="twitter:image" content="https://imasfan-presen.pages.dev/assets/ogp.png?v=5">
+<meta name="theme-color" content="#fff8ec">
+<!-- ページのアイコン（scripts/make_icon.py で作成。作り直したら ?v= を変える） -->
+<link rel="icon" href="favicon.ico?v=1" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=1">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=1">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20261124d">
+</head>
+<body>
+<div class="boot" role="status" aria-live="polite"><div class="boot-spinner"></div><p>読み込み中…</p></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-mark">
+      <span class="brand-kicker">IDOLM@STER</span>
+      <h1>楽曲プレゼンシート</h1>
+    </div>
+    <div class="topbar-actions">
+      <!-- 幅の狭いスマホでは「？」だけにする（style.css） -->
+      <button type="button" class="btn ghost" id="btn-guide" title="使い方を見る" aria-label="使い方"><span class="guide-full">使い方</span><span class="guide-short" aria-hidden="true">？</span></button>
+      <!-- 幅のとても狭いスマホでは「↺」だけにする（タイトルが改行されないように。style.css） -->
+      <button type="button" class="btn ghost" id="btn-reset" title="すべてリセット" aria-label="リセット"><span class="reset-full">リセット</span><span class="reset-short" aria-hidden="true">↺</span></button>
+      <button type="button" class="btn primary" id="btn-export">画像を作る</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="sheet" id="sheet">
+    <div class="sheet-head">
+      <label class="field-name" for="in-name">
+        <span class="field-name-label">あなたのプロデューサー名 <small>画像の一番上に入ります（未入力なら「名無しP」）</small></span>
+        <span class="field-name-box">
+          <input id="in-name" type="text" maxlength="30" placeholder="ここに名前を入力" autocomplete="off">
+          <span class="field-name-icon" aria-hidden="true">✎</span>
+        </span>
+      </label>
+      <div class="brand-line">
+        <select id="sel-from" aria-label="おすすめするブランド"></select>
+        <span class="brand-line-text">のおすすめ曲</span>
+      </div>
+    </div>
+
+    <div id="items" class="items"></div>
+
+    <button type="button" class="add-card" id="btn-add">
+      <span class="add-plus">＋</span><span class="add-label">新しい曲を追加する</span>
+    </button>
+  </section>
+
+  <footer class="site-foot">
+    <p>楽曲・アイドルデータ：<a href="https://fujiwarahaji.me/" target="_blank" rel="noopener">アイマス楽曲DB ふじわらはじめ</a>（<a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank" rel="noopener">CC BY-NC 4.0</a>）<span id="data-date"></span></p>
+    <p>ジャケット画像：各ブランド公式ディスコグラフィー・<a href="https://music.apple.com/jp/" target="_blank" rel="noopener">Apple Music</a></p>
+    <p>入力内容（名前・プレゼン内容・選んだアイドルなど）は、お使いの端末（ブラウザ）にのみ保存されます。サーバーには送信しません。</p>
+    <p>本サイトは非公式のファンメイドツールです。楽曲・ジャケット等の著作権は各権利者に帰属します。© BANDAI NAMCO Entertainment Inc.</p>
+    <p>エラーや不具合を見つけたら、X（Twitter）の <a href="https://x.com/donguri_283" target="_blank" rel="noopener">@donguri_283</a> までお知らせください。</p>
+  </footer>
+</main>
+
+<!-- お題・メンバー・ジャケット・出力 用のダイアログ -->
+<dialog id="dlg-members" class="dlg">
+  <form method="dialog" class="dlg-inner">
+    <div class="dlg-head">
+      <h2>歌って欲しいアイドル <small id="mem-brand"></small></h2>
+      <button class="icon-btn" value="close" aria-label="閉じる">×</button>
+    </div>
+    <input type="search" id="mem-search" placeholder="名前・よみ・CVで検索" autocomplete="off">
+    <div id="mem-brands" class="chip-row" role="group" aria-label="ブランドで絞り込み"></div>
+    <!-- スマホではブランドのタグが横に長くなるので、代わりにプルダウンで選ぶ（style.css で切り替え） -->
+    <label for="mem-brand-sel" class="lbl" id="mem-brand-lbl">選択中のブランド</label>
+    <select id="mem-brand-sel"></select>
+    <!-- ユニット・出演日のタグ。スマホでは横スクロールの1行になるので、左右の矢印ボタンでも動かせる -->
+    <div class="chip-scroll" id="mem-groups-wrap">
+      <button type="button" class="chip-arrow left" aria-label="左へ" hidden>‹</button>
+      <div id="mem-groups" class="chip-row"></div>
+      <button type="button" class="chip-arrow right" aria-label="右へ" hidden>›</button>
+    </div>
+    <div id="mem-list" class="mem-list"></div>
+    <div class="mem-custom">
+      <input type="text" id="mem-custom-in" placeholder="リストにない名前を追加（ユニット名なども可）" maxlength="30">
+      <button type="button" class="btn" id="mem-custom-add">追加</button>
+    </div>
+    <div class="dlg-foot">
+      <span id="mem-count" class="muted"></span>
+      <button class="btn primary" value="close">決定</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-jacket" class="dlg">
+  <form method="dialog" class="dlg-inner">
+    <div class="dlg-head">
+      <h2>ジャケットを選ぶ</h2>
+      <button type="button" class="icon-btn" id="jk-close" aria-label="閉じる">×</button>
+    </div>
+    <!-- 自分で画像を設定する機能は無い（不適切な画像を登録・書き出しできないように）。
+         公式ジャケットが複数ある曲（F＠NTASTIC COMBINATION など）だけ、この画面で選べる -->
+    <div class="jk-preview" id="jk-preview"><span>NO IMAGE</span></div>
+    <div class="jk-alts" id="jk-alts" hidden>
+      <span class="lbl">公式ジャケットから選ぶ<small>（ユニットごとに別のCDが出ている曲）</small></span>
+      <div class="jk-alt-btns" role="group" aria-label="公式ジャケット"></div>
+    </div>
+    <div class="jk-pos" id="jk-pos" hidden>
+      <span class="lbl">表示する位置<small>（表と裏が並んだ横長の画像は、自動で左側を表示します）</small></span>
+      <div class="jk-pos-btns chip-row" role="group" aria-label="ジャケットの表示する位置"></div>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" class="btn primary" id="jk-ok">決定</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- はじめての人向けの使い方（初回だけ自動で出す。上の「使い方」ボタンでいつでも見られる。app.js の showGuide） -->
+<!-- 上（タイトル・×）と下（はじめる）は固定し、説明の部分だけスクロールする（style.css の .dlg-fixed） -->
+<dialog id="dlg-guide" class="dlg dlg-fixed">
+  <div class="dlg-inner">
+    <div class="dlg-head">
+      <h2>使い方</h2>
+      <button type="button" class="icon-btn" id="guide-close" aria-label="閉じる">×</button>
+    </div>
+    <div class="dlg-body">
+      <p class="guide-lead">推し曲を、プレゼン文・歌ってほしいアイドルと一緒に画像にできます。共有URLを送れば、受け取った人はブラウザで曲をお試し視聴できます。</p>
+      <ol class="guide-steps">
+        <li><strong>名前とブランドを決める</strong><span>上の欄にあなたのプロデューサー名を入れて、おすすめするブランドを選びます。</span></li>
+        <li><strong>曲を選ぶ</strong><span>曲名・ユニット名・アイドル名で検索して選ぶと、ジャケットが自動で入ります。お題（「まず聴いてほしい曲」など）も選べます。</span></li>
+        <li><strong>プレゼンを書く</strong><span>この曲のここが好き！を200文字まで。「＋ アイドルを選ぶ」で、歌ってほしいアイドルを1曲10人まで入れられます。</span></li>
+        <li><strong>曲を足す・並べ替える</strong><span>「新しい曲を追加する」で8曲まで。カードの「↑」「↓」で順番を変えられます。</span></li>
+        <li><strong>画像を作る</strong><span>右上の「画像を作る」で画像にして、保存・X にポストできます（4曲で1枚が目安）。</span></li>
+        <li><strong>共有URLで聴いてもらう</strong><span>画像を作ると共有URLも出ます（Xにポストすると投稿文に入ります）。開いた人は曲・お題・歌ってほしいアイドルを見て、曲をお試し視聴（Apple Music・約30秒）できます。プレゼン内容はURLに入らないので、画像と一緒に共有してください。</span></li>
+      </ol>
+      <p class="muted small">入力した内容はお使いの端末にだけ保存されます。この説明は上の「使い方」からいつでも見られます。</p>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" class="btn primary" id="guide-ok">はじめる</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- 「画像を作る」を押したときの確認：何が起きるか・何枚になるかを知らせてから作る（app.js の confirmExport） -->
+<dialog id="dlg-preexport" class="dlg">
+  <div class="dlg-inner">
+    <div class="dlg-head">
+      <h2>画像を作る前に</h2>
+      <button type="button" class="icon-btn" id="pre-close" aria-label="閉じる">×</button>
+    </div>
+    <ul class="pre-notes">
+      <li>入力したプレゼンシート（名前・曲・プレゼン内容・歌って欲しいアイドル）を、そのまま画像にします。</li>
+      <li>画像は<strong>4曲で1枚</strong>が目安です。曲が多いときは、何枚かに分かれます。</li>
+      <li id="pre-count"></li>
+    </ul>
+    <div class="dlg-foot">
+      <button type="button" class="btn ghost" id="pre-cancel">戻る</button>
+      <button type="button" class="btn primary" id="pre-ok">画像を作成</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="dlg-export" class="dlg dlg-wide">
+  <div class="dlg-inner">
+    <div class="dlg-head">
+      <h2>画像ができました</h2>
+      <button type="button" class="icon-btn" id="ex-close" aria-label="閉じる">×</button>
+    </div>
+    <p class="muted small" id="ex-note"></p>
+    <!-- 出力した画像（曲が多いときは複数枚。app.js の renderExportImages で並べる） -->
+    <div class="ex-img-wrap" id="ex-imgs"></div>
+    <div class="ex-actions">
+      <button type="button" class="btn primary" id="ex-save">画像を保存</button>
+      <button type="button" class="btn" id="ex-copy">コピー</button>
+      <button type="button" class="btn" id="ex-share">共有</button>
+      <button type="button" class="btn" id="ex-x">Xにポスト</button>
+    </div>
+    <p class="muted small">スマホで保存できない場合は、画像を長押しして保存してください。</p>
+    <!-- 共有URL：シートの中身を URL に入れる（サーバーには保存しない）。開いた人は曲のお試し視聴ができる（view.html） -->
+    <div class="ex-share-url">
+      <span class="lbl">共有URL<small>（開いた人はブラウザで曲・お題・歌って欲しいアイドルを見て、曲をお試し視聴できます。プレゼン内容はURLに入らないので、画像と一緒に共有してください。Xにポストすると投稿文に入ります）</small></span>
+      <div class="ex-url-row">
+        <input type="text" id="ex-url" readonly aria-label="共有URL">
+        <button type="button" class="btn" id="ex-url-copy">URLをコピー</button>
+        <a class="btn ghost" id="ex-url-open" href="view.html" target="_blank" rel="noopener">開いて確認</a>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- 画像作成中の表示。進み具合はバーと「ジャケットを読み込み中 2/5」などの文で出す（app.js の setProgress） -->
+<div id="loading" class="loading" hidden>
+  <div class="spinner"></div>
+  <p id="loading-text">画像を作成中…</p>
+  <div class="progress" role="progressbar" aria-label="画像作成の進み具合" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="progress-bar" id="loading-bar"></div>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="export-stage" aria-hidden="true"></div>
+
+<!-- 画像作成の部品（html2canvas）は、ページを開くのが遅くならないよう、ここでは読まずに app.js（loadHtml2canvas）で後から読む -->
+<script src="assets/app.js?v=20261124d" type="module"></script>
+</body>
+</html>

@@ -6,10 +6,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "事前登録"
     ],
@@ -25,10 +26,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "1周年記念"
     ],
@@ -44,10 +46,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "2周年記念"
     ],
@@ -63,10 +66,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "3周年記念"
     ],
@@ -82,10 +86,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "4周年記念"
     ],
@@ -101,10 +106,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "5周年記念"
     ],
@@ -120,10 +126,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装"
     ],
     "stories": [],
@@ -138,10 +145,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "6周年記念"
     ],
@@ -157,10 +165,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "7周年記念"
     ],
@@ -176,10 +185,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "8周年記念"
     ],
@@ -195,10 +205,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "シャイニーカラーズ全体"
+    ],
     "songs": [],
     "tags": [
-      "シャイニーカラーズ",
       "全体衣装",
       "Song for Prism"
     ],
@@ -214,7 +225,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -231,7 +246,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -248,7 +267,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -265,11 +288,15 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
-      "イルミネーションスターズ",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "イルミネーションスターズ"
     ],
     "stories": [],
     "tweets": [],
@@ -283,7 +310,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -300,7 +331,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -317,7 +352,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -334,7 +373,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -351,7 +394,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -368,7 +415,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -385,7 +436,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -402,12 +457,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
-      "イルミネーションスターズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "イルミネーションスターズ"
     ],
     "stories": [],
     "tweets": [],
@@ -421,12 +480,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
-      "イルミネーションスターズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "イルミネーションスターズ"
     ],
     "stories": [],
     "tweets": [],
@@ -440,7 +503,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -457,7 +524,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "櫻木真乃",
+      "風野灯織",
+      "八宮めぐる"
+    ],
     "songs": [],
     "tags": [
       "イルミネーションスターズ"
@@ -474,7 +545,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -491,7 +568,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -508,7 +591,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -525,11 +614,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
-      "アンティーカ",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "アンティーカ"
     ],
     "stories": [],
     "tweets": [],
@@ -543,7 +638,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -560,7 +661,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -577,7 +684,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -594,7 +707,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -611,7 +730,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -628,7 +753,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -645,7 +776,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -662,12 +799,18 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
-      "アンティーカ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "アンティーカ"
     ],
     "stories": [],
     "tweets": [],
@@ -681,12 +824,18 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
-      "アンティーカ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "アンティーカ"
     ],
     "stories": [],
     "tweets": [],
@@ -700,7 +849,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -717,11 +872,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
-      "アンティーカ",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "アンティーカ"
     ],
     "stories": [],
     "tweets": [],
@@ -735,7 +896,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "月岡恋鐘",
+      "田中摩美々",
+      "白瀬咲耶",
+      "三峰結華",
+      "幽谷霧子"
+    ],
     "songs": [],
     "tags": [
       "アンティーカ"
@@ -752,7 +919,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -769,7 +942,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -786,7 +965,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -803,11 +988,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
-      "放課後クライマックスガールズ",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "放課後クライマックスガールズ"
     ],
     "stories": [],
     "tweets": [],
@@ -821,7 +1012,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -838,7 +1035,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -855,7 +1058,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -872,7 +1081,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -889,7 +1104,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -906,7 +1127,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -923,7 +1150,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -940,12 +1173,18 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
-      "放課後クライマックスガールズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "放課後クライマックスガールズ"
     ],
     "stories": [],
     "tweets": [],
@@ -959,12 +1198,18 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
-      "放課後クライマックスガールズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "放課後クライマックスガールズ"
     ],
     "stories": [],
     "tweets": [],
@@ -978,7 +1223,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -995,7 +1246,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -1012,7 +1269,13 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "小宮果穂",
+      "園田智代子",
+      "西城樹里",
+      "杜野凛世",
+      "有栖川夏葉"
+    ],
     "songs": [],
     "tags": [
       "放課後クライマックスガールズ"
@@ -1029,7 +1292,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1046,7 +1313,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1063,7 +1334,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1080,11 +1355,15 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
-      "アルストロメリア",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "アルストロメリア"
     ],
     "stories": [],
     "tweets": [],
@@ -1098,7 +1377,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1115,7 +1398,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1132,7 +1419,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1149,7 +1440,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1166,7 +1461,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1183,7 +1482,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1200,7 +1503,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1217,12 +1524,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
-      "アルストロメリア",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "アルストロメリア"
     ],
     "stories": [],
     "tweets": [],
@@ -1236,12 +1547,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
-      "アルストロメリア",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "アルストロメリア"
     ],
     "stories": [],
     "tweets": [],
@@ -1255,7 +1570,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1272,7 +1591,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "大崎甘奈",
+      "大崎甜花",
+      "桑山千雪"
+    ],
     "songs": [],
     "tags": [
       "アルストロメリア"
@@ -1289,7 +1612,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1306,7 +1633,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1323,7 +1654,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1340,7 +1675,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1357,7 +1696,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1374,7 +1717,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1391,7 +1738,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1408,7 +1759,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1425,7 +1780,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1442,12 +1801,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
-      "ストレイライト",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "ストレイライト"
     ],
     "stories": [],
     "tweets": [],
@@ -1461,12 +1824,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
-      "ストレイライト",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "ストレイライト"
     ],
     "stories": [],
     "tweets": [],
@@ -1480,7 +1847,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1497,11 +1868,15 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
-      "ストレイライト",
-      "シリーズ衣装"
+      "シリーズ衣装",
+      "ストレイライト"
     ],
     "stories": [],
     "tweets": [],
@@ -1515,7 +1890,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1532,7 +1911,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "芹沢あさひ",
+      "黛冬優子",
+      "和泉愛依"
+    ],
     "songs": [],
     "tags": [
       "ストレイライト"
@@ -1549,7 +1932,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1566,7 +1954,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1583,7 +1976,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1600,7 +1998,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1617,7 +2020,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1634,7 +2042,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1651,7 +2064,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1668,7 +2086,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1685,12 +2108,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
-      "ノクチル",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "ノクチル"
     ],
     "stories": [],
     "tweets": [],
@@ -1704,12 +2132,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
-      "ノクチル",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "ノクチル"
     ],
     "stories": [],
     "tweets": [],
@@ -1723,12 +2156,17 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
-      "ノクチル",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "ノクチル"
     ],
     "stories": [],
     "tweets": [],
@@ -1742,7 +2180,12 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "浅倉透",
+      "樋口円香",
+      "福丸小糸",
+      "市川雛菜"
+    ],
     "songs": [],
     "tags": [
       "ノクチル"
@@ -1759,7 +2202,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1776,7 +2222,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1793,7 +2242,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1810,7 +2262,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1827,7 +2282,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1844,7 +2302,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1861,7 +2322,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1878,7 +2342,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1895,12 +2362,15 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
-      "シーズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "シーズ"
     ],
     "stories": [],
     "tweets": [],
@@ -1914,12 +2384,15 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
-      "シーズ",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "シーズ"
     ],
     "stories": [],
     "tweets": [],
@@ -1933,7 +2406,10 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "七草にちか",
+      "緋田美琴"
+    ],
     "songs": [],
     "tags": [
       "シーズ"
@@ -1950,7 +2426,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
       "コメティック"
@@ -1967,7 +2447,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
       "コメティック"
@@ -1984,7 +2468,11 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
       "コメティック"
@@ -2001,12 +2489,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
-      "コメティック",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "コメティック"
     ],
     "stories": [],
     "tweets": [],
@@ -2020,12 +2512,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
-      "コメティック",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "コメティック"
     ],
     "stories": [],
     "tweets": [],
@@ -2039,12 +2535,16 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [
+      "斑鳩ルカ",
+      "鈴木羽那",
+      "郁田はるき"
+    ],
     "songs": [],
     "tags": [
-      "コメティック",
       "Song for Prism",
-      "ユニット衣装"
+      "ユニット衣装",
+      "コメティック"
     ],
     "stories": [],
     "tweets": [],
@@ -2058,7 +2558,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2076,7 +2576,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "2018年",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2095,7 +2595,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "2019年",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2114,7 +2614,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "2020年",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2133,7 +2633,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "2021年",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2152,7 +2652,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "2022年",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2171,7 +2671,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2189,7 +2689,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2207,7 +2707,7 @@
     "image": "images/placeholder.svg",
     "firstAppearance": "",
     "lives": [],
-    "idols": [],
+    "wearers": [],
     "songs": [],
     "tags": [
       "イベント",
@@ -2217,5 +2717,1769 @@
     "tweets": [],
     "source": "https://brilliant.avalon-studio.work/event/zipjacket/",
     "note": "シャニラジ 描きおろしイラスト イルミネーションスターズ"
+  },
+  {
+    "id": "gm-001",
+    "series": "gakumas",
+    "name": "初 (はじめ)",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "最初から所持",
+      "アイドルへの道"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-002",
+    "series": "gakumas",
+    "name": "Fighting My Way",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-003",
+    "series": "gakumas",
+    "name": "Boom Boom Pow",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-004",
+    "series": "gakumas",
+    "name": "Wildest Flower",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-005",
+    "series": "gakumas",
+    "name": "Campus mode!!",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-006",
+    "series": "gakumas",
+    "name": "雨上がりのアイリス",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-007",
+    "series": "gakumas",
+    "name": "キミとセミブルー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2024年夏",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2024年",
+      "時期:夏"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '24夏 / 月村手毬 '24夏 / 藤田ことね '24夏 / 葛城リーリヤ '24夏 / 倉本千奈 '24夏 / 篠澤広 '24夏 / 十王星南 '25夏 / 秦谷美鈴 '25夏 / 花海佑芽 '24夏"
+  },
+  {
+    "id": "gm-008",
+    "series": "gakumas",
+    "name": "冠菊",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2024年祭",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2024年",
+      "時期:祭"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 月村手毬 '24祭 / 有村麻央 '24祭 / 倉本千奈 '24祭 / 紫雲清夏 '24祭 / 篠澤広 '24祭 / 十王星南 '25祭 / 秦谷美鈴 '25祭 / 花海佑芽 '24祭 / 姫崎莉波 '24祭"
+  },
+  {
+    "id": "gm-009",
+    "series": "gakumas",
+    "name": "仮装狂騒曲",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2024年ハロウィン",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2024年",
+      "時期:ハロウィン"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '24ハロウィン / 藤田ことね '24ハロウィン / 有村麻央 '24ハロウィン / 葛城リーリヤ '24ハロウィン / 紫雲清夏 '24ハロウィン / 十王星南 '25ハロウィン / 秦谷美鈴 '25ハロウィン / 花海佑芽 '24ハロウィン / 姫崎莉波 '24ハロウィン"
+  },
+  {
+    "id": "gm-010",
+    "series": "gakumas",
+    "name": "White Night! White Wish!",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2024年クリスマス",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2024年",
+      "時期:クリスマス"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '24クリスマス / 月村手毬 '24クリスマス / 有村麻央 '24クリスマス / 倉本千奈 '24クリスマス / 紫雲清夏 '24クリスマス / 篠澤広 '24クリスマス / 十王星南 '25クリスマス / 秦谷美鈴 '25クリスマス / 姫崎莉波 '24クリスマス"
+  },
+  {
+    "id": "gm-011",
+    "series": "gakumas",
+    "name": "ハッピーミルフィーユ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年バレンタイン",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2025年",
+      "時期:バレンタイン"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '25バレンタイン / 月村手毬 '25バレンタイン / 藤田ことね '25バレンタイン / 有村麻央 '25バレンタイン / 葛城リーリヤ '25バレンタイン / 倉本千奈 '25バレンタイン / 紫雲清夏 '25バレンタイン / 秦谷美鈴 '26バレンタイン / 花海佑芽 '26バレンタイン"
+  },
+  {
+    "id": "gm-012",
+    "series": "gakumas",
+    "name": "雪解けに",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年ひな祭り",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2025年",
+      "時期:ひな祭り"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '25ひな祭り / 月村手毬 '25ひな祭り / 雨夜燕 '26ひな祭り / 葛城リーリヤ '25ひな祭り / 紫雲清夏 '25ひな祭り / 篠澤広 '25ひな祭り / 十王星南 '25ひな祭り / 花海佑芽 '26ひな祭り / 姫崎莉波 '25ひな祭り"
+  },
+  {
+    "id": "gm-013",
+    "series": "gakumas",
+    "name": "桜フォトグラフ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年桜",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "花海佑芽",
+      "姫崎莉波",
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "購入",
+      "ログイン獲得",
+      "2025年",
+      "時期:桜"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 月村手毬 '25桜 / 藤田ことね '25桜 / 雨夜燕 '26桜 / 有村麻央 '25桜 / 倉本千奈 '25桜 / 篠澤広 '25桜 / 十王星南 '25桜 / 花海佑芽 '26桜 / 姫崎莉波 '25桜 / 根緒亜紗里 '25"
+  },
+  {
+    "id": "gm-014",
+    "series": "gakumas",
+    "name": "古今東西ちょちょいのちょい",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年アニメイト",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波",
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "ログイン獲得",
+      "2025年",
+      "時期:アニメイト"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 月村手毬 '25アニメイト / 藤田ことね '25アニメイト / 有村麻央 '25アニメイト / 葛城リーリヤ '25アニメイト / 倉本千奈 '25アニメイト / 紫雲清夏 '25アニメイト / 篠澤広 '25アニメイト / 十王星南 '25アニメイト / 秦谷美鈴 '25アニメイト / 花海佑芽 '25アニメイト / 姫崎莉波 '25アニメイト / 根緒亜紗里 '26"
+  },
+  {
+    "id": "gm-015",
+    "series": "gakumas",
+    "name": "Howling over the World",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2024年",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2024年"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '25 / 月村手毬 '24 / 藤田ことね '25 / 有村麻央 '25 / 紫雲清夏 '25 / 篠澤広 '25 / 十王星南 '25 / 花海佑芽 '25"
+  },
+  {
+    "id": "gm-016",
+    "series": "gakumas",
+    "name": "ミラクルナナウ(ﾟ∀ﾟ)！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2025年"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '25 / 月村手毬 '25 / 藤田ことね '25 / 葛城リーリヤ '25 / 倉本千奈 '25 / 十王星南 '25 / 秦谷美鈴 '25 / 花海佑芽 '25 / 姫崎莉波 '25"
+  },
+  {
+    "id": "gm-017",
+    "series": "gakumas",
+    "name": "がむしゃらに行こう！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2025年",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "2025年"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 有村麻央 '25 / 葛城リーリヤ '25 / 倉本千奈 '25 / 紫雲清夏 '25 / 篠澤広 '25 / 十王星南 '25 / 秦谷美鈴 '25 / 花海佑芽 '25 / 姫崎莉波 '25"
+  },
+  {
+    "id": "gm-018",
+    "series": "gakumas",
+    "name": "ENDLESS DANCE",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "2026年",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "倉本千奈",
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "カード入手",
+      "2026年"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": "時期表記: 花海咲季 '26 / 月村手毬 '26 / 藤田ことね '26 / 雨夜燕 '26 / 有村麻央 '26 / 倉本千奈 '26 / 紫雲清夏 '26"
+  },
+  {
+    "id": "gm-019",
+    "series": "gakumas",
+    "name": "Luna say maybe",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "月村手毬"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b7%ee%c2%bc%bc%ea%dd%dc",
+    "note": ""
+  },
+  {
+    "id": "gm-020",
+    "series": "gakumas",
+    "name": "アイヴイ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "月村手毬"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b7%ee%c2%bc%bc%ea%dd%dc",
+    "note": ""
+  },
+  {
+    "id": "gm-021",
+    "series": "gakumas",
+    "name": "一体いつから",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "月村手毬"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "アレンジあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b7%ee%c2%bc%bc%ea%dd%dc",
+    "note": ""
+  },
+  {
+    "id": "gm-022",
+    "series": "gakumas",
+    "name": "ゾンビ制服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "月村手毬",
+      "篠澤広"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b7%ee%c2%bc%bc%ea%dd%dc",
+    "note": ""
+  },
+  {
+    "id": "gm-023",
+    "series": "gakumas",
+    "name": "世界一可愛い私",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "藤田ことね"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c6%a3%c5%c4%a4%b3%a4%c8%a4%cd",
+    "note": ""
+  },
+  {
+    "id": "gm-024",
+    "series": "gakumas",
+    "name": "Yellow Big Bang！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "藤田ことね"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c6%a3%c5%c4%a4%b3%a4%c8%a4%cd",
+    "note": ""
+  },
+  {
+    "id": "gm-025",
+    "series": "gakumas",
+    "name": "自己肯定感爆上げ↑↑しゅきしゅきソング",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "藤田ことね"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "アレンジあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c6%a3%c5%c4%a4%b3%a4%c8%a4%cd",
+    "note": ""
+  },
+  {
+    "id": "gm-026",
+    "series": "gakumas",
+    "name": "祭法被",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "藤田ことね",
+      "葛城リーリヤ"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c6%a3%c5%c4%a4%b3%a4%c8%a4%cd",
+    "note": ""
+  },
+  {
+    "id": "gm-027",
+    "series": "gakumas",
+    "name": "理論武装して",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "雨夜燕"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b1%ab%cc%eb%b1%ed",
+    "note": ""
+  },
+  {
+    "id": "gm-028",
+    "series": "gakumas",
+    "name": "Fluorite",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "有村麻央"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%cd%ad%c2%bc%cb%e3%b1%fb",
+    "note": ""
+  },
+  {
+    "id": "gm-029",
+    "series": "gakumas",
+    "name": "Feel Jewel Dream",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "有村麻央"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%cd%ad%c2%bc%cb%e3%b1%fb",
+    "note": ""
+  },
+  {
+    "id": "gm-030",
+    "series": "gakumas",
+    "name": "見て",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "有村麻央"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "アレンジあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%cd%ad%c2%bc%cb%e3%b1%fb",
+    "note": ""
+  },
+  {
+    "id": "gm-031",
+    "series": "gakumas",
+    "name": "ひな祭り着物",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "有村麻央",
+      "倉本千奈"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%cd%ad%c2%bc%cb%e3%b1%fb",
+    "note": ""
+  },
+  {
+    "id": "gm-032",
+    "series": "gakumas",
+    "name": "白線",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "葛城リーリヤ"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b3%eb%be%eb%a5%ea%a1%bc%a5%ea%a5%e4",
+    "note": ""
+  },
+  {
+    "id": "gm-033",
+    "series": "gakumas",
+    "name": "極光",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "葛城リーリヤ"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b3%eb%be%eb%a5%ea%a1%bc%a5%ea%a5%e4",
+    "note": ""
+  },
+  {
+    "id": "gm-034",
+    "series": "gakumas",
+    "name": "Atmosphere",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "葛城リーリヤ"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b3%eb%be%eb%a5%ea%a1%bc%a5%ea%a5%e4",
+    "note": ""
+  },
+  {
+    "id": "gm-035",
+    "series": "gakumas",
+    "name": "サンタケープ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "葛城リーリヤ",
+      "花海佑芽"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b3%eb%be%eb%a5%ea%a1%bc%a5%ea%a5%e4",
+    "note": ""
+  },
+  {
+    "id": "gm-036",
+    "series": "gakumas",
+    "name": "Wonder Scale",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "倉本千奈"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c1%d2%cb%dc%c0%e9%c6%e0",
+    "note": ""
+  },
+  {
+    "id": "gm-037",
+    "series": "gakumas",
+    "name": "日々、発見的ステップ！",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "倉本千奈"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c1%d2%cb%dc%c0%e9%c6%e0",
+    "note": ""
+  },
+  {
+    "id": "gm-038",
+    "series": "gakumas",
+    "name": "空と約束",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "倉本千奈"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "アレンジあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c1%d2%cb%dc%c0%e9%c6%e0",
+    "note": ""
+  },
+  {
+    "id": "gm-039",
+    "series": "gakumas",
+    "name": "みちなるひろがる",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "倉本千奈",
+      "篠澤広"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c1%d2%cb%dc%c0%e9%c6%e0",
+    "note": ""
+  },
+  {
+    "id": "gm-040",
+    "series": "gakumas",
+    "name": "Tame-Lie-One-Step",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-041",
+    "series": "gakumas",
+    "name": "カクシタワタシ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-042",
+    "series": "gakumas",
+    "name": "Love & Joy",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "アレンジあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-043",
+    "series": "gakumas",
+    "name": "ときめきエモーション",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-044",
+    "series": "gakumas",
+    "name": "パーカー水着",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-045",
+    "series": "gakumas",
+    "name": "桜セーラー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "紫雲清夏"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bb%e7%b1%c0%c0%b6%b2%c6",
+    "note": ""
+  },
+  {
+    "id": "gm-046",
+    "series": "gakumas",
+    "name": "光景",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "篠澤広"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bc%c4%df%b7%b9%ad",
+    "note": ""
+  },
+  {
+    "id": "gm-047",
+    "series": "gakumas",
+    "name": "コントラスト",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "篠澤広"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bc%c4%df%b7%b9%ad",
+    "note": ""
+  },
+  {
+    "id": "gm-048",
+    "series": "gakumas",
+    "name": "サンフェーデッド",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "篠澤広"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bc%c4%df%b7%b9%ad",
+    "note": ""
+  },
+  {
+    "id": "gm-049",
+    "series": "gakumas",
+    "name": "小さな野望",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "十王星南"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bd%bd%b2%a6%c0%b1%c6%ee",
+    "note": ""
+  },
+  {
+    "id": "gm-050",
+    "series": "gakumas",
+    "name": "Our Chant",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "十王星南"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bd%bd%b2%a6%c0%b1%c6%ee",
+    "note": ""
+  },
+  {
+    "id": "gm-051",
+    "series": "gakumas",
+    "name": "赤裸々",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "十王星南"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bd%bd%b2%a6%c0%b1%c6%ee",
+    "note": ""
+  },
+  {
+    "id": "gm-052",
+    "series": "gakumas",
+    "name": "Star-mine",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "共通衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bd%bd%b2%a6%c0%b1%c6%ee",
+    "note": ""
+  },
+  {
+    "id": "gm-053",
+    "series": "gakumas",
+    "name": "ツキノカメ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "秦谷美鈴"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bf%c1%c3%ab%c8%fe%ce%eb",
+    "note": ""
+  },
+  {
+    "id": "gm-054",
+    "series": "gakumas",
+    "name": "Superlative",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "秦谷美鈴"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%bf%c1%c3%ab%c8%fe%ce%eb",
+    "note": ""
+  },
+  {
+    "id": "gm-055",
+    "series": "gakumas",
+    "name": "The Rolling Riceball",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海佑芽"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%cd%a4%b2%ea",
+    "note": ""
+  },
+  {
+    "id": "gm-056",
+    "series": "gakumas",
+    "name": "グースーピー",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海佑芽"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%cd%a4%b2%ea",
+    "note": ""
+  },
+  {
+    "id": "gm-057",
+    "series": "gakumas",
+    "name": "clumsy trick",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c9%b1%ba%ea%e8%bd%c7%c8",
+    "note": ""
+  },
+  {
+    "id": "gm-058",
+    "series": "gakumas",
+    "name": "L.U.V",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c9%b1%ba%ea%e8%bd%c7%c8",
+    "note": ""
+  },
+  {
+    "id": "gm-059",
+    "series": "gakumas",
+    "name": "36℃ U･B･U",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "色違いあり",
+      "カード入手"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c9%b1%ba%ea%e8%bd%c7%c8",
+    "note": ""
+  },
+  {
+    "id": "gm-060",
+    "series": "gakumas",
+    "name": "ハートエプロン",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "ステージ衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%c9%b1%ba%ea%e8%bd%c7%c8",
+    "note": ""
+  },
+  {
+    "id": "gm-061",
+    "series": "gakumas",
+    "name": "初星学園制服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "雨夜燕",
+      "葛城リーリヤ",
+      "紫雲清夏",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "最初から所持"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-062",
+    "series": "gakumas",
+    "name": "お気に入りの私服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "イベント獲得"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-063",
+    "series": "gakumas",
+    "name": "レッスンウェア",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "色違いあり",
+      "最初から所持",
+      "マスターアチーブメント"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-064",
+    "series": "gakumas",
+    "name": "チャイルドスモック",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波",
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-065",
+    "series": "gakumas",
+    "name": "初星学園体操服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-066",
+    "series": "gakumas",
+    "name": "温泉用水着",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "色違いあり",
+      "カード入手",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-067",
+    "series": "gakumas",
+    "name": "セーラーミズギ",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "花海咲季",
+      "月村手毬",
+      "藤田ことね",
+      "雨夜燕",
+      "有村麻央",
+      "葛城リーリヤ",
+      "倉本千奈",
+      "紫雲清夏",
+      "篠澤広",
+      "十王星南",
+      "秦谷美鈴",
+      "花海佑芽",
+      "姫崎莉波",
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b2%d6%b3%a4%ba%e9%b5%a8",
+    "note": ""
+  },
+  {
+    "id": "gm-068",
+    "series": "gakumas",
+    "name": "いつもの私服",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "月村手毬",
+      "藤田ことね",
+      "有村麻央",
+      "倉本千奈",
+      "篠澤広",
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "共通衣装",
+      "最初から所持",
+      "ログイン獲得"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%b7%ee%c2%bc%bc%ea%dd%dc",
+    "note": ""
+  },
+  {
+    "id": "gm-069",
+    "series": "gakumas",
+    "name": "ホントのボク",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "有村麻央"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "親愛度"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%cd%ad%c2%bc%cb%e3%b1%fb",
+    "note": ""
+  },
+  {
+    "id": "gm-070",
+    "series": "gakumas",
+    "name": "Tシャツ水着",
+    "image": "images/placeholder.svg",
+    "firstAppearance": "",
+    "lives": [],
+    "wearers": [
+      "根緒亜紗里"
+    ],
+    "songs": [],
+    "tags": [
+      "制服・その他",
+      "購入"
+    ],
+    "stories": [],
+    "tweets": [],
+    "source": "https://seesaawiki.jp/gakumasu/d/%b0%e1%c1%f5%a5%ae%a5%e3%a5%e9%a5%ea%a1%bc/%ba%ac%bd%ef%b0%a1%bc%d3%ce%a4",
+    "note": ""
   }
 ]

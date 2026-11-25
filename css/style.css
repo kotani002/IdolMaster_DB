@@ -59,12 +59,71 @@ footer { max-width: 1000px; margin: 0 auto; padding: 16px; color: var(--muted); 
   border: 1px solid var(--border); background: var(--bg); color: var(--fg);
   border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer;
 }
+.chip.unit-filter { display: inline-flex; align-items: center; }
+.chip.unit-filter .tag-icon { display: block; }
+.chip.unit-filter { column-gap: 4px; }
+.chip.unit-filter .n { margin-left: 0; }
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip.tag-filter {
+  background: var(--tag-color, var(--bg));
+  border-color: var(--tag-color, var(--border));
+  color: var(--tag-text-color, var(--fg));
+}
+.chip.tag-filter[aria-pressed="true"] {
+  background: var(--tag-color, var(--accent));
+  border-color: var(--tag-color, var(--accent));
+  color: var(--tag-text-color, #fff);
+}
+.chip.unit-filter[aria-pressed="true"] {
+  background: var(--tag-color, var(--accent));
+  border-color: var(--tag-color, var(--accent));
+  color: var(--tag-text-color, #fff);
+}
 .chip .n { opacity: .7; margin-left: 4px; font-size: .75rem; }
 .btn {
   border: 1px solid var(--border); background: var(--card); color: var(--fg);
   border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .85rem; cursor: pointer;
 }
+.filter-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.filter-head h2 { margin: 0; }
+
+/* 詳細検索(開閉) */
+.advanced { margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 10px; }
+.advanced summary {
+  cursor: pointer; font-weight: 700; font-size: 1rem; list-style: none;
+  display: flex; align-items: center; gap: 6px; user-select: none; padding: 2px 0;
+}
+.advanced summary::-webkit-details-marker { display: none; }
+.advanced summary::after { content: "▽"; font-size: .8em; color: var(--muted); }
+.advanced[open] summary::after { content: "△"; }
+.advanced summary:hover { color: var(--accent); }
+.adv-count { background: var(--accent); color: #fff; border-radius: 999px; font-size: .72rem; padding: 0 8px; line-height: 1.6; }
+.adv-count:empty { display: none; }
+.advanced h3 { margin: 12px 0 8px; font-size: .95rem; }
+.advanced .row { margin-top: 10px; }
+
+/* 着用者アイコン */
+.w-icon {
+  --size: 24px;
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: var(--size); height: var(--size); border-radius: 50%;
+  color: #fff; font-weight: 800; font-size: calc(var(--size) * .5);
+  object-fit: cover; vertical-align: middle; overflow: hidden;
+}
+img.w-icon { border-radius: 0; object-fit: contain; }
+.chip.wearer { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px 3px 4px; }
+.chip.wearer .n { margin-left: 2px; }
+.chip.wearer { border-color: var(--wearer-color, var(--border)); }
+.chip.wearer[aria-pressed="false"] { color: var(--wearer-color, var(--fg)); }
+.chip.wearer[aria-pressed="true"] {
+  background: var(--wearer-color, #4b7bec);
+  border-color: var(--wearer-color, #4b7bec);
+  color: var(--wearer-text-color, #fff);
+}
+ul.plain li .w-icon { --size: 20px; margin-right: 6px; }
+.chip-group { margin-bottom: 8px; }
+.chip-group-label { margin: 0 0 4px; font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.wearer-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .count { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
 
 /* 一覧 */
@@ -78,12 +137,28 @@ footer { max-width: 1000px; margin: 0 auto; padding: 16px; color: var(--muted); 
 .card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; background: var(--accent-soft); }
 .card .body { padding: 10px 12px 12px; }
 .card .name { font-weight: 700; margin: 0 0 4px; }
-.card .meta { font-size: .8rem; color: var(--muted); margin: 0 0 6px; }
+.card .meta {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  font-size: .8rem; color: var(--muted); margin: 0 0 6px;
+}
+.card .meta .s-badge { flex: none; }
+.card .meta img.s-badge {
+  width: var(--size); height: var(--size); aspect-ratio: 1;
+  border-radius: 0; object-fit: contain; background: transparent;
+}
+.brand-unit-divider { height: 18px; border-left: 1px solid var(--border); margin: 0 2px; }
+.card .meta .tag-icon {
+  width: 18px; height: 18px; aspect-ratio: auto;
+  display: inline-block; object-fit: contain; background: transparent;
+}
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .tag {
-  font-size: .75rem; background: var(--accent-soft); color: var(--accent);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: .75rem; background: var(--tag-color, var(--accent-soft)); color: var(--tag-text-color, var(--accent));
   border-radius: 999px; padding: 1px 8px; text-decoration: none;
 }
+.tag-icon { width: 16px; height: 16px; object-fit: contain; flex: none; }
+.card .tag-icon { width: 16px; height: 16px; aspect-ratio: auto; object-fit: contain; display: inline-block; background: transparent; }
 .empty { padding: 32px; text-align: center; color: var(--muted); }
 
 /* 衣装紹介ページ */
@@ -125,7 +200,7 @@ ul.plain { margin: 0; padding-left: 1.2em; }
   color: #fff; font-weight: 800; font-size: calc(var(--size) * .36);
   letter-spacing: -.02em; vertical-align: middle;
 }
-.card .meta .s-badge { margin-right: 2px; }
+img.s-badge { border-radius: 0; object-fit: contain; }
 .costume .series-line { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; color: var(--muted); font-size: .9rem; }
 
 /* ===== アニメーション ===== */

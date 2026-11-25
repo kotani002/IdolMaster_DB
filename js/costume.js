@@ -3,9 +3,11 @@
   const app = document.getElementById("app");
   const id = new URLSearchParams(location.search).get("id");
 
-  let costumes, seriesList;
+  let costumes, seriesList, wearerMeta, tagMeta;
   try {
-    [costumes, seriesList] = await Promise.all([loadCostumes(), loadSeries()]);
+    [costumes, seriesList, wearerMeta, tagMeta] = await Promise.all([
+      loadCostumes(), loadSeries(), loadWearerMeta(), loadTagMeta(),
+    ]);
   } catch (e) {
     showError(e.message);
     return;
@@ -24,9 +26,20 @@
       ? el("ul", { class: "plain" }, arr.map((v) => el("li", { text: v })))
       : el("span", { class: "muted", text: "—" });
 
-  const tagLinks = (c.tags || []).map((t) =>
-    el("a", { class: "tag", href: "index.html?tags=" + encodeURIComponent(t), text: t })
-  );
+  const tagLinks = (c.tags || []).map((t) => {
+    const link = el("a", { class: "tag", href: "index.html?tags=" + encodeURIComponent(t) }, [tagIcon(t, tagMeta), t]);
+    setTagStyle(link, tagMeta[t]);
+    return link;
+  });
+
+  // 着用者: 押すと、その作品でその着用者に絞り込んだ一覧へ
+  const wearerLinks = (c.wearers || []).length
+    ? el("ul", { class: "plain" }, c.wearers.map((w) =>
+        el("li", {}, [wearerIcon(w, wearerMeta), el("a", {
+          href: "index.html?series=" + encodeURIComponent(c.series || "") + "&wearers=" + encodeURIComponent(w),
+          text: w,
+        })])))
+    : el("span", { class: "muted", text: "—" });
 
   // 参考ページ(https のURLのみリンク化)
   const sourceLink = /^https:\/\//.test(c.source || "")
@@ -68,7 +81,7 @@
         el("table", { class: "data" }, [
           row("初登場時期", document.createTextNode(c.firstAppearance || "—")),
           row("着用ライブ", listOrDash(c.lives)),
-          row("着用アイドル", listOrDash(c.idols)),
+          row("着用者", wearerLinks),
           row("歌唱楽曲", listOrDash(c.songs)),
           row("検索用タグ", tagLinks.length ? el("div", { class: "tags" }, tagLinks) : el("span", { class: "muted", text: "—" })),
         ]),

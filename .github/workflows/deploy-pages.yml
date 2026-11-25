@@ -1,0 +1,97 @@
+# GitHub Pages への公開。
+# - release ブランチ → 通常のURL（https://kotani002.github.io/IdolMaster_DB/）
+#     promote/ は公開先の Cloudflare（workers.dev）へリダイレクトする（旧URLを共有した人向け）
+# - release 以外のブランチ → 確認用URL（https://kotani002.github.io/IdolMaster_DB/preview/<ブランチ名>/）
+#     promote/index.html の Cloudflare へのリダイレクトを外し、検索エンジンに載らないよう noindex を付ける
+#     ブランチ一覧：https://kotani002.github.io/IdolMaster_DB/preview/
+# どのブランチへの push でも、全ブランチをまとめて組み立て直して公開する。
+# ※ リポジトリの Settings → Pages → Source を「GitHub Actions」にしておくこと。
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: ["**"]
+  delete:                 # ブランチを消したら確認用URLからも消す
+  workflow_dispatch:
+  workflow_run:           # データ更新（手動実行。release への bot の commit）の後にも公開し直す
+    workflows: ["Update promote song data"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  PUBLIC_BRANCH: release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble site (release + previews)
+        run: |
+          set -euo pipefail
+          git fetch --prune origin "+refs/heads/*:refs/remotes/origin/*"
+          mkdir -p _site/preview
+          # 通常のURL：release そのまま
+          git archive "origin/${PUBLIC_BRANCH}" | tar -x -C _site
+          # 確認用URL：release 以外の全ブランチ
+          : > branches.txt
+          for ref in $(git for-each-ref --format='%(refname:strip=3)' refs/remotes/origin); do
+            [ "$ref" = "HEAD" ] && continue
+            [ "$ref" = "${PUBLIC_BRANCH}" ] && continue
+            mkdir -p "_site/preview/$ref"
+            git archive "origin/$ref" | tar -x -C "_site/preview/$ref"
+            echo "$ref" >> branches.txt
+          done
+          rm -rf _site/.github _site/preview/*/.github
+
+      - name: Disable Cloudflare redirect in previews
+        shell: python
+        run: |
+          import html, pathlib, re
+          site = pathlib.Path("_site")
+          for f in (site / "preview").rglob("promote/index.html"):
+              s = f.read_text(encoding="utf-8")
+              # 旧URL→Cloudflare のリダイレクト（NEW_SITE を含む <script>）を消す
+              s = re.sub(r"<script>(?:(?!</script>).)*?NEW_SITE.*?</script>\s*", "", s, flags=re.S)
+              if 'name="robots"' not in s:
+                  s = s.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
+              f.write_text(s, encoding="utf-8")
+              print("preview:", f)
+          # ブランチ一覧ページ
+          branches = [b for b in pathlib.Path("branches.txt").read_text().split() if b]
+          items = "\n".join(
+              f'<li><a href="{html.escape(b)}/promote/">{html.escape(b)}</a>'
+              f' <small>（<a href="{html.escape(b)}/">サイトのトップ</a>）</small></li>' for b in branches)
+          (site / "preview" / "index.html").write_text(f"""<!doctype html>
+          <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="robots" content="noindex"><title>確認用ブランチ一覧</title>
+          <style>body{{font-family:sans-serif;margin:24px 16px;line-height:1.8}}</style></head>
+          <body><h1>確認用ブランチ一覧</h1>
+          <p>release 以外のブランチの楽曲プレゼンシート（Cloudflare へはリダイレクトしません）</p>
+          <ul>{items}</ul></body></html>
+          """, encoding="utf-8")
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

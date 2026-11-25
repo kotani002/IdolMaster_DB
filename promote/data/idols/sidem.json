@@ -1,0 +1,492 @@
+[
+ {
+  "id": 3609,
+  "name": "天道輝",
+  "kana": "てんどうてる",
+  "cv": "仲村宗悟",
+  "color": "#e1261c",
+  "group": "DRAMATIC STARS",
+  "count": 41,
+  "group_color": "#ffa500"
+ },
+ {
+  "id": 3610,
+  "name": "桜庭薫",
+  "kana": "さくらばかおる",
+  "cv": "内田雄馬",
+  "color": "#004ebc",
+  "group": "DRAMATIC STARS",
+  "count": 36,
+  "group_color": "#ffa500"
+ },
+ {
+  "id": 3611,
+  "name": "柏木翼",
+  "kana": "かしわぎつばさ",
+  "cv": "八代拓",
+  "color": "#2eb135",
+  "group": "DRAMATIC STARS",
+  "count": 35,
+  "group_color": "#ffa500"
+ },
+ {
+  "id": 3605,
+  "name": "天ヶ瀬冬馬",
+  "kana": "あまがせとうま",
+  "cv": "寺島拓篤",
+  "color": "#f32836",
+  "group": "Jupiter",
+  "count": 40,
+  "group_color": "#90ee90"
+ },
+ {
+  "id": 3606,
+  "name": "御手洗翔太",
+  "kana": "みたらいしょうた",
+  "cv": "松岡禎丞",
+  "color": "#8fd400",
+  "group": "Jupiter",
+  "count": 35,
+  "group_color": "#90ee90"
+ },
+ {
+  "id": 3607,
+  "name": "伊集院北斗",
+  "kana": "いじゅういんほくと",
+  "cv": "神原大地",
+  "color": "#1226aa",
+  "group": "Jupiter",
+  "count": 38,
+  "group_color": "#90ee90"
+ },
+ {
+  "id": 3613,
+  "name": "都築圭",
+  "kana": "つづきけい",
+  "cv": "土岐隼一",
+  "color": "#c2afe6",
+  "group": "Altessimo",
+  "count": 31,
+  "group_color": "#ffffcc"
+ },
+ {
+  "id": 3614,
+  "name": "神楽麗",
+  "kana": "かぐられい",
+  "cv": "永野由祐",
+  "color": "#004898",
+  "group": "Altessimo",
+  "count": 30,
+  "group_color": "#ffffcc"
+ },
+ {
+  "id": 3616,
+  "name": "鷹城恭二",
+  "kana": "たかじょうきょうじ",
+  "cv": "梅原裕一郎",
+  "color": "#6dc6e7",
+  "group": "Beit",
+  "count": 34,
+  "group_color": "#00ccff"
+ },
+ {
+  "id": 3617,
+  "name": "ピエール",
+  "kana": "ピエール",
+  "cv": "堀江瞬",
+  "color": "#8add66",
+  "group": "Beit",
+  "count": 34,
+  "group_color": "#00ccff"
+ },
+ {
+  "id": 3618,
+  "name": "渡辺みのり",
+  "kana": "わたなべみのり",
+  "cv": "高塚智人",
+  "color": "#ee869a",
+  "group": "Beit",
+  "count": 35,
+  "group_color": "#00ccff"
+ },
+ {
+  "id": 3620,
+  "name": "蒼井悠介",
+  "kana": "あおいゆうすけ",
+  "cv": "菊池勇成",
+  "color": "#ffe200",
+  "group": "W",
+  "count": 33,
+  "group_color": "#ffff00"
+ },
+ {
+  "id": 3621,
+  "name": "蒼井享介",
+  "kana": "あおいきょうすけ",
+  "cv": "山谷祥生",
+  "color": "#53da3f",
+  "group": "W",
+  "count": 34,
+  "group_color": "#ffff00"
+ },
+ {
+  "id": 3623,
+  "name": "握野英雄",
+  "kana": "あくのひでお",
+  "cv": "熊谷健太郎",
+  "color": "#73b8e2",
+  "group": "FRAME",
+  "count": 32,
+  "group_color": "#008000"
+ },
+ {
+  "id": 3625,
+  "name": "木村龍",
+  "kana": "きむらりゅう",
+  "cv": "濱健人",
+  "color": "#ea7125",
+  "group": "FRAME",
+  "count": 30,
+  "group_color": "#008000"
+ },
+ {
+  "id": 3624,
+  "name": "信玄誠司",
+  "kana": "しんげんせいじ",
+  "cv": "増元拓也",
+  "color": "#7b8d42",
+  "group": "FRAME",
+  "count": 30,
+  "group_color": "#008000"
+ },
+ {
+  "id": 3627,
+  "name": "猫柳キリオ",
+  "kana": "ねこやなぎキリオ",
+  "cv": "山下大輝",
+  "color": "#ffd700",
+  "group": "彩",
+  "count": 27,
+  "group_color": "#6600cc"
+ },
+ {
+  "id": 3628,
+  "name": "華村翔真",
+  "kana": "はなむらしょうま",
+  "cv": "バレッタ裕",
+  "color": "#6a488e",
+  "group": "彩",
+  "count": 31,
+  "group_color": "#6600cc"
+ },
+ {
+  "id": 3629,
+  "name": "清澄九郎",
+  "kana": "きよすみくろう",
+  "cv": "中田祐矢",
+  "color": "#71a4d9",
+  "group": "彩",
+  "count": 28,
+  "group_color": "#6600cc"
+ },
+ {
+  "id": 3632,
+  "name": "秋山隼人",
+  "kana": "あきやまはやと",
+  "cv": "千葉翔也",
+  "color": "#ff7000",
+  "group": "High×Joker",
+  "count": 35,
+  "group_color": "#ff0000"
+ },
+ {
+  "id": 3633,
+  "name": "冬美旬",
+  "kana": "ふゆみじゅん",
+  "cv": "永塚拓馬",
+  "color": "#004ebc",
+  "group": "High×Joker",
+  "count": 36,
+  "group_color": "#ff0000"
+ },
+ {
+  "id": 3634,
+  "name": "榊夏来",
+  "kana": "さかきなつき",
+  "cv": "渡辺紘",
+  "color": "#48d2dd",
+  "group": "High×Joker",
+  "count": 38,
+  "group_color": "#ff0000"
+ },
+ {
+  "id": 3635,
+  "name": "若里春名",
+  "kana": "わかざとはるな",
+  "cv": "白井悠介",
+  "color": "#70d551",
+  "group": "High×Joker",
+  "count": 35,
+  "group_color": "#ff0000"
+ },
+ {
+  "id": 3631,
+  "name": "伊瀬谷四季",
+  "kana": "いせやしき",
+  "cv": "野上翔",
+  "color": "#dd0ab2",
+  "group": "High×Joker",
+  "count": 35,
+  "group_color": "#ff0000"
+ },
+ {
+  "id": 3637,
+  "name": "紅井朱雀",
+  "kana": "あかいすざく",
+  "cv": "益山武明",
+  "color": "#e23b30",
+  "group": "神速一魂",
+  "count": 31,
+  "group_color": "#f5f5f5"
+ },
+ {
+  "id": 3638,
+  "name": "黒野玄武",
+  "kana": "くろのげんぶ",
+  "cv": "深町寿成",
+  "color": "#001ca8",
+  "group": "神速一魂",
+  "count": 30,
+  "group_color": "#f5f5f5"
+ },
+ {
+  "id": 3640,
+  "name": "神谷幸広",
+  "kana": "かみやゆきひろ",
+  "cv": "狩野翔",
+  "color": "#d88b83",
+  "group": "Café Parade",
+  "count": 29,
+  "group_color": "#cc66cc"
+ },
+ {
+  "id": 3641,
+  "name": "東雲荘一郎",
+  "kana": "しののめそういちろう",
+  "cv": "天﨑滉平",
+  "color": "#008e74",
+  "group": "Café Parade",
+  "count": 29,
+  "group_color": "#cc66cc"
+ },
+ {
+  "id": 4396,
+  "name": "アスラン＝ベルゼビュートⅡ世",
+  "kana": "アスランベルゼビュートにせい",
+  "cv": "古川慎",
+  "color": "#6967ab",
+  "group": "Café Parade",
+  "count": 29,
+  "group_color": "#cc66cc"
+ },
+ {
+  "id": 3643,
+  "name": "卯月巻緒",
+  "kana": "うづきまきお",
+  "cv": "児玉卓也",
+  "color": "#eec362",
+  "group": "Café Parade",
+  "count": 30,
+  "group_color": "#cc66cc"
+ },
+ {
+  "id": 3644,
+  "name": "水嶋咲",
+  "kana": "みずしまさき",
+  "cv": "小林大紀",
+  "color": "#eb6ea5",
+  "group": "Café Parade",
+  "count": 28,
+  "group_color": "#cc66cc"
+ },
+ {
+  "id": 3646,
+  "name": "岡村直央",
+  "kana": "おかむらなお",
+  "cv": "矢野奨吾",
+  "color": "#211e55",
+  "group": "もふもふえん",
+  "count": 30,
+  "group_color": "#ffccff"
+ },
+ {
+  "id": 3647,
+  "name": "橘志狼",
+  "kana": "たちばなしろう",
+  "cv": "古畑恵介",
+  "color": "#e72510",
+  "group": "もふもふえん",
+  "count": 30,
+  "group_color": "#ffccff"
+ },
+ {
+  "id": 3648,
+  "name": "姫野かのん",
+  "kana": "ひめのかのん",
+  "cv": "村瀬歩/伊能幸輝",
+  "color": "#fab6c4",
+  "group": "もふもふえん",
+  "count": 28,
+  "group_color": "#ffccff"
+ },
+ {
+  "id": 3650,
+  "name": "硲道夫",
+  "kana": "はざまみちお",
+  "cv": "伊東健人",
+  "color": "#426ca9",
+  "group": "S.E.M",
+  "count": 37,
+  "group_color": "#ff00cc"
+ },
+ {
+  "id": 3651,
+  "name": "舞田類",
+  "kana": "まいたるい",
+  "cv": "榎木淳弥",
+  "color": "#f7d54e",
+  "group": "S.E.M",
+  "count": 37,
+  "group_color": "#ff00cc"
+ },
+ {
+  "id": 3652,
+  "name": "山下次郎",
+  "kana": "やましたじろう",
+  "cv": "中島ヨシキ",
+  "color": "#ee7800",
+  "group": "S.E.M",
+  "count": 38,
+  "group_color": "#ff00cc"
+ },
+ {
+  "id": 3654,
+  "name": "大河タケル",
+  "kana": "たいがタケル",
+  "cv": "寺島惇太",
+  "color": "#001ca8",
+  "group": "THE 虎牙道",
+  "count": 30,
+  "group_color": "#4d4d4d"
+ },
+ {
+  "id": 3655,
+  "name": "円城寺道流",
+  "kana": "えんじょうじみちる",
+  "cv": "濱野大輝",
+  "color": "#fda900",
+  "group": "THE 虎牙道",
+  "count": 30,
+  "group_color": "#4d4d4d"
+ },
+ {
+  "id": 3656,
+  "name": "牙崎漣",
+  "kana": "きざきれん",
+  "cv": "小松昌平",
+  "color": "#ba2636",
+  "group": "THE 虎牙道",
+  "count": 30,
+  "group_color": "#4d4d4d"
+ },
+ {
+  "id": 3658,
+  "name": "秋月涼",
+  "kana": "あきづきりょう",
+  "cv": "三瓶由布子",
+  "color": "#70d551",
+  "group": "F-LAGS",
+  "count": 35,
+  "group_color": "#0000ff"
+ },
+ {
+  "id": 3659,
+  "name": "兜大吾",
+  "kana": "かぶとだいご",
+  "cv": "浦尾岳大",
+  "color": "#dc291e",
+  "group": "F-LAGS",
+  "count": 30,
+  "group_color": "#0000ff"
+ },
+ {
+  "id": 4056,
+  "name": "九十九一希",
+  "kana": "つくもかずき",
+  "cv": "徳武竜也/比留間俊哉",
+  "color": "#d3a243",
+  "group": "F-LAGS",
+  "count": 18,
+  "group_color": "#0000ff"
+ },
+ {
+  "id": 3662,
+  "name": "葛之葉雨彦",
+  "kana": "くずのはあめひこ",
+  "cv": "笠間淳",
+  "color": "#4d4d4d",
+  "group": "Legenders",
+  "count": 33,
+  "group_color": "#6880a0"
+ },
+ {
+  "id": 3663,
+  "name": "北村想楽",
+  "kana": "きたむらそら",
+  "cv": "汐谷文康",
+  "color": "#3f7735",
+  "group": "Legenders",
+  "count": 31,
+  "group_color": "#6880a0"
+ },
+ {
+  "id": 3664,
+  "name": "古論クリス",
+  "kana": "ころんクリス",
+  "cv": "駒田航",
+  "color": "#00c4df",
+  "group": "Legenders",
+  "count": 30,
+  "group_color": "#6880a0"
+ },
+ {
+  "id": 3666,
+  "name": "天峰秀",
+  "kana": "あまみねしゅう",
+  "cv": "伊瀬結陸",
+  "color": "#0198f0",
+  "group": "C.FIRST",
+  "count": 17,
+  "group_color": "#00ccbb"
+ },
+ {
+  "id": 3668,
+  "name": "眉見鋭心",
+  "kana": "まゆみえいしん",
+  "cv": "大塚剛央",
+  "color": "#e01828",
+  "group": "C.FIRST",
+  "count": 16,
+  "group_color": "#00ccbb"
+ },
+ {
+  "id": 3667,
+  "name": "花園百々人",
+  "kana": "はなぞのももひと",
+  "cv": "宮﨑雅也",
+  "color": "#b8f028",
+  "group": "C.FIRST",
+  "count": 17,
+  "group_color": "#00ccbb"
+ }
+]

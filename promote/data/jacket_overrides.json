@@ -1,0 +1,780 @@
+{
+ "sc": {
+  "6471": {
+   "title": "青空",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/01/LACM-24526.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism ハナムケのハナタバ / 青空 【ノクチル盤】"
+  },
+  "5941": {
+   "title": "明日もBeautiful Day",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/11/LACM-24476.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism 裸足じゃイラレナイ / 明日もBeautiful Day【アルストロメリア盤】"
+  },
+  "9803": {
+   "title": "With you",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "11589": {
+   "title": "運命前夜",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "9808": {
+   "title": "快盗Vを見逃すな",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/11/LACM-24635.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism Shower of light / 快盗Vを見逃すな 【放課後クライマックスガールズ盤】"
+  },
+  "4687": {
+   "title": "神様は死んだ、って",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/11/LACA-25134.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS COLORFUL FE@THERS -CoMETIK-"
+  },
+  "11572": {
+   "title": "銀翼のアレジアンス -blade of truth-",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "11592": {
+   "title": "銀翼のアヴニール -become the brave-",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "5896": {
+   "title": "くだらないや",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/10/LACM-24368.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS “CANVAS” 08"
+  },
+  "9677": {
+   "title": "グッバイ",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/09/LACM-24629.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism Heads or Tails？ / グッバイ【ノクチル盤】"
+  },
+  "10165": {
+   "title": "さあ舞い上がれ",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "10463": {
+   "title": "THE LAST PRIDE",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2025/01/LACM-24637.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism Real Mind Shakes / THE LAST PRIDE 【アンティーカ盤】"
+  },
+  "5540": {
+   "title": "Shiny Stories",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/07/LACM-24406.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Shiny Stories"
+  },
+  "9783": {
+   "title": "橙より未来",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "11590": {
+   "title": "月影のアンシェネ",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "9814": {
+   "title": "Future Designer",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "5897": {
+   "title": "平行線の美学",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/10/LACM-24368.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS “CANVAS” 08"
+  },
+  "10415": {
+   "title": "星の数だけ",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "6953": {
+   "title": "枕木の歌",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/03/LACM-24529.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism Happier / 枕木の歌 【イルミネーションスターズ盤】"
+  },
+  "10379": {
+   "title": "未来へのSign",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/10/LACA-25138.jpg",
+   "cd": "アニメ『アイドルマスター シャイニーカラーズ 2nd season』主題歌アルバム「Over the prism」【通常盤】"
+  },
+  "5784": {
+   "title": "無自覚アプリオリ",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/10/LACM-24368.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS “CANVAS” 08"
+  },
+  "11588": {
+   "title": "メモワール・アンタクト",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "9517": {
+   "title": "mellow mellow",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/07/LACM-24610.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism After Run / mellow mellow 【アルストロメリア盤】"
+  },
+  "7780": {
+   "title": "LINKs",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/05/LACM-24553.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS Song for Prism 時限式狂騒ワンダーランド / LINKs 【ストレイライト盤】"
+  },
+  "11591": {
+   "title": "Once Upon a Secret",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/03/LACA-25264.jpg",
+   "cd": "283 Production MUSICAL Performance 騎士団のヴェール – Veil of Order – Music Collection【通常盤】"
+  },
+  "12055": {
+   "title": "One Live One Love",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2026/04/LACM-24828.jpg",
+   "cd": "283 Production XXXX Performance XXX= S/N-GUL4R1TY MUSIC COLLECTION【通常盤】"
+  },
+  "11430": {
+   "title": "Migratory Echoes (アンティーカVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/05/LACM-24542.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 02"
+  },
+  "11431": {
+   "title": "Migratory Echoes (放課後クライマックスガールズVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/06/LACM-24543.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 03"
+  },
+  "11432": {
+   "title": "Migratory Echoes (アルストロメリアVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/07/LACM-24544.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 04"
+  },
+  "11433": {
+   "title": "Migratory Echoes (ストレイライトVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/08/LACM-24545.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 05"
+  },
+  "11434": {
+   "title": "Migratory Echoes (ノクチルVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/09/LACM-24546.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 06"
+  },
+  "11437": {
+   "title": "Migratory Echoes (シーズVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2023/12/LACM_24547.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 07"
+  },
+  "11439": {
+   "title": "Migratory Echoes (コメティックVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/11/LACM-24548.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 08"
+  },
+  "11429": {
+   "title": "Migratory Echoes (イルミネーションスターズVer.)",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2024/12/LACM-24541.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 01"
+  },
+  "7487": {
+   "title": "Migratory Echoes",
+   "jacket": "https://shinycolors.lantis.jp/X9pa5jNY/wp-content/uploads/2025/01/LACA-25115.jpg",
+   "cd": "THE IDOLM@STER SHINY COLORS ECHOES 09"
+  },
+  "4422": {
+   "title": "GR@TITUDE",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/17/85/7a/17857add-2d4e-5c31-9242-2b205428a725/4540774241248.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 00 GR@TITUDE【ランティス盤】 (Apple Music)"
+  }
+ },
+ "_all": {
+  "5323": {
+   "title": "CRYST@LOUD",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/16/6d/c3/166dc3f7-56b2-cdc2-be8e-f1a13a85e012/PA00111692_0_160331_jacket.jpg/600x600bb.jpg",
+   "cd": "CRYST@LOUD - Single (Apple Music)"
+  },
+  "3982": {
+   "title": "POPLINKS TUNE!!!!!",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/43/57/c9/4357c94a-e6d5-4528-d7f8-1883bd791f1e/PA00120233_0_167990_jacket.jpg/600x600bb.jpg",
+   "cd": "POPLINKS TUNE!!!!! - Single (Apple Music)"
+  },
+  "2611": {
+   "title": "IDOL POWER RAINBOW",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/e3/5d/b4/e35db46f-84ba-3687-a50b-224af70bd37b/PA00111825_0_160469_jacket.jpg/600x600bb.jpg",
+   "cd": "IDOL POWER RAINBOW - Single (Apple Music)"
+  },
+  "2691": {
+   "title": "アイ MUST GO!",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/39/8d/39/398d3991-ab9f-3141-4242-d3f9564dd4b4/PA00111826_0_160470_jacket.jpg/600x600bb.jpg",
+   "cd": "アイ MUST GO! - Single (Apple Music)"
+  },
+  "9498": {
+   "title": "アイ NEED YOU (FOR WONDERFUL STORY)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/1082.png",
+   "cd": "シンデレラガールズ盤（各ブランド盤が無いときの既定）"
+  },
+  "4411": {
+   "title": "VOY@GER",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17912.jpg",
+   "cd": "シンデレラガールズ盤（各ブランド盤が無いときの既定）"
+  },
+  "3525": {
+   "title": "なんどでも笑おう",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17813.jpg",
+   "cd": "シンデレラガールズ盤（各ブランド盤が無いときの既定）"
+  },
+  "4072": {
+   "title": "SESSION!",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2c/67/8d/2c678df3-f929-6bad-8c66-bef3c669c7e8/4540774158782.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 01 (Apple Music)"
+  },
+  "4387": {
+   "title": "夏のBang!!",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ab/4e/fa/ab4efaa1-0738-9c5a-c166-5be816049f60/COCX-41710.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 02 (Apple Music)"
+  },
+  "4421": {
+   "title": "アイシテの呪縛～Je vous aime～",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/da/fc/d4/dafcd4b2-2792-ded2-e37d-74ea5cc40bb3/4540774159369.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 03 (Apple Music)"
+  },
+  "4801": {
+   "title": "全力★ドリーミングガールズ",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/da/fc/d4/dafcd4b2-2792-ded2-e37d-74ea5cc40bb3/4540774159369.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 03 (Apple Music)"
+  },
+  "4775": {
+   "title": "KAWAIIウォーズ",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/90/90/1c/90901cbe-971d-c20b-8b9f-b673429589d0/COCX-41738.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 04 (Apple Music)"
+  },
+  "4596": {
+   "title": "ダンス・ダンス・ダンス",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/90/90/1c/90901cbe-971d-c20b-8b9f-b673429589d0/COCX-41738.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 04 (Apple Music)"
+  },
+  "4422": {
+   "title": "GR@TITUDE",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/cb/88/03/cb880301-3467-4f47-86f5-09f629698fbf/COKM-43558.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 00 (Apple Music)"
+  }
+ },
+ "gm": {
+  "9498": {
+   "title": "アイ NEED YOU (FOR WONDERFUL STORY)",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/f6a366a926f84df8893ab6d087d9e149/20th%E5%AD%A6%E3%83%9E%E3%82%B9JKT_FIX%201.png?fm=jpg&w=600&q=85",
+   "cd": "【学園アイドルマスター盤】"
+  },
+  "9557": {
+   "title": "Unhappy Light",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/093bd683cab34e499b813a02ace1efa0/02_temari-UnhappyLight_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "Unhappy Light"
+  },
+  "9594": {
+   "title": "歌声は君いろ",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/fd85a0a93a6e4b88ac4a590ef2cedd2c/07_rinami-The_singing_voice_is_your_color_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "歌声は君いろ"
+  },
+  "9545": {
+   "title": "EGO",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/bf247331a935421d9a24cf35a9304e44/01_saki-EGO_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "EGO"
+  },
+  "9726": {
+   "title": "Kira Kira",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/39d16d89b1974ee38a6284b44c047883/05_sumika-KiraKira_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "Kira Kira"
+  },
+  "9737": {
+   "title": "コンテンポラリのダンス",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/2da9d7ca2c2c45268b111704ec544605/06_hiro-contemporarydance_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "コンテンポラリのダンス"
+  },
+  "10481": {
+   "title": "Star-mine",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/8710804b23f249bdae16f8cc72702022/star_mine_JK.jpg?fm=jpg&w=600&q=85",
+   "cd": "Star-mine"
+  },
+  "9749": {
+   "title": "Choo Choo Choo",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/975a59e3c25f4aefaf0cf7e6a3c4e9b5/12_sena-ChooChooChoo.jpg?fm=jpg&w=600&q=85",
+   "cd": "Choo Choo Choo"
+  },
+  "9582": {
+   "title": "ときめきのソルフェージュ",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/dc3fee85a6f64982889cbabe5b46ec80/09_shina-FantasySolfege_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "ときめきのソルフェージュ"
+  },
+  "9725": {
+   "title": "Top Secret",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/02ada2d37ee8470db9fbc46c6f611a6b/08_mao-TopSecret_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "Top Secret"
+  },
+  "9581": {
+   "title": "Fragile Heart",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/5e655169c7ca48f1bad19150d5d862bc/04_lilja-FragileHeart_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "Fragile Heart"
+  },
+  "9559": {
+   "title": "ふわふわ",
+   "jacket": "https://images.microcms-assets.io/assets/f3a533ba03a742d9885f9f2229235680/9d8d8781266a4bb594d2588779b18dfa/03_kotone-fuwafuwa_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "ふわふわ"
+  }
+ },
+ "ml": {
+  "4422": {
+   "title": "GR@TITUDE",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/17/85/7a/17857add-2d4e-5c31-9242-2b205428a725/4540774241248.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 00 GR@TITUDE【ランティス盤】 (Apple Music)"
+  },
+  "2631": {
+   "title": "Welcome!!",
+   "jacket": "https://lantis.jp/imas/img/MTG11_H1.jpg",
+   "cd": "『アイドルマスター ミリオンライブ！ シアターデイズ』 THE IDOLM@STER MILLION THE@TER GENERATION 11 UNION!!"
+  },
+  "4411": {
+   "title": "VOY@GER",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/12/7d/83/127d835a-0ae8-0f0a-9311-6bca304c482f/4540774241637.jpg/600x600bb.jpg",
+   "cd": "VOY@GER【ミリオンライブ!盤】（Apple Music）"
+  }
+ },
+ "cg": {
+  "4422": {
+   "title": "GR@TITUDE",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7b/41/21/7b4121a8-8c0a-3218-1b3e-b10cfbeff643/COCC-17914.jpg/600x600bb.jpg",
+   "cd": "THE IDOLM@STER STARLIT SEASON 00 GR@TITUDE【日本コロムビア盤】 (Apple Music)"
+  },
+  "185-cute": {
+   "title": "ゴキゲンParty Night (Ver.Cute)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38969.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cute jewelries! 002"
+  },
+  "185-cool": {
+   "title": "ゴキゲンParty Night (Ver.Cool)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38967.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cool jewelries! 002"
+  },
+  "185-passion": {
+   "title": "ゴキゲンParty Night (Ver.Passion)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38968.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 002"
+  },
+  "185-evermore": {
+   "title": "ゴキゲンParty Night (Ver.MASTER EVERMORE)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17282.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER EVERMORE"
+  },
+  "180-cute": {
+   "title": "ススメ☆オトメ ～jewel parade～ (Ver.Cute)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38253.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cute jewelries! 001"
+  },
+  "180-cool": {
+   "title": "ススメ☆オトメ ～jewel parade～ (Ver.Cool)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38251.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cool jewelries! 001"
+  },
+  "180-passion": {
+   "title": "ススメ☆オトメ ～jewel parade～ (Ver.Passion)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-38252.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 001"
+  },
+  "180-evermore": {
+   "title": "ススメ☆オトメ ～jewel parade～ (Ver.MASTER EVERMORE)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17282.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER EVERMORE"
+  },
+  "190-cute": {
+   "title": "Near to You (Ver.Cute)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-39651.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cute jewelries! 003"
+  },
+  "190-cool": {
+   "title": "Near to You (Ver.Cool)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-39653.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cool jewelries! 003"
+  },
+  "190-passion": {
+   "title": "Near to You (Ver.Passion)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-39652.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 003"
+  },
+  "190-evermore": {
+   "title": "Near to You (Ver.MASTER EVERMORE)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCC-17282.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER EVERMORE"
+  },
+  "5124-cute": {
+   "title": "認めてくれなくたっていいよ (Ver.Cute)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-41891.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cute jewelries! 004"
+  },
+  "5124-cool": {
+   "title": "認めてくれなくたっていいよ (Ver.Cool)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-41982-1-1.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Cool jewelries! 004"
+  },
+  "5124-passion": {
+   "title": "認めてくれなくたっていいよ (Ver.Passion)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/COCX-42427.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 004"
+  },
+  "5124-everafter": {
+   "title": "認めてくれなくたっていいよ (Ver.MASTER EVERAFTER)",
+   "jacket": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/03/SACX-1115_6_H1.jpg",
+   "cd": "THE IDOLM@STER CINDERELLA MASTER EVERAFTER"
+  }
+ },
+ "sidem": {
+  "8823": {
+   "title": "DRIVE A LIVE",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_5thAD01.jpg",
+   "cd": "THE IDOLM@STER SideM 5th ANNIVERSARY DISC 01 PRIDE STAR"
+  },
+  "8667": {
+   "title": "NEXT STAGE!",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/LACM-24181.jpg",
+   "cd": "THE IDOLM@STER SideM GROWING SIGN@L 01 Growing Smiles！"
+  },
+  "8711": {
+   "title": "MEET THE WORLD!",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/LACZ-10048.jpg",
+   "cd": "THE IDOLM@STER SideM UNIT COLLECTION -MEET THE WORLD!-"
+  },
+  "8711-france": {
+   "title": "MEET THE WORLD! (FRANCE Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14751.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 01"
+  },
+  "8711-america": {
+   "title": "MEET THE WORLD! (AMERICA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14752.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 02"
+  },
+  "8711-spain": {
+   "title": "MEET THE WORLD! (SPAIN Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14753.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 03"
+  },
+  "8711-china": {
+   "title": "MEET THE WORLD! (CHINA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14754.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 04"
+  },
+  "8711-hawaii": {
+   "title": "MEET THE WORLD! (HAWAII Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14755.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 05"
+  },
+  "8711-germany": {
+   "title": "MEET THE WORLD! (GERMANY Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14756.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 06"
+  },
+  "8711-finland": {
+   "title": "MEET THE WORLD! (FINLAND Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14757.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 07"
+  },
+  "8711-canada": {
+   "title": "MEET THE WORLD! (CANADA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14758.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 08"
+  },
+  "8711-russia": {
+   "title": "MEET THE WORLD! (RUSSIA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14759.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 09"
+  },
+  "8711-thailand": {
+   "title": "MEET THE WORLD! (THAILAND Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14760.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 10"
+  },
+  "8711-india": {
+   "title": "MEET THE WORLD! (INDIA Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14761.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 11"
+  },
+  "8711-unitedkingdom": {
+   "title": "MEET THE WORLD! (UNITED KINGDOM Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14762.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 12"
+  },
+  "8711-japan": {
+   "title": "MEET THE WORLD! (JAPAN Ver.)",
+   "jacket": "https://www.lantis.jp/sidem/releaseinfo/img/jk_LACM-14763.jpg",
+   "cd": "THE IDOLM@STER SideM WORLD TRE@SURE 13"
+  },
+  "4411": {
+   "title": "VOY@GER",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/97/88/8b/97888b6d-e799-2183-9dcc-b928f3933763/4540774241644.jpg/600x600bb.jpg",
+   "cd": "VOY@GER【SideM盤】（Apple Music）"
+  }
+ },
+ "as": {
+  "8123": {
+   "title": "ID:[OL]",
+   "jacket": "https://columbia.jp/idolmaster/2007new/images/COCX-34521.jpg",
+   "cd": "THE IDOLM@STER MASTER ARTIST FINALE"
+  },
+  "8115": {
+   "title": "destiny",
+   "jacket": "https://columbia.jp/idolmaster/2008/images/COCX-34829L.jpg",
+   "cd": "THE IDOLM@STER RADIO VOCAL MASTER（2016年の「Destiny」とは別の曲）"
+  },
+  "8117": {
+   "title": "L<>R",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b7/ec/90/b7ec9056-ca3f-87b3-88e8-c8f35a219b5c/4560248018107_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター01（Apple Music）"
+  },
+  "8114": {
+   "title": "強い女",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6b/97/d9/6b97d97d-3137-db5a-01ad-fc914dae3798/4560248018114_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター02（Apple Music）"
+  },
+  "8105": {
+   "title": "Tower of Adventure",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/5a/c9/c65ac9ec-79db-c0fc-f1af-4c03869033ac/4560248018121_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター03（Apple Music）"
+  },
+  "8104": {
+   "title": "禁恋歌",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/5a/c9/c65ac9ec-79db-c0fc-f1af-4c03869033ac/4560248018121_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター03（Apple Music）"
+  },
+  "8101": {
+   "title": "EXCAVATE",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/19/7c/fb197ce5-852a-0342-6af7-df17deff76fc/4560248018138_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター04（Apple Music）"
+  },
+  "8102": {
+   "title": "ハリキリ★ラリー",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/19/7c/fb197ce5-852a-0342-6af7-df17deff76fc/4560248018138_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター04（Apple Music）"
+  },
+  "8097": {
+   "title": "乙女心盗んで！",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0f/3c/92/0f3c92d2-a610-958c-0dc4-496433778aaf/4560248018145_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター05（Apple Music）"
+  },
+  "8017": {
+   "title": "うれし・あやかし道中記",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/35/0d/ab/350dab6a-c63f-076d-eca0-64ea4c480137/4570068325866_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター BEST ALBUM（Apple Music）"
+  },
+  "8018": {
+   "title": "旅の途中で",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/35/0d/ab/350dab6a-c63f-076d-eca0-64ea4c480137/4570068325866_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター BEST ALBUM（Apple Music）"
+  },
+  "8019": {
+   "title": "飛べ！スカイキッド",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/35/0d/ab/350dab6a-c63f-076d-eca0-64ea4c480137/4570068325866_Cover.jpg/600x600bb.jpg",
+   "cd": "ファミソン8BIT☆アイドルマスター BEST ALBUM（Apple Music）"
+  },
+  "7958": {
+   "title": "♪",
+   "jacket": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8c/a2/86/8ca28663-0299-2442-d717-60ce861bafb8/4582652209360_Cover.jpg/600x600bb.jpg",
+   "cd": "アニメ「ぷちます!」♪(おんぷ)/音無小鳥（Apple Music）"
+  },
+  "8084": {
+   "title": "僕はあなたに恋する",
+   "jacket": "https://wsrv.nl/?url=columbia.jp/idolmaster/2009/images/COCX-35477.png&cx=30&cy=0&cw=494&ch=494&output=jpg&q=90",
+   "cd": "THE IDOLM@STER RADIO 歌道場（ボーナストラック「新エンディング・テーマ」として収録）"
+  },
+  "11825": {
+   "title": "輝夜",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1136L.jpg",
+   "cd": "如月千早武道館単独公演「OathONE」会場オリジナルCD（SACX-1136）"
+  },
+  "11578": {
+   "title": "REALIZE!!!",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1099L.jpg",
+   "cd": "961 PRODUCTION presents -Additional Show- 会場オリジナルCD（SACX-1099）"
+  },
+  "8137": {
+   "title": "BEST ROAD",
+   "jacket": "https://columbia.jp/idolmaster/2007/images/Imas-radio4.jpg",
+   "cd": "THE IDOLM@STER RADIO TOP×TOP!"
+  },
+  "8136": {
+   "title": "声が聴こえる",
+   "jacket": "https://columbia.jp/idolmaster/2007/images/Imas-radio4.jpg",
+   "cd": "THE IDOLM@STER RADIO TOP×TOP!"
+  },
+  "7877": {
+   "title": "翼",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/comic05_tokuso.jpg",
+   "cd": "コミック「朝焼けは黄金色 THE IDOLM@STER」5巻 特装版 付属CD（日本コロムビア 2022.03.25 のお知らせの画像）"
+  },
+  "7878": {
+   "title": "想い出は永遠に",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/comic05_tokuso.jpg",
+   "cd": "コミック「朝焼けは黄金色 THE IDOLM@STER」5巻 特装版 付属CD（日本コロムビア 2022.03.25 のお知らせの画像）"
+  }
+ },
+ "876": {
+  "11541": {
+   "title": "アエルシグナル",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/6c5d6591bb09499fbdadc1da6abdb906/%E3%82%A2%E3%82%A8%E3%83%AB%E3%82%B7%E3%82%AF%E3%82%99%E3%83%8A%E3%83%AB.jpg?fm=jpg&w=600&q=85",
+   "cd": "4th single『アエルシグナル』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10314": {
+   "title": "あっちこっちプリンセス",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/d043ced1d1f748cca5c3233ac19f038b/%E6%84%9B%E5%A4%8F_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "2nd single『あっちこっちプリンセス』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11537": {
+   "title": "エキセントリック・ラブ",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/3d328140052f4d1c93feb278509cfe7e/jacket_%E3%82%A8%E3%82%AD%E3%82%BB%E3%83%B3%E3%83%88%E3%83%AA%E3%83%83%E3%82%AF%E3%83%A9%E3%83%95%E3%82%99.jpg?fm=jpg&w=600&q=85",
+   "cd": "5th single『エキセントリック・ラブ』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11909": {
+   "title": "思い出の花束、二度目の恋。",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/db28293ade64458fb76fc0317710e355/%E6%80%9D%E3%81%84%E5%87%BA%E3%81%AE%E8%8A%B1%E6%9D%9F%E3%80%81%E4%BA%8C%E5%BA%A6%E7%9B%AE%E3%81%AE%E6%81%8B-JKT.jpg?fm=jpg&w=600&q=85",
+   "cd": "6th single『思い出の花束、二度目の恋。』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10316": {
+   "title": "きみの一等星",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/e5f06d9ec9264303bc071eb2dce2a56c/%E3%83%AC%E3%83%88%E3%83%A9_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "2nd single『きみの一等星』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10315": {
+   "title": "クライヤ",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/4265f8d982ed46d1a0ba23c1f967a26a/%E5%AE%87%E5%AE%99_0.jpg?fm=jpg&w=600&q=85",
+   "cd": "2nd single『クライヤ』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11081": {
+   "title": "クリスタライン",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/164eafa44cb241b7ba230b6a179f596a/%E3%82%AF%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%83%B3_resize.jpg?fm=jpg&w=600&q=85",
+   "cd": "Project 2nd song『クリスタライン』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11538": {
+   "title": "Glass",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/c9fb0207c3964c17911d95e2d282f1d2/%E3%83%AC%E3%83%88%E3%83%A95th_Glass.jpg?fm=jpg&w=600&q=85",
+   "cd": "5th single『Glass』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "9571": {
+   "title": "群青イニシエーション",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/22a42dccfe864859aec1ad6bf8883575/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400-1.jpg?fm=jpg&w=600&q=85",
+   "cd": "1st single『群青イニシエーション』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "9570": {
+   "title": "公転周期",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/3c76143509644168b76dc59fbc6e8e05/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400.jpg?fm=jpg&w=600&q=85",
+   "cd": "1st single『公転周期』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10512": {
+   "title": "SHOOTING STAR",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/e3e071b092ca48d9bfa09faec7e5bc04/SHOOTING%20STAR.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『SHOOTING STAR』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10509": {
+   "title": "CQ",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/d51ab42539f44f759163ebcbf75aa467/CQ.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『CQ』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10508": {
+   "title": "Scarlet Rose",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/dcb2cdebad8d43c2928ebd758a8a84ec/cosmo_3rd.jpg?fm=jpg&w=600&q=85",
+   "cd": "3rd single『Scarlet Rose』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11540": {
+   "title": "ZeroGravity",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/e54f621ab721405a8b386d3b98b8de7e/ZeroGravity.jpg?fm=jpg&w=600&q=85",
+   "cd": "4th single『ZeroGravity』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11907": {
+   "title": "ソライロ！",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/87228a9d21db4b70b970ddd8929d1fdc/sorairo_art.png?fm=jpg&w=600&q=85",
+   "cd": "876PRO ALLSTARS SONG『ソライロ！』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10511": {
+   "title": "DYE BAD DAY",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/9d7650b65deb4450878b9d453258306d/DYE%20BAD%20DAY.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『DYE BAD DAY』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "9569": {
+   "title": "ともすれば、（中略）アイドル",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/bdb3826c52a64314abd6722e6a5beb06/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400-2.jpg?fm=jpg&w=600&q=85",
+   "cd": "1st single『ともすれば、(中略)アイドル』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11906": {
+   "title": "TRI-ANGLE DRIVE",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/eed830ffc6dc4424ba44f58a2629b12a/TRI-ANGLE%20DRIVE.jpg?fm=jpg&w=600&q=85",
+   "cd": "Project 4th song『TRI-ANGLE DRIVE』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11539": {
+   "title": "No.8",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/b8bfc11059b0413085338799873e9bac/No.8_FIX.jpg?fm=jpg&w=600&q=85",
+   "cd": "5th single『No.8』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10507": {
+   "title": "虹の王国の物語〜エトワールを目指して〜",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/b9c22fb5f3914d0c94645aa6a40e048e/manaka_3rd.jpg?fm=jpg&w=600&q=85",
+   "cd": "3rd single『虹の王国の物語～エトワールを目指して～』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11908": {
+   "title": "Nova Chro",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/d185798bf86e4c9581799579e9923b77/3000px_260120_BNE_NovaChro_fix1.png?fm=jpg&w=600&q=85",
+   "cd": "6th single『Nova Chro』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11905": {
+   "title": "はらぺこ泣き虫",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/665fe8db305a4523923c9b4513abea5a/%E3%81%AF%E3%82%89%E3%81%B8%E3%82%9A%E3%81%93%E6%B3%A3%E3%81%8D%E8%99%AB%20%E3%82%A2%E3%83%BC%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AFFIX.jpg?fm=jpg&w=600&q=85",
+   "cd": "6th single『はらぺこ泣き虫』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11332": {
+   "title": "Beyond My Destiny",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/bdbfb5b574ff4929b2bad2386660d923/Beyond%20My%20Destiny.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『Beyond My Destiny』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10510": {
+   "title": "FIELD ON ME",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/bfaff72d3a3341b3a050f00c0c2827b1/FIELD%20ON%20ME.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『FIELD ON ME』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10505": {
+   "title": "Breaker",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/60540ea3aa3d42898465d272f6da27b4/letora_3rd.jpg?fm=jpg&w=600&q=85",
+   "cd": "3rd single『Breaker』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11542": {
+   "title": "Berry Berry Lady",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/4be06a9ed0694966a575326a82512b86/Berry%20Berry%20Lady.jpg?fm=jpg&w=600&q=85",
+   "cd": "4th single『Berry Berry Lady』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11535": {
+   "title": "まだ見ぬ明日",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/a6d013a7b4ee435a83b26828e670670e/%E3%81%BE%E3%81%9F%E3%82%99%E8%A6%8B%E3%81%AC%E6%98%8E%E6%97%A5-%E3%82%B5%E3%83%95%E3%82%99%E3%82%B9%E3%82%AF%E3%82%B7%E3%82%99%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.jpg?fm=jpg&w=600&q=85",
+   "cd": "ユニットソング『まだ見ぬ明日』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "6010": {
+   "title": "リローディング",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/1bbb5bddfa5f4427a144273ef3e9adef/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400.jpg?fm=jpg&w=600&q=85",
+   "cd": "Project 1st song『リローディング』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "11092": {
+   "title": "ヴヴヴ",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/51d1e8a593cf4a568785bbc9b0c8d482/%E3%82%A6%E3%82%99%E3%82%A6%E3%82%99%E3%82%A6%E3%82%99.jpg?fm=jpg&w=600&q=85",
+   "cd": "Project 3rd song『ヴヴヴ』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）"
+  },
+  "10515": {
+   "title": "RELOADING",
+   "jacket": "https://images.microcms-assets.io/assets/baf766c5604941f6b3f05d92db6ab7e8/1bbb5bddfa5f4427a144273ef3e9adef/58ced8645b3590cbce39715a69f533062ca8cc552015349942d6fcfa04a99400.jpg?fm=jpg&w=600&q=85",
+   "cd": "Project 1st song『リローディング』｜公式ディスコグラフィー（idolmaster-official.jp/va-liv/discography）。配信ではリローディングの曲名で登録（ユーザー確認）"
+  },
+  "6044": {
+   "title": "“HELLO!!”",
+   "jacket": "https://columbia.jp/idolmaster/ds/images/COCC-16298.png",
+   "cd": "THE IDOLM@STER DREAM SYMPHONY 00 “HELLO!!”"
+  }
+ },
+ "961": {
+  "961-extreme": {
+   "title": "エクストリーム・オーバードライブ",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1149L.jpg",
+   "cd": "IDOL WORLD SUPER FESTIVAL 2026 会場オリジナルCD【961PRODUCTION & KOHAKU & 765PRO ALLSTARS】（SACX-1149～1150）"
+  },
+  "961-flame": {
+   "title": "FlaME",
+   "jacket": "https://columbia.jp/idolmaster/imasnews/images/SACX-1149L.jpg",
+   "cd": "IDOL WORLD SUPER FESTIVAL 2026 会場オリジナルCD【961PRODUCTION & KOHAKU & 765PRO ALLSTARS】（SACX-1149～1150）"
+  }
+ }
+}

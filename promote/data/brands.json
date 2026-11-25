@@ -1,0 +1,58 @@
+[
+ {
+  "id": "as",
+  "name": "765プロオールスターズ",
+  "short": "765AS",
+  "color": "#e22b30",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "cg",
+  "name": "シンデレラガールズ",
+  "short": "シンデレラ",
+  "color": "#2681c8",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "ml",
+  "name": "ミリオンライブ！",
+  "short": "ミリオン",
+  "color": "#ffc30b",
+  "ink": "#4a3500"
+ },
+ {
+  "id": "sidem",
+  "name": "SideM",
+  "short": "SideM",
+  "color": "#14a37f",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "sc",
+  "name": "シャイニーカラーズ",
+  "short": "シャニマス",
+  "color": "#5bbbd6",
+  "ink": "#123b47"
+ },
+ {
+  "id": "gm",
+  "name": "学園アイドルマスター",
+  "short": "学マス",
+  "color": "#ff7a2f",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "876",
+  "name": "876プロダクション",
+  "short": "876プロ",
+  "color": "#8e5fc2",
+  "ink": "#ffffff"
+ },
+ {
+  "id": "961",
+  "name": "961プロダクション",
+  "short": "961プロ",
+  "color": "#2f2f3a",
+  "ink": "#ffffff"
+ }
+]
