@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>コール表メーカー</title>
+<meta name="description" content="歌詞にコール・クラップ・UOを書き込んで、コール表の画像を作れるツール（非公式ファンツール）">
+<meta name="theme-color" content="#3b82c4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f7fb; --card:#fff; --ink:#1f2933; --sub:#5f6b7a; --line:#d8e2ec; --accent:#3b82c4; --accent-ink:#fff;
+  --hover:#eaf2fb; --danger:#c43b3b; --chip-bg:#fff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14181d; --card:#1d232a; --ink:#e6ebf0; --sub:#9aa7b4; --line:#2e3740; --accent:#5aa0e0; --accent-ink:#0d1117;
+    --hover:#25303b; --danger:#ef6b6b; --chip-bg:#1d232a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14181d; --card:#1d232a; --ink:#e6ebf0; --sub:#9aa7b4; --line:#2e3740; --accent:#5aa0e0; --accent-ink:#0d1117;
+  --hover:#25303b; --danger:#ef6b6b; --chip-bg:#1d232a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,"Hiragino Sans","Yu Gothic UI",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header h1{font-size:16px;margin:0 12px 0 0}
+select,input,textarea,button{font:inherit;color:inherit}
+input[type=text],textarea,select{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+textarea{width:100%;resize:vertical}
+button{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--hover)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.danger{color:var(--danger)}
+#saveState{margin-left:auto;color:var(--sub);font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:16px;max-width:1600px;margin:0 auto}
+@media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.card h2{font-size:13px;margin:0 0 8px;color:var(--sub);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid2 label,.field{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--sub)}
+.field input,.grid2 input{color:var(--ink);font-size:14px}
+.types{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.type{display:flex;gap:6px;align-items:center}
+.type input[type=color]{width:32px;height:28px;padding:0;border:1px solid var(--line);border-radius:4px;background:none}
+.type input[type=text]{width:90px}
+.type label{font-size:12px;color:var(--sub);display:flex;gap:2px;align-items:center}
+.hint{font-size:12px;color:var(--sub);margin:4px 0 0}
+/* lines */
+.lines-tools{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.line{border-top:1px dashed var(--line);padding:6px 0 4px}
+.line:first-child{border-top:none}
+.lhead{display:flex;gap:6px;align-items:center}
+.num{width:26px;text-align:right;color:var(--sub);font-size:11px;flex:none}
+.ltext{flex:1;min-width:0;font-family:"BIZ UDGothic","MS Gothic",monospace}
+.lhead button{padding:2px 7px;font-size:12px}
+.stage{margin:4px 0 0 32px;font-family:"BIZ UDGothic","MS Gothic",monospace;font-size:18px;overflow-x:auto;overflow-y:hidden}
+.lyr{white-space:pre;line-height:28px;height:28px}
+.ch{cursor:pointer;border-radius:3px}
+.ch:hover{background:var(--hover);box-shadow:inset 0 -2px 0 var(--accent)}
+.ch.end{color:var(--sub);font-size:13px;padding:0 4px;margin-left:2px}
+.ch.empty{color:var(--sub);font-size:13px;font-family:system-ui,sans-serif}
+.callsLayer{position:relative}
+.chip{position:absolute;white-space:pre;line-height:26px;height:26px;cursor:grab;border-radius:3px;user-select:none;touch-action:none}
+.chip:hover{background:var(--hover)}
+.chip.dragging{cursor:grabbing;opacity:.75;outline:1px dashed var(--accent)}
+/* preview */
+.preview{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);display:flex;flex-direction:column}
+@media (max-width:980px){.preview{position:static;max-height:none}}
+.ptools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.canvasWrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#888;padding:10px;text-align:center}
+.canvasWrap canvas{max-width:100%;height:auto;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+/* popover */
+#pop{position:absolute;z-index:20;width:320px;max-width:calc(100vw - 32px);background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.25);padding:12px}
+#pop[hidden]{display:none}
+#pop .ptitle{font-size:12px;color:var(--sub);margin-bottom:6px}
+#popText{width:100%;font-family:"BIZ UDGothic","MS Gothic",monospace;font-size:16px}
+.presets{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.presets button{padding:2px 7px;font-size:12px}
+.typesel{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.typesel label{display:flex;align-items:center;gap:3px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;cursor:pointer}
+.typesel input{margin:0}
+.poprow{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--sub);margin:6px 0}
+.popact{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}
+.popact .danger{margin-right:auto}
+.bulkopts{display:flex;flex-wrap:wrap;gap:4px 14px;margin:6px 0;font-size:12px;color:var(--sub)}
+.bulkopts label{display:flex;align-items:center;gap:4px;cursor:pointer}
+.bulkact{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.bulkact .primary{margin-left:auto}
+#bulk.dragover{outline:2px dashed var(--accent);outline-offset:2px}
+#dropMask{position:fixed;inset:0;z-index:40;background:rgba(59,130,196,.18);border:4px dashed var(--accent);display:flex;align-items:center;justify-content:center;pointer-events:none}
+#dropMask[hidden]{display:none}
+#dropMask div{background:var(--card);color:var(--ink);padding:18px 26px;border-radius:12px;font-size:18px;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+/* ---------- スマホ ---------- */
+.mtabs{display:none}
+@media (max-width:980px){
+  header{padding:8px 12px;gap:6px}
+  header h1{font-size:15px;margin:0;flex:1}
+  #saveState{order:1;font-size:11px}
+  #songSel{order:2;flex:1 1 100%;min-width:0}
+  header button{order:3}
+  .layout{padding:12px 12px 84px;gap:0}
+  .card{padding:12px}
+  .grid2{grid-template-columns:1fr}
+  body.tab-edit .preview{display:none}
+  body.tab-preview .layout > section:first-child{display:none}
+  .mtabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--card);border-top:1px solid var(--line);padding:6px 12px calc(6px + env(safe-area-inset-bottom));gap:8px}
+  .mtabs button{flex:1;padding:10px;font-weight:600;border-radius:8px}
+  .mtabs button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .canvasWrap{padding:6px}
+  .ptools button{flex:1 1 calc(50% - 8px)}
+  /* コール入力はボトムシート */
+  #pop{position:fixed;left:0 !important;right:0;top:auto !important;bottom:0;width:auto;max-width:none;border-radius:14px 14px 0 0;padding:14px 14px calc(14px + env(safe-area-inset-bottom));max-height:70vh;overflow:auto}
+}
+@media (pointer:coarse){
+  input[type=text],textarea,select{font-size:16px}
+  button{min-height:36px}
+  .lhead button{min-width:36px;min-height:36px;font-size:14px;padding:2px 4px}
+  .lhead .bUp{display:none}
+  .num{width:18px}
+  .stage{margin-left:24px}
+  .ch{padding:6px 0}
+  .ch.end{padding:6px 10px}
+  .presets button{min-height:34px;padding:4px 10px;font-size:14px}
+  .typesel label{padding:6px 12px;font-size:13px}
+  .chip{touch-action:pan-y}
+}
+#toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
+#toast.show{opacity:.92}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎤 コール表メーカー</h1>
+  <select id="songSel" aria-label="曲を選ぶ"></select>
+  <button id="btnNew">＋新しい曲</button>
+  <button id="btnDup">複製</button>
+  <button id="btnDel" class="danger">削除</button>
+  <button id="btnUndo" title="元に戻す (Ctrl+Z)">↶</button>
+  <button id="btnRedo" title="やり直す (Ctrl+Y)">↷</button>
+  <span id="saveState">保存済み</span>
+</header>
+
+<div class="layout">
+  <section>
+    <div class="card">
+      <h2>曲の情報</h2>
+      <div class="grid2">
+        <label>曲名<input type="text" id="fTitle"></label>
+        <label>歌唱メンバー・ユニット（任意）<input type="text" id="fSub"></label>
+      </div>
+      <div class="grid2" style="margin-top:8px">
+        <label>ひとことメモ（画像の下に表示・任意）<input type="text" id="fNote"></label>
+        <label>作成者クレジット（任意）<input type="text" id="fAuthor"></label>
+      </div>
+    </div>
+
+    <details class="card" id="bulkCard">
+      <summary style="cursor:pointer;font-weight:600;font-size:14px">📋 歌詞をまとめて入力（貼り付け・txtファイル）</summary>
+      <p class="hint">歌詞を全部貼り付けるか、txtファイルをここ（またはページのどこか）にドラッグ＆ドロップしてください。改行ごとに自動で1行ずつに分けます。すでにコールがある場合、同じ行番号のコールは残ります。</p>
+      <textarea id="bulk" rows="9" placeholder="ここに歌詞を全部貼り付け&#10;（txtファイルをドロップしてもOK）"></textarea>
+      <div class="bulkopts">
+        <label><input type="checkbox" id="optTrim" checked> 行の前後の空白を消す</label>
+        <label><input type="checkbox" id="optSqueeze" checked> 続いた空行は1つにまとめる</label>
+        <label><input type="checkbox" id="optNoBlank"> 空行をすべて消す</label>
+        <label><input type="checkbox" id="optParen"> （ ）の中はコールとして歌詞の下に移す</label>
+      </div>
+      <div class="bulkact">
+        <button type="button" id="btnTxt">📄 txtファイルを選ぶ</button>
+        <span id="bulkCount" class="hint" style="margin:0"></span>
+        <button class="primary" id="btnBulk">行に分けて反映</button>
+      </div>
+      <input type="file" id="txtIn" accept=".txt,.lrc,text/plain" hidden>
+    </details>
+
+    <div class="card">
+      <h2>コールの種類と色</h2>
+      <div class="types" id="types"></div>
+      <div class="field" style="margin-top:10px">定番コールのボタン（カンマ区切り）
+        <input type="text" id="fPresets">
+      </div>
+      <p class="hint">「凡例」にチェックした種類は、画像右上に色の説明として表示されます。👏・✋ を含むボタンは自動でクラップ、「UO」で始まるボタンは自動でUOマーク（オレンジの札）になります。</p>
+    </div>
+
+    <div class="card">
+      <h2>歌詞とコール</h2>
+      <div class="lines-tools">
+        <button id="btnAddLine">＋行を追加</button>
+        <span class="hint" style="margin:0">歌詞の文字をタップ（クリック）→ その位置の下にコールを追加。コールはドラッグで左右に動かせ、タップで編集できます。入力欄で Enter で次の行。</span>
+      </div>
+      <div id="lines"></div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="ptools">
+      <button class="primary" id="btnPng">画像を保存 (PNG)</button>
+      <button id="btnShare" hidden>画像を共有</button>
+      <button id="btnCopy">画像をコピー</button>
+      <button id="btnExport">データ書き出し</button>
+      <button id="btnExportAll">全曲書き出し</button>
+      <button id="btnImport">データ読み込み</button>
+      <input type="file" id="fileIn" accept=".json,application/json" hidden>
+    </div>
+    <div class="canvasWrap"><canvas id="cv"></canvas></div>
+  </section>
+</div>
+
+<div id="pop" hidden>
+  <div class="ptitle" id="popTitle"></div>
+  <input type="text" id="popText" placeholder="(Yeah!)">
+  <div class="presets" id="popPresets"></div>
+  <div class="typesel" id="popTypes"></div>
+  <div class="poprow">
+    段 <select id="popRow"><option value="0">自動</option><option value="1">1段目</option><option value="2">2段目</option><option value="3">3段目</option><option value="4">4段目</option></select>
+    <span style="margin-left:auto">位置</span>
+    <button id="popLeft" title="1文字左へ">◀</button><button id="popRight" title="1文字右へ">▶</button>
+  </div>
+  <div class="popact">
+    <button class="danger" id="popDel">削除</button>
+    <button id="popCancel">閉じる</button>
+    <button class="primary" id="popOk">決定</button>
+  </div>
+</div>
+<nav class="mtabs" aria-label="表示切り替え">
+  <button type="button" data-tab="edit" class="on">✏️ 入力</button>
+  <button type="button" data-tab="preview">🖼 できあがり</button>
+</nav>
+<div id="dropMask" hidden><div>📄 ここで離すと歌詞を読み込みます</div></div>
+<div id="toast"></div>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const LS_KEY = 'callsheet.v1';
+const TYPE_KEYS = ['call','opt','clap','uo','ex'];
+const isMark = c => c.type === 'uo';   // 色付きの札（マーク）として描く種類
+const markPad = size => Math.round(size * 0.3);
+const FONT_FAMILY = '"BIZ UDGothic","MS Gothic","Osaka-Mono",monospace';
+const font = (size, bold) => `${bold ? '700 ' : ''}${size}px ${FONT_FAMILY}`;
+const uid = () => Math.random().toString(36).slice(2, 10);
+const DEFAULT_PRESETS = '(Yeah!), (Hi!), (Foo!), (Fu-Fu!), (Oi!), (Hey!), 👏, 👏👏, 👏×4, UO';
+const defaultTypes = () => ({
+  call: {label:'コール',   color:'#2f7fd8', legend:false},
+  opt:  {label:'お好みで', color:'#21a35a', legend:true},
+  clap: {label:'クラップ', color:'#e8822a', legend:true},
+  uo:   {label:'UOを折る', color:'#ff6a00', legend:true},
+  ex:  {label:'特殊',     color:'#d63384', legend:true},
+});
+const L = (text, calls = []) => ({text, calls: calls.map(([at, t, type, row]) => ({id: uid(), at, text: t, type, row: row || 0}))});
+function sampleSong() {
+  return {id: uid(), title: 'サンプル曲（使い方）', sub: 'ここに歌唱メンバーなど', note: 'コールは自由なものです。楽しく盛り上がりましょう！', author: '',
+    types: defaultTypes(), updated: Date.now(),
+    lines: [
+      L('ここに歌詞の1行目を入力します', [[0, '(Hi!)', 'call'], [10, '(Hi!)', 'call']]),
+      L('文字をクリックするとコールを追加', [[0, '👏👏', 'clap'], [8, '(Foo!)', 'opt']]),
+      L(''),
+      L('「セリフもそのまま書けます」'),
+      L('サビ　ここは全員で　叫ぼう！', [[0, '(Yeah!)', 'call'], [3, '(全員で！)', 'call'], [3, '(Fu-Fu!)', 'opt'], [10, '(叫ぼう！)', 'call']]),
+      L('', [[0, '(ペンライトを上に)', 'ex']]),
+      L('ラストのサビ　ここでUO！', [[6, 'UO', 'uo'], [9, '(Fu-!)', 'call']]),
+    ]};
+}
+function newSong() {
+  return {id: uid(), title: '新しい曲', sub: '', note: '', author: '', types: defaultTypes(), updated: Date.now(), lines: [L('')]};
+}
+function normalizeSong(s) {
+  const n = Object.assign(newSong(), s || {});
+  n.types = Object.assign(defaultTypes(), n.types || {});
+  n.lines = (Array.isArray(n.lines) ? n.lines : []).map(l => ({
+    text: String(l.text || ''),
+    calls: (l.calls || []).map(c => ({id: c.id || uid(), at: Math.max(0, c.at | 0), text: String(c.text || ''), type: TYPE_KEYS.includes(c.type) ? c.type : 'call', row: c.row | 0}))
+  }));
+  if (!n.lines.length) n.lines.push(L(''));
+  return n;
+}
+
+/* ---------- storage ---------- */
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_KEY));
+    if (s && Array.isArray(s.songs) && s.songs.length) {
+      s.songs = s.songs.map(normalizeSong);
+      if (typeof s.presets !== 'string') s.presets = DEFAULT_PRESETS;
+      if (!s.v2) { if (!/UO/.test(s.presets)) s.presets += ', UO'; s.v2 = true; }
+      return s;
+    }
+  } catch (e) {}
+  const s = sampleSong();
+  return {songs: [s], currentId: s.id, presets: DEFAULT_PRESETS, lastType: 'call', v2: true};
+}
+let store = load();
+let saveTimer = null;
+function scheduleSave() {
+  $('#saveState').textContent = '保存中…';
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(store)); $('#saveState').textContent = '保存済み（このブラウザ内）'; }
+    catch (e) { $('#saveState').textContent = '⚠ 保存できませんでした。「データ書き出し」で保存してください'; }
+  }, 300);
+}
+const cur = () => store.songs.find(s => s.id === store.currentId) || store.songs[0];
+
+/* ---------- undo ---------- */
+const undoStacks = {};
+const stacks = () => (undoStacks[cur().id] ||= {u: [], r: []});
+function pushUndo() {
+  const st = stacks(); st.u.push(JSON.stringify(cur())); if (st.u.length > 100) st.u.shift(); st.r.length = 0;
+}
+function restore(json) {
+  const s = normalizeSong(JSON.parse(json));
+  const i = store.songs.findIndex(x => x.id === s.id);
+  store.songs[i] = s; renderAll(); scheduleSave();
+}
+function undo() { const st = stacks(); if (!st.u.length) return; st.r.push(JSON.stringify(cur())); restore(st.u.pop()); }
+function redo() { const st = stacks(); if (!st.r.length) return; st.u.push(JSON.stringify(cur())); restore(st.r.pop()); }
+
+function mutate(fn, opts = {}) {
+  pushUndo(); fn(cur()); cur().updated = Date.now(); scheduleSave();
+  if (opts.lines !== false) renderLines();
+  schedulePreview();
+}
+
+/* ---------- measuring / layout ---------- */
+const mctx = document.createElement('canvas').getContext('2d');
+function measurer(size, bold) { return t => { mctx.font = font(size, bold); return mctx.measureText(t).width; }; }
+function layoutCalls(ln, size) {
+  const m = measurer(size);
+  const chars = [...ln.text];
+  const tw = m(ln.text), sp = m(' ');
+  const xAt = at => at <= chars.length ? m(chars.slice(0, at).join('')) : tw + (at - chars.length) * sp;
+  const items = ln.calls.map(c => ({c, x: xAt(c.at), w: m(c.text) + (isMark(c) ? markPad(size) * 2 : 0)}));
+  const rows = [];
+  const gap = size * 0.5;
+  const fits = (r, it) => !(rows[r] || []).some(([a, b]) => it.x < b + gap && it.x + it.w + gap > a);
+  const put = (r, it) => { it.row = r; (rows[r] ||= []).push([it.x, it.x + it.w]); };
+  items.filter(it => it.c.row > 0).forEach(it => put(it.c.row, it));
+  items.filter(it => !(it.c.row > 0)).sort((a, b) => a.x - b.x).forEach(it => { let r = 1; while (!fits(r, it)) r++; put(r, it); });
+  const rowCount = items.reduce((mx, it) => Math.max(mx, it.row), 0);
+  const width = items.reduce((mx, it) => Math.max(mx, it.x + it.w), tw);
+  return {items, rowCount, width, xAt, charCount: chars.length};
+}
+
+/* ---------- sheet renderer (preview & PNG share this) ---------- */
+function wrapText(text, maxW, m) {
+  const out = []; let line = '';
+  for (const ch of [...text]) { if (m(line + ch) > maxW && line) { out.push(line); line = ch; } else line += ch; }
+  if (line) out.push(line); return out;
+}
+function renderSheet(song, canvas, scale) {
+  const S = {pad: 40, lyr: 22, title: 34, sub: 15, legend: 15, note: 15};
+  const LH = Math.round(S.lyr * 1.45);
+  const lays = song.lines.map(ln => layoutCalls(ln, S.lyr));
+  const contentW = lays.reduce((mx, l) => Math.max(mx, l.width), 0);
+  const used = new Set(song.lines.flatMap(l => l.calls.map(c => c.type)));
+  const legend = TYPE_KEYS.filter(k => song.types[k].legend && used.has(k));
+  const mLeg = measurer(S.legend, true);
+  const legParts = legend.map(k => ({k, w: mLeg(k === 'uo' ? song.types[k].label : '■ ' + song.types[k].label)}));
+  const legendW = legParts.length ? legParts.reduce((s, p) => s + p.w + (p.k === 'uo' ? 8 : 0), 0) + (legParts.length - 1) * 14 + 24 : 0;
+  const titleW = measurer(S.title, true)(song.title || '');
+  const W = Math.ceil(Math.max(780, contentW + S.pad * 2, titleW + legendW + S.pad * 2 + 24));
+  const innerW = W - S.pad * 2;
+  const mNote = measurer(S.note);
+  const noteLines = song.note ? wrapText('💡 ' + song.note, innerW - 28, mNote) : [];
+
+  // heights
+  let H = S.pad + S.title * 1.3 + (song.sub ? S.sub * 1.7 : 0) + 14 + 18;
+  const lineHeights = song.lines.map((ln, i) => {
+    const has = ln.text.length > 0, rc = lays[i].rowCount;
+    return (!has && !rc) ? LH : (has ? LH : 0) + rc * LH;
+  });
+  H += lineHeights.reduce((a, b) => a + b, 0);
+  if (noteLines.length) H += 24 + noteLines.length * 24 + 20;
+  if (song.author) H += 28;
+  H += S.pad;
+  H = Math.ceil(H);
+
+  canvas.width = W * scale; canvas.height = H * scale;
+  canvas.style.width = W + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  ctx.textBaseline = 'middle';
+
+  let y = S.pad;
+  // title
+  ctx.fillStyle = '#1f2328'; ctx.font = font(S.title, true);
+  ctx.fillText(song.title || '', S.pad, y + S.title * 0.65);
+  // legend badge
+  if (legParts.length) {
+    const bh = 30, bx = W - S.pad - legendW, by = y + S.title * 0.65 - bh / 2;
+    ctx.fillStyle = '#f6faf8'; ctx.strokeStyle = '#c9d6df'; ctx.lineWidth = 1;
+    roundRect(ctx, bx + .5, by + .5, legendW, bh, 5); ctx.fill(); ctx.stroke();
+    let lx = bx + 12; ctx.font = font(S.legend, true);
+    legParts.forEach(p => {
+      const t = song.types[p.k];
+      if (p.k === 'uo') {
+        ctx.fillStyle = t.color; roundRect(ctx, lx - 4, by + 5, p.w + 8, bh - 10, 4); ctx.fill();
+        ctx.fillStyle = '#ffffff'; ctx.fillText(t.label, lx, by + bh / 2 + 1);
+        lx += 8;
+      } else { ctx.fillStyle = t.color; ctx.fillText('■ ' + t.label, lx, by + bh / 2 + 1); }
+      lx += p.w + 14;
+    });
+  }
+  y += S.title * 1.3;
+  if (song.sub) { ctx.font = font(S.sub); ctx.fillStyle = '#6a7480'; ctx.fillText(song.sub, S.pad, y + S.sub * 0.8); y += S.sub * 1.7; }
+  y += 14;
+  ctx.strokeStyle = '#b9cde0'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(S.pad, y); ctx.lineTo(W - S.pad, y); ctx.stroke();
+  y += 18;
+
+  // body
+  song.lines.forEach((ln, i) => {
+    const lay = lays[i];
+    let yy = y;
+    if (ln.text.length) {
+      ctx.font = font(S.lyr); ctx.fillStyle = '#222222';
+      ctx.fillText(ln.text, S.pad, yy + LH / 2); yy += LH;
+    }
+    ctx.font = font(S.lyr);
+    lay.items.forEach(it => {
+      const cy = yy + (it.row - 1) * LH + LH / 2, color = song.types[it.c.type].color;
+      if (isMark(it.c)) {
+        // UOマーク: 色付きの札に白抜き文字
+        const bh = S.lyr * 1.2;
+        ctx.fillStyle = color; roundRect(ctx, S.pad + it.x, cy - bh / 2, it.w, bh, 6); ctx.fill();
+        ctx.font = font(S.lyr, true); ctx.fillStyle = '#ffffff';
+        ctx.fillText(it.c.text, S.pad + it.x + markPad(S.lyr), cy + 1);
+        ctx.font = font(S.lyr);
+      } else {
+        ctx.fillStyle = color; ctx.fillText(it.c.text, S.pad + it.x, cy);
+      }
+    });
+    y += lineHeights[i];
+  });
+
+  // note
+  if (noteLines.length) {
+    y += 24;
+    const bh = noteLines.length * 24 + 16;
+    ctx.fillStyle = '#eef5fc'; ctx.strokeStyle = '#c4d8ec'; ctx.lineWidth = 1;
+    roundRect(ctx, S.pad + .5, y - 8 + .5, innerW, bh, 8); ctx.fill(); ctx.stroke();
+    ctx.font = font(S.note); ctx.fillStyle = '#3d4a57';
+    noteLines.forEach((t, k) => ctx.fillText(t, S.pad + 14, y + k * 24 + 12));
+    y += noteLines.length * 24 + 20;
+  }
+  if (song.author) {
+    ctx.font = font(13); ctx.fillStyle = '#8a95a1'; ctx.textAlign = 'right';
+    ctx.fillText('作成: ' + song.author, W - S.pad, y + 16); ctx.textAlign = 'left';
+  }
+}
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+let pvTimer = null;
+function schedulePreview() { clearTimeout(pvTimer); pvTimer = setTimeout(() => renderSheet(cur(), $('#cv'), 2), 120); }
+
+/* ---------- editor UI ---------- */
+const ED = {size: 18, rowH: 26};
+function h(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v); }
+  kids.forEach(k => e.append(k)); return e;
+}
+function renderSongSel() {
+  const sel = $('#songSel'); sel.innerHTML = '';
+  store.songs.forEach(s => sel.append(h('option', {value: s.id}, s.title || '(無題)')));
+  sel.value = cur().id;
+}
+function renderMeta() {
+  const s = cur();
+  $('#fTitle').value = s.title; $('#fSub').value = s.sub; $('#fNote').value = s.note; $('#fAuthor').value = s.author;
+  $('#fPresets').value = store.presets;
+}
+function renderTypes() {
+  const box = $('#types'); box.innerHTML = ''; const s = cur();
+  TYPE_KEYS.forEach(k => {
+    const t = s.types[k];
+    const col = h('input', {type: 'color', value: t.color, title: '色'});
+    col.oninput = () => { t.color = col.value; scheduleSave(); schedulePreview(); };
+    col.onchange = () => { mutate(() => {}); };
+    const lab = h('input', {type: 'text', value: t.label, 'aria-label': '種類の名前'});
+    lab.oninput = () => { t.label = lab.value; scheduleSave(); schedulePreview(); };
+    const chk = h('input', {type: 'checkbox'}); chk.checked = t.legend;
+    chk.onchange = () => mutate(s => { s.types[k].legend = chk.checked; }, {lines: false});
+    box.append(h('div', {class: 'type'}, col, lab, h('label', {}, chk, '凡例')));
+  });
+}
+function renderLines() {
+  const box = $('#lines'); box.innerHTML = '';
+  cur().lines.forEach((ln, i) => box.append(lineEl(ln, i)));
+}
+function lineEl(ln, i) {
+  const inp = h('input', {type: 'text', class: 'ltext', placeholder: '歌詞（空のままなら空行）'});
+  inp.value = ln.text;
+  let undoPushed = false;
+  inp.onfocus = () => { undoPushed = false; };
+  inp.oninput = () => {
+    if (!undoPushed) { pushUndo(); undoPushed = true; }
+    ln.text = inp.value; cur().updated = Date.now(); renderStage(stage, ln, i); scheduleSave(); schedulePreview();
+  };
+  inp.onkeydown = e => {
+    if (e.key === 'Enter' && !e.isComposing) {
+      e.preventDefault(); mutate(s => s.lines.splice(i + 1, 0, L(''))); focusLine(i + 1);
+    } else if (e.key === 'Backspace' && !inp.value && !ln.calls.length && cur().lines.length > 1 && !e.isComposing) {
+      e.preventDefault(); mutate(s => s.lines.splice(i, 1)); focusLine(Math.max(0, i - 1));
+    } else if (e.key === 'ArrowUp' && !e.isComposing) { e.preventDefault(); focusLine(i - 1); }
+    else if (e.key === 'ArrowDown' && !e.isComposing) { e.preventDefault(); focusLine(i + 1); }
+  };
+  const bAdd = h('button', {title: '下に行を追加'}, '＋');
+  bAdd.onclick = () => { mutate(s => s.lines.splice(i + 1, 0, L(''))); focusLine(i + 1); };
+  const bUp = h('button', {title: '上へ移動', class: 'bUp'}, '↑');
+  bUp.onclick = () => { if (i > 0) mutate(s => { const [x] = s.lines.splice(i, 1); s.lines.splice(i - 1, 0, x); }); };
+  const bDel = h('button', {title: 'この行を削除', class: 'danger'}, '✕');
+  bDel.onclick = () => mutate(s => { s.lines.splice(i, 1); if (!s.lines.length) s.lines.push(L('')); });
+  const stage = h('div', {class: 'stage'});
+  renderStage(stage, ln, i);
+  return h('div', {class: 'line'}, h('div', {class: 'lhead'}, h('span', {class: 'num'}, String(i + 1)), inp, bAdd, bUp, bDel), stage);
+}
+function focusLine(i) {
+  const inputs = document.querySelectorAll('#lines .ltext');
+  if (inputs[i]) { inputs[i].focus(); inputs[i].setSelectionRange(inputs[i].value.length, inputs[i].value.length); }
+}
+function renderStage(stage, ln, i) {
+  stage.innerHTML = '';
+  const lyr = h('div', {class: 'lyr'});
+  const chars = [...ln.text];
+  if (!chars.length) {
+    const e = h('span', {class: 'ch empty', title: 'コールだけの行にする'}, '＋ ここにコールを置く');
+    e.onclick = ev => openPop({i, at: 0}, ev); lyr.append(e);
+  } else {
+    chars.forEach((c, ci) => { const s = h('span', {class: 'ch', title: `「${c}」の下にコール`}, c); s.onclick = ev => openPop({i, at: ci}, ev); lyr.append(s); });
+    const end = h('span', {class: 'ch end', title: '行末の後ろにコール'}, '＋'); end.onclick = ev => openPop({i, at: chars.length}, ev); lyr.append(end);
+  }
+  stage.append(lyr);
+  const lay = layoutCalls(ln, ED.size);
+  const layer = h('div', {class: 'callsLayer'});
+  layer.style.height = (lay.rowCount * ED.rowH) + 'px';
+  const types = cur().types;
+  lay.items.forEach(it => {
+    const chip = h('span', {class: 'chip', title: 'クリックで編集・ドラッグで移動'}, it.c.text);
+    chip.style.left = it.x + 'px'; chip.style.top = ((it.row - 1) * ED.rowH) + 'px'; chip.style.color = types[it.c.type].color;
+    if (isMark(it.c)) {
+      Object.assign(chip.style, {background: types[it.c.type].color, color: '#fff', fontWeight: '700', padding: `0 ${markPad(ED.size)}px`, borderRadius: '5px', height: '24px', lineHeight: '24px', top: ((it.row - 1) * ED.rowH + 1) + 'px'});
+    }
+    attachDrag(chip, it.c, lay, i);
+    layer.append(chip);
+  });
+  const minW = lay.width + 40;
+  lyr.style.minWidth = layer.style.minWidth = minW + 'px';
+  stage.append(layer);
+}
+function attachDrag(chip, call, lay, i) {
+  let sx = 0, startX = 0, dragging = false, newAt = call.at;
+  chip.onpointerdown = e => { sx = e.clientX; startX = lay.xAt(call.at); dragging = false; newAt = call.at; chip.setPointerCapture(e.pointerId); };
+  chip.onpointermove = e => {
+    if (!chip.hasPointerCapture(e.pointerId)) return;
+    const dx = e.clientX - sx;
+    if (!dragging && Math.abs(dx) > 4) { dragging = true; chip.classList.add('dragging'); }
+    if (!dragging) return;
+    const target = startX + dx; let best = 0, bd = Infinity;
+    for (let k = 0; k <= lay.charCount + 30; k++) { const d = Math.abs(lay.xAt(k) - target); if (d < bd) { bd = d; best = k; } }
+    newAt = best; chip.style.left = lay.xAt(best) + 'px';
+  };
+  chip.onpointerup = e => {
+    chip.releasePointerCapture(e.pointerId); chip.classList.remove('dragging');
+    if (dragging) { if (newAt !== call.at) mutate(() => { call.at = newAt; }); }
+    else openPop({i, at: call.at, id: call.id}, e);
+  };
+}
+
+/* ---------- popover ---------- */
+let pop = null;
+function openPop(ctx, ev) {
+  pop = ctx;
+  const ln = cur().lines[ctx.i];
+  const call = ctx.id ? ln.calls.find(c => c.id === ctx.id) : null;
+  const chars = [...ln.text];
+  const where = ctx.at < chars.length ? `「${chars[ctx.at]}」の下` : (chars.length ? '行末の後ろ' : 'コールだけの行');
+  $('#popTitle').textContent = `${ctx.i + 1}行目・${where}${call ? '（編集中）' : 'に追加'}`;
+  $('#popText').value = call ? call.text : '';
+  const type = call ? call.type : (store.lastType || 'call');
+  document.querySelectorAll('#popTypes input').forEach(r => { r.checked = r.value === type; });
+  $('#popRow').value = String(call ? call.row : 0);
+  $('#popDel').style.visibility = call ? 'visible' : 'hidden';
+  $('#popLeft').disabled = $('#popRight').disabled = !call;
+  renderPopTypes(type); renderPresets();
+  const p = $('#pop'); p.hidden = false;
+  const pw = p.offsetWidth, ph = p.offsetHeight;
+  let x = ev.clientX - 20, y = ev.clientY + 16;
+  if (x + pw > innerWidth - 8) x = innerWidth - pw - 8;
+  if (y + ph > innerHeight - 8) y = ev.clientY - ph - 16;
+  p.style.left = (Math.max(8, x) + scrollX) + 'px'; p.style.top = (Math.max(8, y) + scrollY) + 'px';
+  // スマホでは定番ボタンで済むことが多いので、いきなりキーボードを出さない
+  if (!matchMedia('(pointer:coarse)').matches) $('#popText').focus();
+  if (window.visualViewport) visualViewport.dispatchEvent(new Event('resize'));
+}
+function closePop() { $('#pop').hidden = true; pop = null; }
+function renderPopTypes(sel) {
+  const box = $('#popTypes'); box.innerHTML = ''; const types = cur().types;
+  TYPE_KEYS.forEach(k => {
+    const r = h('input', {type: 'radio', name: 'ptype', value: k}); r.checked = k === sel;
+    const lab = h('label', {}, r, types[k].label); lab.style.color = types[k].color; lab.style.borderColor = types[k].color;
+    box.append(lab);
+  });
+}
+const selType = () => (document.querySelector('#popTypes input:checked') || {}).value || 'call';
+const isClap = t => /[👏✋🙌]/u.test(t);
+function renderPresets() {
+  const box = $('#popPresets'); box.innerHTML = '';
+  store.presets.split(/[,、]/).map(s => s.trim()).filter(Boolean).forEach(t => {
+    const b = h('button', {type: 'button'}, t);
+    b.onclick = () => {
+      $('#popText').value = t;
+      const auto = isClap(t) ? 'clap' : /^UO/i.test(t) ? 'uo' : null;
+      if (auto) document.querySelectorAll('#popTypes input').forEach(r => { r.checked = r.value === auto; });
+      commitPop();
+    };
+    box.append(b);
+  });
+}
+function commitPop() {
+  if (!pop) return;
+  const text = $('#popText').value.trim(); const type = selType(); const row = +$('#popRow').value;
+  const {i, at, id} = pop;
+  if (!text) { if (id) mutate(s => { const ln = s.lines[i]; ln.calls = ln.calls.filter(c => c.id !== id); }); closePop(); return; }
+  store.lastType = (type === 'clap' || type === 'uo') ? (store.lastType || 'call') : type;
+  mutate(s => {
+    const ln = s.lines[i];
+    if (id) { const c = ln.calls.find(c => c.id === id); Object.assign(c, {text, type, row}); }
+    else ln.calls.push({id: uid(), at, text, type, row});
+  });
+  closePop();
+}
+function nudge(d) {
+  if (!pop || !pop.id) return;
+  const {i, id} = pop;
+  mutate(s => { const c = s.lines[i].calls.find(c => c.id === id); c.at = Math.max(0, c.at + d); pop.at = c.at; });
+}
+$('#popOk').onclick = commitPop;
+$('#popCancel').onclick = closePop;
+$('#popDel').onclick = () => { if (!pop || !pop.id) return; const {i, id} = pop; mutate(s => { s.lines[i].calls = s.lines[i].calls.filter(c => c.id !== id); }); closePop(); };
+$('#popLeft').onclick = () => nudge(-1);
+$('#popRight').onclick = () => nudge(1);
+$('#popText').onkeydown = e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); commitPop(); } if (e.key === 'Escape') closePop(); };
+document.addEventListener('pointerdown', e => {
+  if (!$('#pop').hidden && !$('#pop').contains(e.target) && !e.target.closest('.ch,.chip')) closePop();
+});
+
+/* ---------- top-level bindings ---------- */
+function renderAll() {
+  renderSongSel(); renderMeta(); renderTypes(); renderLines(); schedulePreview();
+  // 歌詞がまだ無い曲では「まとめて入力」を開いておく
+  $('#bulkCard').open = !cur().lines.some(l => l.text || l.calls.length);
+}
+$('#songSel').onchange = e => { store.currentId = e.target.value; closePop(); renderAll(); scheduleSave(); };
+$('#btnNew').onclick = () => { const s = newSong(); store.songs.push(s); store.currentId = s.id; renderAll(); scheduleSave(); $('#fTitle').select(); };
+$('#btnDup').onclick = () => { const s = normalizeSong(JSON.parse(JSON.stringify(cur()))); s.id = uid(); s.title += '（コピー）'; store.songs.push(s); store.currentId = s.id; renderAll(); scheduleSave(); toast('複製しました'); };
+$('#btnDel').onclick = () => {
+  if (!confirm(`「${cur().title}」を削除します。元に戻せません。よろしいですか？`)) return;
+  store.songs = store.songs.filter(s => s.id !== cur().id);
+  if (!store.songs.length) store.songs.push(newSong());
+  store.currentId = store.songs[0].id; renderAll(); scheduleSave();
+};
+$('#btnUndo').onclick = undo; $('#btnRedo').onclick = redo;
+document.addEventListener('keydown', e => {
+  if (!(e.ctrlKey || e.metaKey) || e.target.matches('input,textarea')) return;
+  if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  else if (e.key === 'y' || (e.key === 'z' && e.shiftKey) || e.key === 'Z') { e.preventDefault(); redo(); }
+});
+const metaBind = (sel, key) => {
+  const el = $(sel); let pushed = false;
+  el.onfocus = () => { pushed = false; };
+  el.oninput = () => { if (!pushed) { pushUndo(); pushed = true; } cur()[key] = el.value; cur().updated = Date.now(); scheduleSave(); schedulePreview(); if (key === 'title') renderSongSel(); };
+};
+metaBind('#fTitle', 'title'); metaBind('#fSub', 'sub'); metaBind('#fNote', 'note'); metaBind('#fAuthor', 'author');
+$('#fPresets').oninput = e => { store.presets = e.target.value; scheduleSave(); };
+$('#btnAddLine').onclick = () => { mutate(s => s.lines.push(L(''))); focusLine(cur().lines.length - 1); };
+/* ---------- 歌詞のまとめて入力（貼り付け・txt） ---------- */
+// 全文を行に分ける。改行コードの違い・タブ・前後の空白・空行の連続を整える
+function splitLyrics(raw) {
+  const trim = $('#optTrim').checked, squeeze = $('#optSqueeze').checked, noBlank = $('#optNoBlank').checked;
+  let lines = raw.replace(/^﻿/, '').replace(/\r\n?|\u2028|\u2029/g, '\n').replace(/\t/g, ' ').split('\n');
+  lines = lines.map(t => trim ? t.replace(/^[ 　]+|[ 　]+$/g, '') : t.replace(/\s+$/, ''));
+  if (noBlank) lines = lines.filter(t => t !== '');
+  else if (squeeze) lines = lines.filter((t, k) => t !== '' || lines[k - 1] !== '');
+  while (lines.length && lines[0] === '') lines.shift();
+  while (lines.length && lines[lines.length - 1] === '') lines.pop();
+  const paren = $('#optParen').checked;
+  return lines.map(t => paren ? extractParenCalls(t) : {text: t, calls: []});
+}
+// 「上BR ABAB（はい！）」→ 歌詞「上BR ABAB」＋その位置の下にコール「（はい！）」
+const PAREN_RE = /[（(][^（）()]*[）)]/g;
+function extractParenCalls(line) {
+  let text = '', last = 0; const calls = [];
+  for (const m of line.matchAll(PAREN_RE)) {
+    text += line.slice(last, m.index);
+    text = text.replace(/[ 　]+$/, '');
+    calls.push({id: uid(), at: [...text].length, text: m[0], type: 'call', row: 0});
+    last = m.index + m[0].length;
+    // 後ろに歌詞が続くなら、くっつかないよう全角スペースを1つ挟む
+    if (text && line.slice(last).trim()) { text += '　'; last += line.slice(last).match(/^[ 　]*/)[0].length; }
+  }
+  text += line.slice(last);
+  text = text.replace(/^[ 　]+|[ 　]+$/g, '');
+  const len = [...text].length;
+  calls.forEach(c => { if (c.at > len) c.at = len; });
+  return {text, calls};
+}
+function updateBulkCount() {
+  const v = $('#bulk').value;
+  const n = v.trim() ? splitLyrics(v).length : 0;
+  const parens = (v.match(PAREN_RE) || []).length;
+  $('#bulkCount').textContent = !n ? '' : `→ ${n}行になります` +
+    (parens && !$('#optParen').checked ? `（（ ）が${parens}か所あります）` : parens ? `（コール${parens}個）` : '');
+}
+function applyBulk(raw, fileName, skipConfirm) {
+  const texts = splitLyrics(raw);
+  if (!texts.length) { toast('歌詞が空です'); return; }
+  const old = cur().lines;
+  const hasContent = old.some(l => l.text || l.calls.length);
+  if (hasContent && !skipConfirm && !confirm(`今の歌詞（${old.length}行）を${fileName ? '「' + fileName + '」' : '入力した歌詞'}（${texts.length}行）で置き換えます。\n同じ行番号にあるコールは残します。よろしいですか？`)) return false;
+  mutate(s => {
+    s.lines = texts.map((p, k) => {
+      // 同じ位置・同じ文字のコールは重ねない（同じファイルを読み直したとき用）
+      const keep = ((old[k] && old[k].calls) || []).filter(o => !p.calls.some(c => c.at === o.at && c.text === o.text));
+      return {text: p.text, calls: p.calls.concat(keep)};
+    });
+    // まだ曲名を付けていなければ、ファイル名を曲名にする
+    if (fileName && (!s.title || s.title === '新しい曲')) s.title = fileName.replace(/\.[^.]+$/, '');
+  });
+  renderMeta(); renderSongSel();
+  $('#bulk').value = ''; updateBulkCount(); $('#bulkCard').open = false;
+  toast(`${texts.length}行に分けました。文字をタップしてコールを付けましょう`);
+  document.querySelector('#lines').scrollIntoView({behavior: 'smooth', block: 'start'});
+  return true;
+}
+// txt は UTF-8 を優先し、読めなければ Shift_JIS（Windowsのメモ帳の古い保存形式）として読む
+async function readTextFile(file) {
+  const buf = await file.arrayBuffer();
+  try { return new TextDecoder('utf-8', {fatal: true}).decode(buf); }
+  catch (e) { return new TextDecoder('shift_jis').decode(buf); }
+}
+async function loadFile(file) {
+  if (/\.json$/i.test(file.name) || file.type === 'application/json') { importJsonFile(file); return; }
+  if (file.size > 2 * 1024 * 1024) { toast('ファイルが大きすぎます（2MBまで）'); return; }
+  const text = await readTextFile(file);
+  let replaceOk = false;
+  if (cur().lines.some(l => l.text || l.calls.length)) {
+    if (confirm(`「${file.name}」を新しい曲として読み込みますか？\n\nOK：新しい曲を作って読み込む\nキャンセル：今の曲の歌詞を置き換える`)) {
+      const s = newSong(); store.songs.push(s); store.currentId = s.id; renderAll();
+    } else replaceOk = true;
+  }
+  applyBulk(text, file.name, replaceOk);
+}
+$('#btnBulk').onclick = () => applyBulk($('#bulk').value);
+$('#bulk').oninput = updateBulkCount;
+['#optTrim', '#optSqueeze', '#optNoBlank', '#optParen'].forEach(s => { $(s).onchange = updateBulkCount; });
+$('#btnTxt').onclick = () => $('#txtIn').click();
+$('#txtIn').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) loadFile(f); };
+// ページ全体へのドラッグ＆ドロップ
+let dragDepth = 0;
+const hasFiles = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
+addEventListener('dragenter', e => { if (!hasFiles(e)) return; e.preventDefault(); dragDepth++; $('#dropMask').hidden = false; });
+addEventListener('dragover', e => { if (hasFiles(e)) e.preventDefault(); });
+addEventListener('dragleave', e => { if (!hasFiles(e)) return; if (--dragDepth <= 0) { dragDepth = 0; $('#dropMask').hidden = true; } });
+addEventListener('drop', e => {
+  if (!hasFiles(e)) return; e.preventDefault(); dragDepth = 0; $('#dropMask').hidden = true;
+  const f = e.dataTransfer.files[0]; if (f) loadFile(f);
+});
+
+/* ---------- export / import ---------- */
+const safeName = s => (s || 'コール表').replace(/[\\/:*?"<>|]/g, '_');
+function download(blob, name) { const a = h('a', {href: URL.createObjectURL(blob), download: name}); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+function sheetBlob() {
+  return new Promise(res => { const c = document.createElement('canvas'); renderSheet(cur(), c, 2); c.toBlob(res, 'image/png'); });
+}
+$('#btnPng').onclick = async () => { download(await sheetBlob(), safeName(cur().title) + '_コール表.png'); };
+$('#btnCopy').onclick = async () => {
+  try { await navigator.clipboard.write([new ClipboardItem({'image/png': sheetBlob()})]); toast('画像をコピーしました。SNSなどに貼り付けできます'); }
+  catch (e) { toast('コピーできませんでした。「画像を保存」を使ってください'); }
+};
+$('#btnExport').onclick = () => download(new Blob([JSON.stringify({format: 'callsheet', version: 1, song: cur()}, null, 1)], {type: 'application/json'}), safeName(cur().title) + '.callsheet.json');
+$('#btnExportAll').onclick = () => download(new Blob([JSON.stringify({format: 'callsheet', version: 1, songs: store.songs}, null, 1)], {type: 'application/json'}), 'コール表_全曲.callsheet.json');
+$('#btnImport').onclick = () => $('#fileIn').click();
+$('#fileIn').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) importJsonFile(f); };
+async function importJsonFile(f) {
+  try {
+    const data = JSON.parse(await f.text());
+    const list = data.songs || (data.song ? [data.song] : (data.lines ? [data] : null));
+    if (!list) throw new Error('形式が違います');
+    let last = null;
+    list.forEach(raw => {
+      const s = normalizeSong(raw);
+      if (store.songs.some(x => x.id === s.id)) s.id = uid();
+      store.songs.push(s); last = s;
+    });
+    store.currentId = last.id; renderAll(); scheduleSave(); toast(`${list.length}曲を読み込みました`);
+  } catch (err) { toast('読み込めませんでした: ' + err.message); }
+}
+/* スマホ: 画像の共有（共有シートが使える端末だけボタンを出す） */
+const canShareFiles = (() => { try { return !!(navigator.canShare && navigator.canShare({files: [new File([''], 'a.png', {type: 'image/png'})]})); } catch (e) { return false; } })();
+$('#btnShare').hidden = !canShareFiles;
+$('#btnShare').onclick = async () => {
+  const file = new File([await sheetBlob()], safeName(cur().title) + '_コール表.png', {type: 'image/png'});
+  try { await navigator.share({files: [file], title: cur().title + ' コール表'}); }
+  catch (e) { if (e.name !== 'AbortError') toast('共有できませんでした。「画像を保存」を使ってください'); }
+};
+/* スマホ: 入力 / できあがり の切り替え */
+function setTab(t) {
+  document.body.classList.toggle('tab-edit', t === 'edit'); document.body.classList.toggle('tab-preview', t === 'preview');
+  document.querySelectorAll('.mtabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  closePop(); if (t === 'preview') { schedulePreview(); scrollTo(0, 0); }
+}
+document.querySelectorAll('.mtabs button').forEach(b => { b.onclick = () => setTab(b.dataset.tab); });
+setTab('edit');
+/* スマホ: キーボードが出てもボトムシートが隠れないようにする */
+if (window.visualViewport) {
+  const fit = () => {
+    const p = $('#pop'); if (p.hidden || innerWidth > 980) { p.style.bottom = ''; return; }
+    p.style.bottom = Math.max(0, innerHeight - visualViewport.height - visualViewport.offsetTop) + 'px';
+  };
+  visualViewport.addEventListener('resize', fit); visualViewport.addEventListener('scroll', fit);
+}
+let toastT = null;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2400); }
+
+/* ---------- init ---------- */
+(function initPopTypes() { renderPopTypes('call'); })();
+renderAll();
+if (document.fonts) {
+  Promise.all([document.fonts.load(font(18)), document.fonts.load(font(22)), document.fonts.load(font(34, true))])
+    .catch(() => {}).finally(() => { renderLines(); schedulePreview(); });
+}
+})();
+</script>
+</body>
+</html>
