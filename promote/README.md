@@ -54,7 +54,9 @@ scripts/jackets_csv.py  ジャケット未登録曲の CSV 書き出し / 取り
 scripts/make_ogp.py     SNS カード画像（assets/ogp.png）を生成
 ```
 
-データの更新は定期実行していません。必要なときに、リポジトリ直下の `.github/workflows/update-promote-data.yml` を Actions 画面から手動で実行するか、手元で `python scripts/fetch_data.py` を実行して commit します（GitHub Actions はリポジトリ直下のものしか動かないため、ワークフローはそこにあります）。
+データは2日に1回（日本時間 3:00）、リポジトリ直下の `.github/workflows/update-promote-data.yml` で自動更新します（GitHub Actions はリポジトリ直下のものしか動かないため、ワークフローはそこにあります。定期実行には既定のブランチ（develop）にあるファイルが使われます）。曲・アイドルの一覧（`fetch_data.py`）を取り直し、お試し視聴とジャケットが未登録の曲を Apple Music で探して（`fetch_previews_itunes.py`・`fetch_jackets_itunes.py --apply`）、変わったものがあれば `release` に commit します。急ぐときは Actions 画面から手動で実行するか、手元で同じスクリプトを実行して commit します。
+
+手元で iTunes を探すときは `scripts/.cache/itunes/` に前回の検索結果が残っているため、後から配信が始まった曲が見つからないことがあります。そのときは該当する検索のキャッシュを消してから実行してください（自動更新ではキャッシュを持たないので毎回取り直します）。
 
 ## 公開手順（Cloudflare Pages）
 

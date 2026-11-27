@@ -1,22 +1,38 @@
-# プレゼンシート（promote/）の曲・アイドルデータを ふじわらはじめAPI から取り直す。
-# - 定期実行はしない（必要なときに Actions 画面から手動で実行する。手動実行は develop にこのファイルが必要）
-#   ※ 手元で python scripts/fetch_data.py を実行して commit しても同じ
+# プレゼンシート（promote/）の曲データを更新する。
+# - 2日に1回（日本時間 3:00）自動で実行する。Actions 画面から手動でも実行できる
+#   ※ 定期実行・手動実行には、既定のブランチ（develop）にあるこのファイルが使われる
+#   ※ 手元で同じスクリプトを実行して commit しても同じ
+# - やること
+#   1. ふじわらはじめAPI から曲・アイドルの一覧を取り直す（fetch_data.py）
+#   2. お試し視聴が未登録の曲を Apple Music で探す（fetch_previews_itunes.py。登録済みの曲は探し直さない）
+#      配信が後から始まった曲（例：I=WE）もここで入る
+#   3. ジャケットが未登録の曲を Apple Music で探す（fetch_jackets_itunes.py --apply。設定済みのジャケットは変えない）
+#   ※ iTunes の検索結果は毎回取り直す（scripts/.cache は git に入れておらず、ここでも保存しない）
+#   ※ iTunes API は1分あたり約20回までなので、2・3 は合わせて1時間ほどかかる
 # - 更新は公開ブランチ（release）に commit するので、Cloudflare に自動で反映される
 #   ※ release に直接 commit されるため、develop へは必要に応じて release をマージして取り込む
 name: Update promote song data
 
 on:
+  schedule:
+    - cron: "0 18 */2 * *" # UTC 18:00 = 日本時間 3:00。2日に1回（月末は間隔がずれることがある）
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-promote-data
+  cancel-in-progress: false
+
 env:
   TARGET_BRANCH: release
+  PYTHONIOENCODING: utf-8
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     defaults:
       run:
         working-directory: promote
@@ -29,15 +45,22 @@ jobs:
           python-version: "3.12"
       - name: Fetch from fujiwarahaji API
         run: python scripts/fetch_data.py
+      - name: Find Apple Music previews for songs without one
+        # API が混んでいるなどで失敗しても、曲データの更新は止めない
+        continue-on-error: true
+        run: python scripts/fetch_previews_itunes.py
+      - name: Find jackets for songs without one
+        continue-on-error: true
+        run: python scripts/fetch_jackets_itunes.py --apply
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/songs data/idols
+          git add data/songs data/idols data/units.json data/previews.json data/jackets.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
             git add data/meta.json
-            git commit -m "data: update promote song data from fujiwarahaji"
+            git commit -m "data: update promote song data (songs / previews / jackets)"
             git push origin HEAD:${{ env.TARGET_BRANCH }}
           fi
