@@ -226,14 +226,16 @@ function renderHead() {
   s.onchange = () => changeBrands(s.value);
 }
 
-// おすすめするブランドが変わると、別ブランドの曲が入ったカードは矛盾するので確認してリセットする
+// おすすめするブランドが変わると、別ブランドの曲が入ったカードは矛盾するので確認してリセットする。
+// 選んだお題もブランドに合わせて選び直すものなので、すべてのカードで消す
 async function changeBrands(nextFrom) {
   const stale = state.items.filter((it) => it.title.trim() && songBrand(it) !== nextFrom);
+  const themed = state.items.filter((it) => it.theme.trim());
   if (stale.length) {
     const names = [...new Set(stale.map((it) => brand(songBrand(it)).name))].join("・");
     const ok = confirm(
       `${names}の曲が${stale.length}曲入っています。\n` +
-      `おすすめするブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌って欲しいアイドルがリセットされます（お題は残ります）。\n変更しますか？`);
+      `おすすめするブランドを${brand(nextFrom).name}に変えると、これらのカードの曲名・ジャケット・プレゼン内容・歌って欲しいアイドルと、すべてのカードのお題がリセットされます。\n変更しますか？`);
     if (!ok) {
       $("#sel-from").value = state.from;
       return;
@@ -241,7 +243,13 @@ async function changeBrands(nextFrom) {
     for (const it of stale) {
       Object.assign(it, { title: "", songId: null, url: "", jacket: "", jacketAuto: false, brand: nextFrom, pitch: "", members: [] });
     }
+  } else if (themed.length) {
+    if (!confirm(`おすすめするブランドを${brand(nextFrom).name}に変えると、選んだお題がリセットされます。\n変更しますか？`)) {
+      $("#sel-from").value = state.from;
+      return;
+    }
   }
+  for (const it of state.items) it.theme = "";
   state.from = nextFrom;
   await onBrandChange();
 }
